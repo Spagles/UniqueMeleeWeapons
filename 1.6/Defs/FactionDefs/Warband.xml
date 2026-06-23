@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Hidden, temporary faction for the warband opportunity-site quest (the low-tech sibling of
+    Odyssey's AncientMercenaries). It is NEVER generated at world-gen: requiredCountAtGameStart=0,
+    canMakeRandomly defaults false, and it is hidden / non-configurable. The ONLY thing that ever
+    instantiates it is QuestNode_Root_Warband, which calls FactionGenerator.NewGeneratedFactionWithRelations
+    at quest-start (Beggars-style), marks the instance temporary, sets it hostile to the player, and
+    reserves it to the quest. When the quest ends and the site world object is destroyed, FactionManager
+    auto-removes the (now unreserved) temporary faction - so there is no permanent footprint and no
+    manual teardown. See the "Warband quest" architecture note in CLAUDE.md.
+
+    Modelled on Core's TribeBase (Neolithic, NamerFactionTribal, Tribal backstory) so the generated
+    pawns/name read as a low-tech war-party. Relations are deliberately NOT declared here (no
+    permanentEnemy / mustStartOneEnemy) - the root node sets the hostile-to-player relation per
+    instance, the way a temporary faction is meant to be wired.
+  -->
+  <FactionDef ParentName="FactionBase">
+    <defName>UMW_Warband</defName>
+    <label>warband</label>
+    <description>A roving company of fighters who live by the raid, preying on settlements and travellers across the land.</description>
+    <pawnSingular>warrior</pawnSingular>
+    <pawnsPlural>warriors</pawnsPlural>
+    <categoryTag>Tribal</categoryTag>
+    <techLevel>Neolithic</techLevel>
+    <factionNameMaker>NamerFactionTribal</factionNameMaker>
+    <leaderTitle>warlord</leaderTitle>
+    <basicMemberKind>Tribal_Warrior</basicMemberKind>
+
+    <!-- Hidden + never auto-generated: only the quest creates a temporary instance. -->
+    <hidden>true</hidden>
+    <requiredCountAtGameStart>0</requiredCountAtGameStart>
+    <maxConfigurableAtWorldCreation>0</maxConfigurableAtWorldCreation>
+    <displayInFactionSelection>false</displayInFactionSelection>
+    <canGenerateQuestSites>false</canGenerateQuestSites>
+    <mustStartOneEnemy>false</mustStartOneEnemy>
+    <autoFlee>false</autoFlee>
+    <canSiege>false</canSiege>
+    <canStageAttacks>false</canStageAttacks>
+
+    <factionIconPath>World/WorldObjects/Expanding/VillageRough</factionIconPath>
+    <colorSpectrum>
+      <li>(0.45, 0.28, 0.20)</li>
+      <li>(0.60, 0.33, 0.22)</li>
+      <li>(0.52, 0.40, 0.25)</li>
+    </colorSpectrum>
+    <backstoryFilters>
+      <li>
+        <categories>
+          <li>Tribal</li>
+        </categories>
+      </li>
+    </backstoryFilters>
+    <allowedArrivalTemperatureRange>-40~45</allowedArrivalTemperatureRange>
+
+    <maxPawnCostPerTotalPointsCurve>
+      <points>
+        <li>(100,100)</li>
+        <li>(10000,10000)</li>
+      </points>
+    </maxPawnCostPerTotalPointsCurve>
+
+    <!--
+      Combat band only (melee-leaning, with archer support) - chiefs are intentionally excluded:
+      the root node generates the one Tribal_ChiefMelee leader and equips it with the rolled unique,
+      so the band shouldn't roll its own chief and muddy "the leader carries the weapon" (mirrors
+      AncientsBase, whose band is just AncientSoldier with the leader added separately).
+    -->
+    <pawnGroupMakers>
+      <li>
+        <kindDef>Combat</kindDef>
+        <commonality>100</commonality>
+        <options>
+          <Tribal_Penitent>5</Tribal_Penitent>
+          <Tribal_Warrior>10</Tribal_Warrior>
+          <Tribal_Berserker>8</Tribal_Berserker>
+          <Tribal_Archer>6</Tribal_Archer>
+          <Tribal_Hunter>5</Tribal_Hunter>
+          <Tribal_HeavyArcher>3</Tribal_HeavyArcher>
+        </options>
+      </li>
+    </pawnGroupMakers>
+  </FactionDef>
+
+</Defs>

@@ -8,13 +8,15 @@
 - Investigate VWE integration (akimbo etc?)
 - Mod settings to add each weapon to rewards pools
 - Mod setting to remove wood stuff from pools for generated weapons
-- Mercenary camp quest (low-tech tribal/medieval sibling of Odyssey's AncientMercenaries) — see
-  Docs/odyssey-reference/quest-AncientMercenaries/. Pool plumbing locked: tag ours `UMW_UniqueMelee`
-  (keep `UniqueWeapon` for crates/fishing/map-gen), repoint `Reward_UniqueWeapon` +
-  `MapGen_OrbitalItemStash` to a `ThingSetMaker_MarketValue` subclass selecting
-  `HasComp<CompUniqueWeapon> && !ours`, our own pool def filters `UMW_UniqueMelee`.
+- Test the Warband quest in-game (`UMW_OpportunitySite_Warband`, see Warband-quest note in CLAUDE.md):
+  dev-mode force the quest, accept, enter the site — verify the abandoned tribal settlement generates,
+  the band + chief spawn inside it with the chief carrying a unique melee weapon, the temp faction is
+  hostile, and that after success/timeout the site clears and the temporary faction is removed (no leak
+  in the faction list). Tune `rootSelectionWeight`/`rootMinPoints` if its frequency/availability is off.
 - About.xml
-- Test Blood-soaked moodlets and nullifications, PanicFlee-on-hit vs humanlikes
+- Review blood-soaked on-hit flee chance
+- blood-soaked moodlet duped with bloodlust
+- Some traits not showing as valid additions in UWU e.g. for mace
 - Tweak blood-soaked color to be a little more washed?
 - Test EMP trait
 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    The warband's camp - the low-tech counterpart to Odyssey's ancients-themed BanditGang site part.
+    Like BanditGang this is purely descriptive (no workerClass): the defenders are spawned by the
+    quest (QuestNode_Root_Warband + QuestPart_SpawnPawnsInStructure), and the roofed structure they
+    spawn into comes from the tile mutator the root node adds, not from this def.
+
+    Reuses Odyssey's AncientMercenaries expanding icon and the generic Outpost site texture for now
+    (RimWorld resolves texture paths across all active content and the mod requires Odyssey, so no
+    copy is shipped). Swap expandingIconTexture for a bespoke icon later if desired.
+  -->
+  <SitePartDef>
+    <defName>UMW_WarbandCamp</defName>
+    <label>warband camp</label>
+    <description>A hostile warband hiding out in an abandoned settlement.</description>
+    <gravShipsCanLandOn>true</gravShipsCanLandOn>
+    <siteTexture>World/WorldObjects/Sites/Outpost</siteTexture>
+    <expandingIconTexture>World/WorldObjects/Expanding/AncientMercenaries</expandingIconTexture>
+    <tags>
+      <li>UMW_WarbandCamp</li>
+    </tags>
+  </SitePartDef>
+
+</Defs>

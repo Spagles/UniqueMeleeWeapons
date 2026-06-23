@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    The warband opportunity-site quest: a low-tech (tribal) sibling of Odyssey's AncientMercenaries,
+    handing out OUR melee uniques. The node sequence mirrors AncientMercenaries (points randomisation,
+    distant-fight adjust, site-tile selection near a landmark) and then hands off to our C# root node,
+    QuestNode_Root_Warband, which does the real work (temporary faction, rolled unique, leader + band,
+    abandoned-tribal-settlement site). Slate vars the description below reads (LEADER, WEAPON,
+    warbandList, atLandmark, landmarkName) are all set by that root node.
+
+    rootSelectionWeight 1.0 / rootMinPoints 350 mirror AncientMercenaries for parity - tune later if
+    we want the warband to appear earlier or more/less often than the ancients' version.
+  -->
+  <QuestScriptDef>
+    <defName>UMW_OpportunitySite_Warband</defName>
+    <isRootSpecial>true</isRootSpecial>
+    <randomlySelectable>false</randomlySelectable>
+    <givenBy>
+      <li>Traders</li>
+      <li>Beggars</li>
+      <li>Reading</li>
+    </givenBy>
+    <rootSelectionWeight>1.0</rootSelectionWeight>
+    <rootMinPoints>350</rootMinPoints>
+    <autoAccept>true</autoAccept>
+    <successHistoryEvent MayRequire="Ludeon.RimWorld.Ideology">Raided_BanditCamp</successHistoryEvent>
+    <questNameRules>
+      <rulesStrings>
+        <li>questName->The [savage] [warband]</li>
+        <li>questName->[savage] [warband]</li>
+        <li>savage->Savage</li>
+        <li>savage->Wild</li>
+        <li>savage->Fierce</li>
+        <li>savage->Bloodthirsty</li>
+        <li>savage->Roaming</li>
+        <li>warband->Warband</li>
+        <li>warband->War Party</li>
+        <li>warband->Marauders</li>
+        <li>warband->Raiders</li>
+        <li>warband->Warriors</li>
+      </rulesStrings>
+    </questNameRules>
+    <questDescriptionRules>
+      <rulesStrings>
+        <li>questDescription->[discoveryMethod] the location of a band of marauding tribal warriors. This war party has been preying on settlements and travellers across the surrounding lands.\n\nThe band is led by [LEADER_nameDef], who possesses a unique [WEAPON_quality] weapon. The group contains:\n\n[warbandList]\n\nIf you're able to capture or kill the leader, you can take the unique weapon.\n\n[location]</li>
+
+        <li>location(atLandmark==true)->The warriors are hiding out in an abandoned settlement at [landmarkName].</li>
+        <li>location(atLandmark==false)->The warriors are hiding out in an abandoned settlement.</li>
+      </rulesStrings>
+    </questDescriptionRules>
+    <questSubjectRules>
+      <rulesStrings>
+        <li>subject->tribal raiders</li>
+        <li>subject->marauding warriors</li>
+        <li>subject->savage tribesfolk</li>
+
+        <li>questMapFeature->raider camp</li>
+        <li>questMapFeature->drawing of a tribal warrior</li>
+        <li>questMapFeature->sketch of a master-forged blade</li>
+
+        <li>questMapText->dangerous raiders</li>
+        <li>questMapText->a master-forged weapon</li>
+        <li>questMapText->savage warriors</li>
+      </rulesStrings>
+    </questSubjectRules>
+    <root Class="QuestNode_Sequence">
+      <nodes>
+        <li Class="QuestNode_SubScript">
+          <def>Util_RandomizePointsChallengeRating</def>
+          <parms>
+            <pointsFactorTwoStar>1.5</pointsFactorTwoStar>
+            <pointsFactorThreeStar>2</pointsFactorThreeStar>
+          </parms>
+        </li>
+
+        <li Class="QuestNode_SubScript">
+          <def>Util_AdjustPointsForDistantFight</def>
+        </li>
+
+        <li Class="QuestNode_GetMap">
+          <canBeSpace>true</canBeSpace>
+        </li>
+
+        <li Class="QuestNode_Set">
+          <name>siteDistRange</name>
+          <value>20~60</value>
+        </li>
+
+        <li Class="QuestNode_GetSiteTile">
+          <storeAs>siteTile</storeAs>
+          <preferCloserTiles>true</preferCloserTiles>
+          <selectLandmarkChance>0.75</selectLandmarkChance>
+          <canSelectComboLandmarks>false</canSelectComboLandmarks>
+          <allowedLandmarks>
+            <li>Oasis</li>
+            <li>Lake</li>
+            <li>LakeWithIsland</li>
+            <li>LakeWithIslands</li>
+            <li>Pond</li>
+            <li>DryLake</li>
+            <li>ToxicLake</li>
+            <li>Wetland</li>
+            <li>HotSprings</li>
+            <li>Archipelago</li>
+            <li>CoastalIsland</li>
+            <li>Peninsula</li>
+            <li>Bay</li>
+            <li>Valley</li>
+            <li>Cavern</li>
+            <li>Chasm</li>
+            <li>Cliffs</li>
+            <li>Hollow</li>
+            <li>TerraformingScar</li>
+            <li>LavaLake</li>
+            <li>Dunes</li>
+            <li>AncientHeatVent</li>
+          </allowedLandmarks>
+        </li>
+
+        <li Class="UniqueMeleeWeapons.QuestNode_Root_Warband" />
+      </nodes>
+    </root>
+  </QuestScriptDef>
+
+</Defs>

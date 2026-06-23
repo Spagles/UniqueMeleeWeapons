@@ -57,7 +57,11 @@ About/              # Mod metadata (About.xml, ModIcon.png, Preview.png)
 │   ├── DamageDefs/         # Custom melee DamageDefs carried by on-hit effects / base-damage conversion (UMW_Stab_Tox, UMW_Cut_Ragged)
 │   ├── HediffDefs/         # Custom injury hediffs targeted by those DamageDefs (e.g. UMW_Cut_Ragged)
 │   ├── ColorDefs/          # Forced accent colours (e.g. UMW_Blood)
-│   └── ThoughtDefs/        # Wielder moodlets driven by a trait (e.g. UMW_BloodSoakedWeapon)
+│   ├── ThoughtDefs/        # Wielder moodlets driven by a trait (e.g. UMW_BloodSoakedWeapon)
+│   ├── ThingSetMakerDefs/  # Reward pools (UMW_Reward_UniqueWeapon — our melee-only quest reward)
+│   ├── FactionDefs/         # Warband.xml — the warband quest's hidden, temporary faction
+│   ├── SitePartDefs/        # WarbandCamp.xml — the warband quest's camp site part
+│   └── QuestScriptDefs/     # OpportunitySite_Warband.xml — the warband opportunity-site quest
 └── Patches/        # XPath patches (if/when needed)
 Textures/
 └── Things/Item/Equipment/WeaponMelee/UniqueWeapons/<Weapon>/   # per-weapon variant folder
@@ -70,6 +74,8 @@ Source/1.6/
 │                   #   ForcedColorTwoExtension (trait-forced body/colour-two tint), and
 │                   #   ThoughtWorker_BloodSoakedWeapon (equip-mood for a trait)
 ├── Patches/        # Harmony patches (e.g. Verb_MeleeAttackDamage on-hit-trait postfix)
+├── ThingSetMakers/ # ThingSetMaker_UMWUnique (vanilla-pool exclusion subclass)
+├── Quests/         # Warband quest: QuestNode_Root_Warband, QuestPart_SpawnWarband, UMW_QuestDefOf
 └── Properties/     # AssemblyInfo
 ```
 
@@ -308,6 +314,18 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   so third-party mods' uniques stay in the pool even without the `UniqueWeapon` tag — a `tagsToAllow`
   filter would silently drop them. The detailed call-path rationale and the accepted "future mod uses the
   raw class in a new def" limitation live in the subclass's header comment.
+- **Warband quest (`Source/1.6/Quests/`, `Defs/{FactionDefs,SitePartDefs,QuestScriptDefs}/`).** A low-tech
+  tribal sibling of Odyssey's `AncientMercenaries`, handing out *our* melee uniques. `OpportunitySite_Warband`
+  reuses the vanilla node sequence then defers to `QuestNode_Root_Warband`, a near-clone of
+  `QuestNode_Root_AncientMercenaries` differing in four deliberate choices, each justified in the relevant
+  file's header: (1) a **temporary** hidden faction created at quest-start (Beggars' Core mechanism, auto-removed
+  on quest end — *not* an Ideology feature) rather than a permanent one that would clutter every save;
+  (2) our `UMW_Reward_UniqueWeapon` pool (see Reward-pool note); (3) **reused vanilla tribal pawnkinds, none new**
+  (`Tribal_ChiefMelee` leader + the faction's `Combat` pawngroup), mirroring the vanilla quest's reuse of
+  `AncientSoldier_Leader`; (4) the `AbandonedColonyTribal` tile mutator for a ruined, pawn-less tribal site,
+  paired with our own `QuestPart_SpawnWarband` (the vanilla spawn part hardcodes the ancients faction and a
+  different map var). Vanilla reference defs studied for this live in the gitignored, non-deployed
+  `Docs/odyssey-reference/quest-AncientMercenaries/`.
 
 ## Debugging
 

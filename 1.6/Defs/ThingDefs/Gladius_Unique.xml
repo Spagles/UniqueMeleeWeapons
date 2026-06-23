@@ -19,6 +19,7 @@
     <thingSetMakerTags Inherit="False">
       <li>RewardStandardLowFreq</li>
       <li>UniqueWeapon</li>
+      <li>UMW_UniqueMelee</li>
     </thingSetMakerTags>
     <recipeMaker Inherit="False" IsNull="True" />
     <thingCategories Inherit="False">

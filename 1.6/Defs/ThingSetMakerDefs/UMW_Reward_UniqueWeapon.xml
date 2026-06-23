@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Our parallel to Odyssey's Reward_UniqueWeapon, but scoped to OUR weapons only. Uses the stock
+       ThingSetMaker_MarketValue (no subclass needed): it's stuff-aware (so our weapons roll with a real
+       material — the double-mask tint — instead of forced steel) and honours the caller's value window.
+       Selection is restricted to our weapons via the UMW_UniqueMelee tag (only our *_Unique defs carry
+       it), so no cross-mod concern. qualityGenerator=Super both sets the rolled quality and makes the
+       value ESTIMATE match it during selection.
+
+       Only `filter` and `qualityGenerator` are fixed here — countRange and totalMarketValueRange are left
+       null so the consuming quest's call-site params flow through (ApplyFixedParams only fills nulls;
+       a value set here would override the caller). Intended consumer: our own (future) mercenary quest. -->
+  <ThingSetMakerDef>
+    <defName>UMW_Reward_UniqueWeapon</defName>
+    <root Class="ThingSetMaker_Sum">
+      <resolveInOrder>true</resolveInOrder>
+      <options>
+        <li>
+          <thingSetMaker Class="ThingSetMaker_MarketValue">
+            <fixedParams>
+              <qualityGenerator>Super</qualityGenerator>
+              <filter>
+                <thingSetMakerTagsToAllow>
+                  <li>UMW_UniqueMelee</li>
+                </thingSetMakerTagsToAllow>
+              </filter>
+            </fixedParams>
+          </thingSetMaker>
+        </li>
+      </options>
+    </root>
+  </ThingSetMakerDef>
+
+</Defs>

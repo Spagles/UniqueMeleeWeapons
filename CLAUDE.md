@@ -291,6 +291,23 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   — vanilla/Odyssey convention, and the link "Unique Weapons Unbound" reads to let the weapon revert
   to its base. The `_Unique` suffix alone isn't enough: our prefixed `UMW_LongSword_Unique` minus the
   suffix (`UMW_LongSword`) isn't a real def, so the explicit hyperlink is required.
+- **Reward-pool separation (`ThingSetMaker_UMWUnique`, `Patches/RepointUniqueWeaponPool.xml`, `UMW_Reward_UniqueWeapon`).**
+  Odyssey's `ThingSetMaker_UniqueWeapon` rolls *any* `HasComp<CompUniqueWeapon>` def via a bare
+  `MakeThing(def)` (no stuff). Our melee uniques are stuffable, so that path both **errors**
+  (`madeFromStuff but stuff=null` → forced to steel) and **dilutes** Odyssey's ranged-unique pool. Two
+  generation styles consume unique weapons: tag-based makers (`ThingSetMaker_Count`, used by ancient
+  crates / fishing / map-gen loot) already pass a stuff and so handle our weapons fine — we *keep* our
+  weapons in those by leaving the `UniqueWeapon` tag on; and the class-based maker (exactly two
+  consumers: `Reward_UniqueWeapon` and `MapGen_OrbitalItemStash`), which is the broken one. We split the
+  pools entirely in **def space** — no Harmony, no touching Odyssey's internals: every `*_Unique` weapon
+  also carries a `UMW_UniqueMelee` tag, an XPath patch repoints the two class-based consumers onto our
+  `ThingSetMaker_UMWUnique` (a `ThingSetMaker_MarketValue` subclass — stuff-aware + Super-quality-preserving
+  via `ThingStuffPairWithQuality.MakeThing`, value-window-honouring), and our own `UMW_Reward_UniqueWeapon`
+  pool uses stock `ThingSetMaker_MarketValue` filtered to `UMW_UniqueMelee`. **Why a subclass, not a tag
+  filter, for the vanilla pool:** the subclass keeps the *comp-based* candidate set (`HasComp` minus ours),
+  so third-party mods' uniques stay in the pool even without the `UniqueWeapon` tag — a `tagsToAllow`
+  filter would silently drop them. The detailed call-path rationale and the accepted "future mod uses the
+  raw class in a new def" limitation live in the subclass's header comment.
 
 ## Debugging
 

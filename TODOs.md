@@ -8,7 +8,11 @@
 - Investigate VWE integration (akimbo etc?)
 - Mod settings to add each weapon to rewards pools
 - Mod setting to remove wood stuff from pools for generated weapons
-- Mercenary camp quest?
+- Mercenary camp quest (low-tech tribal/medieval sibling of Odyssey's AncientMercenaries) — see
+  Docs/odyssey-reference/quest-AncientMercenaries/. Pool plumbing locked: tag ours `UMW_UniqueMelee`
+  (keep `UniqueWeapon` for crates/fishing/map-gen), repoint `Reward_UniqueWeapon` +
+  `MapGen_OrbitalItemStash` to a `ThingSetMaker_MarketValue` subclass selecting
+  `HasComp<CompUniqueWeapon> && !ours`, our own pool def filters `UMW_UniqueMelee`.
 - About.xml
 - Test Blood-soaked moodlets and nullifications, PanicFlee-on-hit vs humanlikes
 - Tweak blood-soaked color to be a little more washed?

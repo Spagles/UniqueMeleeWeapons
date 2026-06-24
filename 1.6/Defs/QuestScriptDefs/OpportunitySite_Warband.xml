@@ -9,8 +9,10 @@
     abandoned-tribal-settlement site). Slate vars the description below reads (LEADER, WEAPON,
     warbandList, atLandmark, landmarkName) are all set by that root node.
 
-    rootSelectionWeight 1.0 / rootMinPoints 350 mirror AncientMercenaries for parity - tune later if
-    we want the warband to appear earlier or more/less often than the ancients' version.
+    Shares the trader/beggar/reading opportunity-site giver pool with AncientMercenaries (and BanditCamp,
+    item stashes, etc.), selected by rootSelectionWeight. We set 0.6 - deliberately a bit rarer than the
+    ancients' version (1.0) - so the warband adds opportunities without overshadowing it. rootMinPoints
+    350 matches AncientMercenaries. Raise toward 1.0 for parity, or lower, to tune frequency.
   -->
   <QuestScriptDef>
     <defName>UMW_OpportunitySite_Warband</defName>
@@ -21,7 +23,7 @@
       <li>Beggars</li>
       <li>Reading</li>
     </givenBy>
-    <rootSelectionWeight>1.0</rootSelectionWeight>
+    <rootSelectionWeight>0.6</rootSelectionWeight>
     <rootMinPoints>350</rootMinPoints>
     <autoAccept>true</autoAccept>
     <successHistoryEvent MayRequire="Ludeon.RimWorld.Ideology">Raided_BanditCamp</successHistoryEvent>

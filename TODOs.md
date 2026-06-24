@@ -6,13 +6,11 @@
 - Ability traits (aoe shock stun? cleave attack?)
 - Wielder-hediff trait (`equippedHediffs`) for an equip buff/curse
 - Investigate VWE integration (akimbo etc?)
-- Mod settings to add each weapon to rewards pools
+- Mod settings to add each weapon to rewards pools?
 - Mod setting to remove wood stuff from pools for generated weapons
-- Test the Warband quest in-game (`UMW_OpportunitySite_Warband`, see Warband-quest note in CLAUDE.md):
-  dev-mode force the quest, accept, enter the site — verify the abandoned tribal settlement generates,
-  the band + chief spawn inside it with the chief carrying a unique melee weapon, the temp faction is
-  hostile, and that after success/timeout the site clears and the temporary faction is removed (no leak
-  in the faction list). Tune `rootSelectionWeight`/`rootMinPoints` if its frequency/availability is off.
+- Mod setting for the warband quest commonality
+- Test the Warband quest faction
+- Consider quest commonality
 - About.xml
 - Review blood-soaked on-hit flee chance
 - blood-soaked moodlet duped with bloodlust
@@ -62,4 +60,3 @@ spear pole-vault, and the component-EMP-pulser are already listed under Features
 # Art
 
 - ModIcon.png
-- Preview.png

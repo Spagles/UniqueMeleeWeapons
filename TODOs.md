@@ -3,12 +3,11 @@
 # Features
 
 - Brainstorm incendiary traits etc (same shape as the tox coating: a Flame/Burn DamageDef via MeleeOnHitEffect_ExtraDamage)
-- Ability traits (aoe shock stun? cleave attack?)
-- Wielder-hediff trait (`equippedHediffs`) for an equip buff/curse
+- Investigate possible Ability traits (aoe shock stun? cleave attack?)
 - Investigate VWE integration (akimbo etc?)
 - Mod settings to add each weapon to rewards pools?
 - Mod setting to remove wood stuff from pools for generated weapons
-- Mod setting for the warband quest commonality
+- Mod setting slider for the warband quest commonality, showing our default, as well as the vanilla ancient mercenaries commonality for reference
 - Test the Warband quest faction
 - Consider quest commonality
 - About.xml
@@ -17,6 +16,8 @@
 - Some traits not showing as valid additions in UWU e.g. for mace
 - Tweak blood-soaked color to be a little more washed?
 - Test EMP trait
+- Display stuff on UMW inspect pane
+- Add stuffable adjectives to grammar generator for UMW names?
 
 - `pyrophoric` (Bladed, coating-family or colour-two): `MeleeOnHitEffect_ExtraDamage` w/ Core `Flame`/`Burn` (Odyssey `IncendiaryRounds` analog).
 

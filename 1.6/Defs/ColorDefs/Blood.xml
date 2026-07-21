@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Dark dried-blood red. Forced BODY colour (colour two / green mask) for UMW_BloodStained, applied
+  <!-- Dried-blood red. Forced BODY colour (colour two / green mask) for UMW_BloodStained, applied
        via ForcedColorTwoExtension — it replaces the stuff/material tint rather than the colour-one accent.
-       (A weapon ColorDef works on either channel; only the trait wiring decides which.) Self-contained
+       (A weapon ColorDef works on either channel; only the trait wiring decides which.) Because it rides
+       the same multiply channel as stuff tints, it's calibrated to vanilla stuffProps colour statistics
+       so the gore reads as a material, not near-black paint: saturation ~0.63, between wood (133,97,67,
+       ~0.50) and devilstrand (180,60,60, ~0.67) but darker than the latter. The original (120,20,20,
+       sat ~0.83) rendered close to dark wood on the sprite. Self-contained
        rather than ParentName="UniqueWeaponColorBase" (Odyssey's abstract base): it only sets the two
        fields that base provides — a Weapon colorType and randomlyPickable=false so it never shows up in
        the random weapon-colour pool — so depending on a DLC's abstract node buys nothing. -->
@@ -11,7 +15,7 @@
     <defName>UMW_Blood</defName>
     <label>blood red</label>
     <colorType>Weapon</colorType>
-    <color>(120, 20, 20)</color>
+    <color>(140, 58, 52)</color>
     <randomlyPickable>false</randomlyPickable>
   </ColorDef>
 

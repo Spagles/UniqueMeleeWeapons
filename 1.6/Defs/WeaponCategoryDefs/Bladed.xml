@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Mechanism category — weapon has a Cut tool. Edge traits reshape the cut: Razored/Monomolecular
-       floor the blade's armor penetration (Razored also nudges its damage), while Serrated reroutes the
-       cut to a bleedier, scar-prone ragged wound. The shared "Edge" exclusion tag caps a weapon at one
-       edge effect. -->
+  <!-- Mechanism category — weapon has a Cut tool. Two trait families. "Edge" traits reshape the cut
+       itself: Razored/Monomolecular floor the blade's armor penetration (Razored also nudges its
+       damage), while Serrated reroutes the cut to a bleedier, scar-prone ragged wound. The "Core" token
+       gates what the blade's core releases into the wound — currently only the Royalty-gated
+       UMW_PlasmaCored's plasma burn; like Pointed's "Coating" it keeps any future infusion exclusive.
+       Each token caps a weapon at one trait of its family, but an Edge and a Core trait can co-roll
+       (a serrated plasma blade is legal). -->
   <WeaponCategoryDef>
     <defName>UMW_Bladed</defName>
     <label>bladed</label>

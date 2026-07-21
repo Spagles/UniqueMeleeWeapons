@@ -166,21 +166,23 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   carries a second family — the **"coating" trait `UMW_Envenomed`** (a venom delivered
   on hit) — gated by a dedicated **`Coating`** token (one coating per weapon; a single trait today, but the
   token keeps any future coating exclusive). This is the melee analog
-  of the `AmmoType` tag Odyssey's `ToxRounds` carries. The **`Color`** tag (the inlays')
+  of the `AmmoType` tag Odyssey's `ToxRounds` carries. `UMW_Bladed` likewise carries a second family —
+  the blade-**core infusion**, gated by a **`Core`** token (today only `UMW_PlasmaCored`'s plasma burn) —
+  so an `Edge` trait and a `Core` trait can co-roll (a serrated plasma blade is legal). The **`Color`** tag (the inlays')
   is applied *separately and to any mechanism trait that forces a colour-one tint*: `UMW_Envenomed` forces
-  `UniqueWeapon_Tox` green so it tags `Coating`+`Color`, and `UMW_Blunt`'s `UMW_EMP` forces `UniqueWeapon_EMP`
+  `UniqueWeapon_Tox` green so it tags `Coating`+`Color`, and `UMW_Blunt`'s `UMW_ZeusHeaded` forces `UniqueWeapon_EMP`
   so it tags `Head`+`Color` (both can't co-occur with a Gold/Jade inlay; mirrors Odyssey's `EMPRounds`/`ToxRounds`,
   which tag `Color` alongside `AmmoType`). A coating
   combines freely with a point-shape trait (`Point` tag). `Color` governs only **colour one** (the red-masked accent);
   a separate **`BodyColor`** token governs **colour two** (the green-masked body, forced via
-  `ForcedColorTwoExtension` — see the double-mask note). `UMW_BloodSoaked` and `UMW_Monomolecular` are the `BodyColor` members (the token keeps it to one
+  `ForcedColorTwoExtension` — see the double-mask note). `UMW_BloodSoaked`, `UMW_Monomolecular` and `UMW_PlasmaCored` are the `BodyColor` members (the token keeps it to one
   body-colour trait per weapon), so a forced body colour and a `Color` accent/inlay live on different
   channels and *can* co-occur. **Discipline:** single-trait categories are fine (Odyssey
   ships several — `Rifle`/`Shotgun`/`BeamWeapon`/`LowStoppingPower` each have one); the bar is that every
   trait be mechanically **meaningful**, not that a category hit some count. `UMW_Reach` was considered for
   the spear but dropped (melee has no reach mechanic, so its traits would be flavor-only orphans).
   `UMW_Blunt`'s `Head` token gates the blunt head's one on-hit incapacitation effect — `UMW_Concussive` (a
-  brief kinetic stun on flesh and mechs) **or** `UMW_EMP` (an electromagnetic, mechanoid-only stun, the melee
+  brief kinetic stun on flesh and mechs) **or** `UMW_ZeusHeaded` (an electromagnetic, mechanoid-only stun, the melee
   port of Odyssey's `EMPRounds`; see its own note below). The old
   `UMW_Weighted` (which duplicated Concussive's stun *and* `UMW_Heavy`'s heavy-head stat profile) was removed. (A
   pure-AP blunt trait via *stats* isn't possible — melee damage and AP share `MeleeWeapon_DamageMultiplier`
@@ -190,6 +192,13 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   (Ornamental/Lightweight/Cumbersome) re-pointed onto melee stats because Odyssey's `RangedWeapon_*`
   mods are inert on melee, three (Ugly/Gold/Jade inlay) verbatim-equivalent. `WeaponCategoryDefs/Melee.xml`
   documents why inheritance is avoided; each ported trait file notes its deltas inline.
+- **Royalty-analog traits are def-level `MayRequire`-gated.** `UMW_Monomolecular` (monosword),
+  `UMW_ZeusHeaded` (zeushammer) and `UMW_PlasmaCored` (plasmasword) are references to Royalty tech, so
+  each trait def — plus any mod-owned `ColorDef` only it consumes (`UMW_MonoWhite`) — carries
+  `MayRequire="Ludeon.RimWorld.Royalty"`, the same def-level gate the Axe/Warhammer uniques use
+  (honored on any top-level def node — `LoadedModManager.ParseAndProcessXML` skips the node when the
+  listed mod is inactive). Generation safety is unaffected: a skipped def never enters the
+  `DefDatabase`, so category rolls simply don't see it, and alone-ability rides `UMW_Lightweight`.
 - **`MarketValue` convention: factor only for value-scaling, flat offset for everything else.** Mirrors
   Odyssey, which uses a `MarketValue` *factor* only for value-*scaling* traits — precious-material inlays
   (`GoldInlay ×2`, `JadeInlay ×1.4`) and quality reducers (`Ugly`/`Cumbersome ×0.8`) — while every
@@ -208,7 +217,8 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   `Mass`/`Beauty`/`MarketValue`), `equippedStatOffsets` (buffs the *wielder's* pawn stats), and
   `forcedColor` reach melee. To give the mechanism categories real, distinct effects we add our own
   layer: a `MeleeTraitEffectExtension : DefModExtension` (a `List<MeleeOnHitEffect>` — `…_ExtraDamage`
-  for the Pointed venom coating and the Blunt `UMW_EMP` discharge, `…_Stun` for the Blunt `UMW_Concussive`
+  for the Pointed venom coating, the Blunt `UMW_ZeusHeaded` discharge and the Bladed `UMW_PlasmaCored`
+  plasma burn, `…_Stun` for the Blunt `UMW_Concussive`
   kinetic stun, `…_MentalState` for the Blood-soaked dread/flee) attached to the trait def, fired by a
   Harmony **postfix on `Verb_MeleeAttackDamage.ApplyMeleeDamageToTarget`** (gated on a landed,
   wounding hit by a weapon with a `CompUniqueWeapon`). Using a `DefModExtension` + postfix — rather
@@ -222,8 +232,11 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   `damageDefOverride`, `DamageDef.additionalHediffs` is applied source-agnostically by
   **`Pawn_HealthTracker.PostApplyDamage(dinfo, totalDamageDealt)`** — reached by *every* `Thing.TakeDamage`,
   including our `…_ExtraDamage` hit — so the ToxicBuildup stacks (scaled by the venom-stab's damage
-  dealt, the victim's `ToxicResistance`, and inverse body size) for free, no new C#. Incendiary would be
-  the same shape: a `Flame`/`Burn` `DamageDef` via `…_ExtraDamage`. The Blunt **`UMW_EMP`** trait reuses Core's
+  dealt, the victim's `ToxicResistance`, and inverse body size) for free, no new C#. The Bladed
+  **`UMW_PlasmaCored`** realises the incendiary shape the same way with Core's vanilla `Flame` (no clone):
+  `DamageWorker_Flame.Apply` attaches fire source-agnostically on any direct, non-deflected
+  `Thing.TakeDamage`, at a chance scaled by the victim's `Flammability` — use `Flame`, not `Burn`, whose
+  whole point is swapping that worker back out to not ignite. The Blunt **`UMW_ZeusHeaded`** trait reuses Core's
   vanilla `EMP` `DamageDef` the same way (no clone): its `causeStun` fires source-agnostically on any `Thing.TakeDamage`
   (the path Odyssey's `EMPRounds` rides), stunning only **non-flesh** pawns — a pure anti-mechanoid effect — and `EMP`'s
   own `stunAdaptationTicks` self-limits a chain, so it needs no proc `chance` gate.
@@ -274,7 +287,7 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   re-check traits/genes (mirrors vanilla `ThoughtWorker_ColonistLeftUnburied`). The trait forces the
   `UMW_Blood` `ColorDef` onto **colour two** (the body) via `ForcedColorTwoExtension` — not vanilla's
   colour-one `forcedColor` — so it tags the `BodyColor` exclusion token (the one-body-colour-per-weapon
-  family, shared with `UMW_Monomolecular`), *not* the inlays' colour-one `Color` token; being on a
+  family, shared with `UMW_Monomolecular`/`UMW_PlasmaCored`), *not* the inlays' colour-one `Color` token; being on a
   different mask channel, blood-soaked can co-occur with a Gold/Jade inlay or the Envenomed coating. See the double-mask note for the colour-two path.
 - **Parenting: patch a `Name=` onto the base weapon, then inherit it.** RimWorld's `ParentName`
   resolves against a node's `Name=` attribute, not its `defName`. Vanilla *ranged* weapons expose

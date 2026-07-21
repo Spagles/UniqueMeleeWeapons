@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- UMW_Bladed. Core — plasma wrapped around the blade's core is released into every wound: a
+       reference to Royalty's plasmasword, so the def is MayRequire-gated on Royalty (the same def-level
+       gate as the Axe/Warhammer uniques), and the melee analog of Odyssey's IncendiaryRounds (whose +90
+       MarketValue offset it keeps). MeleeOnHitEffect_ExtraDamage stacks a Core "Flame" hit at half the
+       plasmasword's own extraMeleeDamages numbers (ours 5 @ 50% vs its 10 @ 50% — one trait on a lesser
+       weapon, not a persona blade; AP 0 is Flame's own default, so Heat armor legitimately blunts it).
+       Ignition comes free: DamageWorker_Flame.Apply attaches fire on any direct, non-deflected
+       Thing.TakeDamage (chance scaled by the victim's Flammability via ChanceToAttachFireFromEvent) —
+       the same source-agnostic pattern as Envenomed's ToxicBuildup and ZeusHeaded's EMP stun, no new C#.
+       Flame, not Burn: Burn is Core's no-ignition variant (it swaps the worker back to
+       DamageWorker_AddInjury). Flashy Royalty-tech, so rarer (commonality 0.5, matching
+       Monomolecular/ZeusHeaded). Forces Odyssey's UniqueWeapon_Fire — the same tint IncendiaryRounds
+       forces onto colour one — onto COLOUR TWO (the body) via ForcedColorTwoExtension, so the blade
+       renders plasma-orange regardless of stuff and tags BodyColor (one body colour per weapon — which
+       already keeps it off Monomolecular's white blade). Colour one stays free, so it can co-occur with
+       a Gold/Jade inlay. The Core tag — its own one-infusion-per-blade family, mirroring Pointed's
+       Coating — deliberately isn't Edge, so it can co-roll with Serrated/Razored: a serrated plasma
+       blade is legal. -->
+  <WeaponTraitDef MayRequire="Ludeon.RimWorld.Royalty">
+    <defName>UMW_PlasmaCored</defName>
+    <label>plasma-cored</label>
+    <description>The core of the blade channels a sheath of plasma, held in place by an energy field and released into every wound it opens, searing flesh and sometimes igniting the target.</description>
+    <commonality>0.5</commonality>
+    <weaponCategory>UMW_Bladed</weaponCategory>
+    <exclusionTags>
+      <li>Core</li>
+      <li>BodyColor</li>
+    </exclusionTags>
+    <statOffsets>
+      <MarketValue>90</MarketValue> <!-- parity with IncendiaryRounds +90 -->
+    </statOffsets>
+    <traitAdjectives>
+      <li>plasma-cored</li>
+      <li>burning</li>
+      <li>searing</li>
+      <li>fiery</li>
+      <li>incandescent</li>
+    </traitAdjectives>
+    <modExtensions>
+      <li Class="UniqueMeleeWeapons.MeleeTraitEffectExtension">
+        <onHitEffects>
+          <li Class="UniqueMeleeWeapons.MeleeOnHitEffect_ExtraDamage">
+            <def>Flame</def>
+            <amount>5</amount>
+            <armorPenetration>0</armorPenetration>
+            <chance>0.5</chance>
+          </li>
+        </onHitEffects>
+      </li>
+      <li Class="UniqueMeleeWeapons.ForcedColorTwoExtension">
+        <color>UniqueWeapon_Fire</color>
+      </li>
+    </modExtensions>
+  </WeaponTraitDef>
+
+</Defs>

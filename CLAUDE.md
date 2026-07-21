@@ -194,7 +194,7 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   documents why inheritance is avoided; each ported trait file notes its deltas inline.
 - **Royalty-analog traits are def-level `MayRequire`-gated.** `UMW_Monomolecular` (monosword),
   `UMW_ZeusHeaded` (zeushammer) and `UMW_PlasmaCored` (plasmasword) are references to Royalty tech, so
-  each trait def — plus any mod-owned `ColorDef` only it consumes (`UMW_MonoWhite`) — carries
+  each trait def — plus any mod-owned `ColorDef` only it consumes (`UMW_MonoWhite`, `UMW_Plasma`) — carries
   `MayRequire="Ludeon.RimWorld.Royalty"`, the same def-level gate the Axe/Warhammer uniques use
   (honored on any top-level def node — `LoadedModManager.ParseAndProcessXML` skips the node when the
   listed mod is inactive). Generation safety is unaffected: a skipped def never enters the

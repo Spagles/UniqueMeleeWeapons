@@ -12,7 +12,7 @@
    - Tweak blood-soaked color to have similar saturation to vanilla's stuff material colors?
    - Rename blood-soaked to bloodstained due to conflict in other mods
    - Can we add a line displaying the stuff on UMW inspect pane
-   - Add stuffable adjectives to grammar generator for UMW names?
+   - Can we add stuffable adjectives to grammar generator for UMW names?
 
 2. Complete trait roster
    - Evaluate current trait roster count and spread against Odyssey's (e.g. Docs/Odyssey-Ranged-Trait-Catalog.md)

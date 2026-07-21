@@ -6,8 +6,6 @@
    - Mod settings to add each weapon to rewards pools? what pools are appropriate/similar to what are the tradeoffs?
    - Mod setting to remove wood stuff from pools for generated weapon rewards, enabled by default
    - Mod setting slider for the warband quest commonality, showing our default, as well as the vanilla ancient mercenaries commonality for reference
-   - Review blood-stained on-hit flee chance (is it a bit low?)
-   - blood-stained moodlet shows dupe on bloodlust pawn
    - Can we add a line displaying the stuff on UMW inspect pane
    - Can we add stuffable adjectives to grammar generator for UMW names?
 

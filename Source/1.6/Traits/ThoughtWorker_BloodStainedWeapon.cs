@@ -3,21 +3,22 @@ using Verse;
 
 namespace UniqueMeleeWeapons;
 
-// Situational mood for carrying a UMW_BloodStained unique weapon as primary equipment. Backs
-// both the penalty thought UMW_BloodStainedWeapon and the bloodlust buff thought
-// UMW_BloodStainedWeapon_Bloodlust — each gets its own worker instance via def.Worker, and
-// both stages are index 0, so the same ActiveAtStage(0) serves either def.
+// Situational mood for carrying a UMW_BloodStained unique weapon as primary equipment. Backs the
+// single two-stage thought UMW_BloodStainedWeapon: stage 0 is the -2 penalty, stage 1 the +3
+// bloodlust relish. The worker reports the situation (primary weapon carries the trait) and routes
+// exactly ONE personality fork — Bloodlust → stage 1 — the vanilla stage-routing idiom
+// (ThoughtWorker_Pretty/Ugly route stages by beauty; Anomaly's UnnaturalDarkness routes between
+// opposite-sign stages). Bloodlust must be routed here rather than listed in nullifyingTraits,
+// because ThoughtUtility.ThoughtNullified zeroes the whole DEF, relish stage included.
 //
-// This worker reports only the situation — "is the wielder's primary weapon blood-stained?".
-// All personality routing rides def fields, which Thought.MoodOffset /
-// ThoughtUtility.CanGetThought honor for situational thoughts too (verified by decompile):
-// the penalty's exemptions (Bloodlust / Psychopath / VTE Desensitized / World-weary, and the Biotech
-// hemogenic gene) ride nullifyingTraits/nullifyingGenes — MoodOffset returns 0
-// when ThoughtUtility.ThoughtNullified is true; the buff's gate rides requiredTraits —
-// CanGetThought (called by SituationalThoughtHandler.TryCreateThought) returns false for
-// non-bloodlusters. So no trait/gene check is needed here; mirrors how vanilla
-// ThoughtWorker_ColonistLeftUnburied checks only the situation and lets the def exempt
-// psychopaths.
+// Every other personality exemption stays declarative on the def, which the pipeline honors for
+// situational thoughts (verified by decompile): the hardened exemptions (Psychopath / VTE
+// Desensitized / World-weary, and the Biotech hemogenic gene) ride nullifyingTraits/nullifyingGenes —
+// Thought.MoodOffset returns 0 when ThoughtUtility.ThoughtNullified is true. Nullified situational
+// thoughts still render as a grey "0" row (only MEMORY thoughts are dropped at MoodOffset()==0, in
+// ThoughtHandler.GetAllMoodThoughts), which is vanilla-standard — a psychopath sees the same for
+// ColonistLeftUnburied. That grey-0 row is also why the buff can't be a separate requiredTraits def:
+// a bloodlust pawn would see it beside the nullified penalty row as a duplicate moodlet.
 public class ThoughtWorker_BloodStainedWeapon : ThoughtWorker
 {
     protected override ThoughtState CurrentStateInternal(Pawn p)
@@ -34,6 +35,7 @@ public class ThoughtWorker_BloodStainedWeapon : ThoughtWorker
             return ThoughtState.Inactive;
         }
 
-        return ThoughtState.ActiveAtStage(0);
+        bool relishes = p.story?.traits?.HasTrait(TraitDefOf.Bloodlust) == true;
+        return ThoughtState.ActiveAtStage(relishes ? 1 : 0);
     }
 }

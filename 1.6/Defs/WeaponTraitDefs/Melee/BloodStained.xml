@@ -5,8 +5,17 @@
        panics enemies also unsettles the wielder.
          • On-hit "dread": a wounding blow can panic a HUMANLIKE target into fleeing (PanicFlee via the
            MeleeOnHitEffect_MentalState class). Animals/mechanoids don't scare, so humanlikeOnly=true.
-         • Downside: while equipped it inflicts a -2 mood (UMW_BloodStainedWeapon ThoughtDef), nullified
-           for the hardened (Bloodlust/Psychopath, + VTE Desensitized/World-weary when that mod loads).
+           Chance 0.12 per wounding hit, tuned against two anchors (decompile-verified): a proc is a
+           ROUT, not a stagger — PanicFlee's minTicksBeforeRecovery is 10,000t and ~95% of non-forced
+           attempts land on a raider — so it must stay well under Concussive's 0.25 (universal-target
+           but only a 2s stun); yet vanilla ALREADY auto-panics damaged humanlikes below their
+           kindDef fleeHealthThresholdRange, so late-fight procs read as vanilla behavior and only
+           early-fight routs are visible as the trait working. 0.12 makes those perceptible (~1 in 8
+           wounding hits; ~40-60% of extended fights) where the original 0.08 felt inert.
+         • Downside/upside: one two-stage ThoughtDef (UMW_BloodStainedWeapon, worker-routed): -2 mood
+           for ordinary pawns, +3 relish for bloodlusters, nullified for the hardened
+           (Psychopath, VTE Desensitized/World-weary, hemogenic). See that file for why it must be a
+           single def (duplicate grey-0 row otherwise).
        Forces the dark UMW_Blood tint onto COLOUR TWO (the green-masked body) via
        ForcedColorTwoExtension, not vanilla's colour-one forcedColor — the gore caking the blade reads
        as the body itself, and it REPLACES the material tint (a blood-stained plasteel and a blood-stained
@@ -41,7 +50,7 @@
           <li Class="UniqueMeleeWeapons.MeleeOnHitEffect_MentalState">
             <stateDef>PanicFlee</stateDef>
             <humanlikeOnly>true</humanlikeOnly>
-            <chance>0.08</chance>
+            <chance>0.12</chance>
           </li>
         </onHitEffects>
       </li>

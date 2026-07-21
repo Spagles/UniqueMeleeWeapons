@@ -266,25 +266,28 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
 - **Blood-stained = on-hit dread + a trait-conditioned wielder moodlet (`UMW_BloodStained`).** Two halves.
   (1) *Dread:* `MeleeOnHitEffect_MentalState` tries to start a `MentalStateDef` (`PanicFlee`) on a wounding
   hit, `humanlikeOnly` so animals/mechs are immune; `TryStartMentalState` is non-forced, so it no-ops
-  when guards block it. (2) *Balancing downside + bloodlust upside:* **two situational `ThoughtDef`s share
-  one situation-only `ThoughtWorker_BloodStainedWeapon`** (it checks only that `pawn.equipment.Primary`'s
-  `CompUniqueWeapon` carries `UMW_DefOf.UMW_BloodStained`; both defs use stage 0, so one `ActiveAtStage(0)`
-  serves either). *All* personality routing lives in def fields, never the worker:
-  - **Penalty `UMW_BloodStainedWeapon`** — −2 mood while equipped, **nullified** for the hardened via
-    `<nullifyingTraits>` (Bloodlust/Psychopath, plus VTE `VTE_Desensitized`/`VTE_WorldWeary` as `MayRequire`
-    list items so the def loads without that mod) and via `<nullifyingGenes>` (`Hemogenic`, `MayRequire`
-    Biotech — sanguophages etc. are inured to blood; `ThoughtUtility.NullifyingGene` reads it).
-  - **Buff `UMW_BloodStainedWeapon_Bloodlust`** — +3 mood, gated by `<requiredTraits>Bloodlust`. Bloodlusters
-    *relish* the gore; mood can't flip sign within one thought (`nullifyingTraits` only zeroes), so the
-    upside is a separate def. Bloodlust stays in the penalty's `nullifyingTraits`, so a bloodluster gets the
-    +3 alone, not penalty + buff.
+  when guards block it. A proc is a *rout* (PanicFlee recovers no earlier than 10,000t), and vanilla
+  already auto-panics damaged humanlikes at low health — the chance tuning rationale lives on the trait
+  file. (2) *Balancing downside + bloodlust upside:* **one two-stage situational `ThoughtDef`
+  (`UMW_BloodStainedWeapon`) with a stage-routing worker** — stage 0 is the −2 penalty, stage 1 the +3
+  bloodlust relish, the worker picks (`ActiveAtStage(bloodlust ? 1 : 0)`); the vanilla idiom for a
+  trait-flipped mood (Anomaly's `UnnaturalDarkness` ±5, `ThoughtWorker_Pretty/Ugly` stage routing).
+  Bloodlust is the **only** personality check in the worker — it can't be a `nullifyingTraits` entry
+  because nullification zeroes the whole def, relish stage included. Every other exemption stays
+  declarative: `<nullifyingTraits>` (Psychopath, plus VTE `VTE_Desensitized`/`VTE_WorldWeary` as
+  `MayRequire` list items so the def loads without that mod) and `<nullifyingGenes>` (`Hemogenic`,
+  `MayRequire` Biotech — sanguophages etc. are inured to blood).
 
-  **Gotcha (verified by decompile):** the situational pipeline (`SituationalThoughtHandler.TryCreateThought`)
-  calls `CanGetThought` (which *does* enforce `requiredTraits`/`requiredGenes` — so the buff's gate works)
-  but with `checkIfNullified=false`, so it does **not** apply nullification there; nullification instead runs
-  in **`Thought.MoodOffset()`** (→ `ThoughtUtility.ThoughtNullified`, covering `nullifyingTraits` *and*
-  `nullifyingGenes`), which *does* cover situational thoughts — so those fields work and the worker must NOT
-  re-check traits/genes (mirrors vanilla `ThoughtWorker_ColonistLeftUnburied`). The trait forces the
+  **Gotcha (verified by decompile — and why it is ONE def, not a penalty def + a `requiredTraits` buff
+  def):** the situational pipeline creates thoughts without the nullification check
+  (`SituationalThoughtHandler.TryCreateThought` → `CanGetThought` with `checkIfNullified=false`);
+  nullification only zeroes the value later in **`Thought.MoodOffset()`** (→
+  `ThoughtUtility.ThoughtNullified`). And the needs tab draws **every** Active situational thought —
+  `ThoughtHandler.GetAllMoodThoughts` drops `MoodOffset()==0` rows for *memories only* — so a nullified
+  situational thought renders as a grey "0" row (vanilla-standard: a psychopath sees the same for
+  `ColonistLeftUnburied`). The original two-def shape therefore showed bloodlusters a duplicate row:
+  the +3 buff beside the Bloodlust-nullified grey-0 penalty. Known trade of the merge: Bloodlust plus a
+  nullifier (psychopath/hemogenic) reads nullified-0, not +3 — numbness wins. The trait forces the
   `UMW_Blood` `ColorDef` onto **colour two** (the body) via `ForcedColorTwoExtension` — not vanilla's
   colour-one `forcedColor` — so it tags the `BodyColor` exclusion token (the one-body-colour-per-weapon
   family, shared with `UMW_Monomolecular`/`UMW_PlasmaCored`), *not* the inlays' colour-one `Color` token; being on a

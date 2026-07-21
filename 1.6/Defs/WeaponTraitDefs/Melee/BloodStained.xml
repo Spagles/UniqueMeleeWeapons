@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- UMW_Melee. Blood-soaked — a gore-caked weapon, balanced (not purely beneficial): the menace that
+  <!-- UMW_Melee. Blood-stained — a gore-caked weapon, balanced (not purely beneficial): the menace that
        panics enemies also unsettles the wielder.
          • On-hit "dread": a wounding blow can panic a HUMANLIKE target into fleeing (PanicFlee via the
            MeleeOnHitEffect_MentalState class). Animals/mechanoids don't scare, so humanlikeOnly=true.
-         • Downside: while equipped it inflicts a -2 mood (UMW_BloodSoakedWeapon ThoughtDef), nullified
+         • Downside: while equipped it inflicts a -2 mood (UMW_BloodStainedWeapon ThoughtDef), nullified
            for the hardened (Bloodlust/Psychopath, + VTE Desensitized/World-weary when that mod loads).
        Forces the dark UMW_Blood tint onto COLOUR TWO (the green-masked body) via
        ForcedColorTwoExtension, not vanilla's colour-one forcedColor — the gore caking the blade reads
-       as the body itself, and it REPLACES the material tint (a blood-soaked plasteel and a blood-soaked
+       as the body itself, and it REPLACES the material tint (a blood-stained plasteel and a blood-stained
        wooden weapon look alike). So it tags "BodyColor" (its own one-per-weapon family), NOT "Color":
-       being on a different mask channel, blood-soaked can now co-occur with a colour-one Gold/Jade inlay
+       being on a different mask channel, blood-stained can now co-occur with a colour-one Gold/Jade inlay
        or the Envenomed coating. It also tags "Appearance" (shared with Ornamental/Ugly) so a gore-caked
        weapon never also rolls "ornamental" or "ugly" — it has its own look — and carries MarketValue x0.8
-       (gore devalues it). canGenerateAlone defaults true: a weapon can roll just "blood-soaked" as a
+       (gore devalues it). canGenerateAlone defaults true: a weapon can roll just "blood-stained" as a
        complete, nameable identity. -->
   <WeaponTraitDef>
-    <defName>UMW_BloodSoaked</defName>
-    <label>blood-soaked</label>
+    <defName>UMW_BloodStained</defName>
+    <label>blood-stained</label>
     <description>This weapon is caked in layers of dark, dried blood. The sight of it strikes fear into those it wounds, though carrying so grisly a thing weighs on all but the hardened.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Melee</weaponCategory>
@@ -30,7 +30,7 @@
       <MarketValue>0.8</MarketValue>
     </statFactors>
     <traitAdjectives>
-      <li>blood-soaked</li>
+      <li>blood-stained</li>
       <li>bloody</li>
       <li>gory</li>
       <li>sanguine</li>

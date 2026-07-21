@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Dark dried-blood red. Forced BODY colour (colour two / green mask) for UMW_BloodSoaked, applied
+  <!-- Dark dried-blood red. Forced BODY colour (colour two / green mask) for UMW_BloodStained, applied
        via ForcedColorTwoExtension — it replaces the stuff/material tint rather than the colour-one accent.
        (A weapon ColorDef works on either channel; only the trait wiring decides which.) Self-contained
        rather than ParentName="UniqueWeaponColorBase" (Odyssey's abstract base): it only sets the two

@@ -8,9 +8,9 @@ namespace UniqueMeleeWeapons;
 [DefOf]
 public static class UMW_DefOf
 {
-    // The blood-soaked Melee trait — looked up by ThoughtWorker_BloodSoakedWeapon
+    // The blood-stained Melee trait — looked up by ThoughtWorker_BloodStainedWeapon
     // to decide whether the wielder's primary weapon carries it.
-    public static WeaponTraitDef UMW_BloodSoaked;
+    public static WeaponTraitDef UMW_BloodStained;
 
     static UMW_DefOf()
     {

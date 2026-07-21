@@ -59,7 +59,7 @@ public class MeleeOnHitEffect_Stun : MeleeOnHitEffect
 }
 
 // Tries to push the victim into a mental state on a wounding hit — the "dread"/terror effect (used by
-// the Blood-soaked trait's PanicFlee). Defaults to humanlikes only, since animals and
+// the Blood-stained trait's PanicFlee). Defaults to humanlikes only, since animals and
 // mechanoids don't panic at a fearsome blade. TryStartMentalState is non-forced, so it
 // respects the usual guards (already broken, can't take the state, etc.) and simply no-ops when the
 // roll can't apply.

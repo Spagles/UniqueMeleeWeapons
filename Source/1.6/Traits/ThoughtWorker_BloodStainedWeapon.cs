@@ -3,12 +3,12 @@ using Verse;
 
 namespace UniqueMeleeWeapons;
 
-// Situational mood for carrying a UMW_BloodSoaked unique weapon as primary equipment. Backs
-// both the penalty thought UMW_BloodSoakedWeapon and the bloodlust buff thought
-// UMW_BloodSoakedWeapon_Bloodlust — each gets its own worker instance via def.Worker, and
+// Situational mood for carrying a UMW_BloodStained unique weapon as primary equipment. Backs
+// both the penalty thought UMW_BloodStainedWeapon and the bloodlust buff thought
+// UMW_BloodStainedWeapon_Bloodlust — each gets its own worker instance via def.Worker, and
 // both stages are index 0, so the same ActiveAtStage(0) serves either def.
 //
-// This worker reports only the situation — "is the wielder's primary weapon blood-soaked?".
+// This worker reports only the situation — "is the wielder's primary weapon blood-stained?".
 // All personality routing rides def fields, which Thought.MoodOffset /
 // ThoughtUtility.CanGetThought honor for situational thoughts too (verified by decompile):
 // the penalty's exemptions (Bloodlust / Psychopath / VTE Desensitized / World-weary, and the Biotech
@@ -18,7 +18,7 @@ namespace UniqueMeleeWeapons;
 // non-bloodlusters. So no trait/gene check is needed here; mirrors how vanilla
 // ThoughtWorker_ColonistLeftUnburied checks only the situation and lets the def exempt
 // psychopaths.
-public class ThoughtWorker_BloodSoakedWeapon : ThoughtWorker
+public class ThoughtWorker_BloodStainedWeapon : ThoughtWorker
 {
     protected override ThoughtState CurrentStateInternal(Pawn p)
     {
@@ -29,7 +29,7 @@ public class ThoughtWorker_BloodSoakedWeapon : ThoughtWorker
         }
 
         CompUniqueWeapon comp = weapon.GetComp<CompUniqueWeapon>();
-        if (comp?.TraitsListForReading.Contains(UMW_DefOf.UMW_BloodSoaked) != true)
+        if (comp?.TraitsListForReading.Contains(UMW_DefOf.UMW_BloodStained) != true)
         {
             return ThoughtState.Inactive;
         }

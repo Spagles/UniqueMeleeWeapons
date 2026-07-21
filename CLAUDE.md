@@ -57,7 +57,7 @@ About/              # Mod metadata (About.xml, ModIcon.png, Preview.png)
 │   ├── DamageDefs/         # Custom melee DamageDefs carried by on-hit effects / base-damage conversion (UMW_Stab_Tox, UMW_Cut_Ragged)
 │   ├── HediffDefs/         # Custom injury hediffs targeted by those DamageDefs (e.g. UMW_Cut_Ragged)
 │   ├── ColorDefs/          # Forced accent colours (e.g. UMW_Blood)
-│   ├── ThoughtDefs/        # Wielder moodlets driven by a trait (e.g. UMW_BloodSoakedWeapon)
+│   ├── ThoughtDefs/        # Wielder moodlets driven by a trait (e.g. UMW_BloodStainedWeapon)
 │   ├── ThingSetMakerDefs/  # Reward pools (UMW_Reward_UniqueWeapon — our melee-only quest reward)
 │   ├── FactionDefs/         # Warband.xml — the warband quest's hidden, temporary faction
 │   ├── SitePartDefs/        # WarbandCamp.xml — the warband quest's camp site part
@@ -72,7 +72,7 @@ Source/1.6/
 ├── Traits/         # Melee trait effect machinery: MeleeTraitEffectExtension + MeleeOnHitEffect
 │                   #   subclasses, MeleeDamageConversionExtension (base-damage reroute),
 │                   #   ForcedColorTwoExtension (trait-forced body/colour-two tint), and
-│                   #   ThoughtWorker_BloodSoakedWeapon (equip-mood for a trait)
+│                   #   ThoughtWorker_BloodStainedWeapon (equip-mood for a trait)
 ├── Patches/        # Harmony patches (e.g. Verb_MeleeAttackDamage on-hit-trait postfix)
 ├── ThingSetMakers/ # ThingSetMaker_UMWUnique (vanilla-pool exclusion subclass)
 ├── Quests/         # Warband quest: QuestNode_Root_Warband, QuestPart_SpawnWarband, UMW_QuestDefOf
@@ -157,7 +157,7 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   Ours is guaranteed by **`UMW_Melee`'s universal `UMW_Lightweight`** plus each mechanism category's
   alone-able traits. The locked taxonomy is **5 categories**: `UMW_Melee` (universal — the six generic
   cosmetic/value/weight traits ported from Odyssey: Ornamental, Ugly, Lightweight, Cumbersome,
-  Gold/Jade inlay, plus `UMW_BloodSoaked` — a gory trait that forces a body tint (colour two), panics
+  Gold/Jade inlay, plus `UMW_BloodStained` — a gory trait that forces a body tint (colour two), panics
   humanlikes on hit, and carries a balancing equip-mood downside; see its own note below), the mechanism categories
   `UMW_Bladed`/`UMW_Pointed`/`UMW_Blunt` (each gates a distinct mechanism effect — per-tool AP/damage
   modifiers and/or on-hit effects; see the next notes),
@@ -175,7 +175,7 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   which tag `Color` alongside `AmmoType`). A coating
   combines freely with a point-shape trait (`Point` tag). `Color` governs only **colour one** (the red-masked accent);
   a separate **`BodyColor`** token governs **colour two** (the green-masked body, forced via
-  `ForcedColorTwoExtension` — see the double-mask note). `UMW_BloodSoaked`, `UMW_Monomolecular` and `UMW_PlasmaCored` are the `BodyColor` members (the token keeps it to one
+  `ForcedColorTwoExtension` — see the double-mask note). `UMW_BloodStained`, `UMW_Monomolecular` and `UMW_PlasmaCored` are the `BodyColor` members (the token keeps it to one
   body-colour trait per weapon), so a forced body colour and a `Color` accent/inlay live on different
   channels and *can* co-occur. **Discipline:** single-trait categories are fine (Odyssey
   ships several — `Rifle`/`Shotgun`/`BeamWeapon`/`LowStoppingPower` each have one); the bar is that every
@@ -204,7 +204,7 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   (`GoldInlay ×2`, `JadeInlay ×1.4`) and quality reducers (`Ugly`/`Cumbersome ×0.8`) — while every
   added-capability trait takes a flat **offset** (a fixed fabrication cost). So: **factor ⟺ precious-inlay
   scaling or devaluation; offset ⟺ any added capability.** Our inlays/`UMW_Ugly`/`UMW_Cumbersome` keep factors,
-  `UMW_BloodSoaked` keeps `×0.8` (gore devalues, an `Ugly` analog), and all functional traits use offsets sized
+  `UMW_BloodStained` keeps `×0.8` (gore devalues, an `Ugly` analog), and all functional traits use offsets sized
   from the nearest Odyssey analog (named inline in each trait file). The Heavy archetypes take offsets too despite
   their *combat* effect being a stat factor — following the precedent that Odyssey's own positive handling trait
   `Lightweight` is an offset.
@@ -219,7 +219,7 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   layer: a `MeleeTraitEffectExtension : DefModExtension` (a `List<MeleeOnHitEffect>` — `…_ExtraDamage`
   for the Pointed venom coating, the Blunt `UMW_ZeusHeaded` discharge and the Bladed `UMW_PlasmaCored`
   plasma burn, `…_Stun` for the Blunt `UMW_Concussive`
-  kinetic stun, `…_MentalState` for the Blood-soaked dread/flee) attached to the trait def, fired by a
+  kinetic stun, `…_MentalState` for the Blood-stained dread/flee) attached to the trait def, fired by a
   Harmony **postfix on `Verb_MeleeAttackDamage.ApplyMeleeDamageToTarget`** (gated on a landed,
   wounding hit by a weapon with a `CompUniqueWeapon`). Using a `DefModExtension` + postfix — rather
   than subclassing `WeaponTraitDef` — keeps the trait an ordinary def, so vanilla generation/naming/
@@ -263,18 +263,18 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   *does* need build-time timing). **Limitation:** the *unequipped* weapon item card shows static per-tool AP
   (the abstract `ThingDef` stat path has no instance), but vanilla returns 0 for melee AP on a non-pawn item
   anyway, so there's no regression; the *wielded* stat card is correct.
-- **Blood-soaked = on-hit dread + a trait-conditioned wielder moodlet (`UMW_BloodSoaked`).** Two halves.
+- **Blood-stained = on-hit dread + a trait-conditioned wielder moodlet (`UMW_BloodStained`).** Two halves.
   (1) *Dread:* `MeleeOnHitEffect_MentalState` tries to start a `MentalStateDef` (`PanicFlee`) on a wounding
   hit, `humanlikeOnly` so animals/mechs are immune; `TryStartMentalState` is non-forced, so it no-ops
   when guards block it. (2) *Balancing downside + bloodlust upside:* **two situational `ThoughtDef`s share
-  one situation-only `ThoughtWorker_BloodSoakedWeapon`** (it checks only that `pawn.equipment.Primary`'s
-  `CompUniqueWeapon` carries `UMW_DefOf.UMW_BloodSoaked`; both defs use stage 0, so one `ActiveAtStage(0)`
+  one situation-only `ThoughtWorker_BloodStainedWeapon`** (it checks only that `pawn.equipment.Primary`'s
+  `CompUniqueWeapon` carries `UMW_DefOf.UMW_BloodStained`; both defs use stage 0, so one `ActiveAtStage(0)`
   serves either). *All* personality routing lives in def fields, never the worker:
-  - **Penalty `UMW_BloodSoakedWeapon`** — −2 mood while equipped, **nullified** for the hardened via
+  - **Penalty `UMW_BloodStainedWeapon`** — −2 mood while equipped, **nullified** for the hardened via
     `<nullifyingTraits>` (Bloodlust/Psychopath, plus VTE `VTE_Desensitized`/`VTE_WorldWeary` as `MayRequire`
     list items so the def loads without that mod) and via `<nullifyingGenes>` (`Hemogenic`, `MayRequire`
     Biotech — sanguophages etc. are inured to blood; `ThoughtUtility.NullifyingGene` reads it).
-  - **Buff `UMW_BloodSoakedWeapon_Bloodlust`** — +3 mood, gated by `<requiredTraits>Bloodlust`. Bloodlusters
+  - **Buff `UMW_BloodStainedWeapon_Bloodlust`** — +3 mood, gated by `<requiredTraits>Bloodlust`. Bloodlusters
     *relish* the gore; mood can't flip sign within one thought (`nullifyingTraits` only zeroes), so the
     upside is a separate def. Bloodlust stays in the penalty's `nullifyingTraits`, so a bloodluster gets the
     +3 alone, not penalty + buff.
@@ -288,7 +288,7 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   `UMW_Blood` `ColorDef` onto **colour two** (the body) via `ForcedColorTwoExtension` — not vanilla's
   colour-one `forcedColor` — so it tags the `BodyColor` exclusion token (the one-body-colour-per-weapon
   family, shared with `UMW_Monomolecular`/`UMW_PlasmaCored`), *not* the inlays' colour-one `Color` token; being on a
-  different mask channel, blood-soaked can co-occur with a Gold/Jade inlay or the Envenomed coating. See the double-mask note for the colour-two path.
+  different mask channel, blood-stained can co-occur with a Gold/Jade inlay or the Envenomed coating. See the double-mask note for the colour-two path.
 - **Parenting: patch a `Name=` onto the base weapon, then inherit it.** RimWorld's `ParentName`
   resolves against a node's `Name=` attribute, not its `defName`. Vanilla *ranged* weapons expose
   `Name=` (so Odyssey does `ParentName="Gun_Revolver"`), but **no concrete vanilla *melee* weapon

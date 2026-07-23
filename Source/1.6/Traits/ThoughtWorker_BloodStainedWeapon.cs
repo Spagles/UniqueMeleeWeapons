@@ -23,14 +23,7 @@ public class ThoughtWorker_BloodStainedWeapon : ThoughtWorker
 {
     protected override ThoughtState CurrentStateInternal(Pawn p)
     {
-        ThingWithComps weapon = p.equipment?.Primary;
-        if (weapon == null)
-        {
-            return ThoughtState.Inactive;
-        }
-
-        CompUniqueWeapon comp = weapon.GetComp<CompUniqueWeapon>();
-        if (comp?.TraitsListForReading.Contains(UMW_DefOf.UMW_BloodStained) != true)
+        if (!UniqueWeaponTraitUtility.PrimaryWeaponHasTrait(p, UMW_DefOf.UMW_BloodStained))
         {
             return ThoughtState.Inactive;
         }

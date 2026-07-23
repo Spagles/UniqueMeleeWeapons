@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Active vehicle for UMW_Storied (WeaponTraitDefs/Melee/Storied.xml), granted via
+       WeaponTraitDef.abilityProps — see that trait file for the CompEquippableAbilityReloadable
+       wiring. Self-cast, no target: the wielder plants the storied blade and calls out its history to
+       everyone in earshot/eyeshot (CompProperties_AbilityRallyAllies). cooldownTicksRange 180000 (3
+       days) is deliberately far rarer than Earthshake's 12h EMPPulse-parity cooldown — this is meant
+       to read as an heirloom moment, not a spammable buff. aiCanUse is false: the effect only benefits
+       player-faction pawns (see CompAbilityEffect_RallyAllies), so a hostile-AI cast would be a
+       no-op. -->
+  <AbilityDef>
+    <defName>UMW_RallyingCry</defName>
+    <label>rallying cry</label>
+    <description>Plant the weapon and call out its history to everyone within earshot, stirring pride in all who hear it and see it held high.</description>
+    <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
+    <iconPath>UI/Commands/UMW_RallyingCry</iconPath>
+    <aiCanUse>false</aiCanUse> <!-- effect only benefits player-faction pawns; an AI cast would be a no-op -->
+    <targetRequired>False</targetRequired>
+    <cooldownTicksRange>180000</cooldownTicksRange> <!-- 3 days - an heirloom moment, deliberately rarer than EMPPulse's 12h -->
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <drawAimPie>false</drawAimPie>
+      <warmupTime>0.5</warmupTime>
+      <targetParams>
+        <canTargetSelf>true</canTargetSelf>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="UniqueMeleeWeapons.CompProperties_AbilityRallyAllies">
+        <radius>9.9</radius>
+        <thoughtDef>UMW_Rallied</thoughtDef>
+      </li>
+    </comps>
+  </AbilityDef>
+
+</Defs>

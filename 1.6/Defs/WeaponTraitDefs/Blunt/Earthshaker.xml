@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- UMW_Blunt. Ability trait — grants AbilityDefs/Earthshake.xml (UMW_Earthshake) via the vanilla
+       abilityProps vehicle (WeaponTraitDef.abilityProps : CompProperties_EquippableAbilityReloadable,
+       copied onto the weapon's ability comp by CompUniqueWeapon.Setup with zero Harmony; see
+       Docs/Specs/Trait-Roster-Expansion.md §5/§2.2 and Earthshake.xml's own header). Pure-cooldown form,
+       same shape as Odyssey's EMPPulser trait (just <abilityDef>, no maxCharges/ammo). REQUIRES the
+       weapon def to carry CompProperties_EquippableAbilityReloadable in place of plain CompEquippable
+       (the §2.2 comps rework, applied to all 7 weapon defs in a parallel change) — CompUniqueWeapon.Setup
+       dereferences TryGetComp<CompEquippableAbilityReloadable>() with no null check whenever a rolled
+       trait has abilityProps, so a weapon missing the comp would NPE the instant this trait rolls.
+       Earthshake's shockwave is indiscriminate (see that def) — say so here too, since a wielder
+       choosing/valuing this trait should know their own colonists can be caught in it.
+       Tags "Ability" (Odyssey's ability-trait convention) — mutually exclusive with the parallel Melee-
+       category trait UMW_Storied's Rallying Cry, so a weapon carries at most one active ability.
+       Priced at parity with Odyssey's ranged EMPPulser (+80), c=0.5 per the same ability-trait convention. -->
+  <WeaponTraitDef>
+    <defName>UMW_Earthshaker</defName>
+    <label>earthshaking</label>
+    <description>The head is weighted to throw the weapon's full mass into the ground on command, sending out a stunning shockwave. The shock is indiscriminate — it stuns friend and foe alike.</description>
+    <commonality>0.5</commonality>
+    <weaponCategory>UMW_Blunt</weaponCategory>
+    <exclusionTags>
+      <li>Ability</li>
+    </exclusionTags>
+    <statOffsets>
+      <MarketValue>80</MarketValue> <!-- cf. EMPPulser -->
+    </statOffsets>
+    <traitAdjectives>
+      <li>earthshaking</li>
+      <li>quaking</li>
+      <li>thunderous</li>
+    </traitAdjectives>
+    <abilityProps>
+      <abilityDef>UMW_Earthshake</abilityDef>
+    </abilityProps>
+  </WeaponTraitDef>
+
+</Defs>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Vanilla ability vehicle for UMW_Earthshaker (WeaponTraitDefs/Blunt/Earthshaker.xml), granted via
+       WeaponTraitDef.abilityProps — see that trait file for the CompEquippableAbilityReloadable wiring.
+       Mirrors Odyssey's EMPPulse shape exactly (Data/Odyssey/Defs/AbilityDefs/WeaponTraitAbilities.xml):
+       pure cooldown, no charges, self-centred CompProperties_AbilityExplosion. Mundane-kinetic tone (design
+       tenet: a physical property of the weapon, not magic) — the head's mass slams the ground and the
+       shockwave that rings out is a stun, not a blast; EMP's radius (4.9) is halved to 2.9 to keep it a
+       tighter, more kinetic-feeling burst. Per EMPPulse's own friendly-fire contract, the shockwave is
+       INDISCRIMINATE — it has no faction filter, so allies caught in the radius reel just as hostiles do;
+       the description says so explicitly.
+       damageDef Stun / damageAmount 4: Core's Stun DamageDef (Defs/DamageDefs/Damages_Stun.xml) inherits
+       harmsHealth=false from its StunBase parent, and DamageWorker.Apply gates ALL hit-point damage behind
+       dinfo.Def.harmsHealth — so this explosion should not injure anyone it stuns (decompile-verified
+       2026-07-24, RimWorld 1.6). The duration itself is believed to follow the vanilla "stun ticks =
+       damageAmount * 30" rule (amount 4 -> ~120 ticks, 2s) that Odyssey's own ranged stun sources ride, but
+       that formula was NOT independently decompile-verified this pass — §7 of Docs/Specs/Trait-Roster-
+       Expansion.md calls for an in-game check of both the duration math and the harms-health question
+       before this ships; if Stun turns out to injure after all, decide there whether to keep the amount (a
+       slam should plausibly hurt a little) or zero it. -->
+  <AbilityDef>
+    <defName>UMW_Earthshake</defName>
+    <label>earthshake</label>
+    <description>Slam the weapon's full mass into the ground, sending a stunning shockwave through the earth. The shock is purely kinetic — and utterly indiscriminate: allies caught in the radius are stunned right alongside enemies.</description>
+    <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
+    <iconPath>UI/Commands/UMW_Earthshake</iconPath>
+    <aiCanUse>true</aiCanUse>
+    <targetRequired>False</targetRequired>
+    <cooldownTicksRange>30000</cooldownTicksRange> <!-- 12 hours -->
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>2.9</range>
+      <drawAimPie>false</drawAimPie>
+      <warmupTime>0.5</warmupTime>
+      <targetParams>
+        <canTargetSelf>true</canTargetSelf>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="CompProperties_AbilityExplosion">
+        <damageDef>Stun</damageDef>
+        <explosionRadius>2.9</explosionRadius>
+        <damageAmount>4</damageAmount> <!-- ~120t / 2s stun via the amount*30 rule; verify in-game, §7 -->
+      </li>
+    </comps>
+  </AbilityDef>
+
+</Defs>

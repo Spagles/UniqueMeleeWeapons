@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- UMW_Melee. Both-in-one ability trait (D5): a passive mood plus an active Rallying Cry.
+         • Passive: rides the situational thought UMW_StoriedWeapon (ThoughtDefs/StoriedWeapon.xml,
+           worker-scanned via ThoughtWorker_StoriedWeapon) — nothing to declare here, the worker finds
+           the trait on the wielder's primary weapon the same way ThoughtWorker_BloodStainedWeapon
+           does (shared UniqueWeaponTraitUtility helper).
+         • Active: abilityProps grants UMW_RallyingCry (AbilityDefs/RallyingCry.xml) —
+           REQUIRES the weapon def's CompProperties_EquippableAbilityReloadable (added in the
+           weapon-def comps rework, §2.2 of the spec) to have somewhere to attach to.
+       MarketValue +100 offset: the capability rule (added capability = flat offset, CLAUDE.md) wins
+       over the provenance/finish framing that might otherwise suggest a factor — anchored on
+       EMPPulser's +80 (the nearest ability-trait comparable) and bumped above it for the mood passive
+       riding alongside the ability.
+       Tags "Ability" (Odyssey's ability-trait convention) — also makes Storied mutually exclusive with
+       UMW_Earthshaker (Blunt), so a weapon carries at most one active ability. Alone-able: a storied
+       weapon is a complete identity on its own (UMW_Lightweight backstops generation regardless). -->
+  <WeaponTraitDef>
+    <defName>UMW_Storied</defName>
+    <label>storied</label>
+    <description>This weapon carries a recorded lineage — named bearers, remembered deeds. Its history is part of its weight in the hand.</description>
+    <commonality>0.5</commonality>
+    <weaponCategory>UMW_Melee</weaponCategory>
+    <exclusionTags>
+      <li>Ability</li>
+    </exclusionTags>
+    <statOffsets>
+      <MarketValue>100</MarketValue> <!-- EMPPulser +80, bumped for the mood passive; capability rule wins over the provenance factor -->
+    </statOffsets>
+    <traitAdjectives>
+      <li>storied</li>
+      <li>fabled</li>
+      <li>ancestral</li>
+      <li>honored</li>
+    </traitAdjectives>
+    <abilityProps>
+      <abilityDef>UMW_RallyingCry</abilityDef>
+    </abilityProps>
+  </WeaponTraitDef>
+
+</Defs>

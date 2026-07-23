@@ -7,7 +7,9 @@
        land). DECISION: unlike UMW_HeadWeighted (whose incidental AP we neutralize), we deliberately KEEP
        the coupling here — a finer point genuinely drives deeper, so the AP riding along is the point of
        the trait. A pure-stat tradeoff, distinct from ArmorSpike's pure Stab-AP floor; shared "Point" tag
-       keeps the two shape traits mutually exclusive. -->
+       keeps the two shape traits mutually exclusive. The hit-chance malus is unchanged in effect but is
+       delivered via the equipped UMW_NeedlePointGrip hediff, NOT equippedStatOffsets — that field is
+       bladelink-only and is silently inert on our CompUniqueWeapon (see the hediff's own header comment). -->
   <WeaponTraitDef>
     <defName>UMW_NeedlePoint</defName>
     <label>needle point</label>
@@ -23,9 +25,9 @@
     <statFactors>
       <MeleeWeapon_DamageMultiplier>1.2</MeleeWeapon_DamageMultiplier>
     </statFactors>
-    <equippedStatOffsets>
-      <MeleeHitChance>-0.1</MeleeHitChance>
-    </equippedStatOffsets>
+    <equippedHediffs>
+      <li>UMW_NeedlePointGrip</li>
+    </equippedHediffs>
     <traitAdjectives>
       <li>needle</li>
       <li>needling</li>

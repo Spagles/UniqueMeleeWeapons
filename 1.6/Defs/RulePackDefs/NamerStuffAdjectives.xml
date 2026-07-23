@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!--
+    Extra name-grammar patterns that weave the weapon's MATERIAL into its unique name
+    ("The Golden Reaper", "Plasteel Fang", "The Wooden Longsword"). Never referenced from
+    any weapon def: NameGenerator_StuffAdjective_Patch injects this pack - plus the
+    [stuff_adjective] rule it consumes - into CompUniqueWeapon's naming request whenever
+    the weapon being named is one of ours. The symbols it builds on (weapon_adjective,
+    weapon_noun, badass_noun) are Odyssey's, from NamerUniqueWeapon, which the vanilla
+    comp always co-includes.
+
+    Weights: vanilla weapon_adjective splits trait_adjective p=2 / badass_adjective p=1,
+    so our p=1 alternative gives the material about a quarter of adjective slots; the two
+    dedicated r_weapon_name patterns (p=0.4 + 0.3 against vanilla's total of 4.4) keep
+    material-led names an occasional flourish rather than the norm.
+  -->
+  <RulePackDef>
+    <defName>UMW_NamerStuffAdjectives</defName>
+    <rulePack>
+      <rulesStrings>
+        <li>weapon_adjective->[stuff_adjective]</li>
+        <li>r_weapon_name(p=0.4)->The [stuff_adjective] [weapon_noun]</li>
+        <li>r_weapon_name(p=0.3)->[stuff_adjective] [badass_noun]</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+</Defs>

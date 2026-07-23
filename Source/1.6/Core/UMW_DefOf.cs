@@ -12,6 +12,10 @@ public static class UMW_DefOf
     // to decide whether the wielder's primary weapon carries it.
     public static WeaponTraitDef UMW_BloodStained;
 
+    // Extra unique-name grammar built on the weapon's material — injected into the
+    // naming request by NameGenerator_StuffAdjective_Patch, never referenced from XML.
+    public static RulePackDef UMW_NamerStuffAdjectives;
+
     static UMW_DefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(UMW_DefOf));

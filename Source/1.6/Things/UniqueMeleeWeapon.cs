@@ -18,6 +18,39 @@ namespace UniqueMeleeWeapons;
 // un-tinted diffuse (a black blade would ignore its material entirely).
 public class UniqueMeleeWeapon : ThingWithComps
 {
+    // The stuff of the weapon currently running PostPostMake (trait roll + naming
+    // inside CompUniqueWeapon), exposed for NameGenerator_StuffAdjective_Patch to
+    // inject material adjectives into the name grammar. Thing generation is
+    // single-threaded, so one static slot (cleared in finally) is safe.
+    public static ThingDef StuffBeingNamed { get; private set; }
+
+    public override void PostPostMake()
+    {
+        StuffBeingNamed = Stuff;
+        try
+        {
+            base.PostPostMake();
+        }
+        finally
+        {
+            StuffBeingNamed = null;
+        }
+    }
+
+    // The unique name hides the material that an ordinary weapon's label shows
+    // ("plasteel longsword" → "The Grim Reaper"), so surface it in the inspect
+    // pane instead. Reuses vanilla's stat-report key, so it's already translated.
+    public override string GetInspectString()
+    {
+        string text = base.GetInspectString();
+        if (Stuff != null)
+        {
+            string line = "StatsReport_Material".Translate() + ": " + Stuff.label;
+            text = text.NullOrEmpty() ? line : text + "\n" + line;
+        }
+        return text;
+    }
+
     // Colour one (the red-masked accent) is left to the base implementation, which returns
     // the first comp's ForceColor() — i.e. CompUniqueWeapon's unique colour.
     // Colour two (the green-masked body) defaults to the stuff/material tint, but a trait may

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- UMW_Pointed. Coating — the family's second member (Envenomed is the first). Identity: a
+       NON-LETHAL CAPTURE coating, not a damage-over-time poison. Each landed hit stacks
+       UMW_SedativeBuildup (via the extra UMW_Stab_Tranq hit @ 100%); on a fleshy, unarmored size-1
+       target that's roughly one hediff stage per ~1.75 landed hits, downing the target after 3-4 hits
+       (see UMW_Stab_Tranq / UMW_SedativeBuildup for the full pacing derivation). fleshOnly=true — the
+       sedative has nothing to act on in a mechanoid, so mechs are immune (the coating equivalent of
+       Envenomed staying flesh-relevant via ToxicBuildup's own biology gate, made explicit here since the
+       raw additionalHediffs path has no flesh check of its own).
+
+       chance is 1.0, not the 0.5 Envenomed uses: the requested 1.5-2-hits-per-stage pacing is unreachable
+       at a coin-flip proc rate (half the hits would do nothing, roughly doubling the hit count needed) —
+       a deterministic per-hit cadence is required to hit the design's window.
+
+       Tags "Coating" only (NOT "Color"): unlike Envenomed's forced green Tox tint, this trait forces no
+       colour, so the Color channel stays free for a Gold/Jade inlay to co-roll. Combines freely with a
+       point-shape trait (ArmorSpike/NeedlePoint, tag "Point") — a barbed, tranquilizing spear is legal. -->
+  <WeaponTraitDef>
+    <defName>UMW_Tranquilizing</defName>
+    <label>tranquilizing</label>
+    <description>The point is coated in a fast-acting sedative that floods the bloodstream through every wound it opens.</description>
+    <commonality>1</commonality>
+    <weaponCategory>UMW_Pointed</weaponCategory>
+    <exclusionTags>
+      <li>Coating</li>
+    </exclusionTags>
+    <statOffsets>
+      <MarketValue>80</MarketValue> <!-- ParalyticArrows: nearest incapacitation-coating anchor, priced above Envenomed's +50 as Odyssey prices ParalyticArrows above ToxRounds -->
+    </statOffsets>
+    <traitAdjectives>
+      <li>tranquilizing</li>
+      <li>numbing</li>
+      <li>soporific</li>
+    </traitAdjectives>
+    <modExtensions>
+      <li Class="UniqueMeleeWeapons.MeleeTraitEffectExtension">
+        <onHitEffects>
+          <li Class="UniqueMeleeWeapons.MeleeOnHitEffect_ExtraDamage">
+            <def>UMW_Stab_Tranq</def>
+            <amount>3</amount>
+            <armorPenetration>0.3</armorPenetration>
+            <chance>1.0</chance>
+            <fleshOnly>true</fleshOnly>
+          </li>
+        </onHitEffects>
+      </li>
+    </modExtensions>
+  </WeaponTraitDef>
+
+</Defs>

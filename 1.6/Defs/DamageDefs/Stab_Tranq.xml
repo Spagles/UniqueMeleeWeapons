@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Tranquilizing-stab damage carried by the UMW_Tranquilizing "coating" trait (Envenomed's twin
+       mechanism — see the on-hit-effects note in CLAUDE.md). Dealt as an extra hit by
+       MeleeOnHitEffect_ExtraDamage; the sedative buildup is applied source-agnostically by
+       Pawn_HealthTracker.PostApplyDamage off DamageDef.additionalHediffs (NOT the projectile path), so it
+       works for a melee-sourced DamageInfo — same verified mechanism as UMW_Stab_Tox.
+
+       Self-contained clone of UMW_Stab_Tox's shape, NOT ParentName="Stab": vanilla Stab carries no Name=
+       attribute so it can't be a parent (same gotcha noted on UMW_Stab_Tox). Presentation reverts to
+       vanilla Stab's dressing (impactSoundType Slice, no damageEffecter) rather than Stab_Tox's Toxic
+       one — a tranquilizer dart doesn't hiss or splash green.
+
+       additionalHediffs carries UMW_SedativeBuildup instead of ToxicBuildup, and drops the
+       victimSeverityScaling/inverseStatScaling pair (there is no ToxicResistance-equivalent stat to scale
+       sedation against) while keeping victimSeverityScalingByInvBodySize (a bigger body still needs a
+       bigger dose, same as venom). severityPerDamageDealt is damage-SCALED, not severityFixed: a
+       severityFixed value would sedate through armor at full effect regardless of how much damage got
+       through, making armor useless against capture — deliberately rejected, so armor stays counterplay
+       exactly as it already is against Envenomed. applyAdditionalHediffsIfHuntingForFood=false so a
+       tranquilizing weapon doesn't drug hunted meat. Per-hit rate is tuned on the trait (chance/amount)
+       plus this def's severityPerDamageDealt; see UMW_Tranquilizing and UMW_SedativeBuildup for the
+       pacing math. -->
+  <DamageDef>
+    <defName>UMW_Stab_Tranq</defName>
+    <label>tranquilizing stab</label>
+    <workerClass>DamageWorker_Stab</workerClass>
+    <externalViolence>true</externalViolence>
+    <deathMessage>{0} has been stabbed to death.</deathMessage>
+    <hediff>Stab</hediff>
+    <hediffSolid>Crack</hediffSolid>
+    <impactSoundType>Slice</impactSoundType>
+    <armorCategory>Sharp</armorCategory>
+    <stabChanceOfForcedInternal>0.6</stabChanceOfForcedInternal>
+    <overkillPctToDestroyPart>0.4~1.0</overkillPctToDestroyPart>
+    <additionalHediffs>
+      <li>
+        <hediff>UMW_SedativeBuildup</hediff>
+        <severityPerDamageDealt>0.067</severityPerDamageDealt>
+        <victimSeverityScalingByInvBodySize>true</victimSeverityScalingByInvBodySize>
+      </li>
+    </additionalHediffs>
+    <applyAdditionalHediffsIfHuntingForFood>false</applyAdditionalHediffsIfHuntingForFood>
+  </DamageDef>
+
+</Defs>

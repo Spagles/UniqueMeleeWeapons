@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Sedation-buildup hediff carried by the UMW_Tranquilizing coating (UMW_Stab_Tranq's additionalHediffs).
+       Accumulates like Core's ToxicBuildup (Pawn_HealthTracker.PostApplyDamage applies additionalHediffs on
+       every Thing.TakeDamage; base Hediff.TryMergeWith then merges same-def whole-body hediffs, SUMMING
+       severity) — see the on-hit-effects note in CLAUDE.md.
+
+       Why a custom hediff, not vanilla Anesthetic: Anesthetic is authored for the DECAY direction, not
+       buildup. Its stage 0 is labelled "wearing off" (reads backwards while severity is climbing toward a
+       downed state), its HediffCompProperties_Disappears (45000~120000t) wholesale-removes the merged
+       instance on a timer rolled once at first application (so a second dose doesn't reliably extend
+       captivity), its 0/0.6/0.8 stage thresholds give a lopsided cadence for our faster proc rate, and its
+       -0.8/day decay is surgery pacing (a patient recovers from anesthesia in minutes, not the hours a
+       capture window needs). We clone its capMods onto a buildup-shaped ladder instead: no Disappears comp
+       (a straight SeverityPerDay decay handles wake-up), and thresholds re-tuned for our per-hit severity
+       (see UMW_Stab_Tranq).
+
+       Deliberately OMITS canApplyDodChanceForCapacityChanges (default false): a sedation-down must NEVER
+       roll instant-death via a capacity-loss death check — that's the whole point of a non-lethal capture
+       coating. Contrast Core's ToxicBuildup, which sets this true (poisoning IS meant to be able to kill);
+       the omission here is deliberate, not an oversight.
+
+       Pacing math (size-1, unarmored target, see UMW_Stab_Tranq for the per-hit severity derivation):
+       ~0.20 severity/hit -> a stage-up roughly every 1.75 landed hits -> downed (0.7 threshold) after
+       3-4 hits. Wake-up: severity caps at 1.0, decays at -1.5/day, so it crosses back below the 0.7 downed
+       threshold in about 4.8 hours from a full dose - a capture window, not a hospital stay.
+
+       Tuning knobs if playtest runs hot/cold: UMW_Stab_Tranq's severityPerDamageDealt (+-0.01 is
+       roughly +-15% pacing), this def's SeverityPerDay decay rate, and the stage thresholds below. -->
+  <HediffDef>
+    <defName>UMW_SedativeBuildup</defName>
+    <label>sedative buildup</label>
+    <description>A fast-acting sedative building up in the bloodstream. At high levels it renders the creature unconscious.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <maxSeverity>1</maxSeverity>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-1.5</severityPerDay>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <label>dosed</label>
+        <painFactor>0.95</painFactor>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.9</setMax>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.05</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>-0.1</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.35</minSeverity>
+        <label>woozy</label>
+        <painFactor>0.8</painFactor>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.7</setMax>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>-0.2</offset>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <offset>-0.2</offset>
+          </li>
+          <li>
+            <capacity>Talking</capacity>
+            <offset>-0.2</offset>
+          </li>
+          <li>
+            <capacity>Sight</capacity>
+            <offset>-0.15</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.7</minSeverity>
+        <label>sedated</label>
+        <painFactor>0</painFactor>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.01</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+</Defs>

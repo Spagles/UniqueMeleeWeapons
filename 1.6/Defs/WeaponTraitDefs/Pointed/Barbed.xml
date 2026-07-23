@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- UMW_Pointed. Point shape — barbs behind the tip that catch on the way out, tearing the wound wider
+       as the point is withdrawn. Realised via MeleeDamageConversionExtension rerouting the base Stab hit
+       to the bleedier, scar-prone UMW_Stab_Ragged in place (no extra hit stacked, no per-tool damage
+       split) — see the on-hit-effects note in CLAUDE.md. Unlike UMW_Serrated, there is no per-tool
+       damage split here: the spear is a single-tool (Stab-only) weapon, so the ragged bleed/scar tuning
+       IS the whole upside, with no cut-side tradeoff to book against it. Shares the "Point" tag with
+       ArmorSpike/NeedlePoint (one point-shape trait per weapon), but combines freely with a coating
+       (Envenomed/Tranquilizing, tag "Coating") — a barbed, envenomed spear is legal. -->
+  <WeaponTraitDef>
+    <defName>UMW_Barbed</defName>
+    <label>barbed</label>
+    <description>Barbs behind the point catch in the wound and tear it wider as the weapon is drawn back out.</description>
+    <commonality>1</commonality>
+    <weaponCategory>UMW_Pointed</weaponCategory>
+    <exclusionTags>
+      <li>Point</li>
+    </exclusionTags>
+    <statOffsets>
+      <Beauty>-2</Beauty>
+      <MarketValue>30</MarketValue> <!-- cf. Serrated -->
+    </statOffsets>
+    <traitAdjectives>
+      <li>barbed</li>
+      <li>hooked</li>
+      <li>cruel</li>
+    </traitAdjectives>
+    <modExtensions>
+      <li Class="UniqueMeleeWeapons.MeleeDamageConversionExtension">
+        <conversions>
+          <li>
+            <from>Stab</from>
+            <to>UMW_Stab_Ragged</to>
+          </li>
+        </conversions>
+      </li>
+    </modExtensions>
+  </WeaponTraitDef>
+
+</Defs>

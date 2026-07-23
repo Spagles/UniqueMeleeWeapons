@@ -23,7 +23,21 @@
            ranged-only stats (RangedWeapon_DamageMultiplier / _WarmupMultiplier) that are inert on
            melee, so these were redesigned onto MeleeWeapon_* stats. Each file notes its deltas inline.
          • Verbatim-equivalent — Ugly, Gold/Jade inlay: touch only category-agnostic stats
-           (Beauty / MarketValue / forcedColor), so their values match Odyssey 1:1. -->
+           (Beauty / MarketValue / forcedColor), so their values match Odyssey 1:1.
+
+       Beyond the six ports the category carries our own universal traits: UMW_BloodStained (gory
+       body tint + on-hit dread), the body-colour finishes UMW_Carbonized (negative) and
+       UMW_Enameled (beauty), and UMW_Storied (mood passive + the Rallying Cry ability). Token
+       registry for the tokens rooted here (tokens are global across categories):
+         • "Color" (colour-one accent, red mask): Gold/Jade inlays; cross-category members
+           Envenomed (Pointed) and ZeusHeaded (Blunt) force colour-one tints.
+         • "BodyColor" (colour-two body, green mask — replaces the stuff tint): BloodStained,
+           Carbonized, Enameled; cross-category members Monomolecular and PlasmaCored (Bladed).
+         • "Appearance" (a weapon gets one look): Ornamental, Ugly, BloodStained, Carbonized,
+           Enameled.
+         • "Weight": Lightweight, Cumbersome.
+         • "Ability" (one active/gizmo per weapon): Storied; cross-category member Earthshaker
+           (Blunt). -->
   <WeaponCategoryDef>
     <defName>UMW_Melee</defName>
     <label>melee</label>

@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Mechanism category — primary Blunt tool. The "Head" exclusion token gates the blunt head's on-hit
-       incapacitation effect, of which a weapon gets exactly one: UMW_Concussive (kinetic resonant stun, hits
-       flesh and mechs; StunFor max-merges so procs can't lock) OR UMW_ZeusHeaded (electromagnetic stun,
-       mechanoids only — the melee port of Odyssey's EMPRounds, named for Royalty's zeushammer and so
-       Royalty-gated). (The token was inherited from the removed UMW_Weighted,
-       whose stun duplicated Concussive and whose heavy-head stat profile duplicated UMW_Heavy/HeadWeighted.) -->
+  <!-- Mechanism category — primary Blunt tool. Token registry (tokens are global across categories):
+         • "Head" — the blunt head's one on-hit incapacitation/control effect per weapon:
+           UMW_Concussive (kinetic resonant stun, hits flesh and mechs; StunFor max-merges so procs
+           can't lock) OR UMW_ZeusHeaded (electromagnetic stun, mechanoids only — the melee port of
+           Odyssey's EMPRounds, named for Royalty's zeushammer and so Royalty-gated) OR UMW_Jarring
+           (movement-only stagger — the target keeps fighting, hence its higher proc chance).
+           (The token was inherited from the removed UMW_Weighted, whose stun duplicated Concussive
+           and whose heavy-head stat profile duplicated UMW_Heavy/HeadWeighted.)
+         • "Ability" — one active per weapon (Odyssey's ability-trait convention): UMW_Earthshaker
+           here; the same token on UMW_Melee's UMW_Storied keeps a weapon to a single gizmo.
+       Untagged pure stat mods (co-roll freely, per the token policy): UMW_Flanged (Blunt-tool AP
+       floor — cracking, not piercing) and UMW_Studded (Blunt-tool damage factor). -->
   <WeaponCategoryDef>
     <defName>UMW_Blunt</defName>
     <label>blunt</label>

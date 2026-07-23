@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- UMW_Blunt. Pure stat mod, untagged (no exclusionTags). A studded/knurled head bites harder on
+       impact — MeleeToolModExtension raises the Blunt tool's damage 15%, no AP change (per-tool
+       damageFactor doesn't ride the AP stat, unlike MeleeWeapon_DamageMultiplier). Co-roll ceiling
+       checked against UMW_Heavy's UMW_HeadWeighted (×1.5 damage @ ×1.18 cooldown, AP-neutralized via its
+       own AP factor): a warhammer rolling both stacks to a legal, if punishing, ×1.5 Studded damage
+       multiplier on top — inside Odyssey's own precedent for compounding damage/cooldown factors, and
+       AP stays untouched by either trait. Priced at parity with Odyssey's ranged BroadheadArrows (+60). -->
+  <WeaponTraitDef>
+    <defName>UMW_Studded</defName>
+    <label>studded</label>
+    <description>The head is set with hard studs that bite deep on impact, driving extra force into every blow.</description>
+    <commonality>1</commonality>
+    <weaponCategory>UMW_Blunt</weaponCategory>
+    <statOffsets>
+      <MarketValue>60</MarketValue> <!-- cf. BroadheadArrows -->
+    </statOffsets>
+    <traitAdjectives>
+      <li>studded</li>
+      <li>knurled</li>
+      <li>cruel</li>
+    </traitAdjectives>
+    <modExtensions>
+      <li Class="UniqueMeleeWeapons.MeleeToolModExtension">
+        <mods>
+          <li>
+            <capacities>
+              <li>Blunt</li>
+            </capacities>
+            <damageFactor>1.15</damageFactor>
+          </li>
+        </mods>
+      </li>
+    </modExtensions>
+  </WeaponTraitDef>
+
+</Defs>

@@ -12,6 +12,13 @@ public abstract class MeleeOnHitEffect
     // Per-hit proc chance (0–1). Rolled by the postfix before Apply is called.
     public float chance = 1f;
 
+    // When true, the postfix skips this effect entirely on a non-flesh victim (mechanoids and
+    // similar) — checked alongside the chance roll, before Apply is called. Default false keeps
+    // Envenomed/Concussive/Jarring behaviour unchanged: Envenomed deliberately stays ToxRounds-parity
+    // (vanilla's additionalHediffs path has no flesh gate of its own, and we mirror that), and
+    // Concussive/Jarring are meant to hit mechs too.
+    public bool fleshOnly;
+
     // victim: The pawn that was struck (already confirmed alive and spawned).
     // attacker: The wielder (may be null for non-pawn casters).
     // weapon: The unique weapon that landed the hit.
@@ -81,5 +88,23 @@ public class MeleeOnHitEffect_MentalState : MeleeOnHitEffect
             return;
         }
         victim.mindState?.mentalStateHandler?.TryStartMentalState(stateDef);
+    }
+}
+
+// Briefly staggers the victim — a movement-only debuff (the target keeps fighting, just slower),
+// the Blunt-family "jarring" effect. ticks/moveSpeedFactor default to vanilla's own bullet-impact
+// stagger numbers (StaggerHandler.Notify_BulletImpact's fallback of 95t / 0.17). StaggerFor takes the
+// max of the current and requested duration (never sums), so repeated procs can't stack into a
+// movement lock; victim-side counterplay rides the StaggerDurationFactor stat (decompile-verified).
+public class MeleeOnHitEffect_Stagger : MeleeOnHitEffect
+{
+    // Stagger duration in ticks before StaggerDurationFactor is applied (60 = 1 second).
+    public int ticks = 95;
+    // Move speed multiplier while staggered (vanilla bullet-impact default).
+    public float moveSpeedFactor = 0.17f;
+
+    public override void Apply(Pawn victim, Pawn attacker, ThingWithComps weapon)
+    {
+        victim.stances?.stagger?.StaggerFor(ticks, moveSpeedFactor);
     }
 }

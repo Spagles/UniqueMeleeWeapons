@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- UMW_Blunt. Pure stat mod, untagged (no exclusionTags — nothing to gate; stacks freely with any
+       Head/SwingProfile pick). Flanges (or a studded/ridged head) concentrate the blow's force into a
+       narrow ridge that cracks plate rather than punching through it — a distinct mechanism from
+       UMW_ArmorSpike's Stab-tool piercing, so it floors deliberately lower: 0.45 vs ArmorSpike's 0.8. No
+       damage change, no extra hit — the head shape alone raises the Blunt tool's floor.
+       Priced at parity with Odyssey's ranged PiercingRounds (+40). -->
+  <WeaponTraitDef>
+    <defName>UMW_Flanged</defName>
+    <label>flanged</label>
+    <description>Flanges ridge the head, concentrating the force of a blow into a narrow edge that cracks armor plate rather than merely denting it.</description>
+    <commonality>1</commonality>
+    <weaponCategory>UMW_Blunt</weaponCategory>
+    <statOffsets>
+      <MarketValue>40</MarketValue> <!-- cf. PiercingRounds -->
+    </statOffsets>
+    <traitAdjectives>
+      <li>flanged</li>
+      <li>riving</li>
+      <li>armor-cracking</li>
+    </traitAdjectives>
+    <modExtensions>
+      <li Class="UniqueMeleeWeapons.MeleeToolModExtension">
+        <mods>
+          <li>
+            <capacities>
+              <li>Blunt</li>
+            </capacities>
+            <armorPenetrationFloor>0.45</armorPenetrationFloor>
+          </li>
+        </mods>
+      </li>
+    </modExtensions>
+  </WeaponTraitDef>
+
+</Defs>

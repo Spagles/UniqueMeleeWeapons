@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Wielder-side vehicle for UMW_Parrying's dodge buff. WeaponTraitDef.equippedStatOffsets is
+       consumed ONLY by bladelink weapons (CompBladelinkWeapon) — silently inert on CompUniqueWeapon
+       (decompile-verified) — so a persona-trait wielder effect must instead ride an equipped hediff:
+       CompUniqueWeapon.Notify_Equipped/Notify_EquipmentLost add/remove this on the wielder directly
+       (same vehicle as UMW_NeedlePointGrip's hit-chance malus).
+       Verify in-game (spec §3.6/§7): eyeball the displayed dodge delta on the wielded stat card
+       before locking +0.05 — MeleeDodgeChance is a curve-capped stat, so the effective delta a
+       player sees may read smaller than the raw offset once the curve is applied. -->
+  <HediffDef>
+    <defName>UMW_ParryingGuard</defName>
+    <label>parrying guard</label>
+    <description>The hand-guard lets the wielder turn blows aside, catching and deflecting incoming strikes before they land.</description>
+    <hediffClass>Hediff</hediffClass>
+    <everCurableByItem>false</everCurableByItem>
+    <isBad>false</isBad>
+    <stages>
+      <li>
+        <statOffsets>
+          <MeleeDodgeChance>0.05</MeleeDodgeChance>
+        </statOffsets>
+      </li>
+    </stages>
+  </HediffDef>
+
+</Defs>

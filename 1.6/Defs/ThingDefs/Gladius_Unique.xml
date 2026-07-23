@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Gladius. Core, Medieval. Cut+Stab, light/nimble 2.0s swing -> Bladed + Pointed (no Heavy;
-       that archetype is reserved for the slow 2.6s-swing longsword/warhammer). -->
+  <!-- Gladius. Core, Medieval. Cut+Stab, light/nimble 2.0s swing -> Bladed + Pointed + Guarded (no
+       Heavy; that archetype is reserved for the slow 2.6s-swing longsword/warhammer). Guarded: a
+       gladius can plausibly mount a hand-guard (see WeaponCategoryDefs/Guarded.xml). -->
   <ThingDef ParentName="MeleeWeapon_Gladius">
     <defName>UMW_Gladius_Unique</defName>
     <label>unique gladius</label>
@@ -48,6 +49,7 @@
           <li>UMW_Melee</li>
           <li>UMW_Bladed</li>
           <li>UMW_Pointed</li>
+          <li>UMW_Guarded</li>
         </weaponCategories>
         <namerLabels>
           <li>gladius</li>

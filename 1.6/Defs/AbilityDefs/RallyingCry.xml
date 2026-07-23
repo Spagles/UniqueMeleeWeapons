@@ -6,16 +6,20 @@
        wiring. Self-cast, no target: the wielder plants the storied blade and calls out its history to
        everyone in earshot/eyeshot (CompProperties_AbilityRallyAllies). cooldownTicksRange 180000 (3
        days) is deliberately far rarer than Earthshake's 12h EMPPulse-parity cooldown — this is meant
-       to read as an heirloom moment, not a spammable buff. aiCanUse is false: the effect only benefits
-       player-faction pawns (see CompAbilityEffect_RallyAllies), so a hostile-AI cast would be a
-       no-op. -->
+       to read as an heirloom moment, not a spammable buff. aiCanUse is false: the beneficiary set is
+       hardcoded to PLAYER-faction pawns (see CompAbilityEffect_RallyAllies), so a hostile wielder
+       casting it would rally the player's own colonists standing near the caster — worse than a
+       no-op. Mood is no lever on NPC behaviour anyway (raid flee/retreat logic keys off casualties
+       and health, not mood), and vanilla's ability-AI only has targeting logic for offensive
+       abilities (every aiCanUse=true Odyssey weapon ability is offensive), so the AI could not use
+       this sensibly even if it were faction-symmetric. -->
   <AbilityDef>
     <defName>UMW_RallyingCry</defName>
     <label>rallying cry</label>
     <description>Plant the weapon and call out its history to everyone within earshot, stirring pride in all who hear it and see it held high.</description>
     <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
     <iconPath>UI/Commands/UMW_RallyingCry</iconPath>
-    <aiCanUse>false</aiCanUse> <!-- effect only benefits player-faction pawns; an AI cast would be a no-op -->
+    <aiCanUse>false</aiCanUse> <!-- a hostile cast would rally the PLAYER's pawns near the caster; see header -->
     <targetRequired>False</targetRequired>
     <cooldownTicksRange>180000</cooldownTicksRange> <!-- 3 days - an heirloom moment, deliberately rarer than EMPPulse's 12h -->
     <verbProperties>

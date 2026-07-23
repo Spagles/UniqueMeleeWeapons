@@ -351,6 +351,13 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   (`stuffAdjective` ?? stuff label) plus the `UMW_NamerStuffAdjectives` rulepack, whose patterns build on
   Odyssey's `NamerUniqueWeapon` symbols. `GrammarRequest` is a struct, but its rule/include lists are shared
   references, so a `ref` prefix extends the comp-built request without transpiling or re-rolling the name.
+  **The static slot only covers *our own* generation.** Grammar generation is purely symbolic — no
+  `GenerateName` overload or `GrammarRequest` field carries a `Thing` — so any *other* mod re-rolling a
+  name (e.g. the companion Unique Weapons Unbound's customization dialog, which builds its own request
+  outside `PostPostMake`) can't reach the slot. For that path the patch also fires when the request already
+  carries a `stuff_adjective` rule, adding just the rulepack. This is a deliberate **dependency-free
+  integration contract**: a companion publishes the material as that well-known grammar symbol, we supply
+  the grammar; neither mod references the other's code, and the symbol is inert (unreferenced) if we're absent.
 - **Warband quest (`Source/1.6/Quests/`, `Defs/{FactionDefs,SitePartDefs,QuestScriptDefs}/`).** A low-tech
   tribal sibling of Odyssey's `AncientMercenaries`, handing out *our* melee uniques. `OpportunitySite_Warband`
   reuses the vanilla node sequence then defers to `QuestNode_Root_Warband`, a near-clone of

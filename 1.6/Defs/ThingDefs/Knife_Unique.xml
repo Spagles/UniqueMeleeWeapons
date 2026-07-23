@@ -27,7 +27,21 @@
     <descriptionHyperlinks>
       <ThingDef>MeleeWeapon_Knife</ThingDef>
     </descriptionHyperlinks>
-    <comps>
+    <!-- Can't inherit comps: CompEquippableAbilityReloadable must replace CompEquippable
+         (one CompEquippable-derived comp allowed). If BaseWeapon/BaseMeleeWeapon_*_Quality
+         comps change in a vanilla update, replicate here. -->
+    <comps Inherit="False">
+      <li Class="CompProperties_EquippableAbilityReloadable" /> <!-- props populated by traits -->
+      <li Class="CompProperties_Forbiddable"/>
+      <li Class="CompProperties_Styleable"/>
+      <li>
+        <compClass>CompQuality</compClass>
+      </li>
+      <li Class="CompProperties_Art">
+        <nameMaker>NamerArtWeaponMelee</nameMaker>
+        <descriptionMaker>ArtDescription_WeaponMelee</descriptionMaker>
+        <minQualityForArtistic>Excellent</minQualityForArtistic>
+      </li>
       <li Class="CompProperties_UniqueWeapon">
         <weaponCategories>
           <li>UMW_Melee</li>

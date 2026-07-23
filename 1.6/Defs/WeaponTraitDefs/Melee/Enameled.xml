@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- UMW_Melee. The beauty BodyColor — Carbonized's positive counterpart (same BodyColor+Appearance
+       tag pair and ForcedColorTwoExtension wiring, but enhancing rather than devaluing; cf. the
+       Gold/Jade inlays vs Ugly on the Color channel). A vitreous colour-coat fused over the whole
+       body — a cloisonné register, not a small inlaid accent — reads as a fired-glaze/lacquer finish
+       rather than a material property, so the wording stays material-agnostic the same way
+       Carbonized's does.
+       Forces the royal-purple UMW_Enamel tint onto COLOUR TWO (the green-masked body) via
+       ForcedColorTwoExtension, not vanilla's colour-one forcedColor — this is the double-mask
+       contract (see CLAUDE.md): a forced body colour REPLACES the material/stuff tint (an enameled
+       plasteel and an enameled wooden weapon look alike), so it tags "BodyColor" (its own
+       one-per-weapon family, shared with BloodStained/Carbonized/Monomolecular/PlasmaCored), NOT
+       "Color". Being on a different mask channel from the colour-one inlays, it can legally co-occur
+       with a Gold/Jade inlay or a Pointed coating on the same weapon. It also tags "Appearance"
+       (shared with Ornamental/Ugly/BloodStained/Carbonized) so an enameled weapon never also rolls
+       "ornamental" or "ugly" — the enamel is its own look.
+       MarketValue ×1.2 anchors on the inlay family's scaling factor, milder than JadeInlay's ×1.4 —
+       a colour finish rather than a precious-metal/stone inlay, priced a notch below it.
+       canGenerateAlone false, mirroring the inlays: an add-on flourish, not a standalone identity
+       (UMW_Lightweight backstops generation regardless). -->
+  <WeaponTraitDef>
+    <defName>UMW_Enameled</defName>
+    <label>enameled</label>
+    <description>A vitreous colour-coat has been fired and fused over the body of this weapon, glazing it in a deep, glossy violet.</description>
+    <commonality>0.5</commonality>
+    <canGenerateAlone>false</canGenerateAlone>
+    <weaponCategory>UMW_Melee</weaponCategory>
+    <exclusionTags>
+      <li>BodyColor</li>
+      <li>Appearance</li>
+    </exclusionTags>
+    <statOffsets>
+      <Beauty>10</Beauty>
+    </statOffsets>
+    <statFactors>
+      <MarketValue>1.2</MarketValue> <!-- cf. Gold/Jade inlay scaling, milder than JadeInlay's ×1.4 -->
+    </statFactors>
+    <traitAdjectives>
+      <li>enameled</li>
+      <li>glazed</li>
+      <li>violet-sheened</li>
+    </traitAdjectives>
+    <modExtensions>
+      <li Class="UniqueMeleeWeapons.ForcedColorTwoExtension">
+        <color>UMW_Enamel</color>
+      </li>
+    </modExtensions>
+  </WeaponTraitDef>
+
+</Defs>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Warm near-black char. Forced BODY colour (colour two / green mask) for UMW_Carbonized, applied
+       via ForcedColorTwoExtension — it replaces the stuff/material tint rather than the colour-one
+       accent (same wiring as UMW_Blood; see that ColorDef's comment). Deliberately near-achromatic —
+       this breaks the saturation-calibration convention the other body tints follow (blood ~0.63,
+       between wood ~0.50 and devilstrand ~0.67) — because "charred" reads as an absence of colour,
+       not a material hue; but the RGB keeps a warm cast (R>G>B) rather than a true neutral grey so it
+       still reads as burnt material and not as flat, untinted silhouette.
+       MANDATORY in-game eyeball pending (spec §8/D10): if (58, 52, 48) reads as silhouette against the
+       weapon's diffuse rather than as a tint, fall back to the lighter alternate (66, 58, 52); if near-black
+       still doesn't read at all, the fallback plan is a bone-white recolour (198, 186, 160) as a
+       separate UMW_Sunbleached ColorDef instead (a "sun-bleached/ashen" register rather than "charred").
+       Self-contained rather than ParentName="UniqueWeaponColorBase" — see UMW_Blood's comment for why. -->
+  <ColorDef>
+    <defName>UMW_Carbon</defName>
+    <label>carbon black</label>
+    <colorType>Weapon</colorType>
+    <color>(58, 52, 48)</color>
+    <randomlyPickable>false</randomlyPickable>
+  </ColorDef>
+
+</Defs>

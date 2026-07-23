@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- UMW_Melee. Renamed from "Scorched" (user, 2026-07-24 — "sounds cooler"); the description
+       deliberately keeps the scorched/charred imagery the old name implied. Cosmetic negative
+       BodyColor: a weapon that has been through fire, wearing that damage as its finish rather than
+       hiding it — wording stays material-agnostic (chars wood, soots metal, smoke-stains stone) since
+       any stuff can roll it. This is Enameled's negative counterpart: same BodyColor+Appearance tag
+       pair and ForcedColorTwoExtension wiring, but devaluing rather than enhancing (cf. Ugly vs the
+       Gold/Jade inlays on the Color channel).
+       Forces the near-black UMW_Carbon tint onto COLOUR TWO (the green-masked body) via
+       ForcedColorTwoExtension, not vanilla's colour-one forcedColor — the char reads as the body
+       itself, and it REPLACES the material tint (a carbonized plasteel and a carbonized wooden weapon
+       look alike). So it tags "BodyColor" (its own one-per-weapon family, shared with
+       BloodStained/Monomolecular/PlasmaCored), NOT "Color": being on a different mask channel, it can
+       still co-occur with a colour-one Gold/Jade inlay or a Pointed coating. It also tags "Appearance"
+       (shared with Ornamental/Ugly/BloodStained) so a charred weapon never also rolls "ornamental" or
+       "ugly" — it has its own look. MarketValue ×0.8 anchors on Ugly's devaluation (a condition/finish
+       factor, not an added-capability offset — fire damage lowers value the same way ugliness does).
+       canGenerateAlone false: like the inlays, this is an add-on flourish, not a standalone identity
+       (UMW_Lightweight backstops generation regardless). -->
+  <WeaponTraitDef>
+    <defName>UMW_Carbonized</defName>
+    <label>carbonized</label>
+    <description>This weapon has been through fire — its surface charred and blackened, the damage worn as part of its finish rather than repaired away.</description>
+    <commonality>0.5</commonality>
+    <canGenerateAlone>false</canGenerateAlone>
+    <weaponCategory>UMW_Melee</weaponCategory>
+    <exclusionTags>
+      <li>BodyColor</li>
+      <li>Appearance</li>
+    </exclusionTags>
+    <statOffsets>
+      <Beauty>-4</Beauty>
+    </statOffsets>
+    <statFactors>
+      <MarketValue>0.8</MarketValue> <!-- cf. Ugly's devaluation -->
+    </statFactors>
+    <traitAdjectives>
+      <li>carbonized</li>
+      <li>fire-blackened</li>
+      <li>charred</li>
+      <li>soot-stained</li>
+    </traitAdjectives>
+    <modExtensions>
+      <li Class="UniqueMeleeWeapons.ForcedColorTwoExtension">
+        <color>UMW_Carbon</color>
+      </li>
+    </modExtensions>
+  </WeaponTraitDef>
+
+</Defs>

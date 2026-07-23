@@ -39,13 +39,14 @@ public class UniqueMeleeWeapon : ThingWithComps
 
     // The unique name hides the material that an ordinary weapon's label shows
     // ("plasteel longsword" → "The Grim Reaper"), so surface it in the inspect
-    // pane instead. Reuses vanilla's stat-report key, so it's already translated.
+    // pane instead. Reuses the info card's own "Stuff" stat label (Stat_Stuff_Name)
+    // — matching the term the stats card shows players — so it's already translated.
     public override string GetInspectString()
     {
         string text = base.GetInspectString();
         if (Stuff != null)
         {
-            string line = "StatsReport_Material".Translate() + ": " + Stuff.label;
+            string line = "Stat_Stuff_Name".Translate() + ": " + Stuff.label;
             text = text.NullOrEmpty() ? line : text + "\n" + line;
         }
         return text;

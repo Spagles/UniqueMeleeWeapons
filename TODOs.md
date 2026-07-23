@@ -3,8 +3,6 @@
 ## Cleanup
 
 1. Existing traits/features
-   - Refactor mod settings ui to match our companion mods e.g. "../UniqueWeaponsUnbound" (scrollable container, reset defaults button, slider annotation styling etc)
-   - Rename material line in inspect pane to say "stuff" instead of "material". There should be a vanilla translation key already since this label exists in the info stats card
    - Mod settings to add/remove each weapon to rewards pools? what pools are appropriate/similar to what are the tradeoffs?
    - stuff-based UMW_NamerStuffAdjectives don't seem to get pulled in for UMW weapons (at least not when we call the generator from our companion mod's customization dialog in "../UniqueWeaponsUnbound/")
 

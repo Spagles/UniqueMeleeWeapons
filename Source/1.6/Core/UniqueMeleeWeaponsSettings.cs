@@ -3,24 +3,36 @@ using Verse;
 
 namespace UniqueMeleeWeapons;
 
-// Mod settings. No configurable fields yet — but the settings window is already
-// wired for a robust list of balance toggles: the body renders inside a scroll
-// view that only shows a scrollbar once the content would overflow vertically,
-// and a "Reset to defaults" button sits pinned below it.
+// Mod settings. Every settings-window string (labels, tooltips, section headers,
+// the reset button, the SettingsCategory mod-list name) is routed through
+// .Translate() against 1.6/Languages/English/Keyed/UMW_UI.xml, mirroring the
+// companion mods' localizable convention. The window body renders inside a scroll
+// view that only shows a scrollbar once the content would overflow vertically;
+// settings are grouped under GameFont.Medium section headers, with a pinned
+// "Reset to defaults" button below the scroll view.
 //
 // To add a setting:
 //  1. declare a public field here (with its default as the initializer),
 //  2. persist it in ExposeData with Scribe_Values.Look
 //     (pass the same default so an unset value loads correctly),
 //  3. restore it in ResetToDefaults,
-//  4. surface it in DoWindowContents via the listing
-//     (see the commented example there).
+//  4. add its label/description keys to UMW_UI.xml,
+//  5. surface it in DoWindowContents under a section header.
 // The scroll view measures its own content each frame, so new rows need no
 // layout bookkeeping — they just push the scrollbar in once they don't fit.
 public class UniqueMeleeWeaponsSettings : ModSettings
 {
-    // --- Settings fields (none yet) ---------------------------------------
-    // public bool exampleToggle = true;
+    // --- Settings fields ---------------------------------------------------
+
+    // Drop Woody stuffs from the random material roll when one of our unique
+    // weapons is generated (see Patches/GenStuff_ExcludeWoodStuff_Patch.cs).
+    public bool excludeWoodStuff = true;
+
+    // Selection weight of the warband opportunity-site quest. This is the real
+    // default; the XML rootSelectionWeight is overwritten by ApplyWarbandQuestWeight
+    // at startup, so the two only need to agree for documentation's sake.
+    public const float WarbandQuestWeightDefault = 0.6f;
+    public float warbandQuestWeight = WarbandQuestWeightDefault;
 
     // --- Transient UI state (not persisted) -------------------------------
     // Scroll offset and last-measured content height for the settings list.
@@ -31,7 +43,8 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     public override void ExposeData()
     {
         base.ExposeData();
-        // Scribe_Values.Look(ref exampleToggle, "exampleToggle", true);
+        Scribe_Values.Look(ref excludeWoodStuff, "excludeWoodStuff", true);
+        Scribe_Values.Look(ref warbandQuestWeight, "warbandQuestWeight", WarbandQuestWeightDefault);
     }
 
     // Restores every setting to its shipped default. Called by the
@@ -39,7 +52,20 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     // initializers above (and the Scribe_Values.Look defaults).
     public void ResetToDefaults()
     {
-        // exampleToggle = true;
+        excludeWoodStuff = true;
+        warbandQuestWeight = WarbandQuestWeightDefault;
+    }
+
+    // Writes the configured weight onto the live quest def. rootSelectionWeight is
+    // read fresh from the def on every opportunity-site roll, so a def-field write
+    // is all an override takes. Called after defs load (UMW_Startup) and whenever
+    // the settings window closes (UniqueMeleeWeaponsMod.WriteSettings).
+    public void ApplyWarbandQuestWeight()
+    {
+        if (UMW_QuestDefOf.UMW_OpportunitySite_Warband != null)
+        {
+            UMW_QuestDefOf.UMW_OpportunitySite_Warband.rootSelectionWeight = warbandQuestWeight;
+        }
     }
 
     public void DoWindowContents(Rect inRect)
@@ -69,20 +95,47 @@ public class UniqueMeleeWeaponsSettings : ModSettings
         // Begin with a tall scratch rect (99999f) so the listing never clamps
         // its own height; we read the real height back via CurHeight afterwards.
         listing.Begin(new Rect(0f, 0f, innerWidth - 8f, 99999f));
+        GameFont prevFont = Text.Font;
 
-        // --- Settings rows go here ----------------------------------------
-        // Example (uncomment alongside an `exampleToggle` field above):
-        //   listing.CheckboxLabeled("Example toggle", ref exampleToggle, "What it does.");
-        //   listing.Gap();
-        listing.Label("No configurable settings yet.");
+        listing.Gap();
+
+        // --- Generation ---------------------------------------------------
+        Text.Font = GameFont.Medium;
+        listing.Label("UMW_SettingsGeneration".Translate());
+        Text.Font = GameFont.Small;
+        listing.Gap(6f);
+
+        listing.CheckboxLabeled(
+            "UMW_ExcludeWoodStuff".Translate(),
+            ref excludeWoodStuff,
+            "UMW_ExcludeWoodStuffDesc".Translate());
+
+        listing.Gap(18f);
+
+        // --- Quests -------------------------------------------------------
+        Text.Font = GameFont.Medium;
+        listing.Label("UMW_SettingsQuests".Translate());
+        Text.Font = GameFont.Small;
+        listing.Gap(6f);
+
+        // Inline "(default)" suffix when the slider sits at the shipped value.
+        // The value snaps to a 0.05 grid below, so the float compare is exact.
+        string weightLabel = "UMW_WarbandQuestWeight".Translate(warbandQuestWeight.ToString("0.00"));
+        if (warbandQuestWeight == WarbandQuestWeightDefault)
+        {
+            weightLabel += "UMW_DefaultSuffix".Translate();
+        }
+        listing.Label(weightLabel, tooltip: "UMW_WarbandQuestWeightDesc".Translate());
+        warbandQuestWeight = Mathf.Round(listing.Slider(warbandQuestWeight, 0f, 2f) * 20f) / 20f;
 
         // Measure the content height for next frame's scroll calculation,
-        // then close the listing and the scroll view.
+        // restore the font, then close the listing and the scroll view.
+        Text.Font = prevFont;
         contentHeight = listing.CurHeight;
         listing.End();
         Widgets.EndScrollView();
 
-        if (Widgets.ButtonText(buttonRect, "Reset to defaults"))
+        if (Widgets.ButtonText(buttonRect, "UMW_ResetToDefaults".Translate()))
         {
             ResetToDefaults();
         }

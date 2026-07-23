@@ -24,5 +24,13 @@ public class UniqueMeleeWeaponsMod : Mod
         Settings.DoWindowContents(inRect);
     }
 
-    public override string SettingsCategory() => "Unique Melee Weapons";
+    // Called when the settings window closes. Settings that override def fields
+    // re-apply here so a change takes effect without a restart.
+    public override void WriteSettings()
+    {
+        base.WriteSettings();
+        Settings.ApplyWarbandQuestWeight();
+    }
+
+    public override string SettingsCategory() => "UMW_SettingsCategory".Translate();
 }

@@ -12,7 +12,9 @@
     Shares the trader/beggar/reading opportunity-site giver pool with AncientMercenaries (and BanditCamp,
     item stashes, etc.), selected by rootSelectionWeight. We set 0.6 - deliberately a bit rarer than the
     ancients' version (1.0) - so the warband adds opportunities without overshadowing it. rootMinPoints
-    350 matches AncientMercenaries. Raise toward 1.0 for parity, or lower, to tune frequency.
+    350 matches AncientMercenaries. NOTE: rootSelectionWeight here is only the shipped default - the
+    "warband quest commonality" mod setting overwrites the field at startup (keep
+    UniqueMeleeWeaponsSettings.WarbandQuestWeightDefault in agreement with it).
   -->
   <QuestScriptDef>
     <defName>UMW_OpportunitySite_Warband</defName>

@@ -61,12 +61,15 @@ About/              # Mod metadata (About.xml, ModIcon.png, Preview.png)
 │   ├── ThingSetMakerDefs/  # Reward pools (UMW_Reward_UniqueWeapon — our melee-only quest reward)
 │   ├── FactionDefs/         # Warband.xml — the warband quest's hidden, temporary faction
 │   ├── SitePartDefs/        # WarbandCamp.xml — the warband quest's camp site part
-│   └── QuestScriptDefs/     # OpportunitySite_Warband.xml — the warband opportunity-site quest
-└── Patches/        # XPath patches (if/when needed)
+│   ├── QuestScriptDefs/     # OpportunitySite_Warband.xml — the warband opportunity-site quest
+│   └── RulePackDefs/        # NamerStuffAdjectives.xml — material-adjective name grammar (code-injected)
+├── Patches/        # XPath patches (if/when needed)
+└── Languages/English/Keyed/  # UMW_UI.xml — settings-window strings (localizable via .Translate())
 Textures/
 └── Things/Item/Equipment/WeaponMelee/UniqueWeapons/<Weapon>/   # per-weapon variant folder
 Source/1.6/
-├── Core/           # Mod subclass (Harmony setup + settings window), ModSettings, UMW_DefOf
+├── Core/           # Mod subclass (Harmony setup + settings window), ModSettings, UMW_DefOf,
+│                   #   UMW_Startup (post-def-load application of def-overriding settings)
 ├── Things/         # Custom thingClass subclasses (e.g. UniqueMeleeWeapon)
 ├── Graphics/       # Graphic_RandomComplex (random variant, preserves colour two)
 ├── Traits/         # Melee trait effect machinery: MeleeTraitEffectExtension + MeleeOnHitEffect
@@ -110,7 +113,7 @@ variant per spawn; `_m` masks auto-pair per variant). The custom class is requir
 
 - **C# entry point:** `UniqueMeleeWeaponsMod` (in `Source/1.6/Core/`) applies all Harmony patches via `PatchAll()` at startup, so any `[HarmonyPatch]` class under the assembly is picked up automatically — no manual registration.
 - **Namespace:** root namespace is `UniqueMeleeWeapons`. Use a `*Patches` suffix for patch namespaces (e.g. `UniqueMeleeWeapons.Patches`) to avoid RimWorld type-name conflicts.
-- **Settings:** persisted via `UniqueMeleeWeaponsSettings` (ModSettings); the `Mod` subclass just delegates `DoSettingsWindowContents` → `Settings.DoWindowContents`. No configurable fields yet, but the window is pre-wired for a large list of balance toggles: the body renders inside a scroll view that only shows a scrollbar once content would overflow vertically (inner-rect height = `Mathf.Max(contentHeight, viewRect.height)`, with `contentHeight` re-measured each frame from `listing.CurHeight`), and a pinned "Reset to defaults" button calls `ResetToDefaults()`. Scroll offset/height are transient UI state and deliberately **not** scribed. To add a setting: declare the field (with default), persist it in `ExposeData` (`Scribe_Values.Look` with the same default), restore it in `ResetToDefaults`, and add a row in `DoWindowContents` (see the commented example there) — new rows need no layout bookkeeping.
+- **Settings:** persisted via `UniqueMeleeWeaponsSettings` (ModSettings); the `Mod` subclass just delegates `DoSettingsWindowContents` → `Settings.DoWindowContents`. Every settings-window string — labels, tooltips, `GameFont.Medium` section headers, the reset button, and the `SettingsCategory` mod-list name — is routed through `.Translate()` against `1.6/Languages/English/Keyed/UMW_UI.xml` (the `UMW_`-keyed convention shared with the companion mods), so the UI is localizable. The window body renders inside a scroll view that only shows a scrollbar once content would overflow vertically (inner-rect height = `Mathf.Max(contentHeight, viewRect.height)`, with `contentHeight` re-measured each frame from `listing.CurHeight`); settings sit under section headers, and a pinned "Reset to defaults" button calls `ResetToDefaults()`. Scroll offset/height are transient UI state and deliberately **not** scribed. To add a setting: declare the field (with default), persist it in `ExposeData` (`Scribe_Values.Look` with the same default), restore it in `ResetToDefaults`, add its label/description keys to `UMW_UI.xml`, and add a row in `DoWindowContents` under a section header — new rows need no layout bookkeeping. Two settings ship: `excludeWoodStuff` (consumed live by the wood-filter patch, see Architecture) and `warbandQuestWeight`. The latter is the pattern for any **def-overriding** setting: the value is written onto the live def field (`rootSelectionWeight` is re-read on every quest roll) by `ApplyWarbandQuestWeight()`, called from `UMW_Startup` (`StaticConstructorOnStartup` — the Mod ctor is too early, defs aren't loaded) and from the `WriteSettings` override (so a change applies on settings-window close, no restart); the XML value is just the shipped default. Its slider appends an inline `(default)` suffix (the `UMW_DefaultSuffix` key) when it sits at the shipped weight — the companion-mod annotation convention; the value snaps to a 0.05 grid, so the float compare against `WarbandQuestWeightDefault` is exact.
 
 ### Architecture notes
 
@@ -330,6 +333,24 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   so third-party mods' uniques stay in the pool even without the `UniqueWeapon` tag — a `tagsToAllow`
   filter would silently drop them. The detailed call-path rationale and the accepted "future mod uses the
   raw class in a new def" limitation live in the subclass's header comment.
+- **Wood-free material rolls (`Patches/GenStuff_ExcludeWoodStuff_Patch.cs`).** Setting-gated (default on):
+  drops Woody-**category** stuffs (covers modded woods) from the material roll for our `UMW_UniqueMelee`-tagged
+  weapons. `GenStuff.AllowedStuffsFor` is the single choke point every generation path funnels through — the
+  market-value makers via `TryRandomStuffFor` and the tag-based count makers (crates/fishing/map loot) via
+  `ThingSetMakerUtility.TryGetRandomThingWhichCanWeighNoMoreThan` — and our weapons can't be crafted or built
+  (nulled `recipeMaker`), so the filter can only ever affect generation; the def gate leaves every other
+  consumer (construction/bill material pickers) untouched. Falls back to the unfiltered list rather than
+  ever leaving a weapon with zero eligible materials.
+- **Material surfaced in inspect pane + unique names.** A unique name hides the stuff an ordinary label shows
+  ("plasteel longsword" → "The Grim Reaper"), so `UniqueMeleeWeapon` (a) appends a "Material: X" line in
+  `GetInspectString` (reusing vanilla's translated `StatsReport_Material` key), and (b) feeds material
+  adjectives into name generation: its `PostPostMake` override parks the stuff in a static slot while
+  vanilla's `CompUniqueWeapon.PostPostMake` runs, and a prefix on the `NameGenerator.GenerateName(GrammarRequest, …)`
+  overload — gated on that slot **and** the `r_weapon_name` root keyword, so ranged uniques and unrelated
+  requests in the window (CompArt titles) are untouched — injects a `stuff_adjective` rule
+  (`stuffAdjective` ?? stuff label) plus the `UMW_NamerStuffAdjectives` rulepack, whose patterns build on
+  Odyssey's `NamerUniqueWeapon` symbols. `GrammarRequest` is a struct, but its rule/include lists are shared
+  references, so a `ref` prefix extends the comp-built request without transpiling or re-rolling the name.
 - **Warband quest (`Source/1.6/Quests/`, `Defs/{FactionDefs,SitePartDefs,QuestScriptDefs}/`).** A low-tech
   tribal sibling of Odyssey's `AncientMercenaries`, handing out *our* melee uniques. `OpportunitySite_Warband`
   reuses the vanilla node sequence then defers to `QuestNode_Root_Warband`, a near-clone of

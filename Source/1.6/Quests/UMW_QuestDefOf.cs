@@ -12,6 +12,10 @@ public static class UMW_QuestDefOf
     // Our melee-only reward pool (Defs/ThingSetMakerDefs/UMW_Reward_UniqueWeapon.xml).
     public static ThingSetMakerDef UMW_Reward_UniqueWeapon;
 
+    // Our warband quest — its rootSelectionWeight is overwritten by the
+    // warband-commonality mod setting (at startup and on settings close).
+    public static QuestScriptDef UMW_OpportunitySite_Warband;
+
     // The temporary hidden faction the warband belongs to (Defs/FactionDefs/Warband.xml).
     public static FactionDef UMW_Warband;
 
@@ -23,7 +27,6 @@ public static class UMW_QuestDefOf
 
     // Odyssey tile mutator: themes the site as a ruined, abandoned, pawn-less tribal settlement and
     // stores its footprint in the "SettlementRect" map var.
-    [MayRequire("Ludeon.RimWorld.Odyssey")]
     public static TileMutatorDef AbandonedColonyTribal;
 
     static UMW_QuestDefOf()

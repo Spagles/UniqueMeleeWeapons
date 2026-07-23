@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Settings: window category (mod-list entry) -->
+  <UMW_SettingsCategory>Unique Melee Weapons</UMW_SettingsCategory>
+
+  <!-- Settings: section headers -->
+  <UMW_SettingsGeneration>Generation</UMW_SettingsGeneration>
+  <UMW_SettingsQuests>Quests</UMW_SettingsQuests>
+
+  <!-- Settings: reusable label suffixes (each includes a leading space) -->
+  <UMW_DefaultSuffix> (default)</UMW_DefaultSuffix>
+
+  <!-- Settings: buttons -->
+  <UMW_ResetToDefaults>Reset to defaults</UMW_ResetToDefaults>
+
+  <!-- Settings: Generation -->
+  <UMW_ExcludeWoodStuff>Exclude wood from generated unique weapons</UMW_ExcludeWoodStuff>
+  <UMW_ExcludeWoodStuffDesc>Unique weapons only enter the game through generated rewards (quests, ancient crates, item stashes), rolled from a random eligible material. With this on, wooden materials are dropped from that roll — a hard-won reward never lands as a wooden longsword. Turn off to allow wooden uniques.</UMW_ExcludeWoodStuffDesc>
+
+  <!-- Settings: Quests -->
+  <UMW_WarbandQuestWeight>Warband quest commonality: {0}</UMW_WarbandQuestWeight>
+  <UMW_WarbandQuestWeightDesc>Selection weight of the warband quest against the other opportunity-site quests (ancient mercenaries, bandit camps, item stashes...) offered by traders, beggars and reading. Higher = offered more often. 0 disables the quest entirely.</UMW_WarbandQuestWeightDesc>
+
+</LanguageData>

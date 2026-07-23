@@ -3,11 +3,10 @@
 ## Cleanup
 
 1. Existing traits/features
-   - Mod settings to add each weapon to rewards pools? what pools are appropriate/similar to what are the tradeoffs?
-   - Mod setting to remove wood stuff from pools for generated weapon rewards, enabled by default
-   - Mod setting slider for the warband quest commonality, showing our default, as well as the vanilla ancient mercenaries commonality for reference
-   - Can we add a line displaying the stuff on UMW inspect pane
-   - Can we add stuffable adjectives to grammar generator for UMW names?
+   - Refactor mod settings ui to match our companion mods e.g. "../UniqueWeaponsUnbound" (scrollable container, reset defaults button, slider annotation styling etc)
+   - Rename material line in inspect pane to say "stuff" instead of "material". There should be a vanilla translation key already since this label exists in the info stats card
+   - Mod settings to add/remove each weapon to rewards pools? what pools are appropriate/similar to what are the tradeoffs?
+   - stuff-based UMW_NamerStuffAdjectives don't seem to get pulled in for UMW weapons (at least not when we call the generator from our companion mod's customization dialog in "../UniqueWeaponsUnbound/")
 
 2. Complete trait roster
    - Evaluate current trait roster count and spread against Odyssey's (e.g. Docs/Odyssey-Ranged-Trait-Catalog.md), including positive/negative ratios (based on value offset or market value stat factor)
@@ -17,7 +16,8 @@
 3. Consider Mod integration
    - Investigate possible VWE integration. Installed locally at "C:\Program Files (x86)\Steam\steamapps\workshop\content\294100\1814383360". Can we reuse any of their thematically generic traits without reimplementing their functional code? akimbo etc would be nice.
 
-4. Update readme and About.xml
+4. Review/reflow text and translation string copy
+5. Update readme and About.xml
 
 ## Art
 

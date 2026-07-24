@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Timed rally buff granted by UMW_RallyingCry (AbilityDefs/RallyingCry.xml) to every humanlike of
+       the CASTER's faction in earshot/eyeshot (see CompAbilityEffect_RallyAllies). Payload is pain
+       dampening only (user pick, 2026-07-24): rallied fighters shrug off wounds and hit pain-shock far
+       later — a payload that stays real when a hostile AI wielder rallies its own raid, unlike the mood
+       memory it replaced (mood is inert on NPCs). painFactor 0.5 sits at go-juice's painkiller tier;
+       5000t (2 in-game hours) covers an engagement without lingering, and the ability's 3-day cooldown
+       keeps this an heirloom moment rather than a standing aura. isBad false so it never raises a
+       health alert; everCurableByItem false so medicine can't strip it. -->
+  <HediffDef>
+    <defName>UMW_Rallied</defName>
+    <label>rallied</label>
+    <description>Stirred by the rallying cry of a storied weapon's bearer. For a time, wounds barely register.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <everCurableByItem>false</everCurableByItem>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>5000</disappearsAfterTicks> <!-- 2 in-game hours -->
+        <showRemainingTime>true</showRemainingTime>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <painFactor>0.5</painFactor> <!-- go-juice's painkiller tier -->
+      </li>
+    </stages>
+  </HediffDef>
+
+</Defs>

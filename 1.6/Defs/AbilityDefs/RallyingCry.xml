@@ -3,23 +3,24 @@
 
   <!-- Active vehicle for UMW_Storied (WeaponTraitDefs/Melee/Storied.xml), granted via
        WeaponTraitDef.abilityProps — see that trait file for the CompEquippableAbilityReloadable
-       wiring. Self-cast, no target: the wielder plants the storied blade and calls out its history to
-       everyone in earshot/eyeshot (CompProperties_AbilityRallyAllies). cooldownTicksRange 180000 (3
-       days) is deliberately far rarer than Earthshake's 12h EMPPulse-parity cooldown — this is meant
-       to read as an heirloom moment, not a spammable buff. aiCanUse is false: the beneficiary set is
-       hardcoded to PLAYER-faction pawns (see CompAbilityEffect_RallyAllies), so a hostile wielder
-       casting it would rally the player's own colonists standing near the caster — worse than a
-       no-op. Mood is no lever on NPC behaviour anyway (raid flee/retreat logic keys off casualties
-       and health, not mood), and vanilla's ability-AI only has targeting logic for offensive
-       abilities (every aiCanUse=true Odyssey weapon ability is offensive), so the AI could not use
-       this sensibly even if it were faction-symmetric. -->
+       wiring. Self-cast, no target: the wielder plants the storied blade and calls out its history,
+       and everyone of the CASTER's faction in earshot/eyeshot steels themselves — the timed
+       UMW_Rallied pain-dampening hediff via CompAbilityEffect_RallyAllies. Faction-symmetric with a
+       stat payload per user directive (2026-07-24), replacing the original player-only +4 mood
+       memory: a hediff is real for NPC casters where mood is inert, and symmetry makes a hostile
+       wielder rallying its own raid correct rather than backwards. cooldownTicksRange 180000 (3
+       days) is deliberately far rarer than Earthshake's 12h EMPPulse-parity cooldown — an heirloom
+       moment, not a standing aura. aiCanUse true so a hostile AI wielder MAY rally its own side —
+       but vanilla's ability-AI is only known to drive offensive abilities (every aiCanUse=true
+       Odyssey weapon ability is offensive), so whether hostile AI ever actually casts a self-buff
+       needs the in-game check alongside the §7 ability items; the flag is set so it can. -->
   <AbilityDef>
     <defName>UMW_RallyingCry</defName>
     <label>rallying cry</label>
-    <description>Plant the weapon and call out its history to everyone within earshot, stirring pride in all who hear it and see it held high.</description>
+    <description>Plant the weapon and call out its history to everyone within earshot. Those who hear it steel themselves — for a time, wounds barely slow them.</description>
     <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
     <iconPath>UI/Commands/UMW_RallyingCry</iconPath>
-    <aiCanUse>false</aiCanUse> <!-- a hostile cast would rally the PLAYER's pawns near the caster; see header -->
+    <aiCanUse>true</aiCanUse> <!-- faction-symmetric: an AI cast rallies its own side; see header -->
     <targetRequired>False</targetRequired>
     <cooldownTicksRange>180000</cooldownTicksRange> <!-- 3 days - an heirloom moment, deliberately rarer than EMPPulse's 12h -->
     <verbProperties>
@@ -33,7 +34,7 @@
     <comps>
       <li Class="UniqueMeleeWeapons.CompProperties_AbilityRallyAllies">
         <radius>9.9</radius>
-        <thoughtDef>UMW_Rallied</thoughtDef>
+        <hediffDef>UMW_Rallied</hediffDef>
       </li>
     </comps>
   </AbilityDef>

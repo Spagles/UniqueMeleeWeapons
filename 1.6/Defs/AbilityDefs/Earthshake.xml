@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Vanilla ability vehicle for UMW_Earthshaker (WeaponTraitDefs/Blunt/Earthshaker.xml), granted via
+  <!-- Vanilla ability vehicle for UMW_Piledriver (WeaponTraitDefs/Blunt/Piledriver.xml), granted via
        WeaponTraitDef.abilityProps — see that trait file for the CompEquippableAbilityReloadable wiring.
        Mirrors Odyssey's EMPPulse shape exactly (Data/Odyssey/Defs/AbilityDefs/WeaponTraitAbilities.xml):
        pure cooldown, no charges, self-centred CompProperties_AbilityExplosion. Mundane-kinetic tone (design

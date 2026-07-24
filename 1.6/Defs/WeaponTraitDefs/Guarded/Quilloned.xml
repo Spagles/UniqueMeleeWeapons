@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- UMW_Guarded. Identity/construction-feature trait — quillons, a basket, or a main-gauche-style
-       crossguard let the wielder catch and turn aside an incoming blow. Gated on the weapon's
+  <!-- UMW_Guarded. Identity/construction-feature trait (renamed from UMW_Parrying, 2026-07-24 — trait
+       names name the physical feature, not the effect; see the naming tenet in CLAUDE.md) — quillons, a
+       basket, or a main-gauche-style crossguard let the wielder catch and turn aside an incoming blow. Gated on the weapon's
        physical shape via the UMW_Guarded category (longsword/gladius only — see that category's
        file comment), not on an exclusionTags family the way mechanism traits are; "Guard" is instead
        the family token this trait ITSELF seeds for future guard-shape members (riposte, a
@@ -13,12 +14,12 @@
        MV +50 offset (added capability, not a scaling/devaluation factor): priced at parity with
        Odyssey's ranged QuickReload — the nearest survivability/combat-tempo utility buff at this
        tier (below AimAssistance's +70 accuracy swing, above CustomGrip's +15 cosmetic-adjacent
-       nudge). canGenerateAlone defaults true: parrying is a complete, nameable identity on its own,
+       nudge). canGenerateAlone defaults true: a quilloned guard is a complete, nameable identity on its own,
        though UMW_Lightweight backstops generation regardless (every weapon's UMW_Melee membership
        guarantees an alone-able, adjective-bearing trait even if Parrying doesn't roll first). -->
   <WeaponTraitDef>
-    <defName>UMW_Parrying</defName>
-    <label>parrying</label>
+    <defName>UMW_Quilloned</defName>
+    <label>quilloned</label>
     <description>Quillons — or a main-gauche-style guard — flare from the hilt, wide enough to catch an incoming blade and turn it aside.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Guarded</weaponCategory>
@@ -32,9 +33,9 @@
       <li>UMW_ParryingGuard</li>
     </equippedHediffs>
     <traitAdjectives>
-      <li>parrying</li>
+      <li>quilloned</li>
+      <li>cross-guarded</li>
       <li>warding</li>
-      <li>guarded</li>
     </traitAdjectives>
   </WeaponTraitDef>
 

@@ -7,7 +7,7 @@
            MeleeOnHitEffect_MentalState class). Animals/mechanoids don't scare, so humanlikeOnly=true.
            Chance 0.12 per wounding hit, tuned against two anchors (decompile-verified): a proc is a
            ROUT, not a stagger — PanicFlee's minTicksBeforeRecovery is 10,000t and ~95% of non-forced
-           attempts land on a raider — so it must stay well under Concussive's 0.25 (universal-target
+           attempts land on a raider — so it must stay well under Bell-cast's 0.25 (universal-target
            but only a 2s stun); yet vanilla ALREADY auto-panics damaged humanlikes below their
            kindDef fleeHealthThresholdRange, so late-fight procs read as vanilla behavior and only
            early-fight routs are visible as the trait working. 0.12 makes those perceptible (~1 in 8

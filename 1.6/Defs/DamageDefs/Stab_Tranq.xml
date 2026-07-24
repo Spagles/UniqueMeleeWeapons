@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Tranquilizing-stab damage carried by the UMW_Tranquilizing "coating" trait (Envenomed's twin
+  <!-- Tranquilizing-stab damage carried by the UMW_Opiated "coating" trait (Envenomed's twin
        mechanism — see the on-hit-effects note in CLAUDE.md). Dealt as an extra hit by
        MeleeOnHitEffect_ExtraDamage; the sedative buildup is applied source-agnostically by
        Pawn_HealthTracker.PostApplyDamage off DamageDef.additionalHediffs (NOT the projectile path), so it
@@ -20,7 +20,7 @@
        through, making armor useless against capture — deliberately rejected, so armor stays counterplay
        exactly as it already is against Envenomed. applyAdditionalHediffsIfHuntingForFood=false so a
        tranquilizing weapon doesn't drug hunted meat. Per-hit rate is tuned on the trait (chance/amount)
-       plus this def's severityPerDamageDealt; see UMW_Tranquilizing and UMW_SedativeBuildup for the
+       plus this def's severityPerDamageDealt; see UMW_Opiated and UMW_SedativeBuildup for the
        pacing math. -->
   <DamageDef>
     <defName>UMW_Stab_Tranq</defName>

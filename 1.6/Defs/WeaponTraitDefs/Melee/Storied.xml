@@ -14,7 +14,7 @@
        EMPPulser's +80 (the nearest ability-trait comparable) and bumped above it for the mood passive
        riding alongside the ability.
        Tags "Ability" (Odyssey's ability-trait convention) — also makes Storied mutually exclusive with
-       UMW_Earthshaker (Blunt), so a weapon carries at most one active ability. Alone-able: a storied
+       UMW_Piledriver (Blunt), so a weapon carries at most one active ability. Alone-able: a storied
        weapon is a complete identity on its own (UMW_Lightweight backstops generation regardless). -->
   <WeaponTraitDef>
     <defName>UMW_Storied</defName>

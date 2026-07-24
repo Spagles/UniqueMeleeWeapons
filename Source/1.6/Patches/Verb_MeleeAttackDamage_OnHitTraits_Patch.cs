@@ -49,7 +49,7 @@ public static class Verb_MeleeAttackDamage_OnHitTraits_Patch
                 MeleeOnHitEffect effect = ext.onHitEffects[j];
                 if (effect.fleshOnly && !victim.RaceProps.IsFlesh)
                 {
-                    continue; // e.g. Tranquilizing's sedative has nothing to act on in a mechanoid
+                    continue; // e.g. Opiated's sedative has nothing to act on in a mechanoid
                 }
                 if (Rand.Chance(effect.chance))
                 {

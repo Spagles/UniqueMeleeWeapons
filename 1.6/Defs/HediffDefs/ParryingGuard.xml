@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Wielder-side vehicle for UMW_Parrying's dodge buff. WeaponTraitDef.equippedStatOffsets is
+  <!-- Wielder-side vehicle for UMW_Quilloned's dodge buff. (The hediff keeps its "parrying" name:
+       it names the wielder's act, the way ability defs do — the trait names the hardware.) WeaponTraitDef.equippedStatOffsets is
        consumed ONLY by bladelink weapons (CompBladelinkWeapon) — silently inert on CompUniqueWeapon
        (decompile-verified) — so a persona-trait wielder effect must instead ride an equipped hediff:
        CompUniqueWeapon.Notify_Equipped/Notify_EquipmentLost add/remove this on the wielder directly

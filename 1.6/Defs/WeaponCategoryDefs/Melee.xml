@@ -36,7 +36,7 @@
          • "Appearance" (a weapon gets one look): Ornamental, Ugly, BloodStained, Carbonized,
            Enameled.
          • "Weight": Lightweight, Cumbersome.
-         • "Ability" (one active/gizmo per weapon): Storied; cross-category member Earthshaker
+         • "Ability" (one active/gizmo per weapon): Storied; cross-category member Piledriver
            (Blunt). -->
   <WeaponCategoryDef>
     <defName>UMW_Melee</defName>

@@ -55,11 +55,12 @@ About/              # Mod metadata (About.xml, ModIcon.png, Preview.png)
 │   ├── WeaponTraitDefs/    # Unique-weapon traits (stat mods, forced accent colours)
 │   │                       #   (one def per file in every Defs .xml — see Naming)
 │   ├── DamageDefs/         # Custom melee DamageDefs carried by on-hit effects / base-damage conversion (UMW_Stab_Tox/_Tranq/_Ragged, UMW_Cut_Ragged)
-│   ├── HediffDefs/         # Custom hediffs: injuries targeted by those DamageDefs, buildup hediffs
-│   │                       #   (UMW_SedativeBuildup), and equipped-hediff stat carriers — the only
-│   │                       #   working wielder-stat vehicle (see hardened field rules; e.g. UMW_NeedlePointGrip)
+│   ├── HediffDefs/         # Custom hediffs: injuries targeted by those DamageDefs, buildup/timed
+│   │                       #   hediffs (UMW_SedativeBuildup, UMW_Rallied), and equipped-hediff stat
+│   │                       #   carriers — the only working wielder-stat vehicle (see hardened field
+│   │                       #   rules; e.g. UMW_NeedlePointGrip)
 │   ├── ColorDefs/          # Forced accent/body colours (e.g. UMW_Blood, UMW_Carbon, UMW_Enamel)
-│   ├── ThoughtDefs/        # Trait-driven moodlets (situational UMW_BloodStainedWeapon / UMW_StoriedWeapon, memory UMW_Rallied)
+│   ├── ThoughtDefs/        # Trait-driven moodlets (situational UMW_BloodStainedWeapon / UMW_StoriedWeapon)
 │   ├── AbilityDefs/        # Actives granted via trait abilityProps (UMW_Earthshake, UMW_RallyingCry)
 │   ├── ThingSetMakerDefs/  # Reward pools (UMW_Reward_UniqueWeapon — our melee-only quest reward)
 │   ├── FactionDefs/         # Warband.xml — the warband quest's hidden, temporary faction
@@ -165,7 +166,10 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   Ours is guaranteed by **`UMW_Melee`'s universal `UMW_Lightweight`** plus each mechanism category's
   alone-able traits. **Design tenet:** a trait must read as a *physical property of the weapon* —
   flanges, studs, guards, coatings, provenance — never an unexplained wielder blessing; ability traits
-  are the accepted exception, tone-checked case by case. **Control-effect budget:** a new
+  are the accepted exception, tone-checked case by case. Trait *names* name that physical feature
+  (quillons, a dead-blow head, a bell-cast head, an opiated point), never the effect verb; the granted
+  *ability* and any wielder-side hediff name the act instead (`UMW_Earthshake`, `UMW_RallyingCry`,
+  "parrying guard"). **Control-effect budget:** a new
   stun/stagger/control proposal must *displace* an existing control effect, not add to the census
   (held at Odyssey's ~1-in-8 share). The locked taxonomy is **6 categories**: `UMW_Melee` (universal —
   the six generic cosmetic/value/weight traits ported from Odyssey: Ornamental, Ugly, Lightweight,
@@ -178,12 +182,12 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   the handling category `UMW_Heavy` (slow-swing stat archetypes), and the **weapon-gating** category
   `UMW_Guarded` — traits enabled by a hand-guard's physical presence, listed only by the longsword and
   gladius: a *category* gates by weapon where `exclusionTags` only prevent co-rolls (Odyssey precedent
-  for construction-feature gates: `Sighted`/`Scoped`/`Rifle`/`Shotgun`); today it holds `UMW_Parrying`
+  for construction-feature gates: `Sighted`/`Scoped`/`Rifle`/`Shotgun`); today it holds `UMW_Quilloned`
   (dodge via equipped hediff, `Guard` token). Within a category, effect families share an
   `exclusionTags` token; pure stat mods (Blunt's `UMW_Flanged`/`UMW_Studded`) go untagged. **Token
   registry:** `Edge`, `Core`, `Point`, `Coating`, `Head`, `SwingProfile`, `Weight`, `Appearance`,
   `Color`, `BodyColor`, `Guard`, `Ability` — member lists live on the category files. `UMW_Pointed`
-  carries a second family — the **"coating" traits** (`UMW_Envenomed`'s venom, `UMW_Tranquilizing`'s
+  carries a second family — the **"coating" traits** (`UMW_Envenomed`'s venom, `UMW_Opiated`'s
   non-lethal sedative) — gated by the **`Coating`** token (one coating per weapon). This is the melee analog
   of the `AmmoType` tag Odyssey's `ToxRounds` carries. `UMW_Bladed` likewise carries a second family —
   the blade-**core infusion**, gated by a **`Core`** token (today only `UMW_PlasmaCored`'s plasma burn) —
@@ -200,9 +204,9 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   ships several — `Rifle`/`Shotgun`/`BeamWeapon`/`LowStoppingPower` each have one); the bar is that every
   trait be mechanically **meaningful**, not that a category hit some count. `UMW_Reach` was considered for
   the spear but dropped (melee has no reach mechanic, so its traits would be flavor-only orphans).
-  `UMW_Blunt`'s `Head` token gates the blunt head's one on-hit incapacitation/control effect — `UMW_Concussive` (a
+  `UMW_Blunt`'s `Head` token gates the blunt head's one on-hit incapacitation/control effect — `UMW_BellCast` (a
   brief kinetic stun on flesh and mechs), **or** `UMW_ZeusHeaded` (an electromagnetic, mechanoid-only stun, the melee
-  port of Odyssey's `EMPRounds`; see its own note below), **or** `UMW_Jarring` (a movement-only stagger —
+  port of Odyssey's `EMPRounds`; see its own note below), **or** `UMW_DeadBlow` (a movement-only stagger —
   the target keeps fighting, which is why it affords a higher proc chance than the stuns). The old
   `UMW_Weighted` (which duplicated Concussive's stun *and* `UMW_Heavy`'s heavy-head stat profile) was removed. (A
   pure-AP blunt trait via *stats* isn't possible — melee damage and AP share `MeleeWeapon_DamageMultiplier`
@@ -243,9 +247,9 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   add/remove on the wielder (`UMW_NeedlePointGrip`'s hit-chance malus, `UMW_ParryingGuard`'s dodge);
   market value rides `statOffsets`/`statFactors → MarketValue`. To give the mechanism categories real, distinct effects we add our own
   layer: a `MeleeTraitEffectExtension : DefModExtension` (a `List<MeleeOnHitEffect>` — `…_ExtraDamage`
-  for the Pointed coatings (Envenomed venom, Tranquilizing sedative), the Blunt `UMW_ZeusHeaded` discharge and the Bladed `UMW_PlasmaCored`
-  plasma burn, `…_Stun` for the Blunt `UMW_Concussive`
-  kinetic stun, `…_Stagger` for the Blunt `UMW_Jarring` movement-slow (95t, ×0.17 — vanilla
+  for the Pointed coatings (Envenomed venom, Opiated sedative), the Blunt `UMW_ZeusHeaded` discharge and the Bladed `UMW_PlasmaCored`
+  plasma burn, `…_Stun` for the Blunt `UMW_BellCast`
+  kinetic stun, `…_Stagger` for the Blunt `UMW_DeadBlow` movement-slow (95t, ×0.17 — vanilla
   bullet-impact numbers; `StaggerFor` max-merges so procs can't lock), `…_MentalState` for the
   Blood-stained dread/flee; a per-effect `fleshOnly` gate supplies mech immunity where a vanilla
   `DamageDef` path has none, e.g. the sedative) attached to the trait def, fired by a
@@ -262,7 +266,7 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   **`Pawn_HealthTracker.PostApplyDamage(dinfo, totalDamageDealt)`** — reached by *every* `Thing.TakeDamage`,
   including our `…_ExtraDamage` hit — so the ToxicBuildup stacks (scaled by the venom-stab's damage
   dealt, the victim's `ToxicResistance`, and inverse body size) for free, no new C#. The Pointed
-  **`UMW_Tranquilizing`** coating rides the identical path with its own non-lethal buildup hediff
+  **`UMW_Opiated`** coating rides the identical path with its own non-lethal buildup hediff
   (`UMW_SedativeBuildup` → `UMW_Stab_Tranq`; 1.6's base `Hediff.TryMergeWith` sums same-def whole-body
   severity, so hits accumulate — pacing math and the no-instant-death rationale live on the hediff file). The Bladed
   **`UMW_PlasmaCored`** realises the incendiary shape the same way with Core's vanilla `Flame` (no clone):
@@ -305,10 +309,11 @@ comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the bui
   (`<comps Inherit="False">` restating Forbiddable/Styleable/Quality/Art — uniform across the 7 even
   where no ability can currently roll, cheap insurance and identical file shape; if the base-game
   weapon comps change in a vanilla update, replicate the change there). Two actives ship, kept to one
-  per weapon by the shared `Ability` exclusion token: Blunt's `UMW_Earthshaker` → `UMW_Earthshake`
+  per weapon by the shared `Ability` exclusion token: Blunt's `UMW_Piledriver` → `UMW_Earthshake`
   (self-centred kinetic `Stun` explosion — EMPPulse's pure-cooldown shape) and `UMW_Melee`'s
   `UMW_Storied` → `UMW_RallyingCry` (custom `CompAbilityEffect_RallyAllies`, `Source/1.6/Abilities/`
-  — player-faction humanlike AoE mood memory; Core's DLC-free comp roster has no ally-AoE-mood shape).
+  — a faction-symmetric AoE granting the caster's side the timed `UMW_Rallied` pain-dampening hediff,
+  so it is real for AI casters too; Core's DLC-free comp roster has no ally-AoE-buff shape).
   Storied's passive half is the situational `UMW_StoriedWeapon` thought, the trivial sibling of the
   Blood-stained worker. Gizmo icons are artist-pending: the ability defs point at `UI/Commands/UMW_*`
   and committed `.gitkeep` placeholders mark the texture paths (deploy whitelist ignores them; a

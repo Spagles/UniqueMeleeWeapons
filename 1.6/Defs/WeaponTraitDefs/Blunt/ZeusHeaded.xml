@@ -12,8 +12,9 @@
        the same path Odyssey's EMPRounds extraDamages rides — so no new C#. No chance gate: EMP's own
        stunAdaptationTicks (2200t) self-limits a chain (first hit stuns + starts adaptation; later hits read
        "Adapted" until it lapses), exactly like the ranged version. Rarer (commonality 0.5, matching
-       UMW_Monomolecular). Shares the "Head" token with UMW_Concussive: both are the blunt head's on-hit
-       incapacitation effect (kinetic stun vs electromagnetic stun), so a weapon gets at most one. Forces the
+       UMW_Monomolecular). Shares the "Head" token with UMW_BellCast/UMW_DeadBlow: all are the blunt head's
+       on-hit incapacitation effect (kinetic stun vs electromagnetic stun vs stagger), so a weapon gets
+       at most one. Forces the
        UniqueWeapon_EMP tint onto COLOUR ONE (the red-masked accent, via vanilla forcedColor), so it also tags
        "Color" and can't share a weapon with the Gold/Jade inlays — mirrors EMPRounds' AmmoType+Color and our
        own UMW_Envenomed (Coating+Color). -->

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- UMW_Pointed. Coating — the family's second member (Envenomed is the first). Identity: a
+  <!-- UMW_Pointed. Coating — the family's second member (Envenomed is the first; renamed from
+       UMW_Tranquilizing, 2026-07-24 — trait names name the physical differentiator, here the opiate on
+       the point. The support defs keep their sedative/tranq names: they describe the delivered payload,
+       not the weapon feature). Identity: a
        NON-LETHAL CAPTURE coating, not a damage-over-time poison. Each landed hit stacks
        UMW_SedativeBuildup (via the extra UMW_Stab_Tranq hit @ 100%); on a fleshy, unarmored size-1
        target that's roughly one hediff stage per ~1.75 landed hits, downing the target after 3-4 hits
@@ -18,9 +21,9 @@
        colour, so the Color channel stays free for a Gold/Jade inlay to co-roll. Combines freely with a
        point-shape trait (ArmorSpike/NeedlePoint, tag "Point") — a barbed, tranquilizing spear is legal. -->
   <WeaponTraitDef>
-    <defName>UMW_Tranquilizing</defName>
-    <label>tranquilizing</label>
-    <description>The point is coated in a fast-acting sedative that floods the bloodstream through every wound it opens.</description>
+    <defName>UMW_Opiated</defName>
+    <label>opiated</label>
+    <description>The point is dipped in a potent opiate that floods the bloodstream through every wound it opens.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Pointed</weaponCategory>
     <exclusionTags>
@@ -30,7 +33,7 @@
       <MarketValue>80</MarketValue> <!-- ParalyticArrows: nearest incapacitation-coating anchor, priced above Envenomed's +50 as Odyssey prices ParalyticArrows above ToxRounds -->
     </statOffsets>
     <traitAdjectives>
-      <li>tranquilizing</li>
+      <li>opiated</li>
       <li>numbing</li>
       <li>soporific</li>
     </traitAdjectives>

@@ -9,7 +9,7 @@
            UMW_Stab_Ragged).
          • "Coating" — what the point is dressed with, one per weapon: Envenomed (ToxicBuildup
            venom; additionally tags "Color" because it forces the green tint, so it can't co-occur
-           with a Gold/Jade inlay) or Tranquilizing (sedative capture coating; deliberately forces
+           with a Gold/Jade inlay) or Opiated (sedative capture coating; deliberately forces
            NO colour, so the Color channel stays free).
        A coating combines freely with a point shape — a pointed weapon can be e.g. "armor-spiked,
        envenomed". -->

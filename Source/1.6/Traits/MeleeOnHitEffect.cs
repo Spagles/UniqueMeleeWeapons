@@ -14,9 +14,9 @@ public abstract class MeleeOnHitEffect
 
     // When true, the postfix skips this effect entirely on a non-flesh victim (mechanoids and
     // similar) — checked alongside the chance roll, before Apply is called. Default false keeps
-    // Envenomed/Concussive/Jarring behaviour unchanged: Envenomed deliberately stays ToxRounds-parity
+    // Envenomed/Bell-cast/Dead-blow behaviour unchanged: Envenomed deliberately stays ToxRounds-parity
     // (vanilla's additionalHediffs path has no flesh gate of its own, and we mirror that), and
-    // Concussive/Jarring are meant to hit mechs too.
+    // Bell-cast/Dead-blow are meant to hit mechs too.
     public bool fleshOnly;
 
     // victim: The pawn that was struck (already confirmed alive and spawned).
@@ -92,7 +92,7 @@ public class MeleeOnHitEffect_MentalState : MeleeOnHitEffect
 }
 
 // Briefly staggers the victim — a movement-only debuff (the target keeps fighting, just slower),
-// the Blunt-family "jarring" effect. ticks/moveSpeedFactor default to vanilla's own bullet-impact
+// the Blunt-family "dead-blow" effect. ticks/moveSpeedFactor default to vanilla's own bullet-impact
 // stagger numbers (StaggerHandler.Notify_BulletImpact's fallback of 95t / 0.17). StaggerFor takes the
 // max of the current and requested duration (never sums), so repeated procs can't stack into a
 // movement lock; victim-side counterplay rides the StaggerDurationFactor stat (decompile-verified).

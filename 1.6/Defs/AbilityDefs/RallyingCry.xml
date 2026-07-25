@@ -38,7 +38,7 @@
   <AbilityDef>
     <defName>UMW_RallyingCry</defName>
     <label>rallying cry</label>
-    <description>Raise the weapon high and shout. Those who see it know what it is, and who carried it before. Allies who see it are reminded of the weight it bears, and for a time wounds barely slow them.</description>
+    <description>Raise the weapon high and shout. Allies who see it are reminded of the weight it bears, and for a time wounds barely slow them.</description>
     <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
     <iconPath>UI/Commands/UMW_RallyingCry</iconPath>
     <aiCanUse>true</aiCanUse> <!-- faction-symmetric: an AI cast rallies its own side; see header -->

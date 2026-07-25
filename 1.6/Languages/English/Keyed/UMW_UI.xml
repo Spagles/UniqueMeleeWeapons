@@ -16,7 +16,7 @@
 
   <!-- Settings: Generation -->
   <UMW_ExcludeWoodStuff>Exclude wood from generated unique weapons</UMW_ExcludeWoodStuff>
-  <UMW_ExcludeWoodStuffDesc>Unique weapons only enter the game through generated rewards (quests, ancient crates, item stashes), rolled from a random eligible material. With this on, wooden materials are dropped from that roll — a hard-won reward never lands as a wooden longsword. Turn off to allow wooden uniques.</UMW_ExcludeWoodStuffDesc>
+  <UMW_ExcludeWoodStuffDesc>Unique weapons only enter the game through generated rewards (quests, ancient crates, item stashes), rolled from a random eligible material. With this on, wooden materials are dropped from that roll, so a hard-won reward never lands as a wooden longsword. Turn off to allow wooden uniques.</UMW_ExcludeWoodStuffDesc>
 
   <!-- Settings: Quests -->
   <UMW_WarbandQuestWeight>Warband quest commonality: {0}</UMW_WarbandQuestWeight>

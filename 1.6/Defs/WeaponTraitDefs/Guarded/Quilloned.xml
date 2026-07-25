@@ -20,7 +20,7 @@
   <WeaponTraitDef>
     <defName>UMW_Quilloned</defName>
     <label>quilloned</label>
-    <description>Quillons — or a main-gauche-style guard — flare from the hilt, wide enough to catch an incoming blade and turn it aside.</description>
+    <description>Quillons (or a main-gauche-style guard) flare from the hilt, wide enough to catch an incoming blade and turn it aside.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Guarded</weaponCategory>
     <exclusionTags>

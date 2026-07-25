@@ -17,7 +17,7 @@
     <stages>
       <li>
         <label>storied weapon</label>
-        <description>I carry a weapon with a name and a history — the deeds of those who bore it before me are remembered, and I'm proud to carry it forward.</description>
+        <description>I carry a weapon with a name and a history. The deeds of those who bore it before me are remembered, and I'm proud to carry it forward.</description>
         <baseMoodEffect>2</baseMoodEffect>
       </li>
     </stages>

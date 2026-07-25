@@ -18,7 +18,7 @@
   <WeaponTraitDef>
     <defName>UMW_DeadBlow</defName>
     <label>dead-blow</label>
-    <description>The hollow head is filled with loose shot that slams forward on impact, dumping the blow's full momentum into the target without a trace of rebound — the struck reels and stumbles, even when the blow doesn't drop them.</description>
+    <description>The hollow head is filled with loose shot that slams forward on impact, dumping the blow's full momentum into the target without a trace of rebound. The struck reels and stumbles, even when the blow doesn't drop them.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Blunt</weaponCategory>
     <exclusionTags>

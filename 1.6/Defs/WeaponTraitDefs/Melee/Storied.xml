@@ -19,7 +19,7 @@
   <WeaponTraitDef>
     <defName>UMW_Storied</defName>
     <label>storied</label>
-    <description>This weapon carries a recorded lineage — named bearers, remembered deeds. Its history is part of its weight in the hand.</description>
+    <description>This weapon carries a recorded lineage of named bearers, remembered deeds. Its history is part of its weight in the hand.</description>
     <commonality>0.5</commonality>
     <weaponCategory>UMW_Melee</weaponCategory>
     <exclusionTags>

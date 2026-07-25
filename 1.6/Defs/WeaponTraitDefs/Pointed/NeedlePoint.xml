@@ -13,7 +13,7 @@
   <WeaponTraitDef>
     <defName>UMW_NeedlePoint</defName>
     <label>needle point</label>
-    <description>Tapered to a fine needle, the point concentrates the full force of a thrust onto a single spot — driving deeper and biting through armor, though so slender a point is less forgiving to land cleanly.</description>
+    <description>Tapered to a fine needle, the point concentrates the full force of a thrust onto a single spot, driving deeper and biting through armor. Such a slender point is less forgiving to land cleanly.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Pointed</weaponCategory>
     <exclusionTags>

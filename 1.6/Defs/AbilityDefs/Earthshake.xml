@@ -22,7 +22,7 @@
   <AbilityDef>
     <defName>UMW_Earthshake</defName>
     <label>earthshake</label>
-    <description>Slam the weapon's full mass into the ground, sending a stunning shockwave through the earth. The shock is purely kinetic — and utterly indiscriminate: allies caught in the radius are stunned right alongside enemies.</description>
+    <description>Slam the weapon's full mass into the ground, sending a stunning shockwave through the earth. The shock is purely kinetic, and utterly indiscriminate: allies caught in the radius are stunned right alongside enemies.</description>
     <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
     <iconPath>UI/Commands/UMW_Earthshake</iconPath>
     <aiCanUse>true</aiCanUse>

@@ -24,6 +24,14 @@
            Core's cave-exit sub-effecter uses (positionOffset z 8 at an effective size of 20).
          • drawSize left at Core's 10.0 and the comp's `scale` left at its default 1, i.e. half the
            on-screen size of the cave-exit spawn (which uses scale 2) — one pawn, not a cave mouth.
+         • alpha on both colours .8 -> 1. The `Lightshaft` shader is Core's own and exposes only
+           _dayColor, _nightColor and _DustTex1 — there is no brightness multiplier to reach for — so the
+           fourth component is the whole intensity knob, and Core's .8 is set for an ambient cave-mouth
+           shaft rather than a triggered moment. The hue is left exactly as Core's, day and night.
+           IF STILL TOO FAINT, in escalating order: push the RGB toward white (this washes out the warm
+           day / cold night contrast, so it costs something), or list UMW_RallyingCryLightshaft TWICE in
+           the ability's CompProperties_AbilityFleckOnTarget fleckDefs, which spawns two coincident
+           beams that compound. Neither is needed yet.
        drawSize/offset/timings are the eyeball-tunable knobs here; see §7 of the spec for the in-game
        visual check. Rotation is deliberately 0 (Core tilts its ambient shafts 15 degrees): light
        straight down over the wielder. -->
@@ -40,8 +48,8 @@
       <shaderType>Lightshaft</shaderType>
       <renderQueue>4000</renderQueue>
       <shaderParameters>
-        <_dayColor>(1, .73, .56, .8)</_dayColor>
-        <_nightColor>(.37, .8, .89, .8)</_nightColor>
+        <_dayColor>(1, .73, .56, 1)</_dayColor>
+        <_nightColor>(.37, .8, .89, 1)</_nightColor>
         <_DustTex1>/Things/Mote/LightshaftNoise</_DustTex1>
       </shaderParameters>
       <drawSize>10.0</drawSize>

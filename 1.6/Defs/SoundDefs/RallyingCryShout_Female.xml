@@ -22,7 +22,7 @@
             <clipFolderPath>Misc/ThroneSpeech_Female</clipFolderPath>
           </li>
         </grains>
-        <volumeRange>20~24</volumeRange>
+        <volumeRange>14~17</volumeRange>
         <distRange>20~40</distRange> <!-- Core's own falloff for this recording -->
       </li>
     </subSounds>

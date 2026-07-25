@@ -27,10 +27,12 @@
            Core's is a continuous murmur for a throne-room address running minutes; a rallying cry is one
            line at one moment. AudioGrain_Folder picks a single clip per play and each clip is a complete
            spoken phrase, so a one-shot is a whole utterance rather than a fragment of one.
-         • volumeRange 8~10 -> 20~24. Core's is tuned to be half-heard across a throne room. Deliberately
-           NOT pushed to blast levels (cf. Explosion_Thump at 80): the clips are 8 kHz mono, chosen so
-           speech reads as indistinct murmuring, and loud playback only exposes that. 20~24 sits with
-           Core's own melee one-shots (Pawn_Melee_BigBash 20, Punch_HitPawn 30~43).
+         • volumeRange 8~10 -> 14~17. Core's is tuned to be half-heard across a throne room, which is too
+           quiet for a deliberate shout, but this stays deliberately far below blast levels (cf.
+           Explosion_Thump at 80): the clips are 8 kHz mono, chosen so speech reads as indistinct
+           murmuring, and loud playback only exposes that. Landed at 14~17 by ear (user call,
+           2026-07-25) after 20~24 — a touch under Core's own melee one-shots (Pawn_Melee_BigBash 20)
+           and roughly 3 dB down from the first attempt.
        Clip lengths measured from the shipped AudioClip records: 0.72-2.09s across this male set of 22,
        against 1.50-4.92s for the female set of 21. So the cry's length varies with who holds the weapon
        — accepted as character (user call, 2026-07-25). Both sets fit inside the raised-weapon pose, so
@@ -46,7 +48,7 @@
             <clipFolderPath>Misc/ThroneSpeech_Male</clipFolderPath>
           </li>
         </grains>
-        <volumeRange>20~24</volumeRange>
+        <volumeRange>14~17</volumeRange>
         <distRange>20~40</distRange> <!-- Core's own falloff for this recording -->
       </li>
     </subSounds>

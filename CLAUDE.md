@@ -169,6 +169,12 @@ Source/1.6/
   inherited comps wholesale (`<comps Inherit="False">`, uniform across the 7 even where no ability
   can currently roll). **If base-game weapon comps change in a vanilla update, replicate the change
   in all 7 files.**
+- **An AoE ability's radius lives in two places and must agree, at `X.9`.** The gizmo-hover preview
+  reads `verbProperties.range` (via `VerbProperties.DrawRadiusRing`) and *never* a comp field, so a
+  mismatch draws a ring that lies about the effect. Use `X.9`, not `X.0`: the ring outlines the edge
+  of the discrete cell set inside the radius, so a radius whose set exactly fills its own bounding
+  box draws a **square** (2.9 did), and an exact integer admits a sparse diamond. Both ability defs
+  carry the worked arithmetic; `AbilityDefs/Earthshake.xml` has the fullest version.
 - **Stuffable uniques are double-masked** (`Things/UniqueMeleeWeapon.cs`): mask **red** → colour
   one (the unique accent, supplied by vanilla), mask **green** → colour two (the material tint, or
   a trait-forced body colour). This is the load-bearing trick of the mod — Odyssey's ranged uniques

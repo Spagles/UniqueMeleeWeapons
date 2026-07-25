@@ -30,8 +30,9 @@ public class CompProperties_AbilityRallyAllies : CompProperties_AbilityEffect
 
 // On cast: every humanlike of the caster's faction (animals and mechs take no heart from a speech)
 // spawned on the caster's map, within radius and with line of sight to the caster, gains hediffDef and
-// barks an acknowledgement bubble back. The caster is within radius of their own position, so they rally
-// too (but answer nothing — they are the one being answered). A factionless caster rallies no one.
+// answers with a brief speech-lines fleck. The caster is within radius of their own position, so they
+// rally too (but answer nothing — they are the one being answered, and carry the cry's own speech bubble
+// instead). A factionless caster rallies no one.
 //
 // Also emits the cry's speech bubble. That has to live here rather than on the def: the only XML route
 // to a mote at cast time is CompProperties_AbilityMoteOnTarget, which reaches Mote_Speech via
@@ -53,20 +54,26 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
     private static readonly Texture2D SpeechSymbol =
         ContentFinder<Texture2D>.Get("Things/Mote/SpeechSymbols/Speech");
 
-    // The answering bark each rallied ally gives back. Must NOT be the caster's `Speech` symbol above, or
-    // the cry and its answer are indistinguishable.
-    //
-    // Royalty's WordOfInspiration is the semantically exact icon (it is the inspiration symbol) but is
-    // referenced only by Royalty defs, and DLC asset bundles could not be inspected to confirm which one
-    // owns the texture — so it is requested with reportFailure:false, which returns null silently on a
-    // miss instead of logging, and falls back to Core's SparkJailbreak. That fallback is a deliberate
-    // pick among the Core-owned symbols: it is the "rouse others to act" icon, which is the right
-    // meaning, and it is rare enough in play that players carry no competing association with it (unlike
-    // Insult, which has the right shouting energy but the wrong meaning, or Chitchat, which reads too
-    // casual for a war cry). Swap either path freely — this is the whole of the art decision.
-    private static readonly Texture2D AcknowledgeSymbol =
-        ContentFinder<Texture2D>.Get("Things/Mote/SpeechSymbols/WordOfInspiration", reportFailure: false)
-        ?? ContentFinder<Texture2D>.Get("Things/Mote/SpeechSymbols/SparkJailbreak");
+    // Vanilla's own offsets for the answering speech-lines fleck, lifted from Core's `Speech`
+    // RitualVisualEffectDef: beside the head when the pawn is side-on, above it when facing away, and
+    // centred when facing the camera — that def sets east/west/north and leaves southRotationOffset at
+    // zero, which is the fallthrough here.
+    private static Vector3 SpeechLinesOffset(Rot4 rotation)
+    {
+        if (rotation == Rot4.East)
+        {
+            return new Vector3(0.5f, 0f, 0.2f);
+        }
+        if (rotation == Rot4.West)
+        {
+            return new Vector3(-0.5f, 0f, 0.2f);
+        }
+        if (rotation == Rot4.North)
+        {
+            return new Vector3(0f, 0f, 0.5f);
+        }
+        return Vector3.zero;
+    }
 
     private new CompProperties_AbilityRallyAllies Props => (CompProperties_AbilityRallyAllies)props;
 
@@ -117,14 +124,30 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
             }
             ally.health?.AddHediff(Props.hediffDef);
 
-            // Each ally barks an acknowledgement back. Skipped for the caster, who is in this list (they
-            // are within radius of their own position and rally themselves) and already carries the cry's
-            // own bubble — without this they would show both at once, stacked on one pawn.
-            // All the answers land on the same tick rather than rippling outward: MoteMaker has no delay
-            // hook, and a simultaneous response reads as the squad answering as one, which is the point.
+            // Each ally answers with Core's ritual speech-lines fleck. Deliberately NOT a speech bubble:
+            // the caster's full bubble should stay the loud thing on screen, and this ability can reach
+            // 20+ pawns at its widest radius, where that many bubbles would be a wall. SpeechLines is
+            // drawSize 0.7 and lives 0.25s (fadeIn 0.03 + solid 0.2 + fadeOut 0.02), so a crowd answering
+            // reads as a brief collective murmur. It is also what vanilla itself uses to show a pawn
+            // speaking outside a bubble — Core's `Speech` RitualVisualEffectDef spawns this over a ritual
+            // organizer on an interval.
+            //
+            // Skipped for the caster, who is in this list (they are within radius of their own position
+            // and rally themselves) and already carries the cry's bubble — otherwise one pawn shows both.
+            //
+            // All answers land on the same tick rather than rippling outward from the caster: there is no
+            // delay hook here, and answering as one is the read we want. The fleck's 0.25s life also makes
+            // its fixed spawn position a non-issue, even though a fleck does not follow a moving pawn
+            // (FleckMaker.AttachedOverlay only snapshots DrawPos; only Motes track their parent).
             if (ally != caster)
             {
-                MoteMaker.MakeSpeechBubble(ally, AcknowledgeSymbol);
+                FleckCreationData lines = FleckMaker.GetDataAttachedOverlay(
+                    ally, UMW_DefOf.SpeechLines, SpeechLinesOffset(ally.Rotation));
+                // Mirrors the ritual comp, which passes pawn.Rotation.AsAngle. If the lines read oddly on
+                // pawns facing away mid-combat, dropping this line is the first thing to try: vanilla only
+                // ever spawns this fleck on a seated organizer, so the angle is untested in the open.
+                lines.rotation = ally.Rotation.AsAngle;
+                map.flecks.CreateFleck(lines);
             }
         }
     }

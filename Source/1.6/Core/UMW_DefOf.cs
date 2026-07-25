@@ -30,6 +30,12 @@ public static class UMW_DefOf
     public static AbilityDef UMW_RallyingCry;
     public static HediffDef UMW_Rallied;
 
+    // Core's ritual speech-lines fleck, spawned over each ally a rallying cry reaches
+    // (CompAbilityEffect_RallyAllies). Vanilla's own, referenced by identity rather than copied — unlike
+    // the shout SoundDefs, a FleckDef needs no cloning to be usable. Core-owned, so no MayRequire; it is
+    // absent from vanilla's FleckDefOf, which is why the handle lives here.
+    public static FleckDef SpeechLines;
+
     static UMW_DefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(UMW_DefOf));

@@ -6,6 +6,7 @@
 
   <!-- Settings: section headers -->
   <UMW_SettingsGeneration>Generation</UMW_SettingsGeneration>
+  <UMW_SettingsAbilities>Abilities</UMW_SettingsAbilities>
   <UMW_SettingsQuests>Quests</UMW_SettingsQuests>
 
   <!-- Settings: reusable label suffixes (each includes a leading space) -->
@@ -17,6 +18,12 @@
   <!-- Settings: Generation -->
   <UMW_ExcludeWoodStuff>Exclude wood from generated unique weapons</UMW_ExcludeWoodStuff>
   <UMW_ExcludeWoodStuffDesc>Unique weapons only enter the game through generated rewards (quests, ancient crates, item stashes), rolled from a random eligible material. With this on, wooden materials are dropped from that roll, so a hard-won reward never lands as a wooden longsword. Turn off to allow wooden uniques.</UMW_ExcludeWoodStuffDesc>
+
+  <!-- Settings: Abilities -->
+  <UMW_EarthshakeCooldown>Earthshake cooldown: {0} hours</UMW_EarthshakeCooldown>
+  <UMW_EarthshakeCooldownDesc>How long a piledriver weapon must rest between earthshakes. The default matches the cooldown on Odyssey's own weapon-trait abilities. Set to 0 for no cooldown at all.</UMW_EarthshakeCooldownDesc>
+  <UMW_EarthshakeRadius>Earthshake radius: {0} cells</UMW_EarthshakeRadius>
+  <UMW_EarthshakeRadiusDesc>How far the stunning shockwave reaches. It travels through the ground, so walls do not stop it, but it cannot cross a gap with no floor. The overhead ripple scales to match. Remember the shock is indiscriminate: a wider radius catches more of your own colonists too.</UMW_EarthshakeRadiusDesc>
 
   <!-- Settings: Quests -->
   <UMW_WarbandQuestWeight>Warband quest commonality: {0}</UMW_WarbandQuestWeight>

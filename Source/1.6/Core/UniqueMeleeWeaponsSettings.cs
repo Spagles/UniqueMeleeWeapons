@@ -1,3 +1,4 @@
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -34,6 +35,16 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     public const float WarbandQuestWeightDefault = 0.6f;
     public float warbandQuestWeight = WarbandQuestWeightDefault;
 
+    // Earthshake (Piledriver's ability). Both are def-field overrides applied by
+    // ApplyAbilityTuning, so the XML holds only the shipped default and these are
+    // the real ones. Stored in the units the slider shows rather than in ticks, so
+    // the label needs no conversion and the snap grid is exact.
+    public const float EarthshakeCooldownHoursDefault = 12f;
+    public float earthshakeCooldownHours = EarthshakeCooldownHoursDefault;
+
+    public const float EarthshakeRadiusDefault = 3.9f;
+    public float earthshakeRadius = EarthshakeRadiusDefault;
+
     // --- Transient UI state (not persisted) -------------------------------
     // Scroll offset and last-measured content height for the settings list.
     // These are presentation state, so they are deliberately NOT scribed.
@@ -45,6 +56,8 @@ public class UniqueMeleeWeaponsSettings : ModSettings
         base.ExposeData();
         Scribe_Values.Look(ref excludeWoodStuff, "excludeWoodStuff", true);
         Scribe_Values.Look(ref warbandQuestWeight, "warbandQuestWeight", WarbandQuestWeightDefault);
+        Scribe_Values.Look(ref earthshakeCooldownHours, "earthshakeCooldownHours", EarthshakeCooldownHoursDefault);
+        Scribe_Values.Look(ref earthshakeRadius, "earthshakeRadius", EarthshakeRadiusDefault);
     }
 
     // Restores every setting to its shipped default. Called by the
@@ -54,6 +67,8 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     {
         excludeWoodStuff = true;
         warbandQuestWeight = WarbandQuestWeightDefault;
+        earthshakeCooldownHours = EarthshakeCooldownHoursDefault;
+        earthshakeRadius = EarthshakeRadiusDefault;
     }
 
     // Writes the configured weight onto the live quest def. rootSelectionWeight is
@@ -65,6 +80,64 @@ public class UniqueMeleeWeaponsSettings : ModSettings
         if (UMW_QuestDefOf.UMW_OpportunitySite_Warband != null)
         {
             UMW_QuestDefOf.UMW_OpportunitySite_Warband.rootSelectionWeight = warbandQuestWeight;
+        }
+    }
+
+    // Writes the configured ability tuning onto the live defs. Called after defs load
+    // (UMW_Startup) and whenever the settings window closes
+    // (UniqueMeleeWeaponsMod.WriteSettings), same as ApplyWarbandQuestWeight.
+    //
+    // Every field written here is read fresh at use, so no restart is needed:
+    // AbilityDef.cooldownTicksRange is sampled per cast (Ability.StartCooldown takes
+    // .RandomInRange), and Verb.EffectiveRange resolves verbProps.AdjustedRange live
+    // rather than caching (both decompile-verified 2026-07-25, RimWorld 1.6).
+    public void ApplyAbilityTuning()
+    {
+        SetCooldown(UMW_DefOf.UMW_Earthshake, earthshakeCooldownHours * GenDate.TicksPerHour);
+        SetRadius(UMW_DefOf.UMW_Earthshake, earthshakeRadius, EarthshakeRadiusDefault);
+    }
+
+    private static void SetCooldown(AbilityDef def, float ticks)
+    {
+        if (def == null)
+        {
+            return;
+        }
+        int rounded = Mathf.RoundToInt(ticks);
+        def.cooldownTicksRange = new IntRange(rounded, rounded);
+    }
+
+    // An ability's radius lives in two places that must agree, per CLAUDE.md: verbProperties.range
+    // drives the hover ring (VerbProperties.DrawRadiusRing reads verb.EffectiveRange and never a comp
+    // field), and the effect comp's own radius drives what actually happens. Writing only one of them
+    // would leave a preview that lies about the burst, so this owns both.
+    private static void SetRadius(AbilityDef def, float radius, float authoredRadius)
+    {
+        if (def == null)
+        {
+            return;
+        }
+        if (def.verbProperties != null)
+        {
+            def.verbProperties.range = radius;
+        }
+        for (int i = 0; i < def.comps.Count; i++)
+        {
+            switch (def.comps[i])
+            {
+                case CompProperties_AbilityGroundShockwave shockwave:
+                    shockwave.explosionRadius = radius;
+                    break;
+
+                // The overhead ripple is authored against the shipped radius, so a resized burst would
+                // otherwise keep a fixed-size shimmer. Scaling the fleck proportionally keeps it reading
+                // as the shock in the air above. Deliberately approximate: FleckDef.growthRate adds an
+                // unscaled component to the fleck's size, so at large radii the ripple lands slightly
+                // inside the stun edge rather than slightly outside it. It tracks, which is the point.
+                case CompProperties_AbilityFleckOnTarget fleck:
+                    fleck.scale = radius / authoredRadius;
+                    break;
+            }
         }
     }
 
@@ -112,21 +185,34 @@ public class UniqueMeleeWeaponsSettings : ModSettings
 
         listing.Gap(18f);
 
+        // --- Abilities ----------------------------------------------------
+        Text.Font = GameFont.Medium;
+        listing.Label("UMW_SettingsAbilities".Translate());
+        Text.Font = GameFont.Small;
+        listing.Gap(6f);
+
+        earthshakeCooldownHours = SliderRow(
+            listing, "UMW_EarthshakeCooldown", "UMW_EarthshakeCooldownDesc",
+            earthshakeCooldownHours, EarthshakeCooldownHoursDefault,
+            min: 0f, max: 24f, step: 1f, format: "0");
+
+        earthshakeRadius = SliderRow(
+            listing, "UMW_EarthshakeRadius", "UMW_EarthshakeRadiusDesc",
+            earthshakeRadius, EarthshakeRadiusDefault,
+            min: 1.9f, max: 12.9f, step: 1f, format: "0.0");
+
+        listing.Gap(18f);
+
         // --- Quests -------------------------------------------------------
         Text.Font = GameFont.Medium;
         listing.Label("UMW_SettingsQuests".Translate());
         Text.Font = GameFont.Small;
         listing.Gap(6f);
 
-        // Inline "(default)" suffix when the slider sits at the shipped value.
-        // The value snaps to a 0.05 grid below, so the float compare is exact.
-        string weightLabel = "UMW_WarbandQuestWeight".Translate(warbandQuestWeight.ToString("0.00"));
-        if (warbandQuestWeight == WarbandQuestWeightDefault)
-        {
-            weightLabel += "UMW_DefaultSuffix".Translate();
-        }
-        listing.Label(weightLabel, tooltip: "UMW_WarbandQuestWeightDesc".Translate());
-        warbandQuestWeight = Mathf.Round(listing.Slider(warbandQuestWeight, 0f, 2f) * 20f) / 20f;
+        warbandQuestWeight = SliderRow(
+            listing, "UMW_WarbandQuestWeight", "UMW_WarbandQuestWeightDesc",
+            warbandQuestWeight, WarbandQuestWeightDefault,
+            min: 0f, max: 2f, step: 0.05f, format: "0.00");
 
         // Measure the content height for next frame's scroll calculation,
         // restore the font, then close the listing and the scroll view.
@@ -139,5 +225,25 @@ public class UniqueMeleeWeaponsSettings : ModSettings
         {
             ResetToDefaults();
         }
+    }
+
+    // One labelled slider row in the house style: "Label: value", an inline "(default)" suffix while it
+    // sits at the shipped value, the description as a hover tooltip, and the returned value snapped to
+    // `step` measured from `min` (so a 1.9-to-12.9 radius lands on 1.9, 2.9, ... and never between).
+    //
+    // The default check is Mathf.Approximately rather than ==, because snapping off a non-zero `min`
+    // does not reproduce the default's exact float: Round((3.9f - 1.9f)/1f) * 1f + 1.9f is
+    // 3.8999999761, while the 3.9f literal is 3.9000000954. An exact compare would silently never show
+    // the suffix on those rows. The residue is far below anything the game can act on.
+    private static float SliderRow(Listing_Standard listing, string labelKey, string descKey,
+        float value, float defaultValue, float min, float max, float step, string format)
+    {
+        string label = labelKey.Translate(value.ToString(format));
+        if (Mathf.Approximately(value, defaultValue))
+        {
+            label += "UMW_DefaultSuffix".Translate();
+        }
+        listing.Label(label, tooltip: descKey.Translate());
+        return Mathf.Round((listing.Slider(value, min, max) - min) / step) * step + min;
     }
 }

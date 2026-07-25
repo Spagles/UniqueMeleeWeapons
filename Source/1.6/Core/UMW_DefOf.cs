@@ -20,6 +20,11 @@ public static class UMW_DefOf
     // naming request by NameGenerator_StuffAdjective_Patch, never referenced from XML.
     public static RulePackDef UMW_NamerStuffAdjectives;
 
+    // Piledriver's active ability. Looked up by UniqueMeleeWeaponsSettings.ApplyAbilityTuning, which
+    // writes the configured cooldown and radius onto the live def; the XML holds only the shipped
+    // default. Nothing else in C# references it.
+    public static AbilityDef UMW_Earthshake;
+
     static UMW_DefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(UMW_DefOf));

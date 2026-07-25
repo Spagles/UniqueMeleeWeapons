@@ -12,5 +12,6 @@ public static class UMW_Startup
     static UMW_Startup()
     {
         UniqueMeleeWeaponsMod.Settings.ApplyWarbandQuestWeight();
+        UniqueMeleeWeaponsMod.Settings.ApplyAbilityTuning();
     }
 }

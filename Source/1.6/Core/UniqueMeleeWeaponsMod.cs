@@ -30,6 +30,7 @@ public class UniqueMeleeWeaponsMod : Mod
     {
         base.WriteSettings();
         Settings.ApplyWarbandQuestWeight();
+        Settings.ApplyAbilityTuning();
     }
 
     public override string SettingsCategory() => "UMW_SettingsCategory".Translate();

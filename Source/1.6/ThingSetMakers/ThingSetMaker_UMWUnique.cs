@@ -29,17 +29,10 @@ namespace UniqueMeleeWeapons;
 // the stock class itself (fragile — its candidate filter is an inlined lambda); revisit only if it occurs.
 public class ThingSetMaker_UMWUnique : ThingSetMaker_MarketValue
 {
-    // Our marker tag. Must match the thingSetMakerTag on every *_Unique weapon and the allow-filter in
-    // our own pool def (UMW_Reward_UniqueWeapon). Changing it means changing all three in lockstep.
-    public const string OurTag = "UMW_UniqueMelee";
-
+    // "Ours" is the UMW_UniqueMelee marker tag; UniqueWeaponDefs owns that constant and the test.
     protected override IEnumerable<ThingDef> AllowedThingDefs(ThingSetMakerParams parms)
     {
-        return DefDatabase<ThingDef>.AllDefs.Where(d => d.HasComp<CompUniqueWeapon>() && !IsOurs(d));
-    }
-
-    private static bool IsOurs(ThingDef def)
-    {
-        return def.thingSetMakerTags?.Contains(OurTag) == true;
+        return DefDatabase<ThingDef>.AllDefs
+            .Where(d => d.HasComp<CompUniqueWeapon>() && !UniqueWeaponDefs.IsOurs(d));
     }
 }

@@ -33,7 +33,12 @@ public class QuestNode_Root_Warband : QuestNode
     {
         // Requires Odyssey: the unique-weapon value pool and the AbandonedColonyTribal mutator are both
         // Odyssey content. Mirrors AncientMercenaries' own Odyssey gate.
-        return ModsConfig.OdysseyActive;
+        //
+        // Also requires at least one of our weapons to still be enabled in the settings: the entire
+        // reward is one rolled unique, so with all of them switched off the quest would offer a leader
+        // holding nothing. Stopping it from being offered is the honest outcome, and it comes back the
+        // moment a weapon is re-enabled.
+        return ModsConfig.OdysseyActive && UniqueMeleeWeaponsMod.Settings.AnyWeaponEnabled;
     }
 
     protected override void RunInt()

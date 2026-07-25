@@ -34,6 +34,7 @@ public class UniqueMeleeWeaponsMod : Mod
     public override void WriteSettings()
     {
         base.WriteSettings();
+        Settings.ApplyWeaponAvailability();
         Settings.ApplyWarbandQuestWeight();
         Settings.ApplyAbilityTuning();
     }

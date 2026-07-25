@@ -5,13 +5,21 @@
   <UMW_SettingsCategory>Unique Melee Weapons</UMW_SettingsCategory>
 
   <!-- Settings: section headers -->
+  <UMW_SettingsWeapons>Weapons</UMW_SettingsWeapons>
   <UMW_SettingsGeneration>Generation</UMW_SettingsGeneration>
   <UMW_SettingsAbilities>Abilities</UMW_SettingsAbilities>
   <!-- TODO: Vanilla should have a key we can reuse for this since it has an ingame panel nav tab button along the bottom bar menu -->
   <UMW_SettingsQuests>Quests</UMW_SettingsQuests>
 
-  <!-- Settings: reusable label suffixes (each includes a leading space) -->
+  <!-- Settings: reusable label suffixes. Each includes a leading space, and every applicable one is
+       appended (no precedence between them), so they must read cleanly back to back. -->
   <UMW_DefaultSuffix> (default)</UMW_DefaultSuffix>
+  <!-- {0} is another piece of content the current value matches, named from its own def label. -->
+  <UMW_SameAsSuffix> (same as {0})</UMW_SameAsSuffix>
+
+  <!-- Settings: Weapons. One checkbox per weapon, labelled from the weapon's own def label; the row list
+       is generated, so this is the only string it needs. {0} is that label. -->
+  <UMW_WeaponEnabledDesc>Allow {0} to be generated. Turn off to remove it from every generation and reward pool — quest rewards, ancient crates, item stashes, map loot — so it never appears again. Any that already exist in your save are untouched, and the other weapons take its place in the rolls. Turning it back on is enough to restore it.</UMW_WeaponEnabledDesc>
 
   <!-- Settings: buttons -->
   <UMW_ResetToDefaults>Reset to defaults</UMW_ResetToDefaults>

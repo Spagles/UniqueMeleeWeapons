@@ -28,19 +28,13 @@ public static class GenStuff_ExcludeWoodStuff_Patch
 {
     public static IEnumerable<ThingDef> Postfix(IEnumerable<ThingDef> stuffs, BuildableDef td)
     {
-        if (UniqueMeleeWeaponsMod.Settings?.excludeWoodStuff != true || !IsOurUniqueWeapon(td))
+        if (UniqueMeleeWeaponsMod.Settings?.excludeWoodStuff != true || !UniqueWeaponDefs.IsOurs(td))
         {
             return stuffs;
         }
         List<ThingDef> all = stuffs.ToList();
         List<ThingDef> kept = all.FindAll(s => !IsWoody(s));
         return kept.Count > 0 ? kept : all;
-    }
-
-    private static bool IsOurUniqueWeapon(BuildableDef td)
-    {
-        return td is ThingDef def
-            && def.thingSetMakerTags?.Contains(ThingSetMaker_UMWUnique.OurTag) == true;
     }
 
     // Category-based (not defName == WoodLog) so modded woods are excluded too.

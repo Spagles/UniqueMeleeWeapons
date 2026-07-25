@@ -15,6 +15,9 @@ public static class UMW_Startup
 {
     static UMW_Startup()
     {
+        // Cache the set of weapons we own (per-weapon settings rows, pool filtering). Rebuilt rather than
+        // built lazily because this re-runs on a play-data reload, where the DefDatabase is replaced.
+        UniqueWeaponDefs.Rebuild();
         UniqueMeleeWeaponsMod.Settings.ApplyWarbandQuestWeight();
         UniqueMeleeWeaponsMod.Settings.ApplyAbilityTuning();
         TraitEffectSummary.AttachToTraits();

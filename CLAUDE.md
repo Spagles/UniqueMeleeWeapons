@@ -222,7 +222,15 @@ Source/1.6/
   Every `*_Unique` weapon carries a `UMW_UniqueMelee` tag; an XPath patch repoints the two
   class-based vanilla consumers onto `ThingSetMaker_UMWUnique`, and our own pool filters on the tag.
   Tag-based makers (crates, fishing, map-gen loot) pass a stuff already and keep our weapons.
-  Changing the tag means changing the weapon defs, our pool def and the subclass constant in lockstep.
+  The tag is also how C# asks "is this def one of ours?" (`UniqueWeaponDefs`, which owns the constant
+  and the test — don't re-derive it from a defName prefix); changing it means changing the weapon defs,
+  our pool def and that constant in lockstep.
+- **A def is kept out of the pools by filtering `ThingSetMakerUtility.CanGenerate`, never by removing
+  the def.** That is the one choke point every `ThingSetMaker` funnels through, so the per-weapon
+  settings toggles need a single postfix
+  (`Patches/ThingSetMakerUtility_CanGenerate_Patch.cs`) to cover our pool, the repointed vanilla
+  consumers and every tag-based maker at once — and estimates, "can this maker generate?" checks and
+  saves that already contain the weapon all stay consistent.
 - **Material must be surfaced explicitly**, because a unique name hides the stuff an ordinary label
   shows. `UniqueMeleeWeapon` adds an inspect-pane line and injects a `stuff_adjective` grammar
   symbol into name generation. That symbol is also a **dependency-free integration contract** with

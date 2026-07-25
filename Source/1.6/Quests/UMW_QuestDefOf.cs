@@ -29,6 +29,13 @@ public static class UMW_QuestDefOf
     // stores its footprint in the "SettlementRect" map var.
     public static TileMutatorDef AbandonedColonyTribal;
 
+    // Odyssey's ancient-mercenaries site part, referenced for its LABEL only: the warband-commonality
+    // setting annotates the 1.0 mark with it, that being AncientMercenaries' own rootSelectionWeight and
+    // so the reference point for our slider. Its label is the right source — the quest's displayed name is
+    // grammar-generated from questNameRules (random per offer), while this def-injected label is the
+    // stable, localizable name for the same content and what the world map shows.
+    [MayRequireOdyssey] public static SitePartDef BanditGang;
+
     static UMW_QuestDefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(UMW_QuestDefOf));

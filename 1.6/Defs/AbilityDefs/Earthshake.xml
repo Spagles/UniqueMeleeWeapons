@@ -38,6 +38,14 @@
        at the vanilla speed of 1 the outermost cell of this radius lands 5 ticks in, far too fast to see.
        propagationSpeed 0.3 stretches that to 18 ticks (0.30s) of visible outward roll, carrying Stun's own
        per-cell BlastDry fleck with it. 0.3 is vanilla's only shipped value for the field (Core's Vaporize).
+       soundExplode is set because otherwise Explosion.PlayExplosionSound falls back to
+       damType.soundExplosion, i.e. Explosion_Stun — an inherited default rather than a choice. Both it and
+       Explosion_Thump are the SAME recording (Weapon/Artillery/Mortar_Explode_Dry) at different pitches:
+       Stun sits at 1.65-1.95, a thin high crack that reads electrical, where Thump is the same dry blast
+       dropped about two octaves to 0.40-0.50, which is a heavy mass landing on dirt. Same volume (80), so
+       this is purely a tone change. Core-owned, so no MayRequire — note a soundExplode pointing at a DLC
+       SoundDef would fail cross-reference resolution for players without that DLC, which rules out
+       Biotech's otherwise apt Explosion_MechBandShockwave.
        The overhead ripple is FleckDefs/EarthshakeRipple.xml on the vanilla
        CompProperties_AbilityFleckOnTarget, which for a targetRequired=False ability spawns on the caster
        (Command_Ability.ProcessInput passes ability.pawn) via FleckMaker.AttachedOverlay — despite the name
@@ -74,6 +82,7 @@
         <damageDef>Stun</damageDef>
         <explosionRadius>3.9</explosionRadius> <!-- keep verbProperties.range above in step with this -->
         <damageAmount>4</damageAmount> <!-- ~120t / 2s stun via the amount*30 rule; verify in-game, §7 -->
+        <soundExplode>Explosion_Thump</soundExplode> <!-- Stun's own sound pitched down; see PRESENTATION above -->
         <propagationSpeed>0.3</propagationSpeed> <!-- 0.30s of visible outward roll; see PRESENTATION above -->
         <excludeCaster>true</excludeCaster> <!-- the wielder is braced for it; everyone else is not -->
         <ignoreLineOfSight>true</ignoreLineOfSight> <!-- through the ground: walls do not stop it -->

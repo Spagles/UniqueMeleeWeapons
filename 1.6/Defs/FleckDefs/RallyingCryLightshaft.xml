@@ -13,11 +13,16 @@
        Odyssey's insect lair. A 3s fade-in reads as atmosphere, not as a triggered moment.
 
        What changed from Core, and why:
-         • fadeIn 3 -> 0.35, fadeOut 3 -> 1.5, life 7s -> 3.0s. The beam has to land *with* the cry,
-           and its life is matched to the cast pose (0.5s warmup + 2s verbProperties.defaultCooldownTime
-           = 2.5s of raised weapon) so the light outlasts the pose by only a beat.
-         • scaleTime 7 -> 3 so the full width-pulse arc still plays exactly once over the new lifetime
-           (CurvedScaler.scaleTime is absolute seconds, and the curve is normalised over it).
+         • fadeIn 3 -> 0.35, fadeOut 3 -> 1.5, solidTime 1 -> 4.15, life 7s -> 6.0s. The beam has to land
+           *with* the cry, and its life is matched to the cast pose (0.5s warmup + 5s
+           verbProperties.defaultCooldownTime = 5.5s of raised weapon) so the light outlasts the pose by
+           only a beat. Settled by eye in play (2026-07-25).
+         • scaleTime 7 -> 3, i.e. HALF the lifetime, so the width pulse flares once as the beam lands and
+           the beam then holds its base width for the rest. That is not a repeat: CurvedScalerExt
+           .ScaleAtTime evaluates the curve at Mathf.Clamp01(ageSecs / scaleTime), so past scaleTime the
+           input pins at 1 where this curve's last point is 0 — the scaler simply stops contributing and
+           the x-axis scale sits back at 1. A pulse cannot loop (decompile-verified 2026-07-25). Raise
+           scaleTime to the full 6 if the flare should instead stretch across the whole beam's life.
          • unattachedDrawOffset (0,0,4) added. FleckStatic.Setup feeds def.unattachedDrawOffset into
            FleckDrawPosition, so this raises the shaft to put its lower end on the pawn instead of
            centring a 10-cell beam through them. 4 = 0.4 x drawSize, the same size-to-offset ratio
@@ -39,7 +44,7 @@
     <defName>UMW_RallyingCryLightshaft</defName>
     <altitudeLayer>MoteOverhead</altitudeLayer>
     <fadeInTime>0.35</fadeInTime>
-    <solidTime>1.15</solidTime>
+    <solidTime>4.15</solidTime>
     <fadeOutTime>1.5</fadeOutTime>
     <unattachedDrawOffset>(0, 0, 4)</unattachedDrawOffset>
     <graphicData>
@@ -57,7 +62,7 @@
     <scalers>
       <li>
         <scaleAmt>.2~1</scaleAmt>
-        <scaleTime>3</scaleTime> <!-- = the new lifetime, so the width pulse plays once (Core: 7) -->
+        <scaleTime>3</scaleTime> <!-- half the 6s life: flare once on landing, then hold base width -->
         <axisMask>(1, 0, 0)</axisMask>
         <curve>
           <points>

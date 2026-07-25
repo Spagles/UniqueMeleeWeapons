@@ -24,7 +24,7 @@
            AdjustedCooldownTicks(...)). So defaultCooldownTime lengthens the pose strictly AFTER the
            effect has landed, which is why the pose extension rides it rather than warmupTime (warmupTime
            gates Stance_Warmup.Expire -> WarmupComplete -> the cast, so raising it WOULD delay the rally).
-           Cost, accepted: Stance_Cooldown is StanceBusy, so the wielder is rooted for those 2s (a
+           Cost, accepted: Stance_Cooldown is StanceBusy, so the wielder is rooted for those 5s (a
            player order cancels it via CancelBusyStanceHard) and a small cooldown circle draws under
            them — the beat of holding the weapon up is the point.
          • The speech bubble is a Mote_Speech via MoteMaker.MakeSpeechBubble in
@@ -74,7 +74,7 @@
       <drawHighlightWithLineOfSight>true</drawHighlightWithLineOfSight>
       <drawAimPie>false</drawAimPie>
       <warmupTime>0.5</warmupTime> <!-- do NOT raise to lengthen the pose: warmupTime delays the effect -->
-      <defaultCooldownTime>2</defaultCooldownTime> <!-- 2s of raised weapon AFTER the rally lands; see header -->
+      <defaultCooldownTime>5</defaultCooldownTime> <!-- 5s of raised weapon AFTER the rally lands; see header -->
       <targetParams>
         <canTargetSelf>true</canTargetSelf>
       </targetParams>

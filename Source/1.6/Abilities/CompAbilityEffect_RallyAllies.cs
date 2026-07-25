@@ -36,6 +36,9 @@ public class CompProperties_AbilityRallyAllies : CompProperties_AbilityEffect
 // to a mote at cast time is CompProperties_AbilityMoteOnTarget, which reaches Mote_Speech via
 // MoteMaker.MakeAttachedOverlay and so never calls MoteBubble.SetupMoteBubble — you get the bubble
 // background with no symbol inside it. MakeSpeechBubble does both (decompile-verified 2026-07-25).
+// The audible half of the cry needs no code at all: it rides the inherited soundMale/soundFemale that
+// CompAbilityEffect.Apply plays gender-aware, wired on the def to our own one-shot copies of Core's
+// throne-speech recording. See Defs/SoundDefs/RallyingCryShout_Male.xml.
 // The def's remaining cast visuals (the sunbeam fleck, the raised-weapon pose) are pure XML; see
 // Defs/AbilityDefs/RallyingCry.xml.
 [StaticConstructorOnStartup]
@@ -61,8 +64,6 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
 
     public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
     {
-        base.Apply(target, dest);
-
         Pawn caster = parent.pawn;
         Map map = caster?.Map;
         if (map == null || caster.Faction == null || Props.hediffDef == null)
@@ -70,7 +71,12 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
             return;
         }
 
-        // After the guards: a cast that rallies no one shouldn't mime the cry either.
+        // After the guards: a cast that rallies no one shouldn't mime the cry either. base.Apply is called
+        // HERE rather than at the top of the method (where the stock comps put it) for the same reason —
+        // it is what plays the comp's soundMale/soundFemale, so the shout has to be gated exactly as the
+        // bubble is. Nothing else in CompAbilityEffect.Apply is affected by the move: this comp leaves
+        // screenShakeIntensity, goodwillImpact, clamorType and message unset.
+        base.Apply(target, dest);
         MoteMaker.MakeSpeechBubble(caster, SpeechSymbol);
 
         List<Pawn> allies = map.mapPawns.SpawnedPawnsInFaction(caster.Faction);

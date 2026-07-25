@@ -31,6 +31,11 @@
            CompAbilityEffect_RallyAllies (Abilities/), not a def field: no XML hook reaches
            MoteBubble.SetupMoteBubble's symbol argument, so the symbol-less
            CompProperties_AbilityMoteOnTarget would give a blank bubble. See that file.
+         • The shout is the inherited soundMale/soundFemale pair on the rally comp below, carrying our own
+           one-shot copies of Core's throne-speech recording (SoundDefs/RallyingCryShout_*.xml — Core's
+           own defs are sustainers and cannot be played as one-shots). It is the same vanilla source the
+           bubble's symbol comes from, so audio and visual agree. Both land at the cast, gated with the
+           bubble: see the comp for why base.Apply runs after the guards rather than before.
          • The sunbeam is the vanilla CompProperties_AbilityFleckOnTarget (preCastTicks 0 => fires from
            Apply, i.e. at the cast) carrying our UMW_RallyingCryLightshaft (FleckDefs/). It spawns on the
            caster because Command_Ability.ProcessInput passes `ability.pawn` as the target for a
@@ -66,6 +71,12 @@
       <li Class="UniqueMeleeWeapons.CompProperties_AbilityRallyAllies">
         <radius>9.9</radius> <!-- keep verbProperties.range above in step with this -->
         <hediffDef>UMW_Rallied</hediffDef>
+        <!-- The shout itself. soundMale/soundFemale are inherited CompProperties_AbilityEffect fields,
+             played gender-aware by CompAbilityEffect.Apply, which our comp calls — so this needs no code.
+             A caster of Gender.None would fall through to Props.sound, which is deliberately unset: silent
+             is the right no-op, and Talking-gated humanlikes are always male or female in practice. -->
+        <soundMale>UMW_RallyingCryShout_Male</soundMale>
+        <soundFemale>UMW_RallyingCryShout_Female</soundFemale>
       </li>
       <li Class="CompProperties_AbilityFleckOnTarget">
         <fleckDef>UMW_RallyingCryLightshaft</fleckDef>

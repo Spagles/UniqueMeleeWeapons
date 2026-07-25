@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- The female half of UMW_RallyingCry's shout, played through the vanilla
+       CompProperties_AbilityEffect.soundFemale hook (AbilityDefs/RallyingCry.xml). Identical in shape to
+       RallyingCryShout_Male.xml, pointing at Core's matching `Misc/ThroneSpeech_Female` grain folder —
+       see that file for the full rationale: why Core's `Speech_Throne_Female` is copied rather than
+       referenced (it is a sustainer, and PlayOneShot errors on those), why this needs no MayRequire
+       despite the `Speech_Royal_*` clip names, and where the volume lift comes from.
+
+       Only difference worth noting: this set's clips run longer, 1.50-4.92s across 21 clips against the
+       male set's 0.72-2.09s across 22. Kept as-is rather than trimmed to match, so both genders draw on
+       Core's full recording; the raised-weapon pose covers even the longest. -->
+  <SoundDef>
+    <defName>UMW_RallyingCryShout_Female</defName>
+    <context>MapOnly</context>
+    <maxSimultaneous>1</maxSimultaneous>
+    <subSounds>
+      <li>
+        <grains>
+          <li Class="AudioGrain_Folder">
+            <clipFolderPath>Misc/ThroneSpeech_Female</clipFolderPath>
+          </li>
+        </grains>
+        <volumeRange>20~24</volumeRange>
+        <distRange>20~40</distRange> <!-- Core's own falloff for this recording -->
+      </li>
+    </subSounds>
+  </SoundDef>
+
+</Defs>

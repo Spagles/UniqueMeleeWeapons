@@ -77,6 +77,7 @@ About/                          # Mod metadata
 │   └── FactionDefs/ SitePartDefs/ QuestScriptDefs/   # the warband quest
 ├── Patches/                    # XPath patches
 └── Languages/English/Keyed/    # UMW_UI.xml — settings strings
+                                # UMW_Stats.xml — info-card trait-effect lines
 Textures/Things/Item/Equipment/WeaponMelee/UniqueWeapons/<Weapon>/
 Source/1.6/
 ├── Core/                       # Mod subclass, ModSettings, DefOf, post-def-load startup
@@ -159,6 +160,26 @@ Source/1.6/
   mental state), `MeleeDamageConversionExtension` (reroute the *base* hit's `DamageDef`),
   `MeleeToolModExtension` (per-tool damage/AP), `ForcedColorTwoExtension` (forced body colour).
   Prefer extending one of these over a new mechanism.
+- **An effect outside `statOffsets`/`statFactors` is invisible until you describe it — as *data on
+  the def*, never as text in a renderer.** Vanilla only ever displays those two lists (plus
+  ranged-only fields), so every extension-borne effect, `equippedHediffs` and `abilityProps` would
+  otherwise show a description and a market value with no stated effect. The split is strict:
+  `Traits/TraitEffectSummary.cs` derives one short **unstyled** line per effect and attaches them at
+  startup as a `TraitEffectLinesExtension`; renderers add their own bullets and layout
+  (`Patches/CompUniqueWeapon_TraitStats_Patch.cs` for the info card). **A new on-hit effect subclass,
+  extension or trait mechanism must gain a case in `TraitEffectSummary`**, or it ships undocumented
+  in-game. Lines are *derived from the def, never authored prose*, so a retuned number can't drift
+  from its own summary — keep it that way. Strings live in `Keyed/UMW_Stats.xml`.
+  Two shapes were tried and rejected: patching only the info card fixes one screen and leaves every
+  other consumer to patch its own; appending the lines to `Def.description` reaches all of them but
+  hands each a pre-styled blob, which dumped them into the middle of Unbound's prose paragraph
+  instead of its bulleted effects list.
+- **`TraitEffectLinesExtension` is a published cross-mod contract**, like the `stuff_adjective`
+  symbol. Unique Weapons Unbound's trait-picker tooltip finds it by duck-typing — scanning
+  `modExtensions` for a type whose **simple name** is `TraitEffectLinesExtension` and reflecting its
+  public `List<string> lines` field — so neither assembly references the other. Renaming the type or
+  the field compiles clean here and silently empties that tooltip. Its reader is covered by
+  `TraitEffectLinesIntegrationTests` in that repo, which can't see a rename on this side.
 - **On-hit `DamageDef` payloads work for free.** `DamageDef.additionalHediffs` and the damage
   workers (`Flame`'s ignition, `EMP`'s stun) are applied source-agnostically by every
   `Thing.TakeDamage`, so an extra-damage effect carrying the right `DamageDef` needs no new C#.

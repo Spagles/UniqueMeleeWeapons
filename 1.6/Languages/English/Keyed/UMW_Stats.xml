@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Info card: the per-trait effect lines added to vanilla's "Weapon traits" entry by
+       Source/1.6/Traits/TraitEffectSummary.cs. Each renders as one " - ..." line under its trait,
+       matching the format vanilla uses for a trait's own statOffsets/statFactors. Keep them short —
+       the entry lists up to three traits at once. -->
+
+  <!-- Per-tool damage / armor penetration. {0} is a tool capacity ("cut", "cut and stab") or the
+       UMW_TraitStat_AllTools word when the trait modifies every tool. -->
+  <UMW_TraitStat_AllTools>melee</UMW_TraitStat_AllTools>
+  <UMW_TraitStat_ToolDamage>{0} damage</UMW_TraitStat_ToolDamage>
+  <UMW_TraitStat_ToolArmorPenetration>{0} armor penetration</UMW_TraitStat_ToolArmorPenetration>
+  <UMW_TraitStat_Minimum>min. {0}</UMW_TraitStat_Minimum>
+
+  <!-- Rerouted base hit. {0} is the injury hediff's label; the bleed clause is appended in
+       parentheses when the new wound bleeds at a different rate than the one it replaces. -->
+  <UMW_TraitStat_WoundType>Wound type: {0}</UMW_TraitStat_WoundType>
+  <UMW_TraitStat_BleedRate>bleed rate {0}</UMW_TraitStat_BleedRate>
+
+  <!-- On-hit effects. {0} (or {1}) is one of the effect clauses below; the chance form is used
+       whenever the effect can fail to proc. -->
+  <UMW_TraitStat_OnHit>On hit: {0}</UMW_TraitStat_OnHit>
+  <UMW_TraitStat_OnHitChance>On hit ({0}): {1}</UMW_TraitStat_OnHitChance>
+  <UMW_TraitStat_ExtraDamage>{0} {1} damage</UMW_TraitStat_ExtraDamage>
+  <UMW_TraitStat_ExtraDamageAP>{0} {1} damage, {2} armor penetration</UMW_TraitStat_ExtraDamageAP>
+  <UMW_TraitStat_Stun>stun for {0}</UMW_TraitStat_Stun>
+  <UMW_TraitStat_Stagger>stagger for {0} ({1} move speed)</UMW_TraitStat_Stagger>
+  <UMW_TraitStat_FleshOnly>{0} (flesh only)</UMW_TraitStat_FleshOnly>
+  <UMW_TraitStat_HumanlikeOnly>{0} (humanlikes only)</UMW_TraitStat_HumanlikeOnly>
+
+  <!-- Wielder-side effect carried by an equipped hediff. {0} is a stat line ("Melee dodge chance
+       +5%") or, for a hediff with no stat modifiers, the hediff's own label. -->
+  <UMW_TraitStat_Wielder>{0} (wielder)</UMW_TraitStat_Wielder>
+
+  <!-- Ability granted by the trait. {0} is the AbilityDef's label. -->
+  <UMW_TraitStat_GrantsAbility>Grants ability: {0}</UMW_TraitStat_GrantsAbility>
+
+</LanguageData>

@@ -11,8 +11,13 @@ public class UniqueMeleeWeaponsMod : Mod
 {
     public static UniqueMeleeWeaponsSettings Settings { get; private set; }
 
+    // This mod's own content pack, so code can ask whether a def is ours without a defName
+    // convention. Used by TraitEffectSummary to scope its description publishing to our traits.
+    public static ModContentPack ContentPack { get; private set; }
+
     public UniqueMeleeWeaponsMod(ModContentPack content) : base(content)
     {
+        ContentPack = content;
         Settings = GetSettings<UniqueMeleeWeaponsSettings>();
         var harmony = new Harmony("shunter.uniquemeleeweapons");
         harmony.PatchAll();

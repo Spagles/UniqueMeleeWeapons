@@ -25,6 +25,11 @@ public static class UMW_DefOf
     // default. Nothing else in C# references it.
     public static AbilityDef UMW_Earthshake;
 
+    // Storied's active ability and the timed buff it grants. Same reason as UMW_Earthshake:
+    // ApplyAbilityTuning writes the configured cooldown, radius and buff duration onto the live defs.
+    public static AbilityDef UMW_RallyingCry;
+    public static HediffDef UMW_Rallied;
+
     static UMW_DefOf()
     {
         DefOfHelper.EnsureInitializedInCtor(typeof(UMW_DefOf));

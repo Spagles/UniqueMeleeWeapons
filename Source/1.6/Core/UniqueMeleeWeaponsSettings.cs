@@ -45,6 +45,18 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     public const float EarthshakeRadiusDefault = 3.9f;
     public float earthshakeRadius = EarthshakeRadiusDefault;
 
+    // Rallying Cry (Storied's ability) and the UMW_Rallied buff it grants. Same
+    // def-field-override pattern; the cooldown is in days because it is an heirloom
+    // moment measured against Earthshake's hours.
+    public const float RallyingCryCooldownDaysDefault = 3f;
+    public float rallyingCryCooldownDays = RallyingCryCooldownDaysDefault;
+
+    public const float RallyingCryRadiusDefault = 9.9f;
+    public float rallyingCryRadius = RallyingCryRadiusDefault;
+
+    public const float RalliedDurationHoursDefault = 2f;
+    public float ralliedDurationHours = RalliedDurationHoursDefault;
+
     // --- Transient UI state (not persisted) -------------------------------
     // Scroll offset and last-measured content height for the settings list.
     // These are presentation state, so they are deliberately NOT scribed.
@@ -58,6 +70,9 @@ public class UniqueMeleeWeaponsSettings : ModSettings
         Scribe_Values.Look(ref warbandQuestWeight, "warbandQuestWeight", WarbandQuestWeightDefault);
         Scribe_Values.Look(ref earthshakeCooldownHours, "earthshakeCooldownHours", EarthshakeCooldownHoursDefault);
         Scribe_Values.Look(ref earthshakeRadius, "earthshakeRadius", EarthshakeRadiusDefault);
+        Scribe_Values.Look(ref rallyingCryCooldownDays, "rallyingCryCooldownDays", RallyingCryCooldownDaysDefault);
+        Scribe_Values.Look(ref rallyingCryRadius, "rallyingCryRadius", RallyingCryRadiusDefault);
+        Scribe_Values.Look(ref ralliedDurationHours, "ralliedDurationHours", RalliedDurationHoursDefault);
     }
 
     // Restores every setting to its shipped default. Called by the
@@ -69,6 +84,9 @@ public class UniqueMeleeWeaponsSettings : ModSettings
         warbandQuestWeight = WarbandQuestWeightDefault;
         earthshakeCooldownHours = EarthshakeCooldownHoursDefault;
         earthshakeRadius = EarthshakeRadiusDefault;
+        rallyingCryCooldownDays = RallyingCryCooldownDaysDefault;
+        rallyingCryRadius = RallyingCryRadiusDefault;
+        ralliedDurationHours = RalliedDurationHoursDefault;
     }
 
     // Writes the configured weight onto the live quest def. rootSelectionWeight is
@@ -94,7 +112,12 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     public void ApplyAbilityTuning()
     {
         SetCooldown(UMW_DefOf.UMW_Earthshake, earthshakeCooldownHours * GenDate.TicksPerHour);
-        SetRadius(UMW_DefOf.UMW_Earthshake, earthshakeRadius, EarthshakeRadiusDefault);
+        SetRadius(UMW_DefOf.UMW_Earthshake, earthshakeRadius);
+        ScaleAreaFleck(UMW_DefOf.UMW_Earthshake, earthshakeRadius / EarthshakeRadiusDefault);
+
+        SetCooldown(UMW_DefOf.UMW_RallyingCry, rallyingCryCooldownDays * GenDate.TicksPerDay);
+        SetRadius(UMW_DefOf.UMW_RallyingCry, rallyingCryRadius);
+        SetHediffDuration(UMW_DefOf.UMW_Rallied, ralliedDurationHours * GenDate.TicksPerHour);
     }
 
     private static void SetCooldown(AbilityDef def, float ticks)
@@ -111,7 +134,7 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     // drives the hover ring (VerbProperties.DrawRadiusRing reads verb.EffectiveRange and never a comp
     // field), and the effect comp's own radius drives what actually happens. Writing only one of them
     // would leave a preview that lies about the burst, so this owns both.
-    private static void SetRadius(AbilityDef def, float radius, float authoredRadius)
+    private static void SetRadius(AbilityDef def, float radius)
     {
         if (def == null)
         {
@@ -129,14 +152,52 @@ public class UniqueMeleeWeaponsSettings : ModSettings
                     shockwave.explosionRadius = radius;
                     break;
 
-                // The overhead ripple is authored against the shipped radius, so a resized burst would
-                // otherwise keep a fixed-size shimmer. Scaling the fleck proportionally keeps it reading
-                // as the shock in the air above. Deliberately approximate: FleckDef.growthRate adds an
-                // unscaled component to the fleck's size, so at large radii the ripple lands slightly
-                // inside the stun edge rather than slightly outside it. It tracks, which is the point.
-                case CompProperties_AbilityFleckOnTarget fleck:
-                    fleck.scale = radius / authoredRadius;
+                case CompProperties_AbilityRallyAllies rally:
+                    rally.radius = radius;
                     break;
+            }
+        }
+    }
+
+    // Resize an ability's fleck along with its radius, for a fleck that depicts the AREA of the effect:
+    // otherwise a resized burst keeps a fixed-size shimmer sitting over it. Opt-in per ability rather
+    // than folded into SetRadius, because a fleck is not necessarily an area indicator — Rallying Cry's
+    // lightshaft is a beam over the wielder, and scaling THAT to a 12.9-cell rally would put a column of
+    // light over one pawn. Only Earthshake's overhead ripple qualifies.
+    //
+    // Deliberately approximate: FleckDef.growthRate adds a component that this factor does not scale
+    // (FleckStatic grows linearScale additively), so at large radii the ripple lands a little inside the
+    // effect edge rather than a little outside it. It tracks, which is the point.
+    private static void ScaleAreaFleck(AbilityDef def, float factor)
+    {
+        if (def == null)
+        {
+            return;
+        }
+        for (int i = 0; i < def.comps.Count; i++)
+        {
+            if (def.comps[i] is CompProperties_AbilityFleckOnTarget fleck)
+            {
+                fleck.scale = factor;
+            }
+        }
+    }
+
+    // Hediff duration is an IntRange on the disappear comp's props, read at HediffComp_Disappears
+    // .CompPostMake via .RandomInRange — so a props write governs every hediff added from then on, with
+    // no restart and without touching instances already running on a pawn.
+    private static void SetHediffDuration(HediffDef def, float ticks)
+    {
+        if (def?.comps == null)
+        {
+            return;
+        }
+        int rounded = Mathf.RoundToInt(ticks);
+        for (int i = 0; i < def.comps.Count; i++)
+        {
+            if (def.comps[i] is HediffCompProperties_Disappears disappears)
+            {
+                disappears.disappearsAfterTicks = new IntRange(rounded, rounded);
             }
         }
     }
@@ -200,6 +261,23 @@ public class UniqueMeleeWeaponsSettings : ModSettings
             listing, "UMW_EarthshakeRadius", "UMW_EarthshakeRadiusDesc",
             earthshakeRadius, EarthshakeRadiusDefault,
             min: 1.9f, max: 12.9f, step: 1f, format: "0.0");
+
+        listing.Gap(6f);
+
+        rallyingCryCooldownDays = SliderRow(
+            listing, "UMW_RallyingCryCooldown", "UMW_RallyingCryCooldownDesc",
+            rallyingCryCooldownDays, RallyingCryCooldownDaysDefault,
+            min: 1f, max: 15f, step: 0.5f, format: "0.#");
+
+        rallyingCryRadius = SliderRow(
+            listing, "UMW_RallyingCryRadius", "UMW_RallyingCryRadiusDesc",
+            rallyingCryRadius, RallyingCryRadiusDefault,
+            min: 1.9f, max: 12.9f, step: 1f, format: "0.0");
+
+        ralliedDurationHours = SliderRow(
+            listing, "UMW_RalliedDuration", "UMW_RalliedDurationDesc",
+            ralliedDurationHours, RalliedDurationHoursDefault,
+            min: 1f, max: 24f, step: 1f, format: "0");
 
         listing.Gap(18f);
 

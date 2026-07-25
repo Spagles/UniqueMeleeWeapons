@@ -7,6 +7,7 @@
   <!-- Settings: section headers -->
   <UMW_SettingsGeneration>Generation</UMW_SettingsGeneration>
   <UMW_SettingsAbilities>Abilities</UMW_SettingsAbilities>
+  <!-- TODO: Vanilla should have a key we can reuse for this since it has an ingame panel nav tab button along the bottom bar menu -->
   <UMW_SettingsQuests>Quests</UMW_SettingsQuests>
 
   <!-- Settings: reusable label suffixes (each includes a leading space) -->
@@ -16,11 +17,15 @@
   <UMW_ResetToDefaults>Reset to defaults</UMW_ResetToDefaults>
 
   <!-- Settings: Generation -->
+  <!-- TODO: Wood defname can be injected from the vanilla key -->
   <UMW_ExcludeWoodStuff>Exclude wood from generated unique weapons</UMW_ExcludeWoodStuff>
+  <!-- TODO: Longsword defname can be injected from vanilla key here -->
   <UMW_ExcludeWoodStuffDesc>Unique weapons only enter the game through generated rewards (quests, ancient crates, item stashes), rolled from a random eligible material. With this on, wooden materials are dropped from that roll, so a hard-won reward never lands as a wooden longsword. Turn off to allow wooden uniques.</UMW_ExcludeWoodStuffDesc>
 
   <!-- Settings: Abilities -->
+  <!-- TODO: Earthshake and Rallying Cry should be injected from their keyed defnames -->
   <UMW_EarthshakeCooldown>Earthshake cooldown: {0} hours</UMW_EarthshakeCooldown>
+  <!-- TODO: Verify this factual claim on Odyssey parity -->
   <UMW_EarthshakeCooldownDesc>How long a piledriver weapon must rest between earthshakes. The default matches the cooldown on Odyssey's own weapon-trait abilities. Set to 0 for no cooldown at all.</UMW_EarthshakeCooldownDesc>
   <UMW_EarthshakeRadius>Earthshake radius: {0} cells</UMW_EarthshakeRadius>
   <UMW_EarthshakeRadiusDesc>How far the stunning shockwave reaches. It travels through the ground, so walls do not stop it, but it cannot cross a gap with no floor. The overhead ripple scales to match. Remember the shock is indiscriminate: a wider radius catches more of your own colonists too.</UMW_EarthshakeRadiusDesc>
@@ -32,6 +37,7 @@
   <UMW_RalliedDurationDesc>How long the rallied buff lasts on each pawn the cry reaches, halving both their pain and the time a hit staggers them. Anyone who was asleep is woken instead of rallied, and resents it. Changing this affects cries made from now on; anyone already rallied keeps the duration they were given.</UMW_RalliedDurationDesc>
 
   <!-- Settings: Quests -->
+  <!-- TODO: Quest name should be injected -->
   <UMW_WarbandQuestWeight>Warband quest commonality: {0}</UMW_WarbandQuestWeight>
   <UMW_WarbandQuestWeightDesc>Selection weight of the warband quest against the other opportunity-site quests (ancient mercenaries, bandit camps, item stashes...) offered by traders, beggars and reading. Higher = offered more often. 0 disables the quest entirely.</UMW_WarbandQuestWeightDesc>
 

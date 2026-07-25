@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- UMW_Melee. Renamed from "Scorched" (user, 2026-07-24 — "sounds cooler"); the description
-       deliberately keeps the scorched/charred imagery the old name implied. Cosmetic negative
-       BodyColor: a weapon that has been through fire, wearing that damage as its finish rather than
-       hiding it — wording stays material-agnostic (chars wood, soots metal, smoke-stains stone) since
-       any stuff can roll it. This is Enameled's negative counterpart: same BodyColor+Appearance tag
-       pair and ForcedColorTwoExtension wiring, but devaluing rather than enhancing (cf. Ugly vs the
-       Gold/Jade inlays on the Color channel).
-       Forces the near-black UMW_Carbon tint onto COLOUR TWO (the green-masked body) via
-       ForcedColorTwoExtension, not vanilla's colour-one forcedColor — the char reads as the body
-       itself, and it REPLACES the material tint (a carbonized plasteel and a carbonized wooden weapon
-       look alike). So it tags "BodyColor" (its own one-per-weapon family, shared with
-       BloodStained/Monomolecular/PlasmaCored), NOT "Color": being on a different mask channel, it can
-       still co-occur with a colour-one Gold/Jade inlay or a Pointed coating. It also tags "Appearance"
-       (shared with Ornamental/Ugly/BloodStained) so a charred weapon never also rolls "ornamental" or
-       "ugly" — it has its own look. MarketValue ×0.8 anchors on Ugly's devaluation (a condition/finish
-       factor, not an added-capability offset — fire damage lowers value the same way ugliness does).
-       canGenerateAlone false: like the inlays, this is an add-on flourish, not a standalone identity
-       (UMW_Lightweight backstops generation regardless). -->
+  <!-- UMW_Melee. Renamed from "Scorched" (user, 2026-07-24 — "sounds cooler"); the description keeps
+       the charred imagery the old name implied, and stays material-agnostic (chars wood, soots metal)
+       since any stuff can roll it. Enameled is its aesthetic mirror (same BodyColor+Appearance tags and
+       ForcedColorTwoExtension wiring, devaluing where Enameled enhances) but not its mechanical one:
+       this is the only trait trading durability and value for combat performance — the real
+       case-hardening/fire-hardening trade, hard surface over a brittle body.
+       Why the brittleness is TWO stats: a weapon's HP is only spent by outdoor deterioration, fire and
+       explosions — never by swinging it, and an equipped weapon doesn't deteriorate at all — so the HP
+       cut alone would be free. The faster decay is what spends it, and MarketValue's StatPart_Health
+       compounds the loss into the devaluation. Also note UniqueMeleeWeapon.PostPostMake must re-clamp
+       HitPoints, since traits roll after PostMake has set HP from the unmodified max.
+       Forces near-black UMW_Carbon onto colour two (the green-masked body, replacing the stuff tint) —
+       so "BodyColor", not the colour-one "Color": a charred weapon can still take a Gold/Jade inlay.
+       "Appearance" keeps it from also rolling ornamental/ugly — it has its own look.
+       canGenerateAlone false: like the inlays, an add-on flourish, not a standalone identity. -->
   <WeaponTraitDef>
     <defName>UMW_Carbonized</defName>
     <label>carbonized</label>
-    <description>This weapon has been through fire — its surface charred and blackened, the damage worn as part of its finish rather than repaired away.</description>
+    <description>This weapon has been through fire — its surface charred black and hardened by the heat, the damage worn as part of its finish rather than repaired away. The hardened surface bites deeper than it should, but the scorched body is brittle and weathers badly.</description>
     <commonality>0.5</commonality>
     <canGenerateAlone>false</canGenerateAlone>
     <weaponCategory>UMW_Melee</weaponCategory>
@@ -32,9 +29,18 @@
     </exclusionTags>
     <statOffsets>
       <Beauty>-4</Beauty>
+      <MarketValue>20</MarketValue> <!-- prices the hardening; well under Studded's +60 -->
     </statOffsets>
     <statFactors>
-      <MarketValue>0.8</MarketValue> <!-- cf. Ugly's devaluation -->
+      <!-- Weapon-wide, NOT a per-tool damageFactor: this stat also drives armor pen (melee has no
+           separate AP stat), and a harder surface biting deeper is the intent. -->
+      <MeleeWeapon_DamageMultiplier>1.05</MeleeWeapon_DamageMultiplier>
+      <MaxHitPoints>0.8</MaxHitPoints>
+      <DeteriorationRate>1.5</DeteriorationRate>
+      <!-- Already-burnt resists further burning — real: Thing.FlammableNow and
+           DamageDef.igniteChanceByTargetFlammability both read this per-thing. -->
+      <Flammability>0.5</Flammability>
+      <MarketValue>0.8</MarketValue> <!-- cf. Ugly's devaluation; pairs with the offset above -->
     </statFactors>
     <traitAdjectives>
       <li>carbonized</li>

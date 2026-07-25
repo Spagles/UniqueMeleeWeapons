@@ -35,6 +35,16 @@ public class UniqueMeleeWeapon : ThingWithComps
         {
             StuffBeingNamed = null;
         }
+
+        // Traits roll inside the base call above, but ThingMaker.MakeThing runs PostMake — which
+        // sets HitPoints from MaxHitPoints — BEFORE PostPostMake. So a trait that factors
+        // MaxHitPoints (UMW_Carbonized's ×0.8) leaves the fresh weapon above its own new maximum,
+        // reading e.g. "100 / 80". Re-clamp now that the trait list exists. No stat-cache concern:
+        // MaxHitPoints is `cacheable`, not `immutable`, so its 10-tick window self-corrects.
+        if (def.useHitPoints)
+        {
+            HitPoints = Mathf.Min(HitPoints, MaxHitPoints);
+        }
     }
 
     // The unique name hides the material that an ordinary weapon's label shows

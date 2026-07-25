@@ -26,7 +26,8 @@
            (Beauty / MarketValue / forcedColor), so their values match Odyssey 1:1.
 
        Beyond the six ports the category carries our own universal traits: UMW_BloodStained (gory
-       body tint + on-hit dread), the body-colour finishes UMW_Carbonized (negative) and
+       body tint + on-hit dread), the body-colour finishes UMW_Carbonized (durability and value traded
+       for a small damage/AP gain) and
        UMW_Enameled (beauty), and UMW_Storied (mood passive + the Rallying Cry ability). Token
        registry for the tokens rooted here (tokens are global across categories):
          • "Color" (colour-one accent, red mask): Gold/Jade inlays; cross-category members

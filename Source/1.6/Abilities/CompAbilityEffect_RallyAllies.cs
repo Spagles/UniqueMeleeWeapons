@@ -74,8 +74,13 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
     // when side-on and centred when facing the camera, i.e. down around the mouth): the fiction here is a
     // whole squad shouting UPWARD in unison, so the lines are held clear above every head regardless of
     // which way the pawn faces, and the angle is flipped 180 degrees from vanilla's so they read as
-    // rising rather than falling. 0.5 is vanilla's own north-facing lift, which clears the head.
-    private static readonly Vector3 ResponderLinesOffset = new Vector3(0f, 0f, 0.5f);
+    // rising rather than falling.
+    //
+    // 0.85 rather than vanilla's 0.5 north-facing lift, which only grazed the top of the head. The fleck
+    // is drawSize 0.7, so its lower edge sits 0.35 below its centre: at 0.5 that edge lands around head
+    // height, while 0.85 puts it at 0.5, clear of a head whose top is around 0.4. Raise further if a
+    // crowd still reads as shouting into their own hair.
+    private static readonly Vector3 ResponderLinesOffset = new Vector3(0f, 0f, 0.85f);
 
     // Core's SpeechLines is authored for a ritual: 0.25s all told (fadeIn 0.03 + solid 0.2 + fadeOut
     // 0.02), respawned on an interval so it reads as a blink. That cadence is right for the CASTER, who
@@ -89,6 +94,13 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
     // (spawnIntervalTicks 45). Left at the def's own 0.25s life, so the caster reads as a quarter-second
     // on, half a second off — a blink, matching the Royalty speech look rather than a solid glow.
     private const int CasterLinesIntervalTicks = 45;
+
+    // How long the caster keeps talking. Deliberately SHORTER than the raised-weapon pose (user call,
+    // 2026-07-25): the line is called out at the start and the rest of the pose is holding the weapon up
+    // in silence, so blinking for the full pose read as over-long. 3s gives four blinks at the cadence
+    // above. Clamped against defaultCooldownTime at cast rather than used raw, so that lowering the pose
+    // below this still cuts the blink with it — lines must never outlive the pose that motivates them.
+    private const float CasterLinesSeconds = 3f;
 
     // Ticks of blinking left over the caster. Purely cosmetic, so deliberately NOT scribed: 0 is the inert
     // value a load lands on, which just means a save/load part-way through a cry stops the blink early.
@@ -126,11 +138,12 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
         MoteMaker.MakeSpeechBubble(caster, SpeechSymbol);
 
         // Start the caster's own speech lines blinking, and land the first one now so it coincides with the
-        // shout rather than 45 ticks after it. Length is read off the def rather than hardcoded so it
-        // tracks defaultCooldownTime whenever that is retuned. Apply runs at the END of warmup —
-        // Verb.TryCastNextBurstShot casts and only THEN sets Stance_Cooldown — so the raised-weapon pose
-        // still to come is exactly defaultCooldownTime, which is the window we want to fill.
-        cryTicksLeft = (parent.def.verbProperties?.defaultCooldownTime ?? 0f).SecondsToTicks();
+        // shout rather than 45 ticks after it. Runs for CasterLinesSeconds, but never longer than the pose:
+        // Apply lands at the END of warmup — Verb.TryCastNextBurstShot casts and only THEN sets
+        // Stance_Cooldown — so defaultCooldownTime is exactly the pose still to come, and taking the
+        // smaller of the two keeps the lines from outliving the raised weapon if the pose is ever shortened.
+        float poseSeconds = parent.def.verbProperties?.defaultCooldownTime ?? 0f;
+        cryTicksLeft = Mathf.Min(CasterLinesSeconds, poseSeconds).SecondsToTicks();
         SpawnCasterLines(caster, map);
 
         // Every spawned pawn on the map, distance-filtered — the same shape vanilla's closest analog uses

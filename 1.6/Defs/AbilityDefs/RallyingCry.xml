@@ -41,13 +41,15 @@
            caster because Command_Ability.ProcessInput passes `ability.pawn` as the target for a
            targetRequired=False ability.
          • The speech lines are Core's SpeechLines fleck, spawned from the comp on BOTH sides of the cry
-           but shaped differently: over the caster it blinks on Core's own 45-tick ritual cadence for the
-           length of defaultCooldownTime (read off this def, so retuning the pose retunes the blink) in
-           vanilla's centred south-facing orientation, and over each responder it fires once, held to a
-           full second via a per-instance solidTimeOverride and flipped to rise above the head. Neither
-           needs a copy of Core's def. See CompAbilityEffect_RallyAllies. -->
-    <!-- NOTE the pose duration below is read at runtime by the comp to size the caster's blinking speech
-         lines, so the two stay in step automatically — no second value to keep in sync. -->
+           but shaped differently: over the caster it blinks on Core's own 45-tick ritual cadence in
+           vanilla's centred south-facing orientation, for 3s rather than the whole pose (the line is
+           called out at the start; the rest of the pose is holding the weapon up in silence), and over
+           each responder it fires once, held to a full second via a per-instance solidTimeOverride and
+           lifted clear above the head at a flipped angle. Neither needs a copy of Core's def. See
+           CompAbilityEffect_RallyAllies. -->
+    <!-- NOTE the pose duration below is read at runtime by the comp as a CEILING on the caster's blinking
+         speech lines, so shortening the pose shortens the blink with it, but lengthening it past the
+         comp's own 3s does not. -->
   <AbilityDef>
     <defName>UMW_RallyingCry</defName>
     <label>rallying cry</label>

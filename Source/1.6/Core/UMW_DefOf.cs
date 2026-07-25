@@ -30,6 +30,14 @@ public static class UMW_DefOf
     public static AbilityDef UMW_RallyingCry;
     public static HediffDef UMW_Rallied;
 
+    // The three Royalty-tech traits, looked up by CompUniqueWeapon_UltratechTraits_Patch so the
+    // allowUltratechTraits setting can keep them out of the roll. Each def is itself MayRequire-gated
+    // on Royalty, so the DefOf fields carry the matching attribute: without the DLC the defs never
+    // enter the DefDatabase and these stay null (which the patch treats as "nothing to exclude").
+    [MayRequireRoyalty] public static WeaponTraitDef UMW_Monomolecular;
+    [MayRequireRoyalty] public static WeaponTraitDef UMW_PlasmaCored;
+    [MayRequireRoyalty] public static WeaponTraitDef UMW_ZeusHeaded;
+
     // Core's ritual speech-lines fleck, spawned over each ally a rallying cry reaches
     // (CompAbilityEffect_RallyAllies). Vanilla's own, referenced by identity rather than copied — unlike
     // the shout SoundDefs, a FleckDef needs no cloning to be usable. Core-owned, so no MayRequire; it is

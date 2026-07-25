@@ -17,7 +17,8 @@
        at most one. Forces the
        UniqueWeapon_EMP tint onto COLOUR ONE (the red-masked accent, via vanilla forcedColor), so it also tags
        "Color" and can't share a weapon with the Gold/Jade inlays — mirrors EMPRounds' AmmoType+Color and our
-       own UMW_Envenomed (Coating+Color). -->
+       own UMW_Envenomed (Coating+Color). Additionally suppressed by the allowUltratechTraits setting,
+       which medieval-only runs turn off (Patches/CompUniqueWeapon_UltratechTraits_Patch.cs). -->
   <WeaponTraitDef MayRequire="Ludeon.RimWorld.Royalty">
     <defName>UMW_ZeusHeaded</defName>
     <label>zeus-headed</label>

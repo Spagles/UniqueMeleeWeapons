@@ -19,7 +19,8 @@
        already keeps it off Monomolecular's white blade). Colour one stays free, so it can co-occur with
        a Gold/Jade inlay. The Core tag — its own one-infusion-per-blade family, mirroring Pointed's
        Coating — deliberately isn't Edge, so it can co-roll with Serrated/Razored: a serrated plasma
-       blade is legal. -->
+       blade is legal. Additionally suppressed by the allowUltratechTraits setting, which
+       medieval-only runs turn off (Patches/CompUniqueWeapon_UltratechTraits_Patch.cs). -->
   <WeaponTraitDef MayRequire="Ludeon.RimWorld.Royalty">
     <defName>UMW_PlasmaCored</defName>
     <label>plasma-cored</label>

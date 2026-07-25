@@ -19,6 +19,9 @@ namespace UniqueMeleeWeapons;
 //  3. restore it in ResetToDefaults,
 //  4. add its label/description keys to UMW_UI.xml,
 //  5. surface it in DoWindowContents under a section header.
+// A setting that only means something with a DLC present wraps its row in the matching
+// ModsConfig.<Dlc>Active check (see allowUltratechTraits) — hidden, not disabled, and the stored
+// value is never touched, so it survives a session with that DLC unloaded.
 // The scroll view measures its own content each frame, so new rows need no
 // layout bookkeeping — they just push the scrollbar in once they don't fit.
 public class UniqueMeleeWeaponsSettings : ModSettings
@@ -28,6 +31,10 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     // Drop Woody stuffs from the random material roll when one of our unique
     // weapons is generated (see Patches/GenStuff_ExcludeWoodStuff_Patch.cs).
     public bool excludeWoodStuff = true;
+
+    // Let the three Royalty-tech traits roll (see Patches/CompUniqueWeapon_UltratechTraits_Patch.cs).
+    // Only meaningful — and only shown — with Royalty active, since without it the defs don't exist.
+    public bool allowUltratechTraits = true;
 
     // Selection weight of the warband opportunity-site quest. This is the real
     // default; the XML rootSelectionWeight is overwritten by ApplyWarbandQuestWeight
@@ -67,6 +74,7 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     {
         base.ExposeData();
         Scribe_Values.Look(ref excludeWoodStuff, "excludeWoodStuff", true);
+        Scribe_Values.Look(ref allowUltratechTraits, "allowUltratechTraits", true);
         Scribe_Values.Look(ref warbandQuestWeight, "warbandQuestWeight", WarbandQuestWeightDefault);
         Scribe_Values.Look(ref earthshakeCooldownHours, "earthshakeCooldownHours", EarthshakeCooldownHoursDefault);
         Scribe_Values.Look(ref earthshakeRadius, "earthshakeRadius", EarthshakeRadiusDefault);
@@ -81,6 +89,7 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     public void ResetToDefaults()
     {
         excludeWoodStuff = true;
+        allowUltratechTraits = true;
         warbandQuestWeight = WarbandQuestWeightDefault;
         earthshakeCooldownHours = EarthshakeCooldownHoursDefault;
         earthshakeRadius = EarthshakeRadiusDefault;
@@ -243,6 +252,17 @@ public class UniqueMeleeWeaponsSettings : ModSettings
             "UMW_ExcludeWoodStuff".Translate(),
             ref excludeWoodStuff,
             "UMW_ExcludeWoodStuffDesc".Translate());
+
+        // Royalty-only row: the three traits it governs are MayRequire-gated on Royalty, so without
+        // the DLC there is nothing to toggle and the row would only confuse. Hidden rather than
+        // disabled, and the stored value is left alone so it survives a run without Royalty loaded.
+        if (ModsConfig.RoyaltyActive)
+        {
+            listing.CheckboxLabeled(
+                "UMW_AllowUltratechTraits".Translate(),
+                ref allowUltratechTraits,
+                "UMW_AllowUltratechTraitsDesc".Translate());
+        }
 
         listing.Gap(18f);
 

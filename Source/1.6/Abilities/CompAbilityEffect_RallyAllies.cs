@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using RimWorld;
+using UnityEngine;
 using Verse;
 
 namespace UniqueMeleeWeapons;
@@ -30,8 +31,23 @@ public class CompProperties_AbilityRallyAllies : CompProperties_AbilityEffect
 // spawned on the caster's map, within radius and with line of sight to the caster, gains hediffDef.
 // The caster is within radius of their own position, so they rally too. A factionless caster rallies
 // no one.
+//
+// Also emits the cry's speech bubble. That has to live here rather than on the def: the only XML route
+// to a mote at cast time is CompProperties_AbilityMoteOnTarget, which reaches Mote_Speech via
+// MoteMaker.MakeAttachedOverlay and so never calls MoteBubble.SetupMoteBubble — you get the bubble
+// background with no symbol inside it. MakeSpeechBubble does both (decompile-verified 2026-07-25).
+// The def's remaining cast visuals (the sunbeam fleck, the raised-weapon pose) are pure XML; see
+// Defs/AbilityDefs/RallyingCry.xml.
+[StaticConstructorOnStartup]
 public class CompAbilityEffect_RallyAllies : CompAbilityEffect
 {
+    // Core's generic "speaking" symbol — the texture Core's own SpeechBase AbilityDef and
+    // JobDriver_GiveSpeech (the closest vanilla analog to this: a pawn deliberately addressing a room,
+    // not a two-pawn social interaction) both use. Core-owned, so no MayRequire is involved.
+    // [StaticConstructorOnStartup] keeps the ContentFinder call on the main thread after content load.
+    private static readonly Texture2D SpeechSymbol =
+        ContentFinder<Texture2D>.Get("Things/Mote/SpeechSymbols/Speech");
+
     private new CompProperties_AbilityRallyAllies Props => (CompProperties_AbilityRallyAllies)props;
 
     public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
@@ -44,6 +60,9 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
         {
             return;
         }
+
+        // After the guards: a cast that rallies no one shouldn't mime the cry either.
+        MoteMaker.MakeSpeechBubble(caster, SpeechSymbol);
 
         List<Pawn> allies = map.mapPawns.SpawnedPawnsInFaction(caster.Faction);
         for (int i = 0; i < allies.Count; i++)

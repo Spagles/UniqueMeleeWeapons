@@ -13,7 +13,28 @@
        moment, not a standing aura. aiCanUse true so a hostile AI wielder MAY rally its own side —
        but vanilla's ability-AI is only known to drive offensive abilities (every aiCanUse=true
        Odyssey weapon ability is offensive), so whether hostile AI ever actually casts a self-buff
-       needs the in-game check alongside the §7 ability items; the flag is set so it can. -->
+       needs the in-game check alongside the §7 ability items; the flag is set so it can.
+
+       PRESENTATION (all three parts land at the cast, none of them delay the hediff — decompile-verified
+       2026-07-25, RimWorld 1.6):
+         • The raised-weapon pose. PawnRenderUtility.DrawEquipmentAndApparelExtras draws the aimed pose
+           for ANY Stance_Busy with a valid focusTarg, i.e. Stance_Warmup *or* Stance_Cooldown. Verb.
+           TryCastNextBurstShot calls TryCastShot() — which for Verb_CastAbility is ability.Activate, and
+           that is where our comp's Apply runs — and only THEN sets Stance_Cooldown(verbProps.
+           AdjustedCooldownTicks(...)). So defaultCooldownTime lengthens the pose strictly AFTER the
+           effect has landed, which is why the pose extension rides it rather than warmupTime (warmupTime
+           gates Stance_Warmup.Expire -> WarmupComplete -> the cast, so raising it WOULD delay the rally).
+           Cost, accepted: Stance_Cooldown is StanceBusy, so the wielder is rooted for those 2s (a
+           player order cancels it via CancelBusyStanceHard) and a small cooldown circle draws under
+           them — the beat of holding the weapon up is the point.
+         • The speech bubble is a Mote_Speech via MoteMaker.MakeSpeechBubble in
+           CompAbilityEffect_RallyAllies (Abilities/), not a def field: no XML hook reaches
+           MoteBubble.SetupMoteBubble's symbol argument, so the symbol-less
+           CompProperties_AbilityMoteOnTarget would give a blank bubble. See that file.
+         • The sunbeam is the vanilla CompProperties_AbilityFleckOnTarget (preCastTicks 0 => fires from
+           Apply, i.e. at the cast) carrying our UMW_RallyingCryLightshaft (FleckDefs/). It spawns on the
+           caster because Command_Ability.ProcessInput passes `ability.pawn` as the target for a
+           targetRequired=False ability. -->
   <AbilityDef>
     <defName>UMW_RallyingCry</defName>
     <label>rallying cry</label>
@@ -25,16 +46,29 @@
     <cooldownTicksRange>180000</cooldownTicksRange> <!-- 3 days - an heirloom moment, deliberately rarer than EMPPulse's 12h -->
     <verbProperties>
       <verbClass>Verb_CastAbility</verbClass>
+      <!-- Must match the comp's radius, exactly as Odyssey's EMPPulse matches range to explosionRadius
+           and our own Earthshake does. VerbProperties.DrawRadiusRing (the ring Command_Ability.
+           GizmoUpdateOnMouseover draws on gizmo hover) reads verb.EffectiveRange, NOT any comp field,
+           and VerbProperties.range defaults to 1.42 — which covers the centre cell plus its 8 neighbours
+           and was drawing a 3x3 preview for a radius-9.9 effect. -->
+      <range>9.9</range>
+      <!-- The comp requires line of sight to each ally, so LOS-filter the ring to match (as Anomaly's
+           abilities do) — the preview then shows exactly who the cry can reach. -->
+      <drawHighlightWithLineOfSight>true</drawHighlightWithLineOfSight>
       <drawAimPie>false</drawAimPie>
-      <warmupTime>0.5</warmupTime>
+      <warmupTime>0.5</warmupTime> <!-- do NOT raise to lengthen the pose: warmupTime delays the effect -->
+      <defaultCooldownTime>2</defaultCooldownTime> <!-- 2s of raised weapon AFTER the rally lands; see header -->
       <targetParams>
         <canTargetSelf>true</canTargetSelf>
       </targetParams>
     </verbProperties>
     <comps>
       <li Class="UniqueMeleeWeapons.CompProperties_AbilityRallyAllies">
-        <radius>9.9</radius>
+        <radius>9.9</radius> <!-- keep verbProperties.range above in step with this -->
         <hediffDef>UMW_Rallied</hediffDef>
+      </li>
+      <li Class="CompProperties_AbilityFleckOnTarget">
+        <fleckDef>UMW_RallyingCryLightshaft</fleckDef>
       </li>
     </comps>
   </AbilityDef>

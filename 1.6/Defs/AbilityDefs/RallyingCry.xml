@@ -55,7 +55,6 @@
          what the player is choosing to do, and the shout rousing sleepers is a consequence they can see
          happen. The mod-settings tooltips do spell it out, since the radius slider governs it. -->
     <description>Raise the weapon high and shout. Everyone friendly who sees it is reminded of the weight it bears, and for a time wounds barely slow them.</description>
-    <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
     <iconPath>UI/Commands/UMW_RallyingCry</iconPath>
     <aiCanUse>true</aiCanUse> <!-- faction-symmetric: an AI cast rallies its own side; see header -->
     <targetRequired>False</targetRequired>

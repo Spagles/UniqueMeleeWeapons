@@ -55,7 +55,6 @@
     <defName>UMW_Earthshake</defName>
     <label>earthshake</label>
     <description>Slam the weapon's full mass into the ground, sending a stunning shockwave out through the earth. It passes under walls, and it is utterly indiscriminate: allies caught in the radius reel alongside enemies. Only the wielder, braced behind the shaft and expecting the blow, keeps their footing.</description>
-    <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
     <iconPath>UI/Commands/UMW_Earthshake</iconPath>
     <aiCanUse>true</aiCanUse>
     <targetRequired>False</targetRequired>

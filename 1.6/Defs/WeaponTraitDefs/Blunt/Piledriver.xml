@@ -13,14 +13,16 @@
        dereferences TryGetComp<CompEquippableAbilityReloadable>() with no null check whenever a rolled
        trait has abilityProps, so a weapon missing the comp would NPE the instant this trait rolls.
        Earthshake's shockwave is indiscriminate (see that def) — say so here too, since a wielder
-       choosing/valuing this trait should know their own colonists can be caught in it.
+       choosing/valuing this trait should know their own colonists can be caught in it. The wielder
+       themselves is spared (Earthshake's excludeCaster), which is worth stating here as well: it is the
+       difference between a trait a player will actually fire and one they will not.
        Tags "Ability" (Odyssey's ability-trait convention) — mutually exclusive with the parallel Melee-
        category trait UMW_Storied's Rallying Cry, so a weapon carries at most one active ability.
        Priced at parity with Odyssey's ranged EMPPulser (+80), c=0.5 per the same ability-trait convention. -->
   <WeaponTraitDef>
     <defName>UMW_Piledriver</defName>
     <label>piledriver</label>
-    <description>The head is built as a piledriver. On command the weapon's full mass can be slammed into the ground, sending out a stunning shockwave. The shock is indiscriminate; it stuns friend and foe alike.</description>
+    <description>The head is built as a piledriver. On command the weapon's full mass can be slammed into the ground, sending a stunning shockwave out through the earth. The shock is indiscriminate; it stuns friend and foe alike, though the braced wielder is spared.</description>
     <commonality>0.5</commonality>
     <weaponCategory>UMW_Blunt</weaponCategory>
     <exclusionTags>

@@ -1,28 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Vanilla ability vehicle for UMW_Piledriver (WeaponTraitDefs/Blunt/Piledriver.xml), granted via
+  <!-- Active vehicle for UMW_Piledriver (WeaponTraitDefs/Blunt/Piledriver.xml), granted via
        WeaponTraitDef.abilityProps — see that trait file for the CompEquippableAbilityReloadable wiring.
-       Mirrors Odyssey's EMPPulse shape exactly (Data/Odyssey/Defs/AbilityDefs/WeaponTraitAbilities.xml):
-       pure cooldown, no charges, self-centred CompProperties_AbilityExplosion. Mundane-kinetic tone (design
-       tenet: a physical property of the weapon, not magic) — the head's mass slams the ground and the
-       shockwave that rings out is a stun, not a blast; EMP's radius (4.9) is halved to 2.9 to keep it a
-       tighter, more kinetic-feeling burst. Per EMPPulse's own friendly-fire contract, the shockwave is
-       INDISCRIMINATE — it has no faction filter, so allies caught in the radius reel just as hostiles do;
-       the description says so explicitly.
+       Shaped after Odyssey's EMPPulse (Data/Odyssey/Defs/AbilityDefs/WeaponTraitAbilities.xml): pure
+       cooldown, no charges, self-centred explosion. Mundane-kinetic tone (design tenet: a physical
+       property of the weapon, not magic) — the head's mass slams the ground and the shockwave that rings
+       out is a stun, not a blast. Per EMPPulse's own friendly-fire contract the shockwave is
+       INDISCRIMINATE — no faction filter, so allies caught in the radius reel just as hostiles do; the
+       only pawn spared is the wielder, who is braced behind the shaft (see excludeCaster below).
        damageDef Stun / damageAmount 4: Core's Stun DamageDef (Defs/DamageDefs/Damages_Stun.xml) inherits
        harmsHealth=false from its StunBase parent, and DamageWorker.Apply gates ALL hit-point damage behind
        dinfo.Def.harmsHealth — so this explosion should not injure anyone it stuns (decompile-verified
        2026-07-24, RimWorld 1.6). The duration itself is believed to follow the vanilla "stun ticks =
        damageAmount * 30" rule (amount 4 -> ~120 ticks, 2s) that Odyssey's own ranged stun sources ride, but
-       that formula was NOT independently decompile-verified this pass — §7 of Docs/Specs/Trait-Roster-
-       Expansion.md calls for an in-game check of both the duration math and the harms-health question
-       before this ships; if Stun turns out to injure after all, decide there whether to keep the amount (a
-       slam should plausibly hurt a little) or zero it. -->
+       that formula was NOT independently decompile-verified — §7 of the spec calls for an in-game check of
+       both the duration math and the harms-health question before this ships; if Stun turns out to injure
+       after all, decide there whether to keep the amount (a slam should plausibly hurt a little) or zero it.
+
+       RADIUS 3.9 (was 2.9; verbProperties.range and explosionRadius below must move together —
+       decompile-verified 2026-07-25):
+       2.9 was a trap value. The gizmo-hover preview is Command_Ability.GizmoUpdateOnMouseover ->
+       VerbProperties.DrawRadiusRing -> GenDraw.DrawRadiusRing, which outlines the EDGE of the discrete
+       cell set within the radius (DrawFieldEdges), and every cell of the 5x5 bounding box is within 2.9
+       (the (2,2) corner sits at 2.828), so the "ring" degenerated into a filled square. The affected set
+       was always a euclidean circle — GenRadial.RadialPattern is sorted by true distance — it just happened
+       to be a circle that filled its own bounding box exactly. 3.9 is the next X.9 step (45 cells, cardinal
+       reach 2 -> 3, corners at (3,3)/4.243 excluded) so it reads round, and it is exactly one cell further
+       out. 3.0 would also reach three cells but admits only 29 of them — a sparse diamond, since it excludes
+       everything past the exact-integer ring — so X.9 is what fills the disc, which is why vanilla uses it
+       throughout (EMPPulse 4.9; Royalty's BlindingPulse and VertigoPulse are 3.9, so this radius is shipped
+       precedent for a control ability). Staying under EMPPulse's 4.9 also keeps UMW_Piledriver's +80
+       MarketValue at honest parity with the ranged EMPPulser it is priced against.
+
+       PRESENTATION. The burst was always progressive — Explosion.GetCellAffectTick is
+       startTick + (int)(distance * 1.5 / propagationSpeed) and Tick() affects cells in distance order — but
+       at the vanilla speed of 1 the outermost cell of this radius lands 5 ticks in, far too fast to see.
+       propagationSpeed 0.3 stretches that to 18 ticks (0.30s) of visible outward roll, carrying Stun's own
+       per-cell BlastDry fleck with it. 0.3 is vanilla's only shipped value for the field (Core's Vaporize).
+       The overhead ripple is FleckDefs/EarthshakeRipple.xml on the vanilla
+       CompProperties_AbilityFleckOnTarget, which for a targetRequired=False ability spawns on the caster
+       (Command_Ability.ProcessInput passes ability.pawn) via FleckMaker.AttachedOverlay — despite the name
+       that just spawns an ordinary static fleck at the pawn's DrawPos, so it stays ground-anchored. See that
+       file for how its 4.8-cell reach and 0.40s life are tuned against the numbers here. -->
   <AbilityDef>
     <defName>UMW_Earthshake</defName>
     <label>earthshake</label>
-    <description>Slam the weapon's full mass into the ground, sending a stunning shockwave through the earth. The shock is purely kinetic, and utterly indiscriminate: allies caught in the radius are stunned right alongside enemies.</description>
+    <description>Slam the weapon's full mass into the ground, sending a stunning shockwave out through the earth. It passes under walls, and it is utterly indiscriminate: allies caught in the radius reel alongside enemies. Only the wielder, braced behind the shaft and expecting the blow, keeps their footing.</description>
     <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
     <iconPath>UI/Commands/UMW_Earthshake</iconPath>
     <aiCanUse>true</aiCanUse>
@@ -30,7 +54,12 @@
     <cooldownTicksRange>30000</cooldownTicksRange> <!-- 12 hours -->
     <verbProperties>
       <verbClass>Verb_CastAbility</verbClass>
-      <range>2.9</range>
+      <!-- Must match explosionRadius below. DrawRadiusRing reads verb.EffectiveRange, i.e. this field, and
+           NOT any comp field, so a mismatch draws a preview that lies about the burst. -->
+      <range>3.9</range>
+      <!-- drawHighlightWithLineOfSight deliberately ABSENT (unlike RallyingCry.xml, whose comp really does
+           require line of sight to each ally). The shock travels through the ground, so neither the preview
+           nor the burst is LOS-filtered, and the two now agree — see ignoreLineOfSight below. -->
       <drawAimPie>false</drawAimPie>
       <warmupTime>0.5</warmupTime>
       <targetParams>
@@ -38,10 +67,20 @@
       </targetParams>
     </verbProperties>
     <comps>
-      <li Class="CompProperties_AbilityExplosion">
+      <!-- Our CompProperties_AbilityExplosion subclass (Source/1.6/Abilities/). Identical to the vanilla
+           comp except for the three fields at the bottom, each of which vanilla hardcodes with no XML hook;
+           that file documents why each one needs the subclass. -->
+      <li Class="UniqueMeleeWeapons.CompProperties_AbilityGroundShockwave">
         <damageDef>Stun</damageDef>
-        <explosionRadius>2.9</explosionRadius>
+        <explosionRadius>3.9</explosionRadius> <!-- keep verbProperties.range above in step with this -->
         <damageAmount>4</damageAmount> <!-- ~120t / 2s stun via the amount*30 rule; verify in-game, §7 -->
+        <propagationSpeed>0.3</propagationSpeed> <!-- 0.30s of visible outward roll; see PRESENTATION above -->
+        <excludeCaster>true</excludeCaster> <!-- the wielder is braced for it; everyone else is not -->
+        <ignoreLineOfSight>true</ignoreLineOfSight> <!-- through the ground: walls do not stop it -->
+      </li>
+      <!-- The shock in the air above, reaching a little past the stun. Vanilla comp, our FleckDef. -->
+      <li Class="CompProperties_AbilityFleckOnTarget">
+        <fleckDef>UMW_EarthshakeRipple</fleckDef>
       </li>
     </comps>
   </AbilityDef>

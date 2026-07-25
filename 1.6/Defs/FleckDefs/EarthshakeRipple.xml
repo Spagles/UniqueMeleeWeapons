@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- The shock passing through the air above UMW_Earthshake's ground burst (AbilityDefs/Earthshake.xml,
+       spawned by the vanilla CompProperties_AbilityFleckOnTarget on that def). The stun itself rolls
+       outward through the earth; this is the answering ripple overhead, reaching a little further than
+       the stun does because air carries what soil damps.
+
+       A deliberate self-contained COPY of the shipped distortion-wave recipe, following the same
+       reasoning as FleckDefs/RallyingCryLightshaft.xml: the shipped instances
+       (Core `ShockwaveFast`, Biotech `Fleck_BlastMechBandShockwave`, Royalty `PsychicApplyNeuroquake`)
+       have no `Name=` so none can be a ParentName target, and their timings are tuned for effects an
+       order of magnitude larger than a one-pawn slam. Everything referenced here is CORE-owned, so this
+       needs no MayRequire despite the closest analog living in Biotech:
+         • shaderType MoteLargeDistortionWave  - Core, Defs/Misc/ShaderTypeDefs/ShaderTypes.xml
+         • Things/Mote/Black, PsychicDistortionCurrents, PsycastNoise
+                                               - all three referenced by Core's own `ShockwaveFast`
+       Mods cannot ship Unity shaders, so the only genuine screen-distortion available is one of the
+       shaderTypes RimWorld already compiled in; this is that, not an imitation of it.
+
+       Sizing (decompile-verified 2026-07-25, RimWorld 1.6). The rendered quad is drawSize * ExactScale
+       world units square, and 1 world unit = 1 cell: Graphic_Fleck.DrawFleck multiplies the per-instance
+       scale by graphicData.drawSize into the render matrix, over MeshPool's unit plane. FleckStatic starts
+       linearScale at the spawn `scale` (1 here, the comp's default) and growthRate ADDS cells/second to
+       it. So the outer edge finishes at:
+           drawSize / 2 * (1 + growthRate * lifetime) = 6.0 / 2 * (1 + 1.5 * 0.40) = 4.8 cells
+       against the ability's 3.9-cell stun radius, i.e. slightly wider, which is the intent. growthRate
+       1.5 is Biotech's mech-band value; drawSize carries the rest so the pace stays vanilla's.
+
+       Timing rides the ground burst: at the ability's propagationSpeed 0.3 the outermost stunned cell is
+       reached at 18 ticks (0.30s), so a 0.40s ripple leads the roll out and outlives it by a beat rather
+       than lingering after the shock has passed.
+
+       _distortionIntensity 0.05 sits at the subtle end of the range shipped for THIS shader (Biotech's
+       mech-band shockwave, the one physical stun shockwave in the game, is 0.066; Core's ShockwaveFast is
+       0.2; Anomaly's quieter rings are 0.05) - raise toward 0.066 if it reads as too faint in play. Compare
+       only within MoteLargeDistortionWave: the same number means something different under
+       MoteGlowDistortBackground, which is what Core's PsycastAreaEffect uses.
+       _brightnessMultiplier 1.15 is the value every shipped distortion-wave
+       fleck uses. altitudeLayer MoteOverheadLow matches the mech-band shockwave and draws above pawns
+       (Altitudes maps the enum in order, and MoteOverheadLow > Pawn) without climbing into the
+       vision/overlay layers. drawOffscreen is deliberately absent: it only gates the EffecterDef +
+       SubEffecter_Sprayer spawn path, and this spawns via FleckMaker, which never checks it.
+       drawSize/growthRate/intensity are the eyeball-tunable knobs; see §7 of the spec for the in-game
+       visual check, since the shader's internal ring-sweep timing cannot be read from a decompile. -->
+  <FleckDef ParentName="FleckBase">
+    <defName>UMW_EarthshakeRipple</defName>
+    <altitudeLayer>MoteOverheadLow</altitudeLayer>
+    <fadeInTime>0.04</fadeInTime>
+    <solidTime>0.26</solidTime>
+    <fadeOutTime>0.10</fadeOutTime> <!-- lifetime 0.40s; see the sizing note above -->
+    <growthRate>1.5</growthRate>
+    <graphicData>
+      <graphicClass>Graphic_FleckPulse</graphicClass> <!-- feeds AgeSecs to the shader; the ring sweep needs it -->
+      <texPath>Things/Mote/Black</texPath>
+      <shaderType>MoteLargeDistortionWave</shaderType>
+      <shaderParameters>
+        <_DistortionTex>/Things/Mote/PsychicDistortionCurrents</_DistortionTex>
+        <_NoiseTex>/Things/Mote/PsycastNoise</_NoiseTex>
+        <_distortionIntensity>0.05</_distortionIntensity>
+        <_brightnessMultiplier>1.15</_brightnessMultiplier>
+      </shaderParameters>
+      <drawSize>6.0</drawSize>
+    </graphicData>
+  </FleckDef>
+
+</Defs>

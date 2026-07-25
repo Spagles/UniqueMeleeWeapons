@@ -39,11 +39,22 @@
          • The sunbeam is the vanilla CompProperties_AbilityFleckOnTarget (preCastTicks 0 => fires from
            Apply, i.e. at the cast) carrying our UMW_RallyingCryLightshaft (FleckDefs/). It spawns on the
            caster because Command_Ability.ProcessInput passes `ability.pawn` as the target for a
-           targetRequired=False ability. -->
+           targetRequired=False ability.
+         • The speech lines are Core's SpeechLines fleck, spawned from the comp on BOTH sides of the cry
+           but shaped differently: over the caster it blinks on Core's own 45-tick ritual cadence for the
+           length of defaultCooldownTime (read off this def, so retuning the pose retunes the blink) in
+           vanilla's centred south-facing orientation, and over each responder it fires once, held to a
+           full second via a per-instance solidTimeOverride and flipped to rise above the head. Neither
+           needs a copy of Core's def. See CompAbilityEffect_RallyAllies. -->
+    <!-- NOTE the pose duration below is read at runtime by the comp to size the caster's blinking speech
+         lines, so the two stay in step automatically — no second value to keep in sync. -->
   <AbilityDef>
     <defName>UMW_RallyingCry</defName>
     <label>rallying cry</label>
-    <description>Raise the weapon high and shout. Everyone friendly who sees it is reminded of the weight it bears, and for a time wounds barely slow them. The shout carries through walls, and it wakes sleepers for some distance around, friend and foe alike. Anyone roused from sleep takes no heart from it, only offence.</description>
+    <!-- Deliberately silent about the waking side effects (user call, 2026-07-25): the gizmo text is for
+         what the player is choosing to do, and the shout rousing sleepers is a consequence they can see
+         happen. The mod-settings tooltips do spell it out, since the radius slider governs it. -->
+    <description>Raise the weapon high and shout. Everyone friendly who sees it is reminded of the weight it bears, and for a time wounds barely slow them.</description>
     <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
     <iconPath>UI/Commands/UMW_RallyingCry</iconPath>
     <aiCanUse>true</aiCanUse> <!-- faction-symmetric: an AI cast rallies its own side; see header -->

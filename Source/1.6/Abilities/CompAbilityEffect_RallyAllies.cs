@@ -50,6 +50,9 @@ public class CompProperties_AbilityRallyAllies : CompProperties_AbilityEffect
 // to a mote at cast time is CompProperties_AbilityMoteOnTarget, which reaches Mote_Speech via
 // MoteMaker.MakeAttachedOverlay and so never calls MoteBubble.SetupMoteBubble — you get the bubble
 // background with no symbol inside it. MakeSpeechBubble does both (decompile-verified 2026-07-25).
+// Also drives Core's SpeechLines fleck on both sides of the cry: blinking over the caster for the length
+// of the raised-weapon pose (CompTick), and once over each pawn that answers. See those two members.
+//
 // The audible half of the cry reads its two SoundDefs off the inherited soundMale/soundFemale props
 // (wired on the def to our own one-shot copies of Core's throne-speech recording — see
 // Defs/SoundDefs/RallyingCryShout_Male.xml) but plays them itself rather than letting
@@ -66,13 +69,30 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
     private static readonly Texture2D SpeechSymbol =
         ContentFinder<Texture2D>.Get("Things/Mote/SpeechSymbols/Speech");
 
-    // Where the answering speech-lines fleck sits, and which way it points. Deliberately NOT vanilla's
+    // Where a RESPONDER's speech-lines fleck sits, and which way it points. Deliberately NOT vanilla's
     // per-facing offsets from Core's `Speech` RitualVisualEffectDef (which put the lines beside the head
     // when side-on and centred when facing the camera, i.e. down around the mouth): the fiction here is a
     // whole squad shouting UPWARD in unison, so the lines are held clear above every head regardless of
     // which way the pawn faces, and the angle is flipped 180 degrees from vanilla's so they read as
     // rising rather than falling. 0.5 is vanilla's own north-facing lift, which clears the head.
-    private static readonly Vector3 SpeechLinesOffset = new Vector3(0f, 0f, 0.5f);
+    private static readonly Vector3 ResponderLinesOffset = new Vector3(0f, 0f, 0.5f);
+
+    // Core's SpeechLines is authored for a ritual: 0.25s all told (fadeIn 0.03 + solid 0.2 + fadeOut
+    // 0.02), respawned on an interval so it reads as a blink. That cadence is right for the CASTER, who
+    // keeps talking for the whole cry, but far too brief for a RESPONDER, who gets exactly one and needs
+    // it legible. FleckStatic.SolidTime honours a per-instance solidTimeOverride, so the responder's is
+    // stretched to a full second WITHOUT cloning Core's def or disturbing the ritual that shares it:
+    // 0.95 solid plus the def's own 0.05 of fade.
+    private const float ResponderSolidTime = 0.95f;
+
+    // Vanilla's own respawn cadence for this fleck, from Core's `Speech` RitualVisualEffectDef
+    // (spawnIntervalTicks 45). Left at the def's own 0.25s life, so the caster reads as a quarter-second
+    // on, half a second off — a blink, matching the Royalty speech look rather than a solid glow.
+    private const int CasterLinesIntervalTicks = 45;
+
+    // Ticks of blinking left over the caster. Purely cosmetic, so deliberately NOT scribed: 0 is the inert
+    // value a load lands on, which just means a save/load part-way through a cry stops the blink early.
+    private int cryTicksLeft;
 
     private new CompProperties_AbilityRallyAllies Props => (CompProperties_AbilityRallyAllies)props;
 
@@ -104,6 +124,14 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
         // nothing until this call is restored.
         PlayShout(caster, map);
         MoteMaker.MakeSpeechBubble(caster, SpeechSymbol);
+
+        // Start the caster's own speech lines blinking, and land the first one now so it coincides with the
+        // shout rather than 45 ticks after it. Length is read off the def rather than hardcoded so it
+        // tracks defaultCooldownTime whenever that is retuned. Apply runs at the END of warmup —
+        // Verb.TryCastNextBurstShot casts and only THEN sets Stance_Cooldown — so the raised-weapon pose
+        // still to come is exactly defaultCooldownTime, which is the window we want to fill.
+        cryTicksLeft = (parent.def.verbProperties?.defaultCooldownTime ?? 0f).SecondsToTicks();
+        SpawnCasterLines(caster, map);
 
         // Every spawned pawn on the map, distance-filtered — the same shape vanilla's closest analog uses
         // (CompAbilityEffect_Neuroquake sweeps AllPawnsSpawned rather than a GenRadial query). Walked
@@ -186,12 +214,61 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
             // (FleckMaker only snapshots DrawPos; only Motes track their parent).
             if (pawn != caster)
             {
-                FleckCreationData lines = FleckMaker.GetDataAttachedOverlay(
-                    pawn, UMW_DefOf.SpeechLines, SpeechLinesOffset);
-                lines.rotation = pawn.Rotation.AsAngle + 180f;
-                map.flecks.CreateFleck(lines);
+                SpawnSpeechLines(
+                    pawn, map, ResponderLinesOffset, pawn.Rotation.AsAngle + 180f, ResponderSolidTime);
             }
         }
+    }
+
+    // Keeps the caster's speech lines blinking for the rest of the raised-weapon pose, the way Core's
+    // `Speech` RitualVisualEffectDef keeps them going over a ritual organizer. Ability comps really are
+    // ticked for a weapon-trait ability: Pawn.Tick (not TickInterval, so this is genuinely per-tick) calls
+    // Pawn_AbilityTracker.AbilitiesTick over AllAbilitiesForReading, which folds in the equipped primary's
+    // CompEquippableAbility.AbilityForReading, and Ability.AbilityTick calls CompTick on each comp
+    // (decompile-verified 2026-07-25, RimWorld 1.6). Consequence worth knowing: the blink stops early if
+    // the weapon stops being the pawn's primary mid-cry, which is the correct outcome anyway.
+    public override void CompTick()
+    {
+        base.CompTick();
+        if (cryTicksLeft <= 0)
+        {
+            return;
+        }
+
+        cryTicksLeft--;
+        if (cryTicksLeft <= 0 || cryTicksLeft % CasterLinesIntervalTicks != 0)
+        {
+            return;
+        }
+
+        Pawn caster = parent.pawn;
+        Map map = caster?.Map;
+        if (map == null || caster.Dead)
+        {
+            cryTicksLeft = 0;
+            return;
+        }
+        SpawnCasterLines(caster, map);
+    }
+
+    // Vanilla's south-facing case verbatim: centred on the pawn (Core's `Speech` def leaves
+    // southRotationOffset at zero) at Rot4.South.AsAngle. Fixed rather than following the caster's real
+    // facing — unlike the responders above, this is the speech-giving pose itself, and the Royalty ritual
+    // look is the one being mimicked.
+    private static void SpawnCasterLines(Pawn caster, Map map)
+    {
+        SpawnSpeechLines(caster, map, Vector3.zero, Rot4.South.AsAngle, solidTimeOverride: -1f);
+    }
+
+    // solidTimeOverride of -1 means "use the def's own solidTime", which is how FleckStatic.SolidTime
+    // reads the sentinel.
+    private static void SpawnSpeechLines(
+        Pawn pawn, Map map, Vector3 offset, float angle, float solidTimeOverride)
+    {
+        FleckCreationData lines = FleckMaker.GetDataAttachedOverlay(
+            pawn, UMW_DefOf.SpeechLines, offset, scale: 1f, solidTimeOverride: solidTimeOverride);
+        lines.rotation = angle;
+        map.flecks.CreateFleck(lines);
     }
 
     // The shout. Played here rather than by CompAbilityEffect.Apply so it can carry the caster's own

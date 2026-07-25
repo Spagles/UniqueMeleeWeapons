@@ -27,9 +27,9 @@
   <UMW_RallyingCryCooldown>Rallying cry cooldown: {0} days</UMW_RallyingCryCooldown>
   <UMW_RallyingCryCooldownDesc>How long a storied weapon must rest between rallying cries. Measured in days rather than hours on purpose: the default makes it an heirloom moment rather than a standing aura you re-apply every fight.</UMW_RallyingCryCooldownDesc>
   <UMW_RallyingCryRadius>Rallying cry radius: {0} cells</UMW_RallyingCryRadius>
-  <UMW_RallyingCryRadiusDesc>How far the cry carries. It rallies humanlikes of the caster's own faction who are within this range and can see the wielder, so walls and closed doors do block it.</UMW_RallyingCryRadiusDesc>
+  <UMW_RallyingCryRadiusDesc>How far the cry carries. It rallies every humanlike within this range who is not hostile to the wielder and can see them, so allied and neutral pawns are included but walls and closed doors block it. Waking sleepers uses the same range but ignores walls, and catches enemies as well.</UMW_RallyingCryRadiusDesc>
   <UMW_RalliedDuration>Rallied duration: {0} hours</UMW_RalliedDuration>
-  <UMW_RalliedDurationDesc>How long the rallied buff lasts on each ally it reaches, halving both their pain and the time a hit staggers them. Changing this affects cries made from now on; anyone already rallied keeps the duration they were given.</UMW_RalliedDurationDesc>
+  <UMW_RalliedDurationDesc>How long the rallied buff lasts on each pawn the cry reaches, halving both their pain and the time a hit staggers them. Anyone who was asleep is woken instead of rallied, and resents it. Changing this affects cries made from now on; anyone already rallied keeps the duration they were given.</UMW_RalliedDurationDesc>
 
   <!-- Settings: Quests -->
   <UMW_WarbandQuestWeight>Warband quest commonality: {0}</UMW_WarbandQuestWeight>

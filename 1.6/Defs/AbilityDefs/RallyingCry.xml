@@ -4,7 +4,7 @@
   <!-- Active vehicle for UMW_Storied (WeaponTraitDefs/Melee/Storied.xml), granted via
        WeaponTraitDef.abilityProps — see that trait file for the CompEquippableAbilityReloadable
        wiring. Self-cast, no target: the wielder plants the storied blade and calls out its history,
-       and everyone of the CASTER's faction in earshot/eyeshot steels themselves — the timed
+       and everyone not hostile to the CASTER in earshot/eyeshot steels themselves — the timed
        UMW_Rallied pain-dampening hediff via CompAbilityEffect_RallyAllies. Faction-symmetric with a
        stat payload per user directive (2026-07-24), replacing the original player-only +4 mood
        memory: a hediff is real for NPC casters where mood is inert, and symmetry makes a hostile
@@ -43,7 +43,7 @@
   <AbilityDef>
     <defName>UMW_RallyingCry</defName>
     <label>rallying cry</label>
-    <description>Raise the weapon high and shout. Allies who see it are reminded of the weight it bears, and for a time wounds barely slow them.</description>
+    <description>Raise the weapon high and shout. Everyone friendly who sees it is reminded of the weight it bears, and for a time wounds barely slow them. The shout carries through walls, and it wakes sleepers for some distance around, friend and foe alike. Anyone roused from sleep takes no heart from it, only offence.</description>
     <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
     <iconPath>UI/Commands/UMW_RallyingCry</iconPath>
     <aiCanUse>true</aiCanUse> <!-- faction-symmetric: an AI cast rallies its own side; see header -->

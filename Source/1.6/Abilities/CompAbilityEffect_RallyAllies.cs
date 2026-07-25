@@ -50,6 +50,15 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
 
     private new CompProperties_AbilityRallyAllies Props => (CompProperties_AbilityRallyAllies)props;
 
+    // The AI half of the "must be able to speak" gate. The def carries the vanilla
+    // CompProperties_AbilityRequiresCapacity (Talking), but that comp overrides only GizmoDisabled,
+    // and Ability.AICanTargetNow gates on comp CanCast instead - so on its own it would leave a mute
+    // AI wielder still shouting, and this ability is faction-symmetric by design. Both halves are
+    // needed: CanCast alone would disable the player's gizmo with a blank reason, because
+    // Ability.GizmoDisabled surfaces only AcceptanceReport.Reason for a comp-vetoed cast.
+    public override bool CanCast =>
+        parent.pawn?.health?.capacities?.CapableOf(PawnCapacityDefOf.Talking) ?? false;
+
     public override void Apply(LocalTargetInfo target, LocalTargetInfo dest)
     {
         base.Apply(target, dest);

@@ -38,7 +38,7 @@
   <AbilityDef>
     <defName>UMW_RallyingCry</defName>
     <label>rallying cry</label>
-    <description>Plant the weapon and call out its history to everyone within earshot. Those who hear it steel themselves — for a time, wounds barely slow them.</description>
+    <description>Raise the weapon high and shout. Those who see it know what it is, and who carried it before. Allies who see it are reminded of the weight it bears, and for a time wounds barely slow them.</description>
     <!-- art pending — a .gitkeep placeholder marks the texture path for the artist -->
     <iconPath>UI/Commands/UMW_RallyingCry</iconPath>
     <aiCanUse>true</aiCanUse> <!-- faction-symmetric: an AI cast rallies its own side; see header -->
@@ -69,6 +69,16 @@
       </li>
       <li Class="CompProperties_AbilityFleckOnTarget">
         <fleckDef>UMW_RallyingCryLightshaft</fleckDef>
+      </li>
+      <!-- It is a shout, so a wielder who cannot speak cannot make it. This is the same Core comp and
+           the same capacity that Core's own abstract SpeechBase AbilityDef uses, and it disables the
+           gizmo with the vanilla "X is incapable of talking" reason. CapableOf tests
+           level > minForCapable, so any route to 0% talking gates it: a missing tongue, jaw damage,
+           the Talking capacity's own zeroIfCannotBeAwake (downed/anaesthetised), a mute gene.
+           NOTE this comp only overrides GizmoDisabled, which the AI path does not consult - the
+           matching AI-side gate is CanCast in CompAbilityEffect_RallyAllies. -->
+      <li Class="CompProperties_AbilityRequiresCapacity">
+        <capacity>Talking</capacity>
       </li>
     </comps>
   </AbilityDef>

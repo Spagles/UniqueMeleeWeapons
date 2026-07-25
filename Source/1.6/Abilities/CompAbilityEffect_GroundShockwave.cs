@@ -39,13 +39,19 @@ public class CompProperties_AbilityGroundShockwave : CompProperties_AbilityExplo
     // per-cell fleck, spawns and fire chance all still fire there.
     public bool excludeCaster = true;
 
-    // Feed GenExplosion a pre-built radial cell set instead of letting the DamageWorker build one, which
-    // is the only way to drop vanilla's line-of-sight filter (Explosion.StartExplosion uses overrideCells
-    // verbatim when non-empty, and everything downstream - the distance sort, the progressive Tick, the
-    // per-cell fleck, ignoredThings - is identical either way). For a shock that travels through the
-    // ground rather than the air. NOTE this is a real power increase, not just cosmetic: the burst now
-    // reaches through walls. Default false so the comp behaves exactly like vanilla unless opted in.
-    public bool ignoreLineOfSight;
+    // Carry the shock through the ground rather than the air, which is two changes to vanilla's cell
+    // selection and they only make sense together (see GroundConnectedCells):
+    //   • a wall does NOT stop it. Vanilla's DamageWorker.ExplosionCellsToHit filters every cell on
+    //     GenSight.LineOfSight from the origin, so without this the burst was smaller than the
+    //     line-of-sight-free ring drawn for it. NOTE dropping that filter is a real power increase, not
+    //     just cosmetic.
+    //   • a GAP does. The set is flood-filled outward from the caster, so the shock cannot cross cells
+    //     with no ground to carry it - Odyssey's Space terrain, i.e. the void between sections of an
+    //     orbital platform or a gravship exterior.
+    // Fed to GenExplosion as overrideCells, which Explosion.StartExplosion uses verbatim when non-empty;
+    // everything downstream (the distance sort, the progressive Tick, the per-cell fleck, ignoredThings)
+    // is identical either way. Default false so the comp behaves exactly like vanilla unless opted in.
+    public bool travelsThroughGround;
 
     public CompProperties_AbilityGroundShockwave()
     {
@@ -56,6 +62,11 @@ public class CompProperties_AbilityGroundShockwave : CompProperties_AbilityExplo
 public class CompAbilityEffect_GroundShockwave : CompAbilityEffect_Explosion
 {
     private new CompProperties_AbilityGroundShockwave Props => (CompProperties_AbilityGroundShockwave)props;
+
+    // Read by Command_Ability_GroundShockwave so the gizmo preview draws from the same numbers and the
+    // same cell set the burst actually uses, rather than a second copy of them that can drift.
+    public float Radius => Props.explosionRadius;
+    public bool TravelsThroughGround => Props.travelsThroughGround;
 
     // A faithful copy of CompAbilityEffect_Explosion.Apply with the three arguments above substituted.
     // Every argument is passed by name: the vanilla call is 36 positional arguments deep, and naming them
@@ -127,30 +138,90 @@ public class CompAbilityEffect_GroundShockwave : CompAbilityEffect_Explosion
             postExplosionSpawnThingDefWater: Props.postExplosionSpawnThingDefWater,
             screenShakeFactor: Props.screenShakeFactor,
             flammabilityChanceCurve: null,
-            overrideCells: Props.ignoreLineOfSight
-                ? RadialCells(caster.Position, map, Props.explosionRadius)
+            overrideCells: Props.travelsThroughGround
+                ? GroundConnectedCellList(caster.Position, map, Props.explosionRadius)
                 : null,
             postExplosionSpawnSingleThingDef: Props.postExplosionSpawnSingleThingDef,
             preExplosionSpawnSingleThingDef: Props.preExplosionSpawnSingleThingDef);
     }
 
-    // Every in-bounds cell within radius, unfiltered. This is the same GenRadial walk
-    // DamageWorker.ExplosionCellsToHit opens with (a circle: GenRadial.RadialPattern is sorted by true
-    // euclidean distance and NumCellsInRadius admits distance <= radius), minus its line-of-sight test
-    // and minus its adjWallCells pass - the latter is unnecessary here because taking the whole radial
-    // set already includes the wall cells that pass would have added back.
-    private static List<IntVec3> RadialCells(IntVec3 center, Map map, float radius)
+    // Per-cast wrapper: GenExplosion keeps the list it is handed (Explosion.overrideCells holds the
+    // reference for the explosion's lifetime), so this must not be the shared scratch set below.
+    // One allocation per cast of a 12-hour-cooldown ability is not worth optimising away.
+    private static List<IntVec3> GroundConnectedCellList(IntVec3 center, Map map, float radius)
     {
+        HashSet<IntVec3> cells = new HashSet<IntVec3>();
+        GroundConnectedCells(center, map, radius, cells);
+        return new List<IntVec3>(cells);
+    }
+
+    // Does this cell have ground to carry the shock? Odyssey's `Space` terrain is the ONLY terrain in
+    // the game that sets exposesToVacuum, so this is the one field that covers both motivating cases -
+    // the void between orbital-platform sections and a gravship exterior - and it is false for every
+    // terrain on an ordinary map, which is what makes GroundConnectedCells a no-op off space maps.
+    //
+    // Deliberately NOT TerrainDef.IsSubstructure, which looks like the obvious test and is wrong: only
+    // gravship decking carries the Substructure tag, so OrbitalPlatform and MechanoidPlatform - solid
+    // floor a player walks on - would read as gaps. GridsUtility.GetTerrain never returns null (it falls
+    // back to Soil), so no guard is needed here.
+    public static bool ConductsShock(IntVec3 cell, Map map)
+    {
+        return !cell.GetTerrain(map).exposesToVacuum;
+    }
+
+    // Fills `into` with the cells the shock reaches: the euclidean disc of `radius`, flood-filled
+    // outward from `center` through cells that conduct. Two properties worth preserving if this is ever
+    // touched:
+    //   • On a map with no vacuum terrain the result is cell-for-cell IDENTICAL to the plain radial disc,
+    //     because the candidate set is built from the same GenRadial walk vanilla uses and the fill then
+    //     admits all of it. So this changes nothing outside space maps.
+    //   • The fill is CARDINAL-only, matching Verse.FloodFiller and GasGrid diffusion, so the shock
+    //     cannot squeeze diagonally between two void cells that touch only at a corner.
+    // Hand-rolled rather than map.floodFiller because that is a shared per-map singleton with a
+    // reentrancy guard that logs an error on nesting, and it has no radius bound - a pure connectivity
+    // fill would follow an open deck well past `radius`. Scratch collections are static and cleared on
+    // entry: both callers are main-thread and neither re-enters, which is the same pattern vanilla uses
+    // for DamageWorker.openCells and GenDraw.ringDrawCells.
+    public static void GroundConnectedCells(IntVec3 center, Map map, float radius, HashSet<IntVec3> into)
+    {
+        into.Clear();
+        if (map == null)
+        {
+            return;
+        }
+
+        candidates.Clear();
         int numCells = GenRadial.NumCellsInRadius(radius);
-        List<IntVec3> cells = new List<IntVec3>(numCells);
         for (int i = 0; i < numCells; i++)
         {
             IntVec3 cell = center + GenRadial.RadialPattern[i];
             if (cell.InBounds(map))
             {
-                cells.Add(cell);
+                candidates.Add(cell);
             }
         }
-        return cells;
+
+        // The origin is always struck, conducting or not: that is where the weapon hits, so the slam,
+        // its sound and its dust belong there even in the degenerate case of a caster over open space.
+        frontier.Clear();
+        into.Add(center);
+        frontier.Enqueue(center);
+        while (frontier.Count > 0)
+        {
+            IntVec3 cell = frontier.Dequeue();
+            for (int i = 0; i < 4; i++)
+            {
+                IntVec3 neighbour = cell + GenAdj.CardinalDirections[i];
+                if (into.Contains(neighbour) || !candidates.Contains(neighbour) || !ConductsShock(neighbour, map))
+                {
+                    continue;
+                }
+                into.Add(neighbour);
+                frontier.Enqueue(neighbour);
+            }
+        }
     }
+
+    private static readonly HashSet<IntVec3> candidates = new HashSet<IntVec3>();
+    private static readonly Queue<IntVec3> frontier = new Queue<IntVec3>();
 }

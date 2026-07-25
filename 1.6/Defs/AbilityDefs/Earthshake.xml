@@ -59,6 +59,10 @@
     <iconPath>UI/Commands/UMW_Earthshake</iconPath>
     <aiCanUse>true</aiCanUse>
     <targetRequired>False</targetRequired>
+    <!-- Draws the gap-blocked ring instead of a plain radius ring. AbilityDef.gizmoClass is a plain Type
+         field that Ability.GetGizmos passes to Activator.CreateInstance, so this needs no Harmony patch;
+         the class falls back to vanilla's ring if the shockwave comp is ever absent. -->
+    <gizmoClass>UniqueMeleeWeapons.Command_Ability_GroundShockwave</gizmoClass>
     <cooldownTicksRange>30000</cooldownTicksRange> <!-- 12 hours -->
     <verbProperties>
       <verbClass>Verb_CastAbility</verbClass>
@@ -66,8 +70,9 @@
            NOT any comp field, so a mismatch draws a preview that lies about the burst. -->
       <range>3.9</range>
       <!-- drawHighlightWithLineOfSight deliberately ABSENT (unlike RallyingCry.xml, whose comp really does
-           require line of sight to each ally). The shock travels through the ground, so neither the preview
-           nor the burst is LOS-filtered, and the two now agree — see ignoreLineOfSight below. -->
+           require line of sight to each ally). The shock travels through the ground, so it is not
+           LOS-filtered at all — but it IS gap-blocked, which no VerbProperties field can express, so the
+           ring is drawn by the gizmoClass below instead of by this verb. See travelsThroughGround. -->
       <drawAimPie>false</drawAimPie>
       <warmupTime>0.5</warmupTime>
       <targetParams>
@@ -85,7 +90,7 @@
         <soundExplode>Explosion_Thump</soundExplode> <!-- Stun's own sound pitched down; see PRESENTATION above -->
         <propagationSpeed>0.3</propagationSpeed> <!-- 0.30s of visible outward roll; see PRESENTATION above -->
         <excludeCaster>true</excludeCaster> <!-- the wielder is braced for it; everyone else is not -->
-        <ignoreLineOfSight>true</ignoreLineOfSight> <!-- through the ground: walls do not stop it -->
+        <travelsThroughGround>true</travelsThroughGround> <!-- walls do not stop it; a gap in the floor does -->
       </li>
       <!-- The shock in the air above, reaching a little past the stun. Vanilla comp, our FleckDef. -->
       <li Class="CompProperties_AbilityFleckOnTarget">

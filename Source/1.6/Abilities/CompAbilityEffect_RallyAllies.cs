@@ -76,11 +76,18 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
     // which way the pawn faces, and the angle is flipped 180 degrees from vanilla's so they read as
     // rising rather than falling.
     //
+    // The angle is FIXED, not derived from the pawn's facing. Vanilla's ritual comp passes
+    // pawn.Rotation.AsAngle, which is fine for a seated organizer but rotated the lines sideways or fully
+    // inverted for east/west/north pawns mid-combat — it read as broken rather than as shouting. 0 is what
+    // the south-facing case worked out to and the look we want everywhere: Rot4.South.AsAngle is 180 and
+    // the upward flip added another 180, i.e. the texture unrotated, lines rising straight up.
+    //
     // 0.85 rather than vanilla's 0.5 north-facing lift, which only grazed the top of the head. The fleck
     // is drawSize 0.7, so its lower edge sits 0.35 below its centre: at 0.5 that edge lands around head
     // height, while 0.85 puts it at 0.5, clear of a head whose top is around 0.4. Raise further if a
     // crowd still reads as shouting into their own hair.
     private static readonly Vector3 ResponderLinesOffset = new Vector3(0f, 0f, 0.85f);
+    private const float ResponderLinesAngle = 0f;
 
     // Core's SpeechLines is authored for a ritual: 0.25s all told (fadeIn 0.03 + solid 0.2 + fadeOut
     // 0.02), respawned on an interval so it reads as a blink. That cadence is right for the CASTER, who
@@ -228,7 +235,7 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
             if (pawn != caster)
             {
                 SpawnSpeechLines(
-                    pawn, map, ResponderLinesOffset, pawn.Rotation.AsAngle + 180f, ResponderSolidTime);
+                    pawn, map, ResponderLinesOffset, ResponderLinesAngle, ResponderSolidTime);
             }
         }
     }

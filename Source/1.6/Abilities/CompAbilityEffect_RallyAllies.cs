@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using RimWorld;
 using UnityEngine;
 using Verse;
+using Verse.Sound;
 
 namespace UniqueMeleeWeapons;
 
@@ -36,9 +37,10 @@ public class CompProperties_AbilityRallyAllies : CompProperties_AbilityEffect
 // to a mote at cast time is CompProperties_AbilityMoteOnTarget, which reaches Mote_Speech via
 // MoteMaker.MakeAttachedOverlay and so never calls MoteBubble.SetupMoteBubble — you get the bubble
 // background with no symbol inside it. MakeSpeechBubble does both (decompile-verified 2026-07-25).
-// The audible half of the cry needs no code at all: it rides the inherited soundMale/soundFemale that
-// CompAbilityEffect.Apply plays gender-aware, wired on the def to our own one-shot copies of Core's
-// throne-speech recording. See Defs/SoundDefs/RallyingCryShout_Male.xml.
+// The audible half of the cry reads its two SoundDefs off the inherited soundMale/soundFemale props
+// (wired on the def to our own one-shot copies of Core's throne-speech recording — see
+// Defs/SoundDefs/RallyingCryShout_Male.xml) but plays them itself rather than letting
+// CompAbilityEffect.Apply do it, so the caster's own voice pitch can ride along. See PlayShout.
 // The def's remaining cast visuals (the sunbeam fleck, the raised-weapon pose) are pure XML; see
 // Defs/AbilityDefs/RallyingCry.xml.
 [StaticConstructorOnStartup]
@@ -71,12 +73,15 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
             return;
         }
 
-        // After the guards: a cast that rallies no one shouldn't mime the cry either. base.Apply is called
-        // HERE rather than at the top of the method (where the stock comps put it) for the same reason —
-        // it is what plays the comp's soundMale/soundFemale, so the shout has to be gated exactly as the
-        // bubble is. Nothing else in CompAbilityEffect.Apply is affected by the move: this comp leaves
-        // screenShakeIntensity, goodwillImpact, clamorType and message unset.
-        base.Apply(target, dest);
+        // After the guards: a cast that rallies no one shouldn't mime the cry either.
+        //
+        // base.Apply is deliberately NOT called. For this comp its only live contribution was playing
+        // Props.soundMale/soundFemale, which PlayShout now does with the caster's own voice pitch — and
+        // everything else it does is inert here: screenShakeIntensity, goodwillImpact, clamorType and
+        // message are all left unset. Skipping it matches CompAbilityEffect_GroundShockwave, which skips
+        // it for the same reason. FOOTGUN: setting any of those four props fields later would silently do
+        // nothing until this call is restored.
+        PlayShout(caster, map);
         MoteMaker.MakeSpeechBubble(caster, SpeechSymbol);
 
         List<Pawn> allies = map.mapPawns.SpawnedPawnsInFaction(caster.Faction);
@@ -97,5 +102,38 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
             }
             ally.health?.AddHediff(Props.hediffDef);
         }
+    }
+
+    // The shout. Played here rather than by CompAbilityEffect.Apply so it can carry the caster's own
+    // voice, which that method cannot: it plays the sound through a bare PlayOneShot with no pitch hook.
+    // SoundInfo.pitchFactor does have one, and Pawn_StoryTracker.VoicePitchFactor is a 0.85-1.15
+    // multiplier seeded on the pawn's thingIDNumber — so it is stable for the life of that pawn, differs
+    // between pawns, and is INDEPENDENT of gender (which separately selects the recording, via the two
+    // soundMale/soundFemale defs). One particular colonist's cry therefore always sounds like them.
+    // This is exactly what vanilla speeches do: JobDriver_GiveSpeech feeds the same value to
+    // PlaySustainerOrSound (all decompile-verified 2026-07-25, RimWorld 1.6).
+    //
+    // A def-level SoundDef.pitchRange would NOT achieve this — that re-rolls on every play, so the same
+    // pawn would sound like a different person each cry, which is worse than no variation at all.
+    //
+    // The gender switch mirrors CompAbilityEffect.Apply's exactly, including Gender.None falling through
+    // to the unset Props.sound, i.e. silence. See Defs/AbilityDefs/RallyingCry.xml for why that no-op is
+    // the right one.
+    private void PlayShout(Pawn caster, Map map)
+    {
+        SoundDef shout = caster.gender switch
+        {
+            Gender.Male => Props.soundMale ?? Props.sound,
+            Gender.Female => Props.soundFemale ?? Props.sound,
+            _ => Props.sound,
+        };
+        if (shout == null)
+        {
+            return;
+        }
+
+        SoundInfo info = SoundInfo.InMap(new TargetInfo(caster.Position, map));
+        info.pitchFactor = caster.story?.VoicePitchFactor ?? 1f;
+        shout.PlayOneShot(info);
     }
 }

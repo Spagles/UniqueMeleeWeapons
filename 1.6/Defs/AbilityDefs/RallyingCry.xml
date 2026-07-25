@@ -71,10 +71,13 @@
       <li Class="UniqueMeleeWeapons.CompProperties_AbilityRallyAllies">
         <radius>9.9</radius> <!-- keep verbProperties.range above in step with this -->
         <hediffDef>UMW_Rallied</hediffDef>
-        <!-- The shout itself. soundMale/soundFemale are inherited CompProperties_AbilityEffect fields,
-             played gender-aware by CompAbilityEffect.Apply, which our comp calls — so this needs no code.
-             A caster of Gender.None would fall through to Props.sound, which is deliberately unset: silent
-             is the right no-op, and Talking-gated humanlikes are always male or female in practice. -->
+        <!-- The shout itself. soundMale/soundFemale are inherited CompProperties_AbilityEffect fields, but
+             the comp reads and plays them itself rather than letting CompAbilityEffect.Apply do it, so the
+             caster's own VoicePitchFactor can ride along (that method's PlayOneShot has no pitch hook).
+             Do NOT add a pitchRange to the SoundDefs to get variation instead: that re-rolls per play, so
+             one pawn would sound like a different person every cry. A caster of Gender.None falls through
+             to Props.sound, deliberately unset: silence is the right no-op, and a Talking-gated humanlike
+             is male or female in practice. -->
         <soundMale>UMW_RallyingCryShout_Male</soundMale>
         <soundFemale>UMW_RallyingCryShout_Female</soundFemale>
       </li>

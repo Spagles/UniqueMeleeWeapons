@@ -1,433 +1,221 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code (claude.ai/code) when working in this repository.
 
 ## Project Overview
 
-**Unique Melee Weapons** is a RimWorld 1.6 mod that adds a collection of unique,
-individually-designed melee weapons. Requires Harmony and the Odyssey DLC.
+**Unique Melee Weapons** is a RimWorld 1.6 mod adding individually-designed unique melee
+weapons — stuffable variants of vanilla melee weapons that roll random traits, colours and
+names. Requires Harmony and the Odyssey DLC (a few traits additionally `MayRequire` Royalty).
 
-> The mod is freshly scaffolded — this file documents the build/deploy system and
-> conventions. Fill in the **Content** and **Architecture** sections as weapons and
-> any custom C# behaviour are added.
+**Key technologies:** C# (.NET Framework 4.7.2), Harmony, RimWorld modding API, XML defs.
 
-**Key Technologies:** C# (.NET Framework 4.7.2), Harmony library, RimWorld modding API, XML definitions
+### Where documentation lives
+
+**This file holds only cross-cutting rules and rationale.** Per-item values, tuning numbers and
+decompile-verified call paths live in the header comment of the file they describe — every `.cs`
+file, every `WeaponCategoryDef`, and every non-obvious trait/hediff/damage def carries one. When
+adding or changing something, put the *why* there and only add a line here if it constrains work
+in other files. Do not restate def values or call paths here; they drift.
+
+Vanilla reference defs studied for the quest work live in the gitignored, non-deployed
+`Docs/odyssey-reference/`.
 
 ## Build Commands
 
 ```bash
-# Build the mod (outputs to 1.6/Assemblies/ AND atomically redeploys to the RimWorld Mods folder)
+# Build (outputs to 1.6/Assemblies/ AND atomically redeploys to the RimWorld Mods folder)
 dotnet build UniqueMeleeWeapons.sln -c Release
-
-# Build only the main project (also triggers the deploy)
-dotnet build Source/1.6/UniqueMeleeWeapons.csproj
 
 # Stage the mod into an arbitrary folder (used by CI; same manifest as the local deploy)
 dotnet build Source/1.6/UniqueMeleeWeapons.csproj -c Release \
   -t:StageMod -p:StageDir=/path/to/output/UniqueMeleeWeapons
 ```
 
-The build system auto-detects the RimWorld installation path on Windows/Linux/Mac (including WSL targeting a Windows install). For CI builds without RimWorld installed, it falls back to the `Krafs.Rimworld.Ref` NuGet package.
+The build auto-detects the RimWorld install (Windows/Linux/Mac, including WSL targeting a Windows
+install), falling back to the `Krafs.Rimworld.Ref` NuGet package in CI.
+
+**WSL setup:** `RIMWORLD_PATH` in `~/.bashrc` pointing at the Windows install, e.g.
+`/mnt/c/Program Files (x86)/Steam/steamapps/common/RimWorld`.
 
 ### Deployment
 
-The repo lives in `~/dev/UniqueMeleeWeapons`, separate from the RimWorld Mods folder. Every local build redeploys automatically and atomically — there is no separate clean step to remember.
+The repo lives outside the Mods folder; every local build redeploys automatically and atomically.
 
-- **Single source of truth:** the file manifest lives in **one** place — the `_ModFiles` ItemGroup in the `StageMod` target of `Source/1.6/UniqueMeleeWeapons.csproj`. It's generic over the well-known RimWorld content folders — `About`, `Assemblies`, `Defs`, `Patches`, `Textures`, `Sounds`, `Languages`, plus root `LoadFolders.xml` — each matched at the mod root **and** under any version/`Common` folder (the `$(RepoRoot)/*/<Folder>` patterns), so a new version folder (a future `1.7/`) needs no change. Source layout is mirrored verbatim into `$(StageDir)` (via per-item `MakeRelative` metadata — note an inline `MakeRelative` inside an item transform evaluates only once, not per item). Dropping in e.g. a `Sounds/` folder deploys automatically; only a brand-new _file type_ needs a new line here.
-- **Lean by extension whitelist:** only the formats RimWorld loads at runtime ship — `.dll` (no `.pdb`); `.xml` (Defs/Patches/Languages/About); `.png`/`.jpg`/`.jpeg` (Textures); `.wav`/`.mp3`/`.ogg` (Sounds); `.txt` (Languages/About, e.g. `PublishedFileId.txt`). `Verse.ModContentLoader` _lists_ `.psd`/`.dds` among acceptable texture extensions, but its runtime decode path (`Texture2D.LoadImage`) only handles PNG/JPEG — a shipped `.psd`/`.dds` would fail to render and just bloat the download, so they're **excluded**. OS junk, editor backups (incl. `.kra` art sources), dev notes, and `Source/` can never leak into a release.
-- **Self-cleaning:** `StageMod` wipes `$(StageDir)` and recopies from source, so renamed/deleted Defs/Patches/Textures never linger. The post-build `DeployToModFolder` target calls `StageMod` with `StageDir = $RIMWORLD_PATH/Mods/UniqueMeleeWeapons` (only when a local RimWorld install is detected).
-- **CI reuses the same target:** `.github/workflows/release.yml` invokes `StageMod` with `-p:StageDir=<release dir>` rather than its own `cp` list, so the release zip can never drift from the local deploy. The workflow triggers on `v*.*.*` tags.
-- **Stop hook (`.claude/hooks/sync-mod.sh`):** runs after each conversation turn. It rebuilds+redeploys _only when mod-relevant source/content changed since the last deploy_ (skips doc/discussion turns), logs to `$TMPDIR/umw-build.log`, and prints a warning on build failure instead of silently leaving a stale DLL in the game folder. Change-detection uses a stamp at `Source/1.6/obj/.umw-deploy-stamp`. Both the hook config (`.claude/settings.local.json`) and the helper script live under `.claude/`, which is **gitignored** — so the whole post-turn sync is local-only and untracked. If it's ever promoted to a committed config, move the helper somewhere version-controlled. The script finds the repo root via `git rev-parse`, so it works regardless of where it's relocated.
-
-**WSL Setup:** Requires `RIMWORLD_PATH` env var in `~/.bashrc` pointing to the Windows RimWorld install (e.g., `/mnt/c/Program Files (x86)/Steam/steamapps/common/RimWorld`).
+- **One manifest, one place:** the `_ModFiles` ItemGroup in the `StageMod` target of
+  `Source/1.6/UniqueMeleeWeapons.csproj`. It is generic over the well-known RimWorld content
+  folders, matched at the mod root *and* under any version/`Common` folder — so a new `1.7/` or a
+  new `Sounds/` needs no build change. Only a brand-new *file type* does.
+- **Extension whitelist:** only formats RimWorld actually loads at runtime ship (see the target's
+  comments for the list and the `.psd`/`.dds` exclusion rationale). Dev notes, art sources, editor
+  backups and `Source/` can never leak into a release.
+- **Self-cleaning:** `StageMod` wipes `$(StageDir)` and recopies, so deleted/renamed content never
+  lingers. `DeployToModFolder` (post-build) calls it against the detected install; CI
+  (`.github/workflows/release.yml`, triggered on `v*.*.*` tags) calls the same target, so the
+  release zip can't drift from the local deploy.
+- **Stop hook (`.claude/hooks/sync-mod.sh`):** rebuilds+redeploys after a turn only when
+  mod-relevant files changed, logs to `$TMPDIR/umw-build.log`, warns on failure. `.claude/` is
+  gitignored, so this is local-only — if it is ever promoted to committed config, move the helper
+  somewhere version-controlled.
 
 ## Architecture
 
-### Directory Structure
+### Directory structure
 
 ```
-About/              # Mod metadata (About.xml, ModIcon.png, Preview.png)
+About/                          # Mod metadata
 1.6/
-├── Assemblies/         # Compiled DLL (build output, gitignored)
-├── Defs/
-│   ├── ThingDefs/          # Weapon ThingDefs
-│   ├── WeaponCategoryDefs/ # Trait-system categories (which traits a weapon may roll)
-│   ├── WeaponTraitDefs/    # Unique-weapon traits (stat mods, forced accent colours)
-│   │                       #   (one def per file in every Defs .xml — see Naming)
-│   ├── DamageDefs/         # Custom melee DamageDefs carried by on-hit effects / base-damage conversion (UMW_Stab_Tox/_Tranq/_Ragged, UMW_Cut_Ragged)
-│   ├── HediffDefs/         # Custom hediffs: injuries targeted by those DamageDefs, buildup/timed
-│   │                       #   hediffs (UMW_SedativeBuildup, UMW_Rallied), and equipped-hediff stat
-│   │                       #   carriers — the only working wielder-stat vehicle (see hardened field
-│   │                       #   rules; e.g. UMW_NeedlePointGrip)
-│   ├── ColorDefs/          # Forced accent/body colours (e.g. UMW_Blood, UMW_Carbon, UMW_Enamel)
-│   ├── ThoughtDefs/        # Trait-driven moodlets (situational UMW_BloodStainedWeapon / UMW_StoriedWeapon)
-│   ├── AbilityDefs/        # Actives granted via trait abilityProps (UMW_Earthshake, UMW_RallyingCry)
-│   ├── ThingSetMakerDefs/  # Reward pools (UMW_Reward_UniqueWeapon — our melee-only quest reward)
-│   ├── FactionDefs/         # Warband.xml — the warband quest's hidden, temporary faction
-│   ├── SitePartDefs/        # WarbandCamp.xml — the warband quest's camp site part
-│   ├── QuestScriptDefs/     # OpportunitySite_Warband.xml — the warband opportunity-site quest
-│   └── RulePackDefs/        # NamerStuffAdjectives.xml — material-adjective name grammar (code-injected)
-├── Patches/        # XPath patches (if/when needed)
-└── Languages/English/Keyed/  # UMW_UI.xml — settings-window strings (localizable via .Translate())
-Textures/
-└── Things/Item/Equipment/WeaponMelee/UniqueWeapons/<Weapon>/   # per-weapon variant folder
+├── Assemblies/                 # Build output (gitignored)
+├── Defs/                       # One def per file, grouped by def type (see Naming)
+│   ├── ThingDefs/              #   the 7 *_Unique weapons
+│   ├── WeaponCategoryDefs/     #   which traits a weapon may roll; each file documents its
+│   │                           #   trait families, exclusion tokens and membership
+│   ├── WeaponTraitDefs/<Cat>/  #   traits, in a subfolder per category
+│   ├── DamageDefs/ HediffDefs/ ThoughtDefs/ AbilityDefs/ ColorDefs/
+│   ├── ThingSetMakerDefs/      #   our melee-only reward pool
+│   ├── RulePackDefs/           #   material-adjective name grammar
+│   └── FactionDefs/ SitePartDefs/ QuestScriptDefs/   # the warband quest
+├── Patches/                    # XPath patches
+└── Languages/English/Keyed/    # UMW_UI.xml — settings strings
+Textures/Things/Item/Equipment/WeaponMelee/UniqueWeapons/<Weapon>/
 Source/1.6/
-├── Core/           # Mod subclass (Harmony setup + settings window), ModSettings, UMW_DefOf,
-│                   #   UMW_Startup (post-def-load application of def-overriding settings)
-├── Things/         # Custom thingClass subclasses (e.g. UniqueMeleeWeapon)
-├── Graphics/       # Graphic_RandomComplex (random variant, preserves colour two)
-├── Traits/         # Melee trait effect machinery: MeleeTraitEffectExtension + MeleeOnHitEffect
-│                   #   subclasses, MeleeDamageConversionExtension (base-damage reroute),
-│                   #   ForcedColorTwoExtension (trait-forced body/colour-two tint), and the
-│                   #   trait-gated equip-mood workers (ThoughtWorker_BloodStained/StoriedWeapon
-│                   #   + the shared UniqueWeaponTraitUtility scan)
-├── Abilities/      # CompAbilityEffect subclasses backing trait-granted actives (RallyAllies)
-├── Patches/        # Harmony patches (e.g. Verb_MeleeAttackDamage on-hit-trait postfix)
-├── ThingSetMakers/ # ThingSetMaker_UMWUnique (vanilla-pool exclusion subclass)
-├── Quests/         # Warband quest: QuestNode_Root_Warband, QuestPart_SpawnWarband, UMW_QuestDefOf
-└── Properties/     # AssemblyInfo
+├── Core/                       # Mod subclass, ModSettings, DefOf, post-def-load startup
+├── Things/                     # UniqueMeleeWeapon (the double-mask thingClass)
+├── Graphics/                   # Graphic_RandomComplex
+├── Traits/                     # DefModExtensions + workers backing melee trait effects
+├── Abilities/ ThingSetMakers/ Quests/
+└── Patches/                    # Harmony patches
 ```
 
-### Def Naming Convention
+### Naming conventions
 
-All defs use the `UMW_` prefix (Unique Melee Weapons). For a unique variant of a vanilla
-weapon, mirror Odyssey's official convention of suffixing the base weapon name with `_Unique`
-— e.g. the unique longsword (vanilla `MeleeWeapon_LongSword`) is `UMW_LongSword_Unique`.
+- All defs use the `UMW_` prefix. A unique variant of a vanilla weapon mirrors Odyssey's
+  convention: base weapon name + `_Unique` (`UMW_LongSword_Unique`).
+- **One def per file** in every `Defs/` `.xml`, named after the def with the `UMW_` prefix
+  stripped and the meaningful `_Unique` suffix kept. Trait files sit in a subfolder named after
+  their `WeaponCategoryDef` (`Melee/`, `Bladed/`, `Pointed/`, `Blunt/`, `Heavy/`, `Guarded/`), so
+  a trait's `<weaponCategory>` is obvious from its path. Defs load recursively and the deploy
+  manifest globs, so new files/subfolders need no build change.
+- **Textures** follow Odyssey: per-weapon folder, variants `Unique<Weapon><Letter>.png` plus a
+  matching `_m` mask. `texPath` points at the *folder*, with
+  `graphicClass>UniqueMeleeWeapons.Graphic_RandomComplex`.
+- **C#:** root namespace `UniqueMeleeWeapons`; patch classes use a `.Patches` suffix to avoid
+  RimWorld type-name conflicts. All patches are applied by `PatchAll()` in
+  `UniqueMeleeWeaponsMod`, so a `[HarmonyPatch]` class anywhere in the assembly is picked up.
+- **Settings:** every user-facing string routes through `.Translate()` against `UMW_UI.xml`. The
+  step-by-step recipe for adding a setting — including the pattern for a setting that *overrides a
+  def field* (written onto the live def at startup and on window close; XML holds only the
+  shipped default) — is in `Core/UniqueMeleeWeaponsSettings.cs`.
 
-**File layout:** one def per file (for discoverability) in *every* `Defs/` `.xml` — current and
-any future subfolder — named after the def with the redundant `UMW_` prefix stripped — e.g.
-`UMW_Serrated` → `WeaponTraitDefs/Bladed/Serrated.xml`,
-`UMW_LongSword_Unique` → `ThingDefs/LongSword_Unique.xml` (the `_Unique` suffix stays; it's
-meaningful). Trait files are further grouped into per-category subfolders under `WeaponTraitDefs/`
-— one folder per `WeaponCategoryDef`, named after the category with the `UMW_` prefix stripped
-(`Melee/`, `Bladed/`, `Pointed/`, `Blunt/`, `Heavy/`, `Guarded/`) — so a trait sits beside its siblings and
-its `<weaponCategory>` is obvious from its path. RimWorld loads `Defs/` recursively and the
-`StageMod` manifest is generic over the folder (its globs use `**`), so adding per-def files or
-new subfolders needs no build change. Keep each category's shared theme /
-on-hit-effect rationale on its `WeaponCategoryDef` file, and the broad system overview in this
-doc — don't re-duplicate it across the individual trait files.
+### Design rules for weapons and traits
 
-**Texture naming** also follows Odyssey: variants live in a per-weapon folder
-(`Textures/Things/Item/Equipment/WeaponMelee/UniqueWeapons/<Weapon>/`) and are named
-`Unique<Weapon><Letter>` with a matching `_m` colour mask — e.g. `UniqueLongSwordA.png` +
-`UniqueLongSwordA_m.png`. The def's `texPath` points at the **folder** and uses
-`graphicClass>UniqueMeleeWeapons.Graphic_RandomComplex` — our subclass of `Graphic_Random` (random
-variant per spawn; `_m` masks auto-pair per variant). The custom class is required because vanilla
-`Graphic_Random` clamps colour two to white (see the double-masking note below).
+- **A trait must read as a physical property of the weapon** — flanges, studs, guards, coatings,
+  provenance — never an unexplained wielder blessing. Ability traits are the accepted exception,
+  tone-checked case by case.
+- **Trait names name the physical feature** (quillons, a dead-blow head, an opiated point), never
+  the effect verb. The granted *ability* and any wielder-side hediff name the act instead.
+- **Control-effect budget:** a new stun/stagger/control proposal must *displace* an existing
+  control effect, not add to the census (held at Odyssey's ~1-in-8 share).
+- **Category taxonomy is locked at 6:** `UMW_Melee` (universal), the mechanism categories
+  `UMW_Bladed`/`UMW_Pointed`/`UMW_Blunt`, the handling category `UMW_Heavy`, and the
+  weapon-gating category `UMW_Guarded`. Membership, trait families, the global exclusion-token
+  registry and the per-category rationale live on the `WeaponCategoryDef` files — read the
+  relevant one before adding a trait. Single-trait categories are fine (Odyssey ships several);
+  the bar is that each trait be mechanically meaningful — a `UMW_Reach` category was considered for
+  the spear and rejected, since melee has no reach mechanic and its traits would be flavour-only.
+- **A category gates by weapon; `exclusionTags` only prevent co-rolls.** Use a new category when
+  a trait requires a construction feature the weapon may not have (`UMW_Guarded`); use a token
+  when traits are alternatives within a family.
+- **Generation throws** unless a weapon's categories include a `canGenerateAlone=true` trait that
+  yields a `traitAdjective`. `UMW_Melee`'s universal `UMW_Lightweight` guarantees this — don't
+  remove it, and don't make it inheritance-dependent (see `WeaponCategoryDefs/Melee.xml` for why
+  the six Odyssey ports are deliberate self-contained copies, *not* XML inheritance).
+- **`MarketValue`: factor only for value-scaling, flat offset for everything else.** Following
+  Odyssey — factor ⟺ precious-inlay scaling or devaluation (`Ugly`/`Cumbersome`-likes);
+  offset ⟺ any added capability. A trait that is both carries both halves. Size offsets from the
+  nearest Odyssey analog and name it inline in the trait file.
+- **Royalty-analog traits are def-level `MayRequire`-gated**, as are any mod-owned defs only they
+  consume. A skipped def never enters the `DefDatabase`, so category rolls simply don't see it.
 
-### Conventions
+### Hard-won constraints (violate these and it fails silently)
 
-- **C# entry point:** `UniqueMeleeWeaponsMod` (in `Source/1.6/Core/`) applies all Harmony patches via `PatchAll()` at startup, so any `[HarmonyPatch]` class under the assembly is picked up automatically — no manual registration.
-- **Namespace:** root namespace is `UniqueMeleeWeapons`. Use a `*Patches` suffix for patch namespaces (e.g. `UniqueMeleeWeapons.Patches`) to avoid RimWorld type-name conflicts.
-- **Settings:** persisted via `UniqueMeleeWeaponsSettings` (ModSettings); the `Mod` subclass just delegates `DoSettingsWindowContents` → `Settings.DoWindowContents`. Every settings-window string — labels, tooltips, `GameFont.Medium` section headers, the reset button, and the `SettingsCategory` mod-list name — is routed through `.Translate()` against `1.6/Languages/English/Keyed/UMW_UI.xml` (the `UMW_`-keyed convention shared with the companion mods), so the UI is localizable. The window body renders inside a scroll view that only shows a scrollbar once content would overflow vertically (inner-rect height = `Mathf.Max(contentHeight, viewRect.height)`, with `contentHeight` re-measured each frame from `listing.CurHeight`); settings sit under section headers, and a pinned "Reset to defaults" button calls `ResetToDefaults()`. Scroll offset/height are transient UI state and deliberately **not** scribed. To add a setting: declare the field (with default), persist it in `ExposeData` (`Scribe_Values.Look` with the same default), restore it in `ResetToDefaults`, add its label/description keys to `UMW_UI.xml`, and add a row in `DoWindowContents` under a section header — new rows need no layout bookkeeping. Two settings ship: `excludeWoodStuff` (consumed live by the wood-filter patch, see Architecture) and `warbandQuestWeight`. The latter is the pattern for any **def-overriding** setting: the value is written onto the live def field (`rootSelectionWeight` is re-read on every quest roll) by `ApplyWarbandQuestWeight()`, called from `UMW_Startup` (`StaticConstructorOnStartup` — the Mod ctor is too early, defs aren't loaded) and from the `WriteSettings` override (so a change applies on settings-window close, no restart); the XML value is just the shipped default. Its slider appends an inline `(default)` suffix (the `UMW_DefaultSuffix` key) when it sits at the shipped weight — the companion-mod annotation convention; the value snaps to a 0.05 grid, so the float compare against `WarbandQuestWeightDefault` is exact.
+- **Most mechanically interesting `WeaponTraitDef` fields do nothing on melee.**
+  `damageDefOverride`, `extraDamages`, `additionalStoppingPower`, `burstShot*` and
+  `ignoresAccuracyMaluses` are read only by `Projectile`/`Verb_LaunchProjectile`;
+  `equippedStatOffsets`, `marketValueOffset`, `killThought` and the `bonded*` fields are read only
+  by bladelink (persona) weapons. All are **silently inert** on `CompUniqueWeapon` — never use
+  them. What *does* reach melee: `statOffsets`/`statFactors`, `equippedHediffs`, `abilityProps`,
+  `forcedColor`. Wielder-side effects therefore ride an **equipped hediff**; market value rides
+  `statOffsets`/`statFactors → MarketValue`.
+- **Trait stat mods reach any stat of the weapon *thing***, not just combat ones — item-condition
+  stats (`MaxHitPoints`, `DeteriorationRate`, `Flammability`) are fair game. Note melee damage and
+  armor pen share the single `MeleeWeapon_DamageMultiplier` stat: there is **no** melee AP stat, so
+  raising AP via stats always raises damage. Use `MeleeToolModExtension` for independent per-tool
+  changes.
+- **Anything a weapon needs beyond those four fields goes through our own extension layer** — a
+  `DefModExtension` on the trait plus a Harmony postfix, so the trait stays an ordinary def and
+  vanilla generation/naming/stats keep working. Four exist, each documented in
+  `Source/1.6/Traits/`: `MeleeTraitEffectExtension` (on-hit effects — extra damage, stun, stagger,
+  mental state), `MeleeDamageConversionExtension` (reroute the *base* hit's `DamageDef`),
+  `MeleeToolModExtension` (per-tool damage/AP), `ForcedColorTwoExtension` (forced body colour).
+  Prefer extending one of these over a new mechanism.
+- **On-hit `DamageDef` payloads work for free.** `DamageDef.additionalHediffs` and the damage
+  workers (`Flame`'s ignition, `EMP`'s stun) are applied source-agnostically by every
+  `Thing.TakeDamage`, so an extra-damage effect carrying the right `DamageDef` needs no new C#.
+  Reuse a Core `DamageDef` where one fits; clone only when a field must change.
+- **Every weapon def must carry a `CompEquippable`-derived ability comp.** `CompUniqueWeapon.Setup`
+  dereferences `CompEquippableAbilityReloadable` with no null check whenever a rolled trait carries
+  `abilityProps`. Only one such comp is allowed per thing, so all 7 unique defs replace their
+  inherited comps wholesale (`<comps Inherit="False">`, uniform across the 7 even where no ability
+  can currently roll). **If base-game weapon comps change in a vanilla update, replicate the change
+  in all 7 files.**
+- **Stuffable uniques are double-masked** (`Things/UniqueMeleeWeapon.cs`): mask **red** → colour
+  one (the unique accent, supplied by vanilla), mask **green** → colour two (the material tint, or
+  a trait-forced body colour). This is the load-bearing trick of the mod — Odyssey's ranged uniques
+  are not stuffable and don't need it. **Art rule:** the weapon silhouette must be all red/green
+  with **no black** (black means "not painted" and would ignore the material entirely), and the
+  diffuse must stay light/neutral so the multiply yields a clean tint. There are only two channels,
+  so a forced body colour *replaces* the material tint — one body-colour trait per weapon, gated by
+  its exclusion token; it can still co-occur with a colour-one inlay.
+- **Vanilla melee weapons have no `Name=`, so they can't be `ParentName` targets.**
+  `Patches/AddNameToBaseMeleeWeapons.xml` adds one per base weapon we mirror (patches run before
+  inheritance resolution; `AttributeAdd` is add-if-missing, so it stacks safely with other mods).
+  Add an Operation there for each new base weapon, DLC-gated by node existence if it isn't Core.
+  Unique defs then override only their deltas and inherit tools/stats/stuff.
+- **Back-reference the base weapon via `<descriptionHyperlinks>`.** Our `UMW_` prefix means the
+  base def isn't derivable from the unique's defName, so the explicit link is required.
+- **Nullified *situational* thoughts still render as a grey "0" row** (only memories are dropped at
+  `MoodOffset()==0`). So a trait-flipped mood must be **one multi-stage def with a stage-routing
+  worker**, not a penalty def plus a `requiredTraits` buff def — the latter shows a duplicate row.
+  Personality exemptions stay declarative (`nullifyingTraits`/`nullifyingGenes`, with `MayRequire`
+  on mod-specific entries) *except* a trait that must flip the sign, which has to route in the
+  worker because nullification zeroes the whole def. See `Traits/ThoughtWorker_BloodStainedWeapon.cs`.
+- **Reward pools are split in def space, not by Harmony.** Odyssey's `ThingSetMaker_UniqueWeapon`
+  makes things with no stuff, which both errors on our stuffable weapons and dilutes the ranged pool.
+  Every `*_Unique` weapon carries a `UMW_UniqueMelee` tag; an XPath patch repoints the two
+  class-based vanilla consumers onto `ThingSetMaker_UMWUnique`, and our own pool filters on the tag.
+  Tag-based makers (crates, fishing, map-gen loot) pass a stuff already and keep our weapons.
+  Changing the tag means changing the weapon defs, our pool def and the subclass constant in lockstep.
+- **Material must be surfaced explicitly**, because a unique name hides the stuff an ordinary label
+  shows. `UniqueMeleeWeapon` adds an inspect-pane line and injects a `stuff_adjective` grammar
+  symbol into name generation. That symbol is also a **dependency-free integration contract** with
+  the companion mod (Unique Weapons Unbound): it publishes the material as that well-known symbol,
+  we supply the grammar; neither mod references the other's code. Don't rename it. See
+  `Patches/NameGenerator_StuffAdjective_Patch.cs`.
 
-### Architecture notes
+### Notable features
 
-One short entry per non-obvious decision (custom `CompProperties`/`Verb` subclasses, weapon
-comps, Harmony patch rationale, Odyssey-specific hooks, etc.), mirroring the build-system notes.
-
-- **Stuffable unique weapons = double-masked recolour (`Source/1.6/Things/UniqueMeleeWeapon.cs`).**
-  This is the load-bearing trick of the whole mod. Odyssey's ranged uniques are *not* stuffable —
-  they bake the body colour into the diffuse and use the mask only for a single forced accent
-  colour. Our melee weapons *are* stuffable, so they must show **both** the material tint *and* a
-  unique accent at once. We do this with one `CutoutComplex` texture:
-  - **Mask red → colour one (`DrawColor`)** = the unique accent. Supplied for free by vanilla
-    `CompUniqueWeapon.ForceColor()` (a random weapon `ColorDef`, or a trait's `forcedColor` like
-    `UniqueWeapon_Gold`). No code needed for this half.
-  - **Mask green → colour two (`DrawColorTwo`)** = the stuff/material tint *by default*. Vanilla leaves
-    `DrawColorTwo` at the def's white `colorTwo`; our `thingClass` (`UniqueMeleeWeapon : ThingWithComps`)
-    overrides it to `def.GetColorForStuff(Stuff)`. A trait may instead **force** colour two via our
-    `ForcedColorTwoExtension` (`Source/1.6/Traits/`) — the colour-two analogue of vanilla's colour-one
-    `forcedColor` (which never reaches colour two). `DrawColorTwo` checks the equipped
-    `CompUniqueWeapon`'s traits for the extension and, if present, returns its `ColorDef` instead of the
-    stuff tint. There is no third mask channel, so a forced body colour **replaces** the material tint
-    (a forced weapon no longer shows its stuff) — first such trait wins; gate the family with its own
-    `BodyColor` exclusion token (one body-colour trait per weapon). It sits on a different channel from
-    the `Color`-tagged colour-one inlays, so a forced body colour *can* co-occur with a Gold/Jade inlay.
-    No persistence or cache-dirtying is needed: colour two is re-derived from the (scribed) trait list at
-    draw time, and traits are set in `PostPostMake` before the graphic is first built — the same timing
-    that already makes colour one and the stuff tint work. `GraphicData.GraphicColoredFor` bakes both
-    colours into the thing's `Graphic`, so colour two also reaches the equipped/held view. **Gotcha:** vanilla
-    `Graphic_Random.GetColoredVersion` clamps colour two to white (logs *"Cannot use
-    Graphic_Random.GetColoredVersion with a non-white colorTwo"*), which renders the green-masked body
-    plain white. We use `Graphic_RandomComplex` (`Source/1.6/Graphics/`), a one-method subclass that
-    forwards colour two; `Graphic_Single` itself already supports it.
-  - **Mask black → "not painted"** = the raw diffuse, *untinted*. A black blade would therefore
-    ignore its material entirely — so masks for stuffable weapons must paint the body **green**, not
-    leave it black the way Odyssey's non-stuffable masks do. Keep the weapon silhouette all
-    red/green, no black. Keep the diffuse light/neutral so the multiply yields a clean tint.
-- **Unique-weapon traits/categories (`Defs/WeaponTraitDefs`, `Defs/WeaponCategoryDefs`).**
-  `CompUniqueWeapon` rolls 1–3 `WeaponTraitDef`s filtered to the categories listed on the weapon's
-  `CompProperties_UniqueWeapon`. Odyssey's stock traits are all tagged `Ranged`/`Gun`/etc., so they
-  never roll on a melee-categorised weapon — melee needs its own traits (we reuse Odyssey's
-  category-agnostic `ColorDef`s like `UniqueWeapon_Gold` for inlays). Generation **throws** unless at
-  least one eligible trait has `canGenerateAlone=true` (the first pick) *and* the rolled set yields a
-  `traitAdjective` — so every weapon's category set must include an alone-able trait with adjectives.
-  Ours is guaranteed by **`UMW_Melee`'s universal `UMW_Lightweight`** plus each mechanism category's
-  alone-able traits. **Design tenet:** a trait must read as a *physical property of the weapon* —
-  flanges, studs, guards, coatings, provenance — never an unexplained wielder blessing; ability traits
-  are the accepted exception, tone-checked case by case. Trait *names* name that physical feature
-  (quillons, a dead-blow head, a bell-cast head, an opiated point), never the effect verb; the granted
-  *ability* and any wielder-side hediff name the act instead (`UMW_Earthshake`, `UMW_RallyingCry`,
-  "parrying guard"). **Control-effect budget:** a new
-  stun/stagger/control proposal must *displace* an existing control effect, not add to the census
-  (held at Odyssey's ~1-in-8 share). The locked taxonomy is **6 categories**: `UMW_Melee` (universal —
-  the six generic cosmetic/value/weight traits ported from Odyssey: Ornamental, Ugly, Lightweight,
-  Cumbersome, Gold/Jade inlay — plus our own universals: `UMW_BloodStained` (gory body tint, on-hit
-  dread, balancing equip-mood; see its note below), the body-colour finishes
-  `UMW_Carbonized`/`UMW_Enameled`, and `UMW_Storied` (equip-mood passive + Rallying Cry active; see the
-  ability note below)), the mechanism categories
-  `UMW_Bladed`/`UMW_Pointed`/`UMW_Blunt` (each gates a distinct mechanism effect — per-tool AP/damage
-  modifiers and/or on-hit effects; see the next notes),
-  the handling category `UMW_Heavy` (slow-swing stat archetypes), and the **weapon-gating** category
-  `UMW_Guarded` — traits enabled by a hand-guard's physical presence, listed only by the longsword and
-  gladius: a *category* gates by weapon where `exclusionTags` only prevent co-rolls (Odyssey precedent
-  for construction-feature gates: `Sighted`/`Scoped`/`Rifle`/`Shotgun`); today it holds `UMW_Quilloned`
-  (dodge via equipped hediff, `Guard` token). Within a category, effect families share an
-  `exclusionTags` token; pure stat mods (Blunt's `UMW_Flanged`/`UMW_Studded`) go untagged. **Token
-  registry:** `Edge`, `Core`, `Point`, `Coating`, `Head`, `SwingProfile`, `Weight`, `Appearance`,
-  `Color`, `BodyColor`, `Guard`, `Ability` — member lists live on the category files. `UMW_Pointed`
-  carries a second family — the **"coating" traits** (`UMW_Envenomed`'s venom, `UMW_Opiated`'s
-  non-lethal sedative) — gated by the **`Coating`** token (one coating per weapon). This is the melee analog
-  of the `AmmoType` tag Odyssey's `ToxRounds` carries. `UMW_Bladed` likewise carries a second family —
-  the blade-**core infusion**, gated by a **`Core`** token (today only `UMW_PlasmaCored`'s plasma burn) —
-  so an `Edge` trait and a `Core` trait can co-roll (a serrated plasma blade is legal). The **`Color`** tag (the inlays')
-  is applied *separately and to any mechanism trait that forces a colour-one tint*: `UMW_Envenomed` forces
-  `UniqueWeapon_Tox` green so it tags `Coating`+`Color`, and `UMW_Blunt`'s `UMW_ZeusHeaded` forces `UniqueWeapon_EMP`
-  so it tags `Head`+`Color` (both can't co-occur with a Gold/Jade inlay; mirrors Odyssey's `EMPRounds`/`ToxRounds`,
-  which tag `Color` alongside `AmmoType`). A coating
-  combines freely with a point-shape trait (`Point` tag). `Color` governs only **colour one** (the red-masked accent);
-  a separate **`BodyColor`** token governs **colour two** (the green-masked body, forced via
-  `ForcedColorTwoExtension` — see the double-mask note). `UMW_BloodStained`, `UMW_Carbonized`, `UMW_Enameled`, `UMW_Monomolecular` and `UMW_PlasmaCored` are the `BodyColor` members (the token keeps it to one
-  body-colour trait per weapon), so a forced body colour and a `Color` accent/inlay live on different
-  channels and *can* co-occur. **Discipline:** single-trait categories are fine (Odyssey
-  ships several — `Rifle`/`Shotgun`/`BeamWeapon`/`LowStoppingPower` each have one); the bar is that every
-  trait be mechanically **meaningful**, not that a category hit some count. `UMW_Reach` was considered for
-  the spear but dropped (melee has no reach mechanic, so its traits would be flavor-only orphans).
-  `UMW_Blunt`'s `Head` token gates the blunt head's one on-hit incapacitation/control effect — `UMW_BellCast` (a
-  brief kinetic stun on flesh and mechs), **or** `UMW_ZeusHeaded` (an electromagnetic, mechanoid-only stun, the melee
-  port of Odyssey's `EMPRounds`; see its own note below), **or** `UMW_DeadBlow` (a movement-only stagger —
-  the target keeps fighting, which is why it affords a higher proc chance than the stuns). The old
-  `UMW_Weighted` (which duplicated Concussive's stun *and* `UMW_Heavy`'s heavy-head stat profile) was removed. (A
-  pure-AP blunt trait via *stats* isn't possible — melee damage and AP share `MeleeWeapon_DamageMultiplier`
-  — but the per-tool `MeleeToolModExtension` could now floor a Blunt tool's AP directly if a distinct blunt
-  archetype ever warranted it.) The six `UMW_Melee`
-  ports are **intentional self-contained copies, not XML inheritance from Odyssey's defs** — three
-  (Ornamental/Lightweight/Cumbersome) re-pointed onto melee stats because Odyssey's `RangedWeapon_*`
-  mods are inert on melee, three (Ugly/Gold/Jade inlay) verbatim-equivalent. `WeaponCategoryDefs/Melee.xml`
-  documents why inheritance is avoided; each ported trait file notes its deltas inline.
-- **Royalty-analog traits are def-level `MayRequire`-gated.** `UMW_Monomolecular` (monosword),
-  `UMW_ZeusHeaded` (zeushammer) and `UMW_PlasmaCored` (plasmasword) are references to Royalty tech, so
-  each trait def — plus any mod-owned `ColorDef` only it consumes (`UMW_MonoWhite`, `UMW_Plasma`) — carries
-  `MayRequire="Ludeon.RimWorld.Royalty"`, the same def-level gate the Axe/Warhammer uniques use
-  (honored on any top-level def node — `LoadedModManager.ParseAndProcessXML` skips the node when the
-  listed mod is inactive). Generation safety is unaffected: a skipped def never enters the
-  `DefDatabase`, so category rolls simply don't see it, and alone-ability rides `UMW_Lightweight`.
-- **`MarketValue` convention: factor only for value-scaling, flat offset for everything else.** Mirrors
-  Odyssey, which uses a `MarketValue` *factor* only for value-*scaling* traits — precious-material inlays
-  (`GoldInlay ×2`, `JadeInlay ×1.4`) and quality reducers (`Ugly`/`Cumbersome ×0.8`) — while every
-  added-capability trait takes a flat **offset** (a fixed fabrication cost). So: **factor ⟺ precious-inlay
-  scaling or devaluation; offset ⟺ any added capability.** Our inlays/`UMW_Ugly`/`UMW_Cumbersome` keep factors,
-  `UMW_BloodStained` and `UMW_Carbonized` keep `×0.8` (gore/char devalue, `Ugly` analogs), `UMW_Enameled`
-  takes `×1.2` (inlay-family scaling, milder than Jade), and all functional traits use offsets sized
-  from the nearest Odyssey analog (named inline in each trait file). The Heavy archetypes take offsets too despite
-  their *combat* effect being a stat factor — following the precedent that Odyssey's own positive handling trait
-  `Lightweight` is an offset.
-- **Melee trait on-hit effects (`Source/1.6/Traits/`, `Source/1.6/Patches/Verb_MeleeAttackDamage_OnHitTraits_Patch.cs`).**
-  Vanilla's mechanically interesting `WeaponTraitDef` fields — `damageDefOverride`, `extraDamages`,
-  `additionalStoppingPower`, `burstShot*`, `ignoresAccuracyMaluses` — are consumed **only** by
-  `Projectile`/`Verb_LaunchProjectile`, so they silently do **nothing** on a melee weapon. Only
-  `statOffsets`/`statFactors` (on the live melee stats `MeleeWeapon_DamageMultiplier` — which also
-  drives armor pen, there is *no* separate melee AP stat — and `MeleeWeapon_CooldownMultiplier`, plus
-  `Mass`/`Beauty`/`MarketValue`), `abilityProps` (see the ability note below), `equippedHediffs`, and
-  `forcedColor` reach melee. **Hardened field rules (decompile-verified):** `equippedStatOffsets`,
-  `marketValueOffset`, `killThought` and the `bonded*` fields are consumed **only** by bladelink
-  (persona) weapons — silently inert on `CompUniqueWeapon` — so never use them on a trait. Wielder
-  effects ride `equippedHediffs`, which `CompUniqueWeapon.Notify_Equipped/Notify_EquipmentLost`
-  add/remove on the wielder (`UMW_NeedlePointGrip`'s hit-chance malus, `UMW_ParryingGuard`'s dodge);
-  market value rides `statOffsets`/`statFactors → MarketValue`. To give the mechanism categories real, distinct effects we add our own
-  layer: a `MeleeTraitEffectExtension : DefModExtension` (a `List<MeleeOnHitEffect>` — `…_ExtraDamage`
-  for the Pointed coatings (Envenomed venom, Opiated sedative), the Blunt `UMW_ZeusHeaded` discharge and the Bladed `UMW_PlasmaCored`
-  plasma burn, `…_Stun` for the Blunt `UMW_BellCast`
-  kinetic stun, `…_Stagger` for the Blunt `UMW_DeadBlow` movement-slow (95t, ×0.17 — vanilla
-  bullet-impact numbers; `StaggerFor` max-merges so procs can't lock), `…_MentalState` for the
-  Blood-stained dread/flee; a per-effect `fleshOnly` gate supplies mech immunity where a vanilla
-  `DamageDef` path has none, e.g. the sedative) attached to the trait def, fired by a
-  Harmony **postfix on `Verb_MeleeAttackDamage.ApplyMeleeDamageToTarget`** (gated on a landed,
-  wounding hit by a weapon with a `CompUniqueWeapon`). Using a `DefModExtension` + postfix — rather
-  than subclassing `WeaponTraitDef` — keeps the trait an ordinary def, so vanilla generation/naming/
-  stats stay untouched. `…_ExtraDamage` calls `Thing.TakeDamage` directly (not the verb), so it can't
-  re-trigger the postfix. This same extra-damage mechanism is the path for any on-hit element that a
-  `DamageDef` can carry — the Pointed **`UMW_Envenomed`** coating realises it: a self-contained
-  `UMW_Stab_Tox` DamageDef (`Defs/DamageDefs/`, a `Stab` clone — `Stab` has no `Name=` so it can't be a
-  `ParentName`) with the **`additionalHediffs`→`ToxicBuildup`** block lifted verbatim from Core's
-  `ScratchToxic`. **Why this works on melee (verified by decompile):** unlike the ranged-only
-  `damageDefOverride`, `DamageDef.additionalHediffs` is applied source-agnostically by
-  **`Pawn_HealthTracker.PostApplyDamage(dinfo, totalDamageDealt)`** — reached by *every* `Thing.TakeDamage`,
-  including our `…_ExtraDamage` hit — so the ToxicBuildup stacks (scaled by the venom-stab's damage
-  dealt, the victim's `ToxicResistance`, and inverse body size) for free, no new C#. The Pointed
-  **`UMW_Opiated`** coating rides the identical path with its own non-lethal buildup hediff
-  (`UMW_SedativeBuildup` → `UMW_Stab_Tranq`; 1.6's base `Hediff.TryMergeWith` sums same-def whole-body
-  severity, so hits accumulate — pacing math and the no-instant-death rationale live on the hediff file). The Bladed
-  **`UMW_PlasmaCored`** realises the incendiary shape the same way with Core's vanilla `Flame` (no clone):
-  `DamageWorker_Flame.Apply` attaches fire source-agnostically on any direct, non-deflected
-  `Thing.TakeDamage`, at a chance scaled by the victim's `Flammability` — use `Flame`, not `Burn`, whose
-  whole point is swapping that worker back out to not ignite. The Blunt **`UMW_ZeusHeaded`** trait reuses Core's
-  vanilla `EMP` `DamageDef` the same way (no clone): its `causeStun` fires source-agnostically on any `Thing.TakeDamage`
-  (the path Odyssey's `EMPRounds` rides), stunning only **non-flesh** pawns — a pure anti-mechanoid effect — and `EMP`'s
-  own `stunAdaptationTicks` self-limits a chain, so it needs no proc `chance` gate.
-- **Base-damage conversion (`MeleeDamageConversionExtension` + `Verb_MeleeAttackDamage_DamageConversion_Patch`).**
-  A trait may instead **convert** the weapon's *base* melee hit in place — rerouting one `DamageDef` to
-  another, same quantity, no extra hit stacked — via a passthrough postfix on
-  `Verb_MeleeAttackDamage.DamageInfosToApply` (a weapon's `meleeDamageDef` is fixed per def, so a
-  trait-gated reroute must happen at runtime). `UMW_Serrated` uses it to send `Cut` → the bleedier,
-  scar-prone `UMW_Cut_Ragged`, now paired with a per-tool damage split via `MeleeToolModExtension` (Cut
-  ×0.9, Stab ×1.1 — see that note) rather than the old weapon-wide `MeleeWeapon_DamageMultiplier` nerf, so
-  it no longer reduces armor pen. Tuning and the one-large-wound / no-split scar-curve rationale live on
-  `UMW_Cut_Ragged` (`Defs/HediffDefs/`).
-- **Per-tool combat modifiers (`MeleeToolModExtension` + `Verb_MeleeAttack_ToolMods_Patch`).**
-  Melee damage and armor pen both ride the single weapon-wide `MeleeWeapon_DamageMultiplier` stat (there
-  is *no* separate melee AP stat), and a weapon's `<tools>` are shared by every instance of its def — so
-  XML alone can't raise AP without raising damage, nor modify one tool independently. The extension carries
-  a list of per-capacity `MeleeToolMod`s (`damageFactor`, `armorPenetrationFloor`, `armorPenetrationFactor`),
-  applied by passthrough postfixes on `VerbProperties.AdjustedMeleeDamageAmount` and `AdjustedArmorPenetration`
-  (the `(Tool, Pawn, Thing, HediffComp_VerbGiver)` overloads — both reached by live combat *and* the pawn's
-  stat card). AP resolves factors first, then the highest floor (floors win). `UMW_Monomolecular`/`UMW_Razored`/
-  `UMW_ArmorSpike`/`UMW_Flanged` use AP floors; `UMW_Serrated` uses per-tool damage factors (Cut −10% / Stab +10%)
-  and `UMW_Studded` a Blunt-tool ×1.15 (per-tool damage factors don't ride the AP stat, so AP is untouched);
-  `UMW_HeadWeighted` uses an AP factor (1/1.3) to neutralize the AP its damage multiplier would otherwise
-  inflate. No cache/flush — recomputed each swing from the live trait list (cf. the graphics path, which
-  *does* need build-time timing). **Limitation:** the *unequipped* weapon item card shows static per-tool AP
-  (the abstract `ThingDef` stat path has no instance), but vanilla returns 0 for melee AP on a non-pawn item
-  anyway, so there's no regression; the *wielded* stat card is correct.
-- **Ability traits (`abilityProps`) reach melee — after a weapon-def comps rework.** Odyssey's
-  `abilityProps` grants a reloadable active and is category-agnostic, but `CompUniqueWeapon.Setup`
-  dereferences the weapon's `CompEquippableAbilityReloadable` with **no null check** whenever a rolled
-  trait carries `abilityProps` — so every weapon def whose categories can roll an ability trait must
-  carry the comp (Odyssey ships it on all 13 uniques). Only one `CompEquippable`-derived comp is
-  allowed per thing, so all 7 unique defs replace their inherited comps wholesale
-  (`<comps Inherit="False">` restating Forbiddable/Styleable/Quality/Art — uniform across the 7 even
-  where no ability can currently roll, cheap insurance and identical file shape; if the base-game
-  weapon comps change in a vanilla update, replicate the change there). Two actives ship, kept to one
-  per weapon by the shared `Ability` exclusion token: Blunt's `UMW_Piledriver` → `UMW_Earthshake`
-  (self-centred kinetic `Stun` explosion — EMPPulse's pure-cooldown shape) and `UMW_Melee`'s
-  `UMW_Storied` → `UMW_RallyingCry` (custom `CompAbilityEffect_RallyAllies`, `Source/1.6/Abilities/`
-  — a faction-symmetric AoE granting the caster's side the timed `UMW_Rallied` pain-dampening hediff,
-  so it is real for AI casters too; Core's DLC-free comp roster has no ally-AoE-buff shape).
-  Storied's passive half is the situational `UMW_StoriedWeapon` thought, the trivial sibling of the
-  Blood-stained worker. Gizmo icons are artist-pending: the ability defs point at `UI/Commands/UMW_*`
-  and committed `.gitkeep` placeholders mark the texture paths (deploy whitelist ignores them; a
-  missing icon logs one ContentFinder error and draws BadTex until the art lands).
-- **Blood-stained = on-hit dread + a trait-conditioned wielder moodlet (`UMW_BloodStained`).** Two halves.
-  (1) *Dread:* `MeleeOnHitEffect_MentalState` tries to start a `MentalStateDef` (`PanicFlee`) on a wounding
-  hit, `humanlikeOnly` so animals/mechs are immune; `TryStartMentalState` is non-forced, so it no-ops
-  when guards block it. A proc is a *rout* (PanicFlee recovers no earlier than 10,000t), and vanilla
-  already auto-panics damaged humanlikes at low health — the chance tuning rationale lives on the trait
-  file. (2) *Balancing downside + bloodlust upside:* **one two-stage situational `ThoughtDef`
-  (`UMW_BloodStainedWeapon`) with a stage-routing worker** — stage 0 is the −2 penalty, stage 1 the +3
-  bloodlust relish, the worker picks (`ActiveAtStage(bloodlust ? 1 : 0)`); the vanilla idiom for a
-  trait-flipped mood (Anomaly's `UnnaturalDarkness` ±5, `ThoughtWorker_Pretty/Ugly` stage routing).
-  Bloodlust is the **only** personality check in the worker — it can't be a `nullifyingTraits` entry
-  because nullification zeroes the whole def, relish stage included. Every other exemption stays
-  declarative: `<nullifyingTraits>` (Psychopath, plus VTE `VTE_Desensitized`/`VTE_WorldWeary` as
-  `MayRequire` list items so the def loads without that mod) and `<nullifyingGenes>` (`Hemogenic`,
-  `MayRequire` Biotech — sanguophages etc. are inured to blood).
-
-  **Gotcha (verified by decompile — and why it is ONE def, not a penalty def + a `requiredTraits` buff
-  def):** the situational pipeline creates thoughts without the nullification check
-  (`SituationalThoughtHandler.TryCreateThought` → `CanGetThought` with `checkIfNullified=false`);
-  nullification only zeroes the value later in **`Thought.MoodOffset()`** (→
-  `ThoughtUtility.ThoughtNullified`). And the needs tab draws **every** Active situational thought —
-  `ThoughtHandler.GetAllMoodThoughts` drops `MoodOffset()==0` rows for *memories only* — so a nullified
-  situational thought renders as a grey "0" row (vanilla-standard: a psychopath sees the same for
-  `ColonistLeftUnburied`). The original two-def shape therefore showed bloodlusters a duplicate row:
-  the +3 buff beside the Bloodlust-nullified grey-0 penalty. Known trade of the merge: Bloodlust plus a
-  nullifier (psychopath/hemogenic) reads nullified-0, not +3 — numbness wins. The trait forces the
-  `UMW_Blood` `ColorDef` onto **colour two** (the body) via `ForcedColorTwoExtension` — not vanilla's
-  colour-one `forcedColor` — so it tags the `BodyColor` exclusion token (the one-body-colour-per-weapon
-  family, shared with `UMW_Carbonized`/`UMW_Enameled`/`UMW_Monomolecular`/`UMW_PlasmaCored`), *not* the inlays' colour-one `Color` token; being on a
-  different mask channel, blood-stained can co-occur with a Gold/Jade inlay or the Envenomed coating. See the double-mask note for the colour-two path.
-- **Parenting: patch a `Name=` onto the base weapon, then inherit it.** RimWorld's `ParentName`
-  resolves against a node's `Name=` attribute, not its `defName`. Vanilla *ranged* weapons expose
-  `Name=` (so Odyssey does `ParentName="Gun_Revolver"`), but **no concrete vanilla *melee* weapon
-  does** — `ParentName="MeleeWeapon_LongSword"` raises "Could not find parent node" and the def
-  fails to load. Rather than re-implement the weapon (which drifts when vanilla rebalances), we
-  add the missing attribute: `Patches/AddNameToBaseMeleeWeapons.xml` does a
-  `PatchOperationAttributeAdd` of `Name=<defName>` to each base weapon we mirror. Patches run
-  **before** inheritance resolution (`LoadedModManager`: `ApplyPatches` → `ParseAndProcessXML`), and
-  `AttributeAdd` is **add-if-missing** (skips nodes that already have it), so it's safe to stack with
-  other mods. The unique def then `ParentName`s the real weapon and overrides only the deltas
-  (graphic, `thingClass`, comps, reward tags, nulled `recipeMaker`) — inheriting tools/stats/stuff
-  automatically. Add one patch Operation per new base weapon. **DLC-gated bases:** the Axe and
-  Warhammer are Royalty weapons but the mod requires only Odyssey, so their two name patches are
-  wrapped in `PatchOperationConditional` testing the base node's existence (`Defs/ThingDef[defName=…]`)
-  — this tracks the actual weapon rather than a mod name, skipping cleanly with no "could not find
-  node" error when Royalty is absent. Their unique defs carry `MayRequire="Ludeon.RimWorld.Royalty"`
-  to match.
-- **Back-reference the base via `descriptionHyperlinks`.** `<descriptionHyperlinks><ThingDef>MeleeWeapon_LongSword</ThingDef></descriptionHyperlinks>`
-  — vanilla/Odyssey convention, and the link "Unique Weapons Unbound" reads to let the weapon revert
-  to its base. The `_Unique` suffix alone isn't enough: our prefixed `UMW_LongSword_Unique` minus the
-  suffix (`UMW_LongSword`) isn't a real def, so the explicit hyperlink is required.
-- **Reward-pool separation (`ThingSetMaker_UMWUnique`, `Patches/RepointUniqueWeaponPool.xml`, `UMW_Reward_UniqueWeapon`).**
-  Odyssey's `ThingSetMaker_UniqueWeapon` rolls *any* `HasComp<CompUniqueWeapon>` def via a bare
-  `MakeThing(def)` (no stuff). Our melee uniques are stuffable, so that path both **errors**
-  (`madeFromStuff but stuff=null` → forced to steel) and **dilutes** Odyssey's ranged-unique pool. Two
-  generation styles consume unique weapons: tag-based makers (`ThingSetMaker_Count`, used by ancient
-  crates / fishing / map-gen loot) already pass a stuff and so handle our weapons fine — we *keep* our
-  weapons in those by leaving the `UniqueWeapon` tag on; and the class-based maker (exactly two
-  consumers: `Reward_UniqueWeapon` and `MapGen_OrbitalItemStash`), which is the broken one. We split the
-  pools entirely in **def space** — no Harmony, no touching Odyssey's internals: every `*_Unique` weapon
-  also carries a `UMW_UniqueMelee` tag, an XPath patch repoints the two class-based consumers onto our
-  `ThingSetMaker_UMWUnique` (a `ThingSetMaker_MarketValue` subclass — stuff-aware + Super-quality-preserving
-  via `ThingStuffPairWithQuality.MakeThing`, value-window-honouring), and our own `UMW_Reward_UniqueWeapon`
-  pool uses stock `ThingSetMaker_MarketValue` filtered to `UMW_UniqueMelee`. **Why a subclass, not a tag
-  filter, for the vanilla pool:** the subclass keeps the *comp-based* candidate set (`HasComp` minus ours),
-  so third-party mods' uniques stay in the pool even without the `UniqueWeapon` tag — a `tagsToAllow`
-  filter would silently drop them. The detailed call-path rationale and the accepted "future mod uses the
-  raw class in a new def" limitation live in the subclass's header comment.
-- **Wood-free material rolls (`Patches/GenStuff_ExcludeWoodStuff_Patch.cs`).** Setting-gated (default on):
-  drops Woody-**category** stuffs (covers modded woods) from the material roll for our `UMW_UniqueMelee`-tagged
-  weapons. `GenStuff.AllowedStuffsFor` is the single choke point every generation path funnels through — the
-  market-value makers via `TryRandomStuffFor` and the tag-based count makers (crates/fishing/map loot) via
-  `ThingSetMakerUtility.TryGetRandomThingWhichCanWeighNoMoreThan` — and our weapons can't be crafted or built
-  (nulled `recipeMaker`), so the filter can only ever affect generation; the def gate leaves every other
-  consumer (construction/bill material pickers) untouched. Falls back to the unfiltered list rather than
-  ever leaving a weapon with zero eligible materials.
-- **Material surfaced in inspect pane + unique names.** A unique name hides the stuff an ordinary label shows
-  ("plasteel longsword" → "The Grim Reaper"), so `UniqueMeleeWeapon` (a) appends a "Material: X" line in
-  `GetInspectString` (reusing vanilla's translated `StatsReport_Material` key), and (b) feeds material
-  adjectives into name generation: its `PostPostMake` override parks the stuff in a static slot while
-  vanilla's `CompUniqueWeapon.PostPostMake` runs, and a prefix on the `NameGenerator.GenerateName(GrammarRequest, …)`
-  overload — gated on that slot **and** the `r_weapon_name` root keyword, so ranged uniques and unrelated
-  requests in the window (CompArt titles) are untouched — injects a `stuff_adjective` rule
-  (`stuffAdjective` ?? stuff label) plus the `UMW_NamerStuffAdjectives` rulepack, whose patterns build on
-  Odyssey's `NamerUniqueWeapon` symbols. `GrammarRequest` is a struct, but its rule/include lists are shared
-  references, so a `ref` prefix extends the comp-built request without transpiling or re-rolling the name.
-  **The static slot only covers *our own* generation.** Grammar generation is purely symbolic — no
-  `GenerateName` overload or `GrammarRequest` field carries a `Thing` — so any *other* mod re-rolling a
-  name (e.g. the companion Unique Weapons Unbound's customization dialog, which builds its own request
-  outside `PostPostMake`) can't reach the slot. For that path the patch also fires when the request already
-  carries a `stuff_adjective` rule, adding just the rulepack. This is a deliberate **dependency-free
-  integration contract**: a companion publishes the material as that well-known grammar symbol, we supply
-  the grammar; neither mod references the other's code, and the symbol is inert (unreferenced) if we're absent.
-- **Warband quest (`Source/1.6/Quests/`, `Defs/{FactionDefs,SitePartDefs,QuestScriptDefs}/`).** A low-tech
-  tribal sibling of Odyssey's `AncientMercenaries`, handing out *our* melee uniques. `OpportunitySite_Warband`
-  reuses the vanilla node sequence then defers to `QuestNode_Root_Warband`, a near-clone of
-  `QuestNode_Root_AncientMercenaries` differing in four deliberate choices, each justified in the relevant
-  file's header: (1) a **temporary** hidden faction created at quest-start (Beggars' Core mechanism, auto-removed
-  on quest end — *not* an Ideology feature) rather than a permanent one that would clutter every save;
-  (2) our `UMW_Reward_UniqueWeapon` pool (see Reward-pool note); (3) **reused vanilla tribal pawnkinds, none new**
-  (`Tribal_ChiefMelee` leader + the faction's `Combat` pawngroup), mirroring the vanilla quest's reuse of
-  `AncientSoldier_Leader`; (4) the `AbandonedColonyTribal` tile mutator for a ruined, pawn-less tribal site,
-  paired with our own `QuestPart_SpawnWarband` (the vanilla spawn part hardcodes the ancients faction and a
-  different map var). Vanilla reference defs studied for this live in the gitignored, non-deployed
-  `Docs/odyssey-reference/quest-AncientMercenaries/`.
+- **Warband quest** (`Source/1.6/Quests/`) — a low-tech tribal sibling of Odyssey's
+  `AncientMercenaries` handing out our uniques, using a temporary hidden faction, our reward pool,
+  reused vanilla tribal pawnkinds (no new ones) and a ruined tribal site. Rationale per difference
+  is in `QuestNode_Root_Warband.cs`.
+- **Wood-free material rolls** (`Patches/GenStuff_ExcludeWoodStuff_Patch.cs`) — setting-gated,
+  filtering the single choke point every generation path funnels through, def-gated to our weapons.
 
 ## Debugging
 
-1. **Enable RimWorld Dev Mode:** Settings > Dev Mode > Logging
-2. **Log locations:**
-   - **Windows:** `%USERPROFILE%\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Player.log`
-   - **WSL:** `/mnt/c/Users/*/AppData/LocalLow/Ludeon Studios/RimWorld by Ludeon Studios/Player.log`
-3. **Logging:** Use `Log.Message("[Unique Melee Weapons] ...")` for mod-specific logs
-4. **Inspect RimWorld API:** `ilspycmd "/mnt/c/.../RimWorldWin64_Data/Managed/Assembly-CSharp.dll" -t "Namespace.ClassName"`
+1. **Dev Mode:** Settings > Dev Mode > Logging.
+2. **Log:** `%USERPROFILE%\AppData\LocalLow\Ludeon Studios\RimWorld by Ludeon Studios\Player.log`
+   (WSL: `/mnt/c/Users/*/AppData/LocalLow/Ludeon Studios/RimWorld by Ludeon Studios/Player.log`).
+3. **Logging convention:** `Log.Message("[Unique Melee Weapons] ...")`.
+4. **Inspect the API:** `ilspycmd "/mnt/c/.../RimWorldWin64_Data/Managed/Assembly-CSharp.dll" -t "Namespace.ClassName"`.

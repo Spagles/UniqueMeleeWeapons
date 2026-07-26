@@ -103,7 +103,10 @@ Source/1.6/
 - **C#:** root namespace `UniqueMeleeWeapons`; patch classes use a `.Patches` suffix to avoid
   RimWorld type-name conflicts. All patches are applied by `PatchAll()` in
   `UniqueMeleeWeaponsMod`, so a `[HarmonyPatch]` class anywhere in the assembly is picked up.
-- **Settings:** every user-facing string routes through `.Translate()` against `UMW_UI.xml`. The
+- **Settings:** every user-facing string is localized — through `.Translate()` against `UMW_UI.xml`,
+  except where vanilla already localizes the exact string (reuse the vanilla Keyed key or def label
+  rather than duplicating it), and strings that name game content inject the def label as a
+  placeholder rather than restating it. The
   step-by-step recipe for adding a setting — including the pattern for a setting that *overrides a
   def field* (written onto the live def at startup and on window close; XML holds only the
   shipped default) — is in `Core/UniqueMeleeWeaponsSettings.cs`.
@@ -248,6 +251,13 @@ Source/1.6/
   is in `QuestNode_Root_Warband.cs`.
 - **Wood-free material rolls** (`Patches/GenStuff_ExcludeWoodStuff_Patch.cs`) — setting-gated,
   filtering the single choke point every generation path funnels through, def-gated to our weapons.
+
+## Localization
+
+English (Keyed files + def fields) is the source of truth; other languages derive from it via the
+`/translate` skill (`.claude/skills/translate/SKILL.md` — grounding rules, glossary, workflows) and
+are validated deterministically by `python3 Scripts/check-translations.py`. The public language
+roster lives in CONTRIBUTING.md and must move in the same commit as any language change.
 
 ## Debugging
 

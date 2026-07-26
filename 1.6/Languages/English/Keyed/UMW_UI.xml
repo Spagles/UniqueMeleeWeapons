@@ -19,10 +19,10 @@
 
   <!-- Settings: Weapons. One checkbox per weapon, labelled from the weapon's own def label; the row list
        is generated, so this is the only string it needs. {0} is that label.
-       "Vanilla ... and this mod's own" is a deliberate qualifier, not filler: the gate covers every pool
-       that asks ThingSetMakerUtility, which is all shipped content, but a third-party mod rolling loot
-       through its own custom generator can bypass it (see ThingSetMakerUtility_CanGenerate_Patch.cs). -->
-  <UMW_WeaponEnabledDesc>Allow {0} to be generated. Turn off to remove it from every vanilla generation and reward pool — quest rewards, ancient crates, item stashes, map loot — and from this mod's own, so it no longer appears. (A third-party mod that rolls loot through its own custom generator may bypass this.) Any that already exist in your save are untouched, and the other weapons take its place in the rolls. Turning it back on is enough to restore it.</UMW_WeaponEnabledDesc>
+       "This mod's own ... and every vanilla" is a deliberate qualifier, not filler: the gate covers every
+       pool that asks ThingSetMakerUtility, which is all shipped content, but a third-party mod rolling
+       loot through its own custom generator can bypass it (see ThingSetMakerUtility_CanGenerate_Patch.cs). -->
+  <UMW_WeaponEnabledDesc>Allow {0} to be generated. Turn off to remove it from this mod's own reward pool and from every vanilla generation and reward pool, including quest rewards, ancient crates, item stashes and map loot, so it no longer appears. (A third-party mod that rolls loot through its own custom generator may bypass this.) Any that already exist in your save are untouched, and the other weapons take its place in the rolls. Turning it back on is enough to restore it.</UMW_WeaponEnabledDesc>
 
   <!-- Settings: buttons -->
   <UMW_ResetToDefaults>Reset to defaults</UMW_ResetToDefaults>
@@ -35,7 +35,7 @@
   <!-- Shown only when Royalty is active; the traits it governs need that DLC. -->
   <!-- TODO: The three trait labels could be injected from their own defs' keyed labels -->
   <UMW_AllowUltratechTraits>Allow ultratech weapon traits</UMW_AllowUltratechTraits>
-  <UMW_AllowUltratechTraitsDesc>Three traits borrow Royalty's ultratech melee kit: monomolecular (a mechanite-held edge that shears armor), plasma-cored (a plasma sheath that sears and ignites) and zeus-headed (an EMP discharge that stuns mechanoids). Turn off to keep them out of the roll — meant for medieval-only or low-tech runs, where a mechanite edge on a hand-forged sword breaks the period. The other traits are unaffected, and weapons that have already rolled one of these keep it.</UMW_AllowUltratechTraitsDesc>
+  <UMW_AllowUltratechTraitsDesc>Three traits borrow Royalty's ultratech melee kit: monomolecular (a mechanite-held edge that shears armor), plasma-cored (a plasma sheath that sears and ignites) and zeus-headed (an EMP discharge that stuns mechanoids). Turn off to keep them out of the roll. This is meant for medieval-only or low-tech runs, where a mechanite edge on a hand-forged sword breaks the period. The other traits are unaffected, and weapons that have already rolled one of these keep it.</UMW_AllowUltratechTraitsDesc>
 
   <!-- Settings: Abilities -->
   <!-- TODO: Earthshake and Rallying Cry should be injected from their keyed defnames -->

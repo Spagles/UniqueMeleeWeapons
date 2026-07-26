@@ -7,9 +7,14 @@ using Verse;
 namespace UniqueMeleeWeapons;
 
 // Mod settings. Every settings-window string (labels, tooltips, section headers,
-// the reset button, the SettingsCategory mod-list name) is routed through
+// the reset button, the SettingsCategory mod-list name) is localized: through
 // .Translate() against 1.6/Languages/English/Keyed/UMW_UI.xml, mirroring the
-// companion mods' localizable convention. The window body renders inside a scroll
+// companion mods' localizable convention, except where vanilla already localizes
+// the exact string — the Abilities header reuses Core's Keyed <Abilities> and the
+// Quests header reuses MainButtonDefOf.Quests' def label, so translators never
+// see a second copy of either. Strings that name game content (weapons, traits,
+// abilities, the warband) inject the def label instead of restating it, so those
+// names track their own defs' translations. The window body renders inside a scroll
 // view that only shows a scrollbar once the content would overflow vertically;
 // settings are grouped under GameFont.Medium section headers, with a pinned
 // "Reset to defaults" button below the scroll view.
@@ -308,61 +313,78 @@ public class UniqueMeleeWeaponsSettings : ModSettings
         listing.Gap(6f);
 
         listing.CheckboxLabeled(
-            "UMW_ExcludeWoodStuff".Translate(),
+            "UMW_ExcludeWoodStuff".Translate(ThingDefOf.WoodLog.label),
             ref excludeWoodStuff,
-            "UMW_ExcludeWoodStuffDesc".Translate());
+            "UMW_ExcludeWoodStuffDesc".Translate(UMW_DefOf.MeleeWeapon_LongSword.label));
 
         // Royalty-only row: the three traits it governs are MayRequire-gated on Royalty, so without
         // the DLC there is nothing to toggle and the row would only confuse. Hidden rather than
         // disabled, and the stored value is left alone so it survives a run without Royalty loaded.
         if (ModsConfig.RoyaltyActive)
         {
+            // The three MayRequireRoyalty DefOf handles are non-null exactly when this row shows.
+            // The label order must match the description's parentheticals (see UMW_UI.xml).
             listing.CheckboxLabeled(
                 "UMW_AllowUltratechTraits".Translate(),
                 ref allowUltratechTraits,
-                "UMW_AllowUltratechTraitsDesc".Translate());
+                "UMW_AllowUltratechTraitsDesc".Translate(
+                    UMW_DefOf.UMW_Monomolecular.label,
+                    UMW_DefOf.UMW_PlasmaCored.label,
+                    UMW_DefOf.UMW_ZeusHeaded.label));
         }
 
         listing.Gap(18f);
 
         // --- Abilities ----------------------------------------------------
+        // Vanilla already localizes this exact word (Core Keyed <Abilities>), so reuse it
+        // rather than shipping a duplicate key translators would have to do twice.
         Text.Font = GameFont.Medium;
-        listing.Label("UMW_SettingsAbilities".Translate());
+        listing.Label("Abilities".Translate());
         Text.Font = GameFont.Small;
         listing.Gap(6f);
 
+        // Slider labels are shared templates ("{0} cooldown: {1} hours") fed the subject's own
+        // def label, so the ability/hediff/faction name in each row tracks its def's translation.
         earthshakeCooldownHours = SliderRow(
-            listing, "UMW_EarthshakeCooldown", "UMW_EarthshakeCooldownDesc",
+            listing, "UMW_AbilityCooldownHours", "UMW_EarthshakeCooldownDesc",
+            UMW_DefOf.UMW_Earthshake.LabelCap,
             earthshakeCooldownHours, EarthshakeCooldownHoursDefault,
             min: 0f, max: 24f, step: 1f, format: "0");
 
         earthshakeRadius = SliderRow(
-            listing, "UMW_EarthshakeRadius", "UMW_EarthshakeRadiusDesc",
+            listing, "UMW_AbilityRadius", "UMW_EarthshakeRadiusDesc",
+            UMW_DefOf.UMW_Earthshake.LabelCap,
             earthshakeRadius, EarthshakeRadiusDefault,
             min: 1.9f, max: 12.9f, step: 1f, format: "0.0");
 
         listing.Gap(6f);
 
         rallyingCryCooldownDays = SliderRow(
-            listing, "UMW_RallyingCryCooldown", "UMW_RallyingCryCooldownDesc",
+            listing, "UMW_AbilityCooldownDays", "UMW_RallyingCryCooldownDesc",
+            UMW_DefOf.UMW_RallyingCry.LabelCap,
             rallyingCryCooldownDays, RallyingCryCooldownDaysDefault,
             min: 1f, max: 15f, step: 0.5f, format: "0.#");
 
         rallyingCryRadius = SliderRow(
-            listing, "UMW_RallyingCryRadius", "UMW_RallyingCryRadiusDesc",
+            listing, "UMW_AbilityRadius", "UMW_RallyingCryRadiusDesc",
+            UMW_DefOf.UMW_RallyingCry.LabelCap,
             rallyingCryRadius, RallyingCryRadiusDefault,
             min: 1.9f, max: 12.9f, step: 1f, format: "0.0");
 
         ralliedDurationHours = SliderRow(
-            listing, "UMW_RalliedDuration", "UMW_RalliedDurationDesc",
+            listing, "UMW_HediffDurationHours", "UMW_RalliedDurationDesc",
+            UMW_DefOf.UMW_Rallied.LabelCap,
             ralliedDurationHours, RalliedDurationHoursDefault,
             min: 1f, max: 24f, step: 1f, format: "0");
 
         listing.Gap(18f);
 
         // --- Quests -------------------------------------------------------
+        // Same vanilla-reuse rule as the Abilities header: the quests main-tab button's def label
+        // is the localized word "quests" in every language, capitalized by LabelCap exactly as the
+        // bottom bar renders it. There is no vanilla Keyed key for it (the tab is a MainButtonDef).
         Text.Font = GameFont.Medium;
-        listing.Label("UMW_SettingsQuests".Translate());
+        listing.Label(MainButtonDefOf.Quests.LabelCap);
         Text.Font = GameFont.Small;
         listing.Gap(6f);
 
@@ -371,7 +393,8 @@ public class UniqueMeleeWeaponsSettings : ModSettings
         // vanilla one". The name comes from that quest's site-part def (see UMW_QuestDefOf.BanditGang)
         // so it is the same localized string the world map shows, not a second copy of it here.
         warbandQuestWeight = SliderRow(
-            listing, "UMW_WarbandQuestWeight", "UMW_WarbandQuestWeightDesc",
+            listing, "UMW_QuestWeight", "UMW_WarbandQuestWeightDesc",
+            UMW_QuestDefOf.UMW_Warband.LabelCap,
             warbandQuestWeight, WarbandQuestWeightDefault,
             min: 0f, max: 2f, step: 0.05f, format: "0.00",
             annotateAt: 1f, annotationLabel: UMW_QuestDefOf.BanditGang?.label);
@@ -424,9 +447,11 @@ public class UniqueMeleeWeaponsSettings : ModSettings
         }
     }
 
-    // One labelled slider row in the house style: "Label: value", an inline "(default)" suffix while it
-    // sits at the shipped value, the description as a hover tooltip, and the returned value snapped to
-    // `step` measured from `min` (so a 1.9-to-12.9 radius lands on 1.9, 2.9, ... and never between).
+    // One labelled slider row in the house style: "Subject property: value", an inline "(default)"
+    // suffix while it sits at the shipped value, the description as a hover tooltip, and the returned
+    // value snapped to `step` measured from `min` (so a 1.9-to-12.9 radius lands on 1.9, 2.9, ... and
+    // never between). `subject` is the row's own content name (an ability, hediff or faction LabelCap),
+    // injected as the label key's {0} so the name tracks that def's translation; the value is {1}.
     //
     // `annotateAt` + `annotationLabel` optionally mark another value as a named reference point
     // ("(same as ancient mercenaries)"), for a setting whose number means nothing on its own.
@@ -441,10 +466,10 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     // 3.8999999761, while the 3.9f literal is 3.9000000954. An exact compare would silently never show
     // the suffix on those rows. The residue is far below anything the game can act on.
     private static float SliderRow(Listing_Standard listing, string labelKey, string descKey,
-        float value, float defaultValue, float min, float max, float step, string format,
+        string subject, float value, float defaultValue, float min, float max, float step, string format,
         float? annotateAt = null, string annotationLabel = null)
     {
-        string label = labelKey.Translate(value.ToString(format));
+        string label = labelKey.Translate(subject, value.ToString(format));
         if (Mathf.Approximately(value, defaultValue))
         {
             label += "UMW_DefaultSuffix".Translate();

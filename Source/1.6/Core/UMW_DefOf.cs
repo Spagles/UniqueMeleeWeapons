@@ -38,6 +38,12 @@ public static class UMW_DefOf
     [MayRequireRoyalty] public static WeaponTraitDef UMW_PlasmaCored;
     [MayRequireRoyalty] public static WeaponTraitDef UMW_ZeusHeaded;
 
+    // Core's longsword, referenced for its LABEL only: the exclude-wood setting's description names
+    // a wooden longsword as its example reward, and injecting the def label keeps that example in
+    // the player's language for free. Core-owned, so no MayRequire; it is absent from vanilla's
+    // ThingDefOf, which is why the handle lives here.
+    public static ThingDef MeleeWeapon_LongSword;
+
     // Core's ritual speech-lines fleck, spawned over each ally a rallying cry reaches
     // (CompAbilityEffect_RallyAllies). Vanilla's own, referenced by identity rather than copied — unlike
     // the shout SoundDefs, a FleckDef needs no cloning to be usable. Core-owned, so no MayRequire; it is

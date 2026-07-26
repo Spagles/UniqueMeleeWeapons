@@ -4,12 +4,12 @@
   <!-- Settings: window category (mod-list entry) -->
   <UMW_SettingsCategory>Unique Melee Weapons</UMW_SettingsCategory>
 
-  <!-- Settings: section headers -->
+  <!-- Settings: section headers. Only the headers with no vanilla-localized equivalent live here:
+       the Abilities header reuses Core's Keyed <Abilities> string and the Quests header reuses the
+       quests main-tab button's def label (MainButtonDefOf.Quests), so both arrive pre-translated in
+       every language and must not be duplicated in this file. -->
   <UMW_SettingsWeapons>Weapons</UMW_SettingsWeapons>
   <UMW_SettingsGeneration>Generation</UMW_SettingsGeneration>
-  <UMW_SettingsAbilities>Abilities</UMW_SettingsAbilities>
-  <!-- TODO: Vanilla should have a key we can reuse for this since it has an ingame panel nav tab button along the bottom bar menu -->
-  <UMW_SettingsQuests>Quests</UMW_SettingsQuests>
 
   <!-- Settings: reusable label suffixes. Each includes a leading space, and every applicable one is
        appended (no precedence between them), so they must read cleanly back to back. -->
@@ -18,7 +18,7 @@
   <UMW_SameAsSuffix> (same as {0})</UMW_SameAsSuffix>
 
   <!-- Settings: Weapons. One checkbox per weapon, labelled from the weapon's own def label; the row list
-       is generated, so this is the only string it needs. {0} is that label.
+       is generated, so this is the only string it needs. {0} is that label (lowercase).
        "This mod's own ... and every vanilla" is a deliberate qualifier, not filler: the gate covers every
        pool that asks ThingSetMakerUtility, which is all shipped content, but a third-party mod rolling
        loot through its own custom generator can bypass it (see ThingSetMakerUtility_CanGenerate_Patch.cs). -->
@@ -28,32 +28,35 @@
   <UMW_ResetToDefaults>Reset to defaults</UMW_ResetToDefaults>
 
   <!-- Settings: Generation -->
-  <!-- TODO: Wood defname can be injected from the vanilla key -->
-  <UMW_ExcludeWoodStuff>Exclude wood from generated unique weapons</UMW_ExcludeWoodStuff>
-  <!-- TODO: Longsword defname can be injected from vanilla key here -->
-  <UMW_ExcludeWoodStuffDesc>Unique weapons only enter the game through generated rewards (quests, ancient crates, item stashes), rolled from a random eligible material. With this on, wooden materials are dropped from that roll, so a hard-won reward never lands as a wooden longsword. Turn off to allow wooden uniques.</UMW_ExcludeWoodStuffDesc>
-  <!-- Shown only when Royalty is active; the traits it governs need that DLC. -->
-  <!-- TODO: The three trait labels could be injected from their own defs' keyed labels -->
+  <!-- {0} is the wood resource's item label (ThingDef WoodLog, "wood" in English, lowercase). -->
+  <UMW_ExcludeWoodStuff>Exclude {0} from generated unique weapons</UMW_ExcludeWoodStuff>
+  <!-- {0} is the vanilla longsword's item label (lowercase), named as the example reward. -->
+  <UMW_ExcludeWoodStuffDesc>Unique weapons only enter the game through generated rewards (quests, ancient crates, item stashes), rolled from a random eligible material. With this on, wooden materials are dropped from that roll, so a hard-won reward never lands as a wooden {0}. Turn off to allow wooden uniques.</UMW_ExcludeWoodStuffDesc>
+  <!-- Shown only when Royalty is active; the traits it governs need that DLC.
+       {0}, {1}, {2} are the three trait labels (lowercase): monomolecular, plasma-cored, zeus-headed.
+       Each parenthetical describes the trait injected just before it, so keep them paired. -->
   <UMW_AllowUltratechTraits>Allow ultratech weapon traits</UMW_AllowUltratechTraits>
-  <UMW_AllowUltratechTraitsDesc>Three traits borrow Royalty's ultratech melee kit: monomolecular (a mechanite-held edge that shears armor), plasma-cored (a plasma sheath that sears and ignites) and zeus-headed (an EMP discharge that stuns mechanoids). Turn off to keep them out of the roll. This is meant for medieval-only or low-tech runs, where a mechanite edge on a hand-forged sword breaks the period. The other traits are unaffected, and weapons that have already rolled one of these keep it.</UMW_AllowUltratechTraitsDesc>
+  <UMW_AllowUltratechTraitsDesc>Three traits borrow Royalty's ultratech melee kit: {0} (a mechanite-held edge that shears armor), {1} (a plasma sheath that sears and ignites) and {2} (an EMP discharge that stuns mechanoids). Turn off to keep them out of the roll. This is meant for medieval-only or low-tech runs, where a mechanite edge on a hand-forged sword breaks the period. The other traits are unaffected, and weapons that have already rolled one of these keep it.</UMW_AllowUltratechTraitsDesc>
 
-  <!-- Settings: Abilities -->
-  <!-- TODO: Earthshake and Rallying Cry should be injected from their keyed defnames -->
-  <UMW_EarthshakeCooldown>Earthshake cooldown: {0} hours</UMW_EarthshakeCooldown>
-  <!-- TODO: Verify this factual claim on Odyssey parity -->
-  <UMW_EarthshakeCooldownDesc>How long a piledriver weapon must rest between earthshakes. The default matches the cooldown on Odyssey's own weapon-trait abilities. Set to 0 for no cooldown at all.</UMW_EarthshakeCooldownDesc>
-  <UMW_EarthshakeRadius>Earthshake radius: {0} cells</UMW_EarthshakeRadius>
+  <!-- Settings: Abilities. Slider labels are shared templates: {0} is the subject's own def label
+       (an ability, a hediff, or the warband faction), capitalized; {1} is the slider's current value.
+       The unit word is part of the template, so hour- and day-based cooldowns are separate keys. -->
+  <UMW_AbilityCooldownHours>{0} cooldown: {1} hours</UMW_AbilityCooldownHours>
+  <UMW_AbilityCooldownDays>{0} cooldown: {1} days</UMW_AbilityCooldownDays>
+  <UMW_AbilityRadius>{0} radius: {1} cells</UMW_AbilityRadius>
+  <UMW_HediffDurationHours>{0} duration: {1} hours</UMW_HediffDurationHours>
+
+  <UMW_EarthshakeCooldownDesc>How long a piledriver weapon must rest between earthshakes. The default matches the cooldown on the EMP pulser, the one weapon-trait ability Odyssey ships with a cooldown. Set to 0 for no cooldown at all.</UMW_EarthshakeCooldownDesc>
   <UMW_EarthshakeRadiusDesc>How far the stunning shockwave reaches. It travels through the ground, so walls do not stop it, but it cannot cross a gap with no floor. The overhead ripple scales to match. Remember the shock is indiscriminate: a wider radius catches more of your own colonists too.</UMW_EarthshakeRadiusDesc>
-  <UMW_RallyingCryCooldown>Rallying cry cooldown: {0} days</UMW_RallyingCryCooldown>
   <UMW_RallyingCryCooldownDesc>How long a storied weapon must rest between rallying cries. Measured in days rather than hours on purpose: the default makes it an heirloom moment rather than a standing aura you re-apply every fight.</UMW_RallyingCryCooldownDesc>
-  <UMW_RallyingCryRadius>Rallying cry radius: {0} cells</UMW_RallyingCryRadius>
   <UMW_RallyingCryRadiusDesc>How far the cry carries. It rallies every humanlike within this range who is not hostile to the wielder and can see them, so allied and neutral pawns are included but walls and closed doors block it. Waking sleepers uses the same range but ignores walls, and catches enemies as well.</UMW_RallyingCryRadiusDesc>
-  <UMW_RalliedDuration>Rallied duration: {0} hours</UMW_RalliedDuration>
   <UMW_RalliedDurationDesc>How long the rallied buff lasts on each pawn the cry reaches, halving both their pain and the time a hit staggers them. Anyone who was asleep is woken instead of rallied, and resents it. Changing this affects cries made from now on; anyone already rallied keeps the duration they were given.</UMW_RalliedDurationDesc>
 
-  <!-- Settings: Quests -->
-  <!-- TODO: Quest name should be injected -->
-  <UMW_WarbandQuestWeight>Warband quest commonality: {0}</UMW_WarbandQuestWeight>
+  <!-- Settings: Quests. The slider label reuses the shared template pattern: {0} is the warband
+       faction's def label (capitalized), {1} the value. The desc's quest examples (ancient
+       mercenaries, bandit camps, item stashes) are vanilla content names; translate them to match
+       the official localization. -->
+  <UMW_QuestWeight>{0} quest commonality: {1}</UMW_QuestWeight>
   <UMW_WarbandQuestWeightDesc>Selection weight of the warband quest against the other opportunity-site quests (ancient mercenaries, bandit camps, item stashes...) offered by traders, beggars and reading. Higher = offered more often. 0 disables the quest entirely.</UMW_WarbandQuestWeightDesc>
 
 </LanguageData>

@@ -16,7 +16,7 @@
       <li>Edge</li>
     </exclusionTags>
     <statOffsets>
-      <MarketValue>40</MarketValue> <!-- cf. PiercingRounds -->
+      <MarketValue>50</MarketValue> <!-- PiercingRounds +40 prices the AP floor alone (= Flanged); +10 for the ×1.1 Cut damage on top -->
     </statOffsets>
     <traitAdjectives>
       <li>razored</li>

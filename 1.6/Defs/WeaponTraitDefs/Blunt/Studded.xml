@@ -4,10 +4,11 @@
   <!-- UMW_Blunt. Pure stat mod, untagged (no exclusionTags). A studded/knurled head bites harder on
        impact — MeleeToolModExtension raises the Blunt tool's damage 15%, no AP change (per-tool
        damageFactor doesn't ride the AP stat, unlike MeleeWeapon_DamageMultiplier). Co-roll ceiling
-       checked against UMW_Heavy's UMW_HeadWeighted (×1.5 damage @ ×1.18 cooldown, AP-neutralized via its
-       own AP factor): a warhammer rolling both stacks to a legal, if punishing, ×1.5 Studded damage
-       multiplier on top — inside Odyssey's own precedent for compounding damage/cooldown factors, and
-       AP stays untouched by either trait. Priced at parity with Odyssey's ranged BroadheadArrows (+60). -->
+       checked against UMW_Heavy's UMW_HeadWeighted (×1.3 damage @ ×1.18 cooldown, AP-neutralized via its
+       own AP factor): a warhammer rolling both stacks to a legal, if punishing, ~×1.5 combined damage
+       multiplier — inside Odyssey's own precedent for compounding damage/cooldown factors, and
+       AP stays untouched by either trait. Priced under Odyssey's BroadheadArrows (+30% dmg = +60):
+       half the damage bonus, so +50 keeps it above the pure-AP +40 tier. -->
   <WeaponTraitDef>
     <defName>UMW_Studded</defName>
     <label>studded</label>
@@ -15,7 +16,7 @@
     <commonality>1</commonality>
     <weaponCategory>UMW_Blunt</weaponCategory>
     <statOffsets>
-      <MarketValue>60</MarketValue> <!-- cf. BroadheadArrows -->
+      <MarketValue>50</MarketValue> <!-- BroadheadArrows prices +30% at +60, so +15% sits below it; level with Razored's damage+AP -->
     </statOffsets>
     <traitAdjectives>
       <li>studded</li>

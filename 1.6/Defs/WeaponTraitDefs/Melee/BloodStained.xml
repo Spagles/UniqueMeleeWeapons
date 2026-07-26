@@ -22,8 +22,10 @@
        wooden weapon look alike). So it tags "BodyColor" (its own one-per-weapon family), NOT "Color":
        being on a different mask channel, blood-stained can now co-occur with a colour-one Gold/Jade inlay
        or the Envenomed coating. It also tags "Appearance" (shared with Ornamental/Ugly) so a gore-caked
-       weapon never also rolls "ornamental" or "ugly" — it has its own look — and carries MarketValue x0.8
-       (gore devalues it). canGenerateAlone defaults true: a weapon can roll just "blood-stained" as a
+       weapon never also rolls "ornamental" or "ugly" — it has its own look — and carries BOTH MarketValue
+       halves per the CLAUDE.md rule (capability rides an offset, devaluation rides a factor): ×0.8 for the
+       gore, +40 for the panic-on-hit — half Bell-cast's +80 (0.12 chance vs 0.25, humanlike-only).
+       canGenerateAlone defaults true: a weapon can roll just "blood-stained" as a
        complete, nameable identity. -->
   <WeaponTraitDef>
     <defName>UMW_BloodStained</defName>
@@ -35,8 +37,11 @@
       <li>BodyColor</li>
       <li>Appearance</li>
     </exclusionTags>
+    <statOffsets>
+      <MarketValue>40</MarketValue> <!-- the panic capability: half Bell-cast's +80 (weaker proc, humanlike-only) -->
+    </statOffsets>
     <statFactors>
-      <MarketValue>0.8</MarketValue>
+      <MarketValue>0.8</MarketValue> <!-- the gore devaluation, cf. Ugly -->
     </statFactors>
     <traitAdjectives>
       <li>blood-stained</li>

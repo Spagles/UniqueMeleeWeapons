@@ -12,7 +12,7 @@
       <li>SwingProfile</li>
     </exclusionTags>
     <statOffsets>
-      <MarketValue>40</MarketValue> <!-- net-positive archetype (offset, though its combat effect is a factor) -->
+      <MarketValue>60</MarketValue> <!-- net +16% DPS (0.95/0.82): priced level with its SwingProfile sibling UMW_HeadWeighted, under Lightweight's +80 (offset, though its combat effect is a factor) -->
     </statOffsets>
     <statFactors>
       <MeleeWeapon_CooldownMultiplier>0.82</MeleeWeapon_CooldownMultiplier>

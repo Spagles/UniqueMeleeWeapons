@@ -136,8 +136,9 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     // play-data load by calling CanGenerate on every def — our patch is therefore already reflected in it
     // at startup, and this only matters for a later change. Its consumers are base-gen's item scatterers
     // (SymbolResolver_FillWithThings / _SingleThing pick a random weapon, medicine or drug from it) and
-    // QuestNode_TradeRequest. Reset() does nothing but refill that list (and ThingSetMaker_Meteorite's
-    // mineables, the same way), so re-running it is idempotent and safe outside a game.
+    // QuestNode_TradeRequest_GetRequestedThing. Reset() does nothing but refill that list (and
+    // ThingSetMaker_Meteorite's mineables, the same way), so re-running it is idempotent and safe
+    // outside a game.
     //
     // Every other pool path calls CanGenerate live through ThingSetMakerUtility.GetAllowedThingDefs and
     // needs no invalidation. (Decompile-verified 2026-07-26, RimWorld 1.6.)

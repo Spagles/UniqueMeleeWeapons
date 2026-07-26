@@ -19,12 +19,23 @@ namespace UniqueMeleeWeapons.Patches;
 // trade/storage/debug: a disabled weapon still exists, so a save that already contains one keeps it
 // working, and re-enabling is a settings flip rather than a migration.
 //
+// Coverage boundary: a ThingSetMaker that hand-picks defs without going through ThingSetMakerUtility
+// bypasses this gate. Stock ThingSetMaker_UniqueWeapon is the one such class that can see our weapons
+// (it picks any CompUniqueWeapon def straight off the DefDatabase); vanilla's only two uses of it are
+// repointed onto our subclass by RepointUniqueWeaponPool.xml, so the gate holds for everything shipped —
+// but a THIRD-PARTY def using that stock class (or its own hand-rolled maker) is not covered, which is
+// why player-facing copy says "vanilla" pools (Keyed/UMW_UI.xml). Trade and raider kit need no gate at
+// all: the weapons are tradeability=Sellable (never stocked) and generateAllowChance=0 (never spawned
+// equipped). (Decompile-verified 2026-07-26, RimWorld 1.6: CanGenerate's only callers are
+// GetAllowedThingDefs and Reset; the leaf makers reaching weapons — Count, MarketValue, StackCount —
+// all funnel through GetAllowedThingDefs.)
+//
 // The one place eligibility is cached instead of asked live (ThingSetMakerUtility.allGeneratableItems,
 // built once at play-data load) is refreshed by settings.ApplyWeaponAvailability when the window closes;
 // see the comment there for why nothing else needs invalidating.
 //
-// Null-conditional on Settings because CanGenerate runs during def loading, before GetSettings has
-// necessarily returned — no settings yet means nothing is disabled yet.
+// The null-conditional on Settings is defensive only: the mod constructor assigns Settings before
+// PatchAll installs this postfix, so no call our patch can observe precedes it.
 [HarmonyPatch(typeof(ThingSetMakerUtility), nameof(ThingSetMakerUtility.CanGenerate))]
 public static class ThingSetMakerUtility_CanGenerate_Patch
 {

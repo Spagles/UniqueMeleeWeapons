@@ -7,16 +7,22 @@ namespace UniqueMeleeWeapons;
 // applied. (The Mod constructor is too early: it runs while mod assemblies are
 // still loading, before any def exists.)
 //
-// Re-runs on a play-data reload, which is how a mid-session language change reaches
-// TraitEffectSummary: the DefDatabase is rebuilt and the effect lines are re-derived in the new
-// language.
+// Once per PROCESS, not per play-data load: StaticConstructorOnStartupUtility.CallAll goes through
+// RuntimeHelpers.RunClassConstructor, and a type initializer never runs twice. An in-process
+// play-data reload (mid-session language change, dev-mode def hot reload) rebuilds the DefDatabase
+// WITHOUT re-running this, so until the next restart the def-field overrides revert to their
+// shipped XML values (re-applied on the next settings-window close, which calls the same Apply
+// methods) and the caches built here keep the previous DefDatabase's def instances (harmless to the
+// pool/stuff patches, which key on tags and defNames, not cached references).
+// (Decompile-verified 2026-07-26, RimWorld 1.6.)
 [StaticConstructorOnStartup]
 public static class UMW_Startup
 {
     static UMW_Startup()
     {
-        // Cache the set of weapons we own (per-weapon settings rows, pool filtering). Rebuilt rather than
-        // built lazily because this re-runs on a play-data reload, where the DefDatabase is replaced.
+        // Cache the set of weapons we own (per-weapon settings rows, pool filtering). Eager rather than
+        // lazy only so it is built at the same well-defined point as the rest of this startup work;
+        // there is no rebuild-on-reload angle, since this never re-runs (see the class comment).
         UniqueWeaponDefs.Rebuild();
         UniqueMeleeWeaponsMod.Settings.ApplyWarbandQuestWeight();
         UniqueMeleeWeaponsMod.Settings.ApplyAbilityTuning();

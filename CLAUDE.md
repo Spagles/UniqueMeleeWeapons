@@ -107,6 +107,8 @@ Source/1.6/
   step-by-step recipe for adding a setting — including the pattern for a setting that *overrides a
   def field* (written onto the live def at startup and on window close; XML holds only the
   shipped default) — is in `Core/UniqueMeleeWeaponsSettings.cs`.
+- **No em dashes in player-facing text** (def labels/descriptions, `Keyed/`, `About.xml`) — reflow
+  the sentence instead. This file, code comments and def comments are unaffected.
 
 ### Design rules for weapons and traits
 

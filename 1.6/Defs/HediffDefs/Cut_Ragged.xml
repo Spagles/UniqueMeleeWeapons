@@ -20,7 +20,7 @@
     <defName>UMW_Cut_Ragged</defName>
     <label>ragged cut</label>
     <labelNoun>a ragged cut</labelNoun>
-    <description>A ragged, torn cut with frayed edges that bleed freely and scar badly.</description>
+    <description>A ragged, torn cut that bleeds freely and scars badly.</description>
     <comps>
       <li Class="HediffCompProperties_TendDuration">
         <labelTendedWell>bandaged</labelTendedWell>

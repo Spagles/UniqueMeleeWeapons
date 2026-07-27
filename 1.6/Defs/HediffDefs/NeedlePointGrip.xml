@@ -8,7 +8,7 @@
   <HediffDef>
     <defName>UMW_NeedlePointGrip</defName>
     <label>needle-point grip</label>
-    <description>The wielder has adapted their grip to a needle-fine point. The stance drives deeper on a hit, but it is finicky and unforgiving to land cleanly.</description>
+    <description>The wielder has adapted their grip to a needle-fine point. The thrust drives deeper but is harder to land cleanly.</description>
     <hediffClass>Hediff</hediffClass>
     <everCurableByItem>false</everCurableByItem>
     <isBad>false</isBad>

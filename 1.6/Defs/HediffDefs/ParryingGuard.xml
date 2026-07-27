@@ -13,7 +13,7 @@
   <HediffDef>
     <defName>UMW_ParryingGuard</defName>
     <label>parrying guard</label>
-    <description>The hand-guard lets the wielder turn blows aside, catching and deflecting incoming strikes before they land.</description>
+    <description>The hand-guard lets the wielder catch incoming blows and turn them aside.</description>
     <hediffClass>Hediff</hediffClass>
     <everCurableByItem>false</everCurableByItem>
     <isBad>false</isBad>

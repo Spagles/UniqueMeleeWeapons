@@ -54,7 +54,7 @@
   <AbilityDef>
     <defName>UMW_Earthshake</defName>
     <label>earthshake</label>
-    <description>Slam the weapon's full mass into the ground, sending a stunning shockwave out through the earth. It passes under walls, and it is utterly indiscriminate: allies caught in the radius reel alongside enemies. Only the wielder, braced behind the shaft and expecting the blow, keeps their footing.</description>
+    <description>Slam the weapon's full mass into the ground, sending a stunning shockwave out through the earth. The shock passes under walls and stuns friend and foe alike; only the braced wielder keeps their footing.</description>
     <iconPath>UI/Commands/UMW_Earthshake</iconPath>
     <aiCanUse>true</aiCanUse>
     <targetRequired>False</targetRequired>

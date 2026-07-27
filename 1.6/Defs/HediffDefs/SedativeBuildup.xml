@@ -31,7 +31,7 @@
   <HediffDef>
     <defName>UMW_SedativeBuildup</defName>
     <label>sedative buildup</label>
-    <description>A fast-acting sedative building up in the bloodstream. At high levels it renders the creature unconscious.</description>
+    <description>A fast-acting sedative building up in the bloodstream. At high levels it renders creatures unconscious.</description>
     <hediffClass>HediffWithComps</hediffClass>
     <maxSeverity>1</maxSeverity>
     <comps>

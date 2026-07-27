@@ -10,8 +10,8 @@
        original 0.8 was nearly mono-grade on a commonality-1, +40 MV trait (2026-07 balance pass). On the
        spear itself the floor only rescues poor quality/soft stuff (its point scales past 0.6 on its own at
        high quality); on knife/gladius/longsword (base 0.20-0.35) it is the real upgrade. Distinct from
-       NeedlePoint, which is a coupled damage+AP buff with a hit-chance cost; the shared "Point" tag keeps
-       the two shapes mutually exclusive. -->
+       NeedlePoint, whose deep-stab conversion seeks internal organs with only a mild damage+AP rider and
+       a hit-chance cost; the shared "Point" tag keeps the point shapes mutually exclusive. -->
   <WeaponTraitDef>
     <defName>UMW_ArmorSpike</defName>
     <label>armor spike</label>

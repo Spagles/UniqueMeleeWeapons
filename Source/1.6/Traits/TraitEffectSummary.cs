@@ -129,9 +129,11 @@ public static class TraitEffectSummary
 
     // A rerouted base hit reads as a different WOUND, not a different damage type: the conversion defs
     // deliberately keep the vanilla damage label so the combat log stays clean ("cut", not "ragged
-    // cut"), and carry their identity on the injury hediff. So name the hediff, and quantify the one
-    // delta that is a plain ratio — bleed rate. (Scar chance also differs, but
-    // becomePermanentChanceFactor renders as "x1000%" and reads as noise next to it.)
+    // cut"), and carry their identity on the injury hediff or on where the wound lands. Emit one line
+    // per delta the conversion actually makes: a changed injury hediff is named (with the bleed-rate
+    // ratio, the one hediff delta that reads as a plain number — scar chance renders as "x1000%" and
+    // reads as noise next to it), and a raised forced-internal chance (UMW_Stab_Deep) is stated as
+    // the absolute organ-strike chance, the number the DamageWorker actually rolls.
     private static void AppendDamageConversions(WeaponTraitDef trait, List<string> lines)
     {
         List<DamageConversion> conversions = trait.GetModExtension<MeleeDamageConversionExtension>()?.conversions;
@@ -141,20 +143,30 @@ public static class TraitEffectSummary
         }
         foreach (DamageConversion conversion in conversions)
         {
-            HediffDef to = conversion.to?.hediff;
-            if (to == null)
+            if (conversion.to == null)
             {
                 continue;
             }
-            string line = "UMW_TraitStat_WoundType".Translate(to.label);
-
-            float toBleed = to.injuryProps?.bleedRate ?? 0f;
-            float fromBleed = conversion.from?.hediff?.injuryProps?.bleedRate ?? 0f;
-            if (fromBleed > 0f && !Mathf.Approximately(toBleed, fromBleed))
+            HediffDef to = conversion.to.hediff;
+            if (to != null && to != conversion.from?.hediff)
             {
-                line += " (" + "UMW_TraitStat_BleedRate".Translate(Factor(toBleed / fromBleed)) + ")";
+                string line = "UMW_TraitStat_WoundType".Translate(to.label);
+
+                float toBleed = to.injuryProps?.bleedRate ?? 0f;
+                float fromBleed = conversion.from?.hediff?.injuryProps?.bleedRate ?? 0f;
+                if (fromBleed > 0f && !Mathf.Approximately(toBleed, fromBleed))
+                {
+                    line += " (" + "UMW_TraitStat_BleedRate".Translate(Factor(toBleed / fromBleed)) + ")";
+                }
+                lines.Add(line);
             }
-            lines.Add(line);
+
+            float toInternal = conversion.to.stabChanceOfForcedInternal;
+            float fromInternal = conversion.from?.stabChanceOfForcedInternal ?? 0f;
+            if (!Mathf.Approximately(toInternal, fromInternal))
+            {
+                lines.Add("UMW_TraitStat_ForcedInternal".Translate(toInternal.ToStringPercent()));
+            }
         }
     }
 

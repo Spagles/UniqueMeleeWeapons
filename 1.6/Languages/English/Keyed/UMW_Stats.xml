@@ -14,9 +14,12 @@
   <UMW_TraitStat_Minimum>min. {0}</UMW_TraitStat_Minimum>
 
   <!-- Rerouted base hit. {0} is the injury hediff's label; the bleed clause is appended in
-       parentheses when the new wound bleeds at a different rate than the one it replaces. -->
+       parentheses when the new wound bleeds at a different rate than the one it replaces. The
+       forced-internal line states the rerouted damage's stabChanceOfForcedInternal (vanilla stabs
+       roll 60%), shown when the conversion changes it. -->
   <UMW_TraitStat_WoundType>Wound type: {0}</UMW_TraitStat_WoundType>
   <UMW_TraitStat_BleedRate>bleed rate {0}</UMW_TraitStat_BleedRate>
+  <UMW_TraitStat_ForcedInternal>Stabs strike internal organs {0} of the time</UMW_TraitStat_ForcedInternal>
 
   <!-- On-hit effects. {0} (or {1}) is one of the effect clauses below; the chance form is used
        whenever the effect can fail to proc. -->

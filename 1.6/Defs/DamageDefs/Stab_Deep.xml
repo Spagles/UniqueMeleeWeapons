@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Base-damage target for the UMW_NeedlePoint trait. The DamageConversion postfix reroutes the
+       weapon's normal Stab hit to this in place (no extra damage stacked) — see the on-hit-effects
+       note in CLAUDE.md. Faithful clone of Core's Stab (keeps DamageWorker_Stab, Sharp armor, the
+       vanilla Stab injury hediff, the overkill curve), differing ONLY in
+       stabChanceOfForcedInternal 0.6 -> 0.85. That field is the whole mechanic
+       (DamageWorker_Stab.ChooseHitPart, decompile-verified 2026-07-27): the worker picks an outside
+       part by coverage, then with this chance re-picks a random INSIDE part beneath it (heart, lungs,
+       liver, kidneys; brain under a head strike), splitting the damage 75% outer / 40% inner. Organs
+       are low-HP, so the reroute converts damage into lethality and permanent injury rather than
+       raising the numbers — the trait's identity lever.
+       Sizing: the vanilla ladder is Poke 0.4 (handles, fists), Stab/RangedStab 0.6. 0.85 is a large,
+       felt step (~42% more organ strikes per wounding stab) while stopping short of certainty — some
+       thrusts still glance, and determinism would read as a guarantee the fiction doesn't promise.
+       Cloned, NOT ParentName="Stab": vanilla Stab carries no Name= attribute so it can't be a parent
+       (same gotcha as UMW_Stab_Tox / UMW_Stab_Ragged). Label stays "stab" to keep the combat log
+       clean; the wound itself is the ordinary Stab injury — where it lands is the difference. -->
+  <DamageDef>
+    <defName>UMW_Stab_Deep</defName>
+    <label>stab</label>
+    <workerClass>DamageWorker_Stab</workerClass>
+    <externalViolence>true</externalViolence>
+    <deathMessage>{0} has been stabbed to death.</deathMessage>
+    <hediff>Stab</hediff>
+    <hediffSolid>Crack</hediffSolid>
+    <impactSoundType>Slice</impactSoundType>
+    <armorCategory>Sharp</armorCategory>
+    <stabChanceOfForcedInternal>0.85</stabChanceOfForcedInternal>
+    <overkillPctToDestroyPart>0.4~1.0</overkillPctToDestroyPart>
+  </DamageDef>
+
+</Defs>

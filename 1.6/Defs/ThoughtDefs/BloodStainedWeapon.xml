@@ -35,12 +35,12 @@
     <stages>
       <li>
         <label>blood-stained weapon</label>
-        <description>I'm carrying a weapon caked in dried blood. Its reek, and the memory of what it's done, turn my stomach.</description>
+        <description>I'm carrying a weapon caked in dried blood. Its reek, and the thought of what it's done, turn my stomach.</description>
         <baseMoodEffect>-2</baseMoodEffect>
       </li>
       <li>
         <label>blood-stained weapon</label>
-        <description>I'm carrying a weapon caked in the blood of those I've cut down. Its reek, and the memory of what it's done, thrill me to the core.</description>
+        <description>I'm carrying a weapon caked in the blood of those I've cut down. Its reek, and the thought of what it's done, thrill me to the core.</description>
         <baseMoodEffect>3</baseMoodEffect>
       </li>
     </stages>

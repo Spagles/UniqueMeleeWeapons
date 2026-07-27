@@ -6,7 +6,7 @@
   <WeaponTraitDef>
     <defName>UMW_Ornamental</defName>
     <label>ornamental</label>
-    <description>This weapon was crafted for beauty over function. It deals less damage but looks magnificent.</description>
+    <description>This weapon was crafted for aesthetics over functionality. It deals less damage but looks great.</description>
     <commonality>0.5</commonality>
     <canGenerateAlone>false</canGenerateAlone>
     <weaponCategory>UMW_Melee</weaponCategory>

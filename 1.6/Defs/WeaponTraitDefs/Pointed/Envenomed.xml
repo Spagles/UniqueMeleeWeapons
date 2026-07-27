@@ -11,7 +11,7 @@
   <WeaponTraitDef>
     <defName>UMW_Envenomed</defName>
     <label>envenomed</label>
-    <description>The point is coated in a slow neurotoxic venom that seeps into every wound it opens.</description>
+    <description>The point is coated in a slow neurotoxic venom which causes toxic buildup in those it wounds.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Pointed</weaponCategory>
     <exclusionTags>

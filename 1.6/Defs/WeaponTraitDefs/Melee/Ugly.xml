@@ -7,7 +7,7 @@
   <WeaponTraitDef>
     <defName>UMW_Ugly</defName>
     <label>ugly</label>
-    <description>This weapon was made with no respect for aesthetics. It looks like junk but gets the job done. Traders will pay less for it.</description>
+    <description>This weapon was crafted with no respect for aesthetics. It looks like junk but gets the job done. Traders will pay less for it.</description>
     <commonality>0.5</commonality>
     <canGenerateAlone>false</canGenerateAlone>
     <weaponCategory>UMW_Melee</weaponCategory>

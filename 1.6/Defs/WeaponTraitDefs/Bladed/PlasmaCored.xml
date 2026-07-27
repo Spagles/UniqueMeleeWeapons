@@ -24,7 +24,7 @@
   <WeaponTraitDef MayRequire="Ludeon.RimWorld.Royalty">
     <defName>UMW_PlasmaCored</defName>
     <label>plasma-cored</label>
-    <description>The core of the blade channels a sheath of plasma, held in place by an energy field and released into every wound it opens, searing flesh and sometimes igniting the target.</description>
+    <description>The core of the blade channels a sheath of plasma, held in place by an energy field and released into the wounds it cuts. It sears flesh and sometimes ignites the target.</description>
     <commonality>0.5</commonality>
     <weaponCategory>UMW_Bladed</weaponCategory>
     <exclusionTags>

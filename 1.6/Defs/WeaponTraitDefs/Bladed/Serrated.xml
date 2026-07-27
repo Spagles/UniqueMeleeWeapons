@@ -13,7 +13,7 @@
   <WeaponTraitDef>
     <defName>UMW_Serrated</defName>
     <label>serrated</label>
-    <description>The edge is cut into vicious teeth that tear ragged, freely bleeding wounds. On a thrust the same teeth catch and rip flesh as the blade is drawn back.</description>
+    <description>The edge is cut into vicious teeth that tear ragged, freely bleeding wounds, though they slash a little shallower than a clean edge. On a thrust the same teeth catch and rip flesh as the blade is drawn back.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Bladed</weaponCategory>
     <exclusionTags>

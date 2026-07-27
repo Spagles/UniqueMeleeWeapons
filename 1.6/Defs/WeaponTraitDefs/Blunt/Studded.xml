@@ -12,7 +12,7 @@
   <WeaponTraitDef>
     <defName>UMW_Studded</defName>
     <label>studded</label>
-    <description>The head is set with hard studs that bite deep on impact, driving extra force into every blow.</description>
+    <description>The head is set with hard studs that concentrate the impact, driving extra force into every blow.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Blunt</weaponCategory>
     <statOffsets>

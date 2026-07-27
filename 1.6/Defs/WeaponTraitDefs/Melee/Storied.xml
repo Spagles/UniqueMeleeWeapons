@@ -19,7 +19,7 @@
   <WeaponTraitDef>
     <defName>UMW_Storied</defName>
     <label>storied</label>
-    <description>This weapon carries a recorded lineage of named bearers, remembered deeds. Its history is part of its weight in the hand.</description>
+    <description>This weapon carries a recorded lineage of named bearers and remembered deeds. The wielder can raise it high in a rallying cry; allies who see it are steeled, and for a time wounds barely slow them. Such a moment can only be called upon once every few days.</description>
     <commonality>0.5</commonality>
     <weaponCategory>UMW_Melee</weaponCategory>
     <exclusionTags>

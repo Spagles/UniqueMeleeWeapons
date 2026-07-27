@@ -13,6 +13,11 @@
        Envenomed staying flesh-relevant via ToxicBuildup's own biology gate, made explicit here since the
        raw additionalHediffs path has no flesh check of its own).
 
+       Fiction anchor: a weaponized application of vanilla's surgery anesthetic ("Sleep drugs in the
+       bloodstream. Anesthetic renders creatures unconscious") — the description and traitAdjectives
+       deliberately borrow that register (drug building in the blood, rendering unconscious) rather
+       than poison/venom language, which belongs to Envenomed.
+
        chance is 1.0, not the 0.5 Envenomed uses: the requested 1.5-2-hits-per-stage pacing is unreachable
        at a coin-flip proc rate (half the hits would do nothing, roughly doubling the hit count needed) —
        a deterministic per-hit cadence is required to hit the design's window.
@@ -23,7 +28,7 @@
   <WeaponTraitDef>
     <defName>UMW_Opiated</defName>
     <label>opiated</label>
-    <description>The point is dipped in a potent opiate that floods the bloodstream through every wound it opens.</description>
+    <description>The point is coated in a potent opiate that builds in the blood with each hit, eventually rendering the victim unconscious.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Pointed</weaponCategory>
     <exclusionTags>
@@ -34,8 +39,9 @@
     </statOffsets>
     <traitAdjectives>
       <li>opiated</li>
-      <li>numbing</li>
+      <li>sedative</li>
       <li>soporific</li>
+      <li>numbing</li>
     </traitAdjectives>
     <modExtensions>
       <li Class="UniqueMeleeWeapons.MeleeTraitEffectExtension">

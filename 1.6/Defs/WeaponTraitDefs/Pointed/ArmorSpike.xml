@@ -9,7 +9,7 @@
   <WeaponTraitDef>
     <defName>UMW_ArmorSpike</defName>
     <label>armor spike</label>
-    <description>A reinforced spike drives the point through plate and carapace that would turn a lesser thrust.</description>
+    <description>The point is reinforced into a heavy spike, driving through plate and carapace that would turn a lesser thrust.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Pointed</weaponCategory>
     <exclusionTags>

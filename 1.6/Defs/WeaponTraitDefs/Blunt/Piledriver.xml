@@ -22,7 +22,7 @@
   <WeaponTraitDef>
     <defName>UMW_Piledriver</defName>
     <label>piledriver</label>
-    <description>The head is built as a piledriver. On command the weapon's full mass can be slammed into the ground, sending a stunning shockwave out through the earth. The shock is indiscriminate; it stuns friend and foe alike, though the braced wielder is spared.</description>
+    <description>The head is built as a piledriver. On command the weapon's full mass can be slammed into the ground, sending a stunning shockwave out through the earth. The shock is indiscriminate; it stuns friend and foe alike, though the braced wielder is spared. Once used, the mechanism takes time to reset.</description>
     <commonality>0.5</commonality>
     <weaponCategory>UMW_Blunt</weaponCategory>
     <exclusionTags>

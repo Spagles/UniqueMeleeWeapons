@@ -23,7 +23,7 @@
   <WeaponTraitDef>
     <defName>UMW_Enameled</defName>
     <label>enameled</label>
-    <description>A vitreous colour-coat has been fired and fused over the body of this weapon, glazing it in a deep, glossy violet.</description>
+    <description>A vitreous enamel has been fired and fused over the body of this weapon, glazing it in a deep, glossy violet. Traders will pay more for it.</description>
     <commonality>0.5</commonality>
     <canGenerateAlone>false</canGenerateAlone>
     <weaponCategory>UMW_Melee</weaponCategory>

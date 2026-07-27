@@ -9,7 +9,7 @@
   <WeaponTraitDef>
     <defName>UMW_Razored</defName>
     <label>razored</label>
-    <description>The edge is honed to a keen razor that bites deeper and drives cleanly through light armor.</description>
+    <description>The edge is honed to a keen razor that bites deeper and drives cleanly through armor.</description>
     <commonality>1</commonality>
     <weaponCategory>UMW_Bladed</weaponCategory>
     <exclusionTags>

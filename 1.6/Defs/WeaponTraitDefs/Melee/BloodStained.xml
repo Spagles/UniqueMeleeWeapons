@@ -16,7 +16,7 @@
            for ordinary pawns, +3 relish for bloodlusters, nullified for the hardened
            (Psychopath, VTE Desensitized/World-weary, hemogenic). See that file for why it must be a
            single def (duplicate grey-0 row otherwise).
-       Forces the dark UMW_Blood tint onto COLOUR TWO (the green-masked body) via
+       Forces the dark UMW_BloodRed tint onto COLOUR TWO (the green-masked body) via
        ForcedColorTwoExtension, not vanilla's colour-one forcedColor — the gore caking the blade reads
        as the body itself, and it REPLACES the material tint (a blood-stained plasteel and a blood-stained
        wooden weapon look alike). So it tags "BodyColor" (its own one-per-weapon family), NOT "Color":
@@ -60,7 +60,7 @@
         </onHitEffects>
       </li>
       <li Class="UniqueMeleeWeapons.ForcedColorTwoExtension">
-        <color>UMW_Blood</color>
+        <color>UMW_BloodRed</color>
       </li>
     </modExtensions>
   </WeaponTraitDef>

@@ -3,13 +3,14 @@
 
   <!-- UMW_Pointed. Point shape — a fine needle that concentrates a thrust into a flat passive buff to
        melee damage AND armor penetration (both ride MeleeWeapon_DamageMultiplier — there is no separate
-       melee AP stat), traded against a slight hit-chance penalty (a delicate point is less forgiving to
+       melee AP stat), traded against a hit-chance penalty (a delicate point is less forgiving to
        land). DECISION: unlike UMW_HeadWeighted (whose incidental AP we neutralize), we deliberately KEEP
        the coupling here — a finer point genuinely drives deeper, so the AP riding along is the point of
        the trait. A pure-stat tradeoff, distinct from ArmorSpike's pure Stab-AP floor; shared "Point" tag
-       keeps the two shape traits mutually exclusive. The hit-chance malus is unchanged in effect but is
-       delivered via the equipped UMW_NeedlePointGrip hediff, NOT equippedStatOffsets — that field is
-       bladelink-only and is silently inert on our CompUniqueWeapon (see the hediff's own header comment). -->
+       keeps the two shape traits mutually exclusive. The hit-chance malus is delivered via the equipped
+       UMW_NeedlePointGrip hediff, NOT equippedStatOffsets — that field is bladelink-only and is silently
+       inert on our CompUniqueWeapon. That hediff's header carries the malus sizing: MeleeHitChance takes
+       raw pre-curve units, so the cost is deliberately steeper for a low-skill wielder than an expert. -->
   <WeaponTraitDef>
     <defName>UMW_NeedlePoint</defName>
     <label>needle point</label>

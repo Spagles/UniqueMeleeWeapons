@@ -12,7 +12,7 @@
        cut alone would be free. The faster decay is what spends it, and MarketValue's StatPart_Health
        compounds the loss into the devaluation. Also note UniqueMeleeWeapon.PostPostMake must re-clamp
        HitPoints, since traits roll after PostMake has set HP from the unmodified max.
-       Forces near-black UMW_Carbon onto colour two (the green-masked body, replacing the stuff tint) —
+       Forces near-black UMW_CarbonBlack onto colour two (the green-masked body, replacing the stuff tint) —
        so "BodyColor", not the colour-one "Color": a charred weapon can still take a Gold/Jade inlay.
        "Appearance" keeps it from also rolling ornamental/ugly — it has its own look.
        canGenerateAlone false: like the inlays, an add-on flourish, not a standalone identity. -->
@@ -50,7 +50,7 @@
     </traitAdjectives>
     <modExtensions>
       <li Class="UniqueMeleeWeapons.ForcedColorTwoExtension">
-        <color>UMW_Carbon</color>
+        <color>UMW_CarbonBlack</color>
       </li>
     </modExtensions>
   </WeaponTraitDef>

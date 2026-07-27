@@ -15,7 +15,7 @@
        fields that base provides — a Weapon colorType and randomlyPickable=false so it never shows up in
        the random weapon-colour pool — so depending on a DLC's abstract node buys nothing. -->
   <ColorDef>
-    <defName>UMW_Blood</defName>
+    <defName>UMW_BloodRed</defName>
     <label>blood red</label>
     <colorType>Weapon</colorType>
     <color>(140, 52, 64)</color>

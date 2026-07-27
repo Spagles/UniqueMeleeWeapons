@@ -29,8 +29,10 @@
   <UMW_TraitStat_FleshOnly>{0} (flesh only)</UMW_TraitStat_FleshOnly>
   <UMW_TraitStat_HumanlikeOnly>{0} (humanlikes only)</UMW_TraitStat_HumanlikeOnly>
 
-  <!-- Wielder-side effect carried by an equipped hediff. {0} is a stat line ("Melee dodge chance
-       +5%") or, for a hediff with no stat modifiers, the hediff's own label. -->
+  <!-- Wielder-side effect carried by an equipped hediff. {0} is a stat line or, for a hediff with no
+       stat modifiers, the hediff's own label. The stat line is rendered unfinalized, so a stat with a
+       postProcessCurve shows its raw offset rather than a percentage ("Melee dodge chance +2.0", the
+       way vanilla shows Nimble's +15) — see UMW_ParryingGuard for why those offsets are whole numbers. -->
   <UMW_TraitStat_Wielder>{0} (wielder)</UMW_TraitStat_Wielder>
 
   <!-- Ability granted by the trait. {0} is the AbilityDef's label. -->

@@ -7,7 +7,7 @@
        body — a cloisonné register, not a small inlaid accent — reads as a fired-glaze/lacquer finish
        rather than a material property, so the wording stays material-agnostic the same way
        Carbonized's does.
-       Forces the royal-purple UMW_Enamel tint onto COLOUR TWO (the green-masked body) via
+       Forces the UMW_EnamelPurple tint onto COLOUR TWO (the green-masked body) via
        ForcedColorTwoExtension, not vanilla's colour-one forcedColor — this is the double-mask
        contract (see CLAUDE.md): a forced body colour REPLACES the material/stuff tint (an enameled
        plasteel and an enameled wooden weapon look alike), so it tags "BodyColor" (its own
@@ -44,7 +44,7 @@
     </traitAdjectives>
     <modExtensions>
       <li Class="UniqueMeleeWeapons.ForcedColorTwoExtension">
-        <color>UMW_Enamel</color>
+        <color>UMW_EnamelPurple</color>
       </li>
     </modExtensions>
   </WeaponTraitDef>

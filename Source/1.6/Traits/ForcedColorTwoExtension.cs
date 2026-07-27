@@ -20,6 +20,6 @@ namespace UniqueMeleeWeapons;
 public class ForcedColorTwoExtension : DefModExtension
 {
     // The colour the body (colour two) renders, replacing the material tint. Reuses the same
-    // weapon ColorDefs as colour one (e.g. UMW_Blood).
+    // weapon ColorDefs as colour one (e.g. UMW_BloodRed).
     public ColorDef color;
 }

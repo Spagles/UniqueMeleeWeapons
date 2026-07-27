@@ -7,9 +7,21 @@
        (decompile-verified) — so a persona-trait wielder effect must instead ride an equipped hediff:
        CompUniqueWeapon.Notify_Equipped/Notify_EquipmentLost add/remove this on the wielder directly
        (same vehicle as UMW_NeedlePointGrip's hit-chance malus).
-       Verify in-game (spec §3.6/§7): eyeball the displayed dodge delta on the wielded stat card
-       before locking +0.05 — MeleeDodgeChance is a curve-capped stat, so the effective delta a
-       player sees may read smaller than the raw offset once the curve is applied. -->
+       The +2 is in MeleeDodgeChance's UNFINALIZED units, not percent. Hediff statOffsets are summed
+       by StatWorker.GetValueUnfinalized and only then does FinalizeValue apply the stat's
+       postProcessCurve ((5,0) (20,0.30) (60,0.50)), so one raw point is worth ~2 percentage points of
+       dodge across melee 5-20 and ~0.5pp above it, and nothing at all below raw 5 where the curve
+       floors. Raw equals the wielder's melee skill level for an intact pawn: PawnCapacityOffset.GetOffset
+       is (efficiency - 1) * scale, so healthy Moving/Sight contribute zero. +2 therefore reads as
+       +4pp for an ordinary wielder decaying to +1pp for a melee specialist — the guard helps the
+       conscript more than the master, which suits the fiction.
+       Sized against the only two sources of this stat in Core+DLC: Nimble's +15 and Ideology
+       BerserkTrance's +8. No vanilla weapon or apparel grants dodge at all, so there is no weapon-borne
+       precedent to match; ~1/8 of a character-defining trait is the deliberate ceiling for a weapon
+       trait that rolls on 2 of the 7 uniques. An earlier 0.05 here was written as though the field
+       took a percentage and bought +0.1pp, i.e. nothing.
+       The info card renders this with finalized:false (TraitEffectSummary.StatLine), so it shows as
+       "+2.0" — the same way vanilla shows Nimble's +15, not as a percentage. -->
   <HediffDef>
     <defName>UMW_ParryingGuard</defName>
     <label>parrying guard</label>
@@ -20,7 +32,7 @@
     <stages>
       <li>
         <statOffsets>
-          <MeleeDodgeChance>0.05</MeleeDodgeChance>
+          <MeleeDodgeChance>2</MeleeDodgeChance> <!-- raw, pre-curve: ~+4pp dodge. cf. Nimble +15 -->
         </statOffsets>
       </li>
     </stages>

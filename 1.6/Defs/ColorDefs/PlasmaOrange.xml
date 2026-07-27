@@ -5,11 +5,11 @@
        BODY colour (colour two / green mask) for UMW_PlasmaCored via ForcedColorTwoExtension. Odyssey's
        UniqueWeapon_Fire (167, 96, 39) was tried first and reads as wood-brown when it tints the whole
        body — it's calibrated as a small colour-one accent, not a full-blade tint. Self-contained like
-       UMW_Blood/UMW_MonoWhite: Weapon colorType, randomlyPickable=false so it never enters the random
+       UMW_BloodRed/UMW_MonoWhite: Weapon colorType, randomlyPickable=false so it never enters the random
        weapon-colour pool. MayRequire-gated together with its sole consumer UMW_PlasmaCored (a
        Royalty-tech reference). -->
   <ColorDef MayRequire="Ludeon.RimWorld.Royalty">
-    <defName>UMW_Plasma</defName>
+    <defName>UMW_PlasmaOrange</defName>
     <label>plasma orange</label>
     <colorType>Weapon</colorType>
     <color>(252, 146, 49)</color>

@@ -12,7 +12,7 @@
        the same source-agnostic pattern as Envenomed's ToxicBuildup and ZeusHeaded's EMP stun, no new C#.
        Flame, not Burn: Burn is Core's no-ignition variant (it swaps the worker back to
        DamageWorker_AddInjury). Flashy Royalty-tech, so rarer (commonality 0.5, matching
-       Monomolecular/ZeusHeaded). Forces our UMW_Plasma — sampled from the plasmasword's blade; see that
+       Monomolecular/ZeusHeaded). Forces our UMW_PlasmaOrange — sampled from the plasmasword's blade; see that
        ColorDef for why Odyssey's UniqueWeapon_Fire didn't work here — onto COLOUR TWO (the body) via
        ForcedColorTwoExtension, so the blade renders plasma-orange regardless of stuff and tags
        BodyColor (one body colour per weapon — which
@@ -53,7 +53,7 @@
         </onHitEffects>
       </li>
       <li Class="UniqueMeleeWeapons.ForcedColorTwoExtension">
-        <color>UMW_Plasma</color>
+        <color>UMW_PlasmaOrange</color>
       </li>
     </modExtensions>
   </WeaponTraitDef>

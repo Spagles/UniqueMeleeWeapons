@@ -77,6 +77,7 @@ About/                          # Mod metadata
 │   └── FactionDefs/ SitePartDefs/ QuestScriptDefs/   # the warband quest
 ├── Patches/                    # XPath patches
 └── Languages/English/Keyed/    # UMW_UI.xml — settings strings
+                                # UMW_Combat.xml — in-combat floating text
                                 # UMW_Stats.xml — info-card trait-effect lines
 Textures/Things/Item/Equipment/WeaponMelee/UniqueWeapons/<Weapon>/
 Source/1.6/
@@ -151,11 +152,12 @@ Source/1.6/
   `equippedStatOffsets`, `marketValueOffset`, `killThought` and the `bonded*` fields are read only
   by bladelink (persona) weapons. All are **silently inert** on `CompUniqueWeapon` — never use
   them. What *does* reach melee: `statOffsets`/`statFactors`, `equippedHediffs`, `abilityProps`,
-  `forcedColor`. Wielder-side effects therefore ride an **equipped hediff** — and that is the
-  idiomatic vehicle, not a workaround: vanilla's `WeaponTraitWorker` applies `equippedHediffs`
-  itself, it is the only trait-granular wielder path `CompUniqueWeapon` has, and the only one that
-  supports stat *factors* (full decompile audit in `HediffDefs/ParryingGuard.xml`). Market value
-  rides `statOffsets`/`statFactors → MarketValue`.
+  `forcedColor`. Wielder-side **stat** effects therefore ride an **equipped hediff** — and that is
+  the idiomatic vehicle, not a workaround: vanilla's `WeaponTraitWorker` applies `equippedHediffs`
+  itself, it is the only trait-granular wielder-stat path `CompUniqueWeapon` has, and the only one
+  that supports stat *factors* (full decompile audit in `HediffDefs/NeedlePointGrip.xml`). A wielder
+  effect that is a combat *outcome* rather than a stat gets its own mechanic instead (Quilloned's
+  parry — `MeleeParryExtension`). Market value rides `statOffsets`/`statFactors → MarketValue`.
 - **Trait stat mods reach any stat of the weapon *thing***, not just combat ones — item-condition
   stats (`MaxHitPoints`, `DeteriorationRate`, `Flammability`) are fair game. Note melee damage and
   armor pen share the single `MeleeWeapon_DamageMultiplier` stat: there is **no** melee AP stat, so
@@ -163,11 +165,12 @@ Source/1.6/
   changes.
 - **Anything a weapon needs beyond those four fields goes through our own extension layer** — a
   `DefModExtension` on the trait plus a Harmony postfix, so the trait stays an ordinary def and
-  vanilla generation/naming/stats keep working. Five exist, each documented in
+  vanilla generation/naming/stats keep working. Six exist, each documented in
   `Source/1.6/Traits/`: `MeleeTraitEffectExtension` (on-hit effects — extra damage, stun, stagger,
   mental state), `MeleeDamageConversionExtension` (reroute the *base* hit's `DamageDef`),
-  `MeleeToolModExtension` (per-tool damage/AP), `ForcedColorTwoExtension` (forced body colour),
-  `ForcedArtExtension` (guaranteed art inscription regardless of quality).
+  `MeleeToolModExtension` (per-tool damage/AP), `MeleeParryExtension` (defender-side chance to
+  negate an incoming melee blow, with its own battle-log outcome), `ForcedColorTwoExtension`
+  (forced body colour), `ForcedArtExtension` (guaranteed art inscription regardless of quality).
   Prefer extending one of these over a new mechanism.
 - **An effect outside `statOffsets`/`statFactors` is invisible until you describe it — as *data on
   the def*, never as text in a renderer.** Vanilla only ever displays those two lists (plus

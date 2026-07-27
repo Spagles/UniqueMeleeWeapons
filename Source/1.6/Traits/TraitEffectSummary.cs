@@ -74,6 +74,7 @@ public static class TraitEffectSummary
             || trait.HasModExtension<MeleeTraitEffectExtension>()
             || trait.HasModExtension<MeleeToolModExtension>()
             || trait.HasModExtension<MeleeDamageConversionExtension>()
+            || trait.HasModExtension<MeleeParryExtension>()
             || trait.HasModExtension<ForcedArtExtension>();
     }
 
@@ -83,6 +84,7 @@ public static class TraitEffectSummary
         AppendToolMods(trait, lines);
         AppendDamageConversions(trait, lines);
         AppendOnHitEffects(trait, lines);
+        AppendParry(trait, lines);
         AppendWielderEffects(trait, lines);
         AppendAbility(trait, lines);
         AppendForcedArt(trait, lines);
@@ -212,9 +214,20 @@ public static class TraitEffectSummary
         }
     }
 
-    // Wielder-side effects ride an equipped hediff (equippedStatOffsets is bladelink-only — see the
-    // hediff defs). Print the hediff's own stage-0 stat modifiers rather than its name, since that is
-    // what the trait actually does; fall back to the label if it carries none.
+    // Defender-side parry (MeleeParryExtension): one chance line, derived from the same field the
+    // combat patch rolls, so a retune can't drift from its own summary.
+    private static void AppendParry(WeaponTraitDef trait, List<string> lines)
+    {
+        MeleeParryExtension ext = trait.GetModExtension<MeleeParryExtension>();
+        if (ext?.parryChance > 0f)
+        {
+            lines.Add("UMW_TraitStat_Parry".Translate(ext.parryChance.ToStringPercent()));
+        }
+    }
+
+    // Wielder-side stat effects ride an equipped hediff (equippedStatOffsets is bladelink-only — see
+    // the hediff defs). Print the hediff's own stage-0 stat modifiers rather than its name, since that
+    // is what the trait actually does; fall back to the label if it carries none.
     private static void AppendWielderEffects(WeaponTraitDef trait, List<string> lines)
     {
         if (trait.equippedHediffs == null)

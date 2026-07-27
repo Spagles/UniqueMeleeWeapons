@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- Wielder-side vehicle for UMW_NeedlePoint's hit-chance malus. The equipped hediff is the
-       idiomatic vehicle, not a workaround: WeaponTraitDef.equippedStatOffsets is consumed only via
-       hardcoded TryGetComp<CompBladelinkWeapon> lookups and is silently inert on CompUniqueWeapon,
-       whereas equippedHediffs are applied/removed by vanilla's own WeaponTraitWorker
-       .Notify_Equipped/Notify_EquipmentLost — the full 1.6 decompile audit lives in
-       UMW_ParryingGuard's header; don't migrate this to equippedStatOffsets.
-       The -2 is in MeleeHitChance's UNFINALIZED units, not percent — the same pre-curve space as
-       UMW_ParryingGuard's dodge offset, which carries the full StatWorker path. This stat's
+  <!-- Wielder-side vehicle for UMW_NeedlePoint's hit-chance malus — the mod's only equipped hediff,
+       and the idiomatic vehicle for a wielder STAT mod, not a workaround (full 1.6 decompile,
+       2026-07-27): WeaponTraitDef.equippedStatOffsets is consumed in exactly two places in the
+       assembly, both hardcoded to TryGetComp<CompBladelinkWeapon> (StatWorker.StatOffsetFromGear /
+       GearHasCompsThatAffectStat) — silently inert on CompUniqueWeapon. The gear stat pipe is also
+       offsets-only (gear can never contribute a factor) and its stat-breakdown line aggregates every
+       offset on the item into one sum under the weapon's generated unique name, with no per-trait
+       attribution. equippedHediffs, by contrast, are applied/removed by VANILLA's own
+       WeaponTraitWorker.Notify_Equipped/Notify_EquipmentLost via CompUniqueWeapon — the only
+       trait-granular wielder-stat vehicle it has, the only one supporting statFactors, and its
+       breakdown line is named per-hediff ("needle-point grip: -2"). Don't migrate this to
+       equippedStatOffsets. (A wielder effect that is a combat OUTCOME rather than a stat goes
+       through its own mechanic instead — see MeleeParryExtension, which replaced the former
+       UMW_ParryingGuard dodge hediff.)
+       The -2 is in MeleeHitChance's UNFINALIZED units, not percent: hediff statOffsets are summed
+       by StatWorker.GetValueUnfinalized and only then does FinalizeValue apply the stat's
+       postProcessCurve — true of gear offsets too; StatDef.finalizeEquippedStatOffset only selects
+       the DISPLAY style, never the math (exhaustive decompile grep, 2026-07-27). This stat's
        postProcessCurve ((-20,0.05) (-10,0.10) (0,0.50) (10,0.80) (20,0.90) (40,0.96) (60,0.98)) makes
        one raw point worth ~3pp of hit chance around melee 8 and ~1pp by melee 15, so -2 costs a green
        wielder ~6pp and an expert ~2pp: a delicate point is unforgiving to whoever hasn't mastered it.

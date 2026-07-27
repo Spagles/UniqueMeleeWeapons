@@ -32,9 +32,12 @@
 
   <!-- Wielder-side effect carried by an equipped hediff. {0} is a stat line or, for a hediff with no
        stat modifiers, the hediff's own label. The stat line is rendered unfinalized, so a stat with a
-       postProcessCurve shows its raw offset rather than a percentage ("Melee dodge chance +2.0", the
-       way vanilla shows Nimble's +15) — see UMW_ParryingGuard for why those offsets are whole numbers. -->
+       postProcessCurve shows its raw offset rather than a percentage ("Melee hit chance -2.0", the
+       way vanilla shows Nimble's +15) — see UMW_NeedlePointGrip for why those offsets are whole numbers. -->
   <UMW_TraitStat_Wielder>{0} (wielder)</UMW_TraitStat_Wielder>
+
+  <!-- Defender-side parry (MeleeParryExtension). {0} is the parry chance. -->
+  <UMW_TraitStat_Parry>{0} chance to parry melee attacks</UMW_TraitStat_Parry>
 
   <!-- Ability granted by the trait. {0} is the AbilityDef's label. -->
   <UMW_TraitStat_GrantsAbility>Grants ability: {0}</UMW_TraitStat_GrantsAbility>

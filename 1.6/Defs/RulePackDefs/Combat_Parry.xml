@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Battle-log grammar for a parried melee blow (Verb_MeleeAttackDamage_Parry_Patch), modeled
+       structurally on Core's Combat_Dodge: own r_logentry variants plus the generic
+       "[action], [result]." root inherited from Combat_MeleeIncludes, fed by Combat_FailIncludes'
+       [action] rules and our [result] rules.
+       Two deliberate limits, both grammar-driven:
+       - No [damaged_inf]/[damaged_past]: those verbs live in the per-maneuver flavor packs
+         (Maneuver_Stab etc.), which vanilla mixes in via per-maneuver WRAPPER packs
+         (Maneuver_Stab_MeleeDodge = Maneuver_Stab + Combat_Dodge). Our patch passes this pack
+         directly to CreateCombatLog for every maneuver — including modded ones no wrapper could
+         anticipate — so maneuver-owned symbols would fail to resolve. Generic [attack_noun]s
+         replace them.
+       - The lines name the guard hardware (crossguard/quillons), not the defender's weapon:
+         BattleLogEntry_MeleeCombat carries only the ATTACKER's implement as a grammar symbol
+         ([WEAPON_label]/[implement] are the initiator's), so the defender's weapon cannot be
+         referenced. Naming the feature is also simply truer to what the trait is. -->
+  <RulePackDef>
+    <defName>UMW_Combat_Parry</defName>
+    <include>
+      <li>Combat_MeleeIncludes</li>
+      <li>Combat_FailIncludes</li>
+      <li>Combat_SkillIncludes</li>
+    </include>
+    <rulePack>
+      <rulesStrings>
+        <li>r_logentry(p=0.4)->[RECIPIENT_definite] caught [INITIATOR_definite]'s [attack_noun] on the crossguard and turned it aside.</li>
+        <li>r_logentry(p=0.3)->[RECIPIENT_definite] [skillAdvMaybe] parried [INITIATOR_definite]'s [attack_noun] with [RECIPIENT_possessive] quillons.</li>
+        <li>r_logentry(p=0.3)->[RECIPIENT_definite] turned [INITIATOR_definite]'s [attack_noun] aside on [RECIPIENT_possessive] guard.</li>
+
+        <li>skillAdvMaybe-></li>
+        <li>skillAdvMaybe->[skillAdv]</li>
+
+        <li>attack_noun->blow</li>
+        <li>attack_noun->strike</li>
+        <li>attack_noun->swing</li>
+        <li>attack_noun->attack</li>
+
+        <li>result->but [RECIPIENT_definite] caught it on the crossguard</li>
+        <li>result->but the [attack_noun] was turned aside on [RECIPIENT_possessive] quillons</li>
+        <li>result->but [RECIPIENT_definite] parried with [RECIPIENT_possessive] guard</li>
+      </rulesStrings>
+    </rulePack>
+  </RulePackDef>
+
+</Defs>

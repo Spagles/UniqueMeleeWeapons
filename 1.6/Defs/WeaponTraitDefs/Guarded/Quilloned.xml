@@ -8,15 +8,22 @@
        file comment), not on an exclusionTags family the way mechanism traits are; "Guard" is instead
        the family token this trait ITSELF seeds for future guard-shape members (riposte, a
        sword-breaker's bind) so at most one guard-family effect ever stacks.
-       Wielder buff rides the equipped UMW_ParryingGuard hediff, NOT equippedStatOffsets — that field
-       is bladelink-only and silently inert on our CompUniqueWeapon (see the hediff's own header
-       comment; same pattern as UMW_NeedlePoint's malus).
+       The effect is a true PARRY, not a stat: MeleeParryExtension gives each incoming melee blow
+       that beats both the attacker's hit roll and the wielder's dodge roll a flat chance to be
+       caught on the guard and negated, with its own battle-log line (UMW_Combat_Parry), the metal
+       deflect ping and a "Parried" mote — resolved by Verb_MeleeAttackDamage_Parry_Patch, which
+       mirrors dodge's gates (no parry when surprised, downed or aiming a ranged verb). It replaced
+       an equipped MeleeDodgeChance hediff on 2026-07-27: the hediff vehicle is bladelink's psychic-
+       bond idiom and read as a pawn condition, where a parry chance IS the hardware working; a flat
+       roll also serves conscript and master alike, where a raw dodge offset decayed to ~nothing
+       through the stat's curve. Sizing lives on the extension class header (0.10 ~ net avoidance
+       +9pp mid-skill vs the hediff's +6pp, a deliberate touch stronger for melee's risk premium).
        MV +50 offset (added capability, not a scaling/devaluation factor): priced at parity with
        Odyssey's ranged QuickReload — the nearest survivability/combat-tempo utility buff at this
        tier (below AimAssistance's +70 accuracy swing, above CustomGrip's +15 cosmetic-adjacent
        nudge). canGenerateAlone defaults true: a quilloned guard is a complete, nameable identity on its own,
        though UMW_Lightweight backstops generation regardless (every weapon's UMW_Melee membership
-       guarantees an alone-able, adjective-bearing trait even if Parrying doesn't roll first). -->
+       guarantees an alone-able, adjective-bearing trait even if Quilloned doesn't roll first). -->
   <WeaponTraitDef>
     <defName>UMW_Quilloned</defName>
     <label>quilloned</label>
@@ -29,9 +36,11 @@
     <statOffsets>
       <MarketValue>50</MarketValue> <!-- cf. QuickReload -->
     </statOffsets>
-    <equippedHediffs>
-      <li>UMW_ParryingGuard</li>
-    </equippedHediffs>
+    <modExtensions>
+      <li Class="UniqueMeleeWeapons.MeleeParryExtension">
+        <parryChance>0.1</parryChance>
+      </li>
+    </modExtensions>
     <traitAdjectives>
       <li>quilloned</li>
       <li>cross-guarded</li>

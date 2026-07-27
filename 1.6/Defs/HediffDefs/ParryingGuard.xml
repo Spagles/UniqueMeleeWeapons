@@ -2,26 +2,36 @@
 <Defs>
 
   <!-- Wielder-side vehicle for UMW_Quilloned's dodge buff. (The hediff keeps its "parrying" name:
-       it names the wielder's act, the way ability defs do — the trait names the hardware.) WeaponTraitDef.equippedStatOffsets is
-       consumed ONLY by bladelink weapons (CompBladelinkWeapon) — silently inert on CompUniqueWeapon
-       (decompile-verified) — so a persona-trait wielder effect must instead ride an equipped hediff:
-       CompUniqueWeapon.Notify_Equipped/Notify_EquipmentLost add/remove this on the wielder directly
-       (same vehicle as UMW_NeedlePointGrip's hit-chance malus).
-       The +2 is in MeleeDodgeChance's UNFINALIZED units, not percent. Hediff statOffsets are summed
+       it names the wielder's act, the way ability defs do — the trait names the hardware.)
+       The hediff is the IDIOMATIC vehicle here, not a workaround (full 1.6 decompile, 2026-07-27):
+       WeaponTraitDef.equippedStatOffsets is consumed in exactly two places in the assembly, both
+       hardcoded to TryGetComp<CompBladelinkWeapon> (StatWorker.StatOffsetFromGear /
+       GearHasCompsThatAffectStat) — silently inert on CompUniqueWeapon. The gear stat pipe is also
+       offsets-only (gear can never contribute a factor) and its stat-breakdown line aggregates every
+       offset on the item into one sum under the weapon's generated unique name, with no per-trait
+       attribution. equippedHediffs, by contrast, are applied/removed by VANILLA's own
+       WeaponTraitWorker.Notify_Equipped/Notify_EquipmentLost via CompUniqueWeapon — the only
+       trait-granular wielder vehicle it has, the only one supporting statFactors, and its breakdown
+       line is named per-hediff ("parrying guard: +3"). Don't migrate this to equippedStatOffsets.
+       The +3 is in MeleeDodgeChance's UNFINALIZED units, not percent. Hediff statOffsets are summed
        by StatWorker.GetValueUnfinalized and only then does FinalizeValue apply the stat's
        postProcessCurve ((5,0) (20,0.30) (60,0.50)), so one raw point is worth ~2 percentage points of
        dodge across melee 5-20 and ~0.5pp above it, and nothing at all below raw 5 where the curve
        floors. Raw equals the wielder's melee skill level for an intact pawn: PawnCapacityOffset.GetOffset
-       is (efficiency - 1) * scale, so healthy Moving/Sight contribute zero. +2 therefore reads as
-       +4pp for an ordinary wielder decaying to +1pp for a melee specialist — the guard helps the
+       is (efficiency - 1) * scale, so healthy Moving/Sight contribute zero. +3 therefore reads as
+       +6pp for an ordinary wielder decaying to ~+1.5pp for a melee specialist — the guard helps the
        conscript more than the master, which suits the fiction.
        Sized against the only two sources of this stat in Core+DLC: Nimble's +15 and Ideology
-       BerserkTrance's +8. No vanilla weapon or apparel grants dodge at all, so there is no weapon-borne
-       precedent to match; ~1/8 of a character-defining trait is the deliberate ceiling for a weapon
-       trait that rolls on 2 of the 7 uniques. An earlier 0.05 here was written as though the field
-       took a percentage and bought +0.1pp, i.e. nothing.
+       BerserkTrance's +8 — 1/5 of the character-defining trait, under half the temporary trance.
+       No vanilla weapon or apparel grants dodge at all, so there is no weapon-borne precedent to
+       match. An earlier +2 held a ~1/8-of-Nimble ceiling; the 2026-07 Odyssey cross-check showed
+       Odyssey prices a weapon trait at 1/2-1x a comparable character trait (AimAssistance's x1.2
+       all-range accuracy is a whole shooting trait's worth), so 1/8 was over-conservative — and a
+       melee wielder is guaranteed to trade blows, so survivability is the melee analog of ranged
+       tempo (QuickReload, whose MV +50 the trait matches). An earlier 0.05 before that was written
+       as though the field took a percentage and bought +0.1pp, i.e. nothing.
        The info card renders this with finalized:false (TraitEffectSummary.StatLine), so it shows as
-       "+2.0" — the same way vanilla shows Nimble's +15, not as a percentage. -->
+       "+3.0" — the same way vanilla shows Nimble's +15, not as a percentage. -->
   <HediffDef>
     <defName>UMW_ParryingGuard</defName>
     <label>parrying guard</label>
@@ -32,7 +42,7 @@
     <stages>
       <li>
         <statOffsets>
-          <MeleeDodgeChance>2</MeleeDodgeChance> <!-- raw, pre-curve: ~+4pp dodge. cf. Nimble +15 -->
+          <MeleeDodgeChance>3</MeleeDodgeChance> <!-- raw, pre-curve: ~+6pp dodge. cf. Nimble +15 -->
         </statOffsets>
       </li>
     </stages>

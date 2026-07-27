@@ -151,8 +151,11 @@ Source/1.6/
   `equippedStatOffsets`, `marketValueOffset`, `killThought` and the `bonded*` fields are read only
   by bladelink (persona) weapons. All are **silently inert** on `CompUniqueWeapon` — never use
   them. What *does* reach melee: `statOffsets`/`statFactors`, `equippedHediffs`, `abilityProps`,
-  `forcedColor`. Wielder-side effects therefore ride an **equipped hediff**; market value rides
-  `statOffsets`/`statFactors → MarketValue`.
+  `forcedColor`. Wielder-side effects therefore ride an **equipped hediff** — and that is the
+  idiomatic vehicle, not a workaround: vanilla's `WeaponTraitWorker` applies `equippedHediffs`
+  itself, it is the only trait-granular wielder path `CompUniqueWeapon` has, and the only one that
+  supports stat *factors* (full decompile audit in `HediffDefs/ParryingGuard.xml`). Market value
+  rides `statOffsets`/`statFactors → MarketValue`.
 - **Trait stat mods reach any stat of the weapon *thing***, not just combat ones — item-condition
   stats (`MaxHitPoints`, `DeteriorationRate`, `Flammability`) are fair game. Note melee damage and
   armor pen share the single `MeleeWeapon_DamageMultiplier` stat: there is **no** melee AP stat, so

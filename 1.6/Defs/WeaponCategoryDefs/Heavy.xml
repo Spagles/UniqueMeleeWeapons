@@ -3,7 +3,14 @@
 
   <!-- Handling category — slow two-handed swing (cooldown 2.6s). Pure stat archetypes that lean
        into the heft or tame it; no on-hit effect. Shared "SwingProfile" exclusion tag makes its
-       traits mutually exclusive. -->
+       traits mutually exclusive.
+       SwingProfile (WHERE the mass sits) is deliberately orthogonal to UMW_Melee's Weight family
+       (HOW MUCH mass): every co-roll in the 2x2 grid is a coherent object (Lightweight+HeadWeighted
+       is a tomahawk, Cumbersome+Counterweighted an overbuilt weapon tamed at the pommel), and the
+       cooldown stacking on Lightweight+Counterweighted follows Odyssey's norm of cross-category
+       stat stacking (StabilizerBrace multiplies accuracy tag-free on top of Gun-category accuracy
+       traits). Keep trait descriptions on their own axis: a Weight trait must blame mass, never
+       balance (see Cumbersome.xml). -->
   <WeaponCategoryDef>
     <defName>UMW_Heavy</defName>
     <label>heavy</label>

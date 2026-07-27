@@ -2,11 +2,13 @@
 <Defs>
 
   <!-- UMW_Melee. Weight — heavier, slower swing. Re-pointed port of Odyssey's Ranged
-       "Cumbersome" (deltas noted inline). -->
+       "Cumbersome" (deltas noted inline). The description blames bulk, NOT balance: balance is
+       the Heavy category's SwingProfile axis (see Heavy.xml), and a Weight trait claiming it made
+       the legal Cumbersome+Counterweighted co-roll read as a contradiction. -->
   <WeaponTraitDef>
     <defName>UMW_Cumbersome</defName>
     <label>cumbersome</label>
-    <description>This weapon is unwieldy and badly balanced, slowing its swing.</description>
+    <description>This weapon is bulky and overbuilt, slowing its swing.</description>
     <commonality>1</commonality>
     <canGenerateAlone>false</canGenerateAlone>
     <weaponCategory>UMW_Melee</weaponCategory>

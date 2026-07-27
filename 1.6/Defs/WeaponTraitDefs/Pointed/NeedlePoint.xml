@@ -4,17 +4,26 @@
   <!-- UMW_Pointed. Point shape — a fine needle that slips past armor and bone to find the organs.
        IDENTITY (reshaped 2026-07-27): the trait's lever is WHERE the wound lands, not how big it is —
        a MeleeDamageConversionExtension reroutes the base Stab hit to UMW_Stab_Deep, raising
-       stabChanceOfForcedInternal 0.6 -> 0.85 (the def carries the worked mechanics and sizing). The
-       damage/AP side is a mild rider, not the point: statFactor x1.1 on MeleeWeapon_DamageMultiplier
-       (damage AND armor pen — both ride the one stat; the coupling is kept deliberately, as a finer
-       point genuinely drives deeper, unlike UMW_HeadWeighted whose incidental AP we neutralize).
+       stabChanceOfForcedInternal 0.6 -> 0.85 (the def carries the worked mechanics and sizing).
        Reshape rationale: the roster already leans on damage-vs-AP factor tradeoffs (HeadWeighted,
        Counterweighted, Studded, Razored); the earlier x1.2-with-malus shape made NeedlePoint a
        me-too stat trait. Organ-seeking is an untouched axis, is literally the "drives deeper"
        fiction, and differentiates the Point family: raw armor answer (ArmorSpike), attrition
        bleeding (Barbed), vitals-seeking lethality (this) — the kill-weapon mirror of Opiated's
-       capture coating. The conversion only touches Stab-capacity swings, so the spear and knife are
-       its prime carriers; a longsword or gladius converts only its point-tool swings.
+       capture coating. Conversion and tool mods alike touch only Stab-capacity swings, so the spear
+       and knife are its prime carriers; a longsword or gladius is affected only on point-tool swings.
+
+       DAMAGE/AP are UNCOUPLED, Stab-only, via MeleeToolModExtension (same pass): the earlier
+       weapon-wide MeleeWeapon_DamageMultiplier rider also buffed a longsword's edge cuts, which a
+       point trait has no business doing, and its damage-up read against the needle fiction.
+       - armorPenetrationFactor x1.3 = PiercingArrows, Odyssey's "bodkin-tipped arrows" — its own
+         needle-point fiction and the named anchor. A FACTOR, not a floor, on purpose: the floor is
+         ArmorSpike's identity (a guaranteed baseline that rescues poor quality/soft stuff), while a
+         factor sharpens what quality provides (masterwork plasteel spear ~0.84, earned, vs the
+         knife's honest 0.26).
+       - damageFactor x0.95: a needle cuts a narrow channel (cf. Counterweighted's x0.95 coupled
+         cost); also the governor on the lethality stack, since a forced-internal strike already
+         delivers 115% of rolled damage split 75% outer / 40% organ.
 
        VEHICLE for the malus: trait-level equippedStatOffsets, made live for our defs by
        StatWorker_UniqueTraitStatOffsets_Patch (the patch header carries the decompile audit and the
@@ -24,12 +33,12 @@
        TUNING: MeleeHitChance offsets are RAW pre-curve units; the curve ((0,0.50) (10,0.80)
        (20,0.90)) prices -1 at 3pp of hit chance below the raw-10 knot and 1pp above — unforgiving
        to whoever hasn't mastered it, without maiming them (an earlier -2 ate half of the then-x1.2
-       buff below the knot; softened in the same pass that reshaped the identity). Stat-side net is
-       now modest (x1.1 by hit ratio: +3% at skill 0, +5-6% mid, +8-9% high); the organ-seeking is
-       the payload. MV 70: above HighPowerRounds' 60 (whose stat package the rider alone no longer
-       matches), below ParalyticArrows' 80 / HollowPoint's 85 — lethality priced like a premium
-       payload, discounted for the hit-chance cost. cf. Brawler +4, the nearest Core offset to
-       MeleeHitChance. -->
+       buff below the knot; softened in the same pass that reshaped the identity). Raw Stab DPS nets
+       slightly NEGATIVE (x0.95 by the hit ratio: ~-9% mid-skill before armor) — deliberate and
+       honest: the payoff is placement (85% organ strikes) and penetration (x1.3), not throughput.
+       MV 70: PiercingArrows prices the +30% AP alone at 40; the organ-seeking premium sits it
+       below ParalyticArrows' 80 / HollowPoint's 85, discounted for the hit-chance and damage
+       costs. cf. Brawler +4, the nearest Core offset to MeleeHitChance. -->
   <WeaponTraitDef>
     <defName>UMW_NeedlePoint</defName>
     <label>needle point</label>
@@ -40,11 +49,8 @@
       <li>Point</li>
     </exclusionTags>
     <statOffsets>
-      <MarketValue>70</MarketValue> <!-- between HighPowerRounds 60 and ParalyticArrows 80; see header -->
+      <MarketValue>70</MarketValue> <!-- PiercingArrows 40 prices the AP; organ premium below ParalyticArrows 80; see header -->
     </statOffsets>
-    <statFactors>
-      <MeleeWeapon_DamageMultiplier>1.1</MeleeWeapon_DamageMultiplier>
-    </statFactors>
     <equippedStatOffsets>
       <MeleeHitChance>-1</MeleeHitChance> <!-- raw, pre-curve: -3pp below melee 10, -1pp above; see header -->
     </equippedStatOffsets>
@@ -61,6 +67,17 @@
             <to>UMW_Stab_Deep</to>
           </li>
         </conversions>
+      </li>
+      <li Class="UniqueMeleeWeapons.MeleeToolModExtension">
+        <mods>
+          <li>
+            <capacities>
+              <li>Stab</li>
+            </capacities>
+            <damageFactor>0.95</damageFactor>
+            <armorPenetrationFactor>1.3</armorPenetrationFactor> <!-- cf. PiercingArrows +30% -->
+          </li>
+        </mods>
       </li>
     </modExtensions>
   </WeaponTraitDef>

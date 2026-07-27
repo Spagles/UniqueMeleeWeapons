@@ -11,6 +11,9 @@
            venom; additionally tags "Color" because it forces the green tint, so it can't co-occur
            with a Gold/Jade inlay) or Opiated (sedative capture coating; deliberately forces
            NO colour, so the Color channel stays free).
+         • "Ragged" — cross-category, shared by Barbed and Bladed's Serrated: the same tearing-wound
+           concept per damage channel (Odyssey's ToxRounds/ToxPellets/AmmoType pattern), so a
+           Bladed+Pointed weapon rolls at most one of them.
        A coating combines freely with a point shape — a pointed weapon can be e.g. "armor-spiked,
        envenomed". -->
   <WeaponCategoryDef>

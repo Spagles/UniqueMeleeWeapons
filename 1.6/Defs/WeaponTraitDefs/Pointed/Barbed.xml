@@ -8,7 +8,10 @@
        damage split here: the spear is a single-tool (Stab-only) weapon, so the ragged bleed/scar tuning
        IS the whole upside, with no cut-side tradeoff to book against it. Shares the "Point" tag with
        ArmorSpike/NeedlePoint (one point-shape trait per weapon), but combines freely with a coating
-       (Envenomed/Opiated, tag "Coating") — a barbed, envenomed spear is legal. -->
+       (Envenomed/Opiated, tag "Coating") — a barbed, envenomed spear is legal. Also tags the
+       cross-category "Ragged" token shared with UMW_Serrated: they are the same wound concept per
+       damage channel (Odyssey's ToxRounds/ToxPellets pattern), so a Bladed+Pointed weapon must not
+       tell the tearing-wound story twice. -->
   <WeaponTraitDef>
     <defName>UMW_Barbed</defName>
     <label>barbed</label>
@@ -17,6 +20,7 @@
     <weaponCategory>UMW_Pointed</weaponCategory>
     <exclusionTags>
       <li>Point</li>
+      <li>Ragged</li>
     </exclusionTags>
     <statOffsets>
       <Beauty>-2</Beauty>

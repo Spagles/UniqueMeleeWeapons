@@ -7,7 +7,9 @@
        same teeth catch and tear flesh on the way out — a nastier exit wound (the boost is the serration's
        after-effect, NOT a finer point). Unlike the old weapon-wide -10% MeleeWeapon_DamageMultiplier this
        no longer reduces armor pen; the ragged bleed is the whole tradeoff. The Edge tag keeps it mutually
-       exclusive with Razored/Monomolecular. -->
+       exclusive with Razored/Monomolecular. Also tags the cross-category "Ragged" token shared with
+       UMW_Barbed: they are the same wound concept per damage channel (Odyssey's ToxRounds/ToxPellets
+       pattern), so a Bladed+Pointed weapon must not tell the tearing-wound story twice. -->
   <WeaponTraitDef>
     <defName>UMW_Serrated</defName>
     <label>serrated</label>
@@ -16,6 +18,7 @@
     <weaponCategory>UMW_Bladed</weaponCategory>
     <exclusionTags>
       <li>Edge</li>
+      <li>Ragged</li>
     </exclusionTags>
     <statOffsets>
       <Beauty>-2</Beauty>

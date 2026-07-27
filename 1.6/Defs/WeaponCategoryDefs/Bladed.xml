@@ -6,6 +6,9 @@
        damage), while Serrated reroutes the cut to a bleedier, scar-prone ragged wound. The "Core" token
        gates what the blade's core releases into the wound — currently only the Royalty-gated
        UMW_PlasmaCored's plasma burn; like Pointed's "Coating" it keeps any future infusion exclusive.
+       Serrated additionally tags the cross-category "Ragged" token shared with Pointed's Barbed —
+       the same tearing-wound concept per damage channel (Odyssey's ToxRounds/ToxPellets/AmmoType
+       pattern), so a Bladed+Pointed weapon rolls at most one of them.
        Each token caps a weapon at one trait of its family, but an Edge and a Core trait can co-roll
        (a serrated plasma blade is legal). -->
   <WeaponCategoryDef>

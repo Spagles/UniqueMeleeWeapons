@@ -189,6 +189,10 @@ public static class TraitEffectSummary
         {
             case MeleeOnHitEffect_ExtraDamage extra when extra.def != null:
                 string amount = extra.amount.ToString("0.#");
+                if (extra.ignoreArmor)
+                {
+                    return "UMW_TraitStat_ExtraDamageIgnoreArmor".Translate(amount, extra.def.label).ToString();
+                }
                 return extra.armorPenetration > 0f
                     ? "UMW_TraitStat_ExtraDamageAP".Translate(amount, extra.def.label, extra.armorPenetration.ToStringPercent()).ToString()
                     : "UMW_TraitStat_ExtraDamage".Translate(amount, extra.def.label).ToString();

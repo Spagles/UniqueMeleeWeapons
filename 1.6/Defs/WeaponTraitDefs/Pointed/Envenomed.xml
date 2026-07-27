@@ -7,7 +7,14 @@
        UniqueWeapon_Tox tint and so can't share a
        weapon with the Gold/Jade inlays. This mirrors Odyssey's ToxRounds, which tags AmmoType+Color
        (Coating is our melee analog of AmmoType). Combines freely with a point-shape trait
-       (ArmorSpike/NeedlePoint, tag "Point"). -->
+       (ArmorSpike/NeedlePoint, tag "Point").
+       The payload IGNORES ARMOR rather than carrying its own AP: the on-hit postfix already gates on
+       the base blow wounding, so the armor contest is decided by the weapon's real hit — the venom then
+       rides the wound, exactly as the description promises ("in those it wounds"). An earlier
+       armorPenetration 0.3 double-counted armor (payload re-rolled it) and surfaced in the info card as
+       the coating itself piercing armor, which read as nonsense (2026-07 balance pass). Same rationale
+       on UMW_Opiated. Odyssey's ToxRounds needs no equivalent because damageDefOverride converts the
+       whole bullet, inheriting its single armor roll. -->
   <WeaponTraitDef>
     <defName>UMW_Envenomed</defName>
     <label>envenomed</label>
@@ -34,7 +41,7 @@
           <li Class="UniqueMeleeWeapons.MeleeOnHitEffect_ExtraDamage">
             <def>UMW_Stab_Tox</def>
             <amount>3</amount>
-            <armorPenetration>0.3</armorPenetration>
+            <ignoreArmor>true</ignoreArmor> <!-- rides the wound; see header -->
             <chance>0.5</chance>
           </li>
         </onHitEffects>

@@ -49,7 +49,7 @@
           <li Class="UniqueMeleeWeapons.MeleeOnHitEffect_ExtraDamage">
             <def>UMW_Stab_Tranq</def>
             <amount>3</amount>
-            <armorPenetration>0.3</armorPenetration>
+            <ignoreArmor>true</ignoreArmor> <!-- rides the wound; see UMW_Envenomed's header -->
             <chance>1.0</chance>
             <fleshOnly>true</fleshOnly>
           </li>

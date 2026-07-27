@@ -1,5 +1,4 @@
 using Verse;
-using Verse.AI;
 
 namespace UniqueMeleeWeapons;
 
@@ -38,6 +37,12 @@ public class MeleeOnHitEffect_ExtraDamage : MeleeOnHitEffect
     // Armor penetration fraction (0–1+). Stored verbatim on the DamageInfo;
     // there is no "auto" sentinel, so always set a sensible value.
     public float armorPenetration = 0f;
+    // Skip the payload's armor roll entirely (DamageInfo.SetIgnoreArmor). For coatings: the
+    // postfix already gates every on-hit effect on the base blow WOUNDING, so armor has been
+    // beaten once — an independent second roll double-counts it, and an invented payload AP
+    // reads in the info card as the coating itself piercing armor (the 2026-07 balance pass
+    // removed exactly that from Envenomed/Opiated). armorPenetration is moot when this is set.
+    public bool ignoreArmor;
 
     public override void Apply(Pawn victim, Pawn attacker, ThingWithComps weapon)
     {
@@ -47,6 +52,10 @@ public class MeleeOnHitEffect_ExtraDamage : MeleeOnHitEffect
         }
         float dealt = Rand.Range(amount * 0.8f, amount * 1.2f);
         var dinfo = new DamageInfo(def, dealt, armorPenetration, -1f, attacker, null, weapon?.def);
+        if (ignoreArmor)
+        {
+            dinfo.SetIgnoreArmor(true);
+        }
         victim.TakeDamage(dinfo);
     }
 }

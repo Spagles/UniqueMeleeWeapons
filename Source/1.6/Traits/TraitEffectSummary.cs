@@ -225,11 +225,20 @@ public static class TraitEffectSummary
         }
     }
 
-    // Wielder-side stat effects ride an equipped hediff (equippedStatOffsets is bladelink-only — see
-    // the hediff defs). Print the hediff's own stage-0 stat modifiers rather than its name, since that
-    // is what the trait actually does; fall back to the label if it carries none.
+    // Wielder-side stat effects: offsets ride the trait's equippedStatOffsets (routed live for our
+    // defs by StatWorker_UniqueTraitStatOffsets_Patch — see its header), while an equipped hediff
+    // remains the vehicle for stat factors. For a hediff, print its stage-0 stat modifiers rather
+    // than its name, since that is what the trait actually does; fall back to the label if it
+    // carries none.
     private static void AppendWielderEffects(WeaponTraitDef trait, List<string> lines)
     {
+        if (trait.equippedStatOffsets != null)
+        {
+            foreach (StatModifier modifier in trait.equippedStatOffsets)
+            {
+                lines.Add("UMW_TraitStat_Wielder".Translate(StatLine(modifier, ToStringNumberSense.Offset)));
+            }
+        }
         if (trait.equippedHediffs == null)
         {
             return;

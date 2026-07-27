@@ -7,10 +7,26 @@
        land). DECISION: unlike UMW_HeadWeighted (whose incidental AP we neutralize), we deliberately KEEP
        the coupling here — a finer point genuinely drives deeper, so the AP riding along is the point of
        the trait. A pure-stat tradeoff, distinct from ArmorSpike's pure Stab-AP floor; shared "Point" tag
-       keeps the two shape traits mutually exclusive. The hit-chance malus is delivered via the equipped
-       UMW_NeedlePointGrip hediff, NOT equippedStatOffsets — that field is bladelink-only and is silently
-       inert on our CompUniqueWeapon. That hediff's header carries the malus sizing: MeleeHitChance takes
-       raw pre-curve units, so the cost is deliberately steeper for a low-skill wielder than an expert. -->
+       keeps the two shape traits mutually exclusive.
+
+       VEHICLE: the malus rides trait-level equippedStatOffsets, made live for our defs by
+       StatWorker_UniqueTraitStatOffsets_Patch (vanilla consumes that field only for bladelink weapons;
+       the patch header carries the full decompile audit and the raw-units/display rules). It shows in
+       the wielder's MeleeHitChance breakdown as the weapon's own "Relevant gear" line. This replaced
+       the former UMW_NeedlePointGrip equipped hediff (2026-07-27): a pawn health condition was the
+       bladelink psychic-bond idiom, the wrong fiction for plain steel.
+
+       TUNING: MeleeHitChance offsets are RAW pre-curve units. The curve ((0,0.50) (10,0.80) (20,0.90))
+       prices one raw point at 3pp of hit chance below the raw-10 knot and 1pp above it, so -1 costs a
+       green wielder 3pp and an expert 1pp — unforgiving to whoever hasn't mastered it, without maiming
+       them. Net throughput (1.2 x hit ratio): +12.8% at skill 0, +14-15% across skills 4-10, +18.6%
+       above the knot — at-anchor with HighPowerRounds' net +17%, per the melee-premium rule (deliver
+       anchor-level effect; discount in MV only). Vs armor it is better still, since the x1.2 also
+       multiplies AP. An earlier -2 ate half the buff below the knot (net +8-10% for typical wielders),
+       inflated whiff counts ~23%, taxed co-rolled coating procs (~8% fewer landed hits), and
+       undercut the anchor; softened 2026-07-27. Before that, an -0.1 authored as if the field took a
+       percentage cost -0.3pp and left the trait strictly good. cf. Brawler +4, the nearest Core
+       offset to this stat. -->
   <WeaponTraitDef>
     <defName>UMW_NeedlePoint</defName>
     <label>needle point</label>
@@ -21,14 +37,14 @@
       <li>Point</li>
     </exclusionTags>
     <statOffsets>
-      <MarketValue>50</MarketValue> <!-- cf. HighPowerRounds +60 (+30% dmg/+15% AP, x0.9 acc); we net less at typical skill -->
+      <MarketValue>60</MarketValue> <!-- = HighPowerRounds, the nearest analog (+30% dmg/+15% AP, x0.9 acc) now that net effect matches it -->
     </statOffsets>
     <statFactors>
       <MeleeWeapon_DamageMultiplier>1.2</MeleeWeapon_DamageMultiplier>
     </statFactors>
-    <equippedHediffs>
-      <li>UMW_NeedlePointGrip</li>
-    </equippedHediffs>
+    <equippedStatOffsets>
+      <MeleeHitChance>-1</MeleeHitChance> <!-- raw, pre-curve: -3pp below melee 10, -1pp above; see header -->
+    </equippedStatOffsets>
     <traitAdjectives>
       <li>needle</li>
       <li>needling</li>

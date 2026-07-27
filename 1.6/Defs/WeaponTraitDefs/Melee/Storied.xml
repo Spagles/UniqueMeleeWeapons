@@ -9,6 +9,9 @@
          • Active: abilityProps grants UMW_RallyingCry (AbilityDefs/RallyingCry.xml) —
            REQUIRES the weapon def's CompProperties_EquippableAbilityReloadable (added in the
            weapon-def comps rework, §2.2 of the spec) to have somewhere to attach to.
+         • Art: ForcedArtExtension guarantees an art inscription regardless of quality — the
+           recorded lineage is literal CompArt content, with a colony tale preferred when the trait
+           is added to an in-world weapon (case table in Source/1.6/Traits/ForcedArtExtension.cs).
        MarketValue +100 offset: the capability rule (added capability = flat offset, CLAUDE.md) wins
        over the provenance/finish framing that might otherwise suggest a factor — anchored on
        EMPPulser's +80 (the nearest ability-trait comparable) and bumped above it for the mood passive
@@ -37,6 +40,9 @@
     <abilityProps>
       <abilityDef>UMW_RallyingCry</abilityDef>
     </abilityProps>
+    <modExtensions>
+      <li Class="UniqueMeleeWeapons.ForcedArtExtension" />
+    </modExtensions>
   </WeaponTraitDef>
 
 </Defs>

@@ -36,4 +36,8 @@
   <!-- Ability granted by the trait. {0} is the AbilityDef's label. -->
   <UMW_TraitStat_GrantsAbility>Grants ability: {0}</UMW_TraitStat_GrantsAbility>
 
+  <!-- Forced art inscription (ForcedArtExtension): the weapon always carries an art title and
+       description, regardless of quality. -->
+  <UMW_TraitStat_ForcedArt>Always bears an art inscription</UMW_TraitStat_ForcedArt>
+
 </LanguageData>

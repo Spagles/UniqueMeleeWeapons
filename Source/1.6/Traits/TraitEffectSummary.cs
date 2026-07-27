@@ -73,7 +73,8 @@ public static class TraitEffectSummary
         return trait.modContentPack == UniqueMeleeWeaponsMod.ContentPack
             || trait.HasModExtension<MeleeTraitEffectExtension>()
             || trait.HasModExtension<MeleeToolModExtension>()
-            || trait.HasModExtension<MeleeDamageConversionExtension>();
+            || trait.HasModExtension<MeleeDamageConversionExtension>()
+            || trait.HasModExtension<ForcedArtExtension>();
     }
 
     // Appends every summary line for trait, or nothing when it has no effects to describe.
@@ -84,6 +85,7 @@ public static class TraitEffectSummary
         AppendOnHitEffects(trait, lines);
         AppendWielderEffects(trait, lines);
         AppendAbility(trait, lines);
+        AppendForcedArt(trait, lines);
     }
 
     // Per-tool damage/AP changes, one line per changed quantity.
@@ -246,6 +248,16 @@ public static class TraitEffectSummary
         if (ability != null)
         {
             lines.Add("UMW_TraitStat_GrantsAbility".Translate(ability.label));
+        }
+    }
+
+    // Forced art inscription (ForcedArtExtension). One fixed line: the guarantee is the effect —
+    // the inscription's content is a per-instance rolled tale, so there is no number to derive.
+    private static void AppendForcedArt(WeaponTraitDef trait, List<string> lines)
+    {
+        if (trait.HasModExtension<ForcedArtExtension>())
+        {
+            lines.Add("UMW_TraitStat_ForcedArt".Translate());
         }
     }
 

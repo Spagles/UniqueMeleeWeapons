@@ -160,10 +160,11 @@ Source/1.6/
   changes.
 - **Anything a weapon needs beyond those four fields goes through our own extension layer** — a
   `DefModExtension` on the trait plus a Harmony postfix, so the trait stays an ordinary def and
-  vanilla generation/naming/stats keep working. Four exist, each documented in
+  vanilla generation/naming/stats keep working. Five exist, each documented in
   `Source/1.6/Traits/`: `MeleeTraitEffectExtension` (on-hit effects — extra damage, stun, stagger,
   mental state), `MeleeDamageConversionExtension` (reroute the *base* hit's `DamageDef`),
-  `MeleeToolModExtension` (per-tool damage/AP), `ForcedColorTwoExtension` (forced body colour).
+  `MeleeToolModExtension` (per-tool damage/AP), `ForcedColorTwoExtension` (forced body colour),
+  `ForcedArtExtension` (guaranteed art inscription regardless of quality).
   Prefer extending one of these over a new mechanism.
 - **An effect outside `statOffsets`/`statFactors` is invisible until you describe it — as *data on
   the def*, never as text in a renderer.** Vanilla only ever displays those two lists (plus

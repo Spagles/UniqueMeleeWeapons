@@ -103,11 +103,14 @@ tar), damage/condition terms (EMP,
 stun, burn, bleeding), and the opportunity-site quest vocabulary
 (ancient mercenaries, bandit camp, item stash).
 
-### Glossary — carried over from Unique Weapons Unbound
+### Glossary — shared across the mod family
 
-These rows were learned in the companion mod (UWU) from native review (RU)
-and vanilla-data study (JP); they apply verbatim here. Add rows whenever a
-native review lands corrections.
+The RU and JP rows were learned in the companion mod (UWU) from native review
+(RU) and vanilla-data study (JP); the Simplified Chinese section was learned
+in this repo's 2026-07 generation. Lessons propagate across all three repos
+(here, ../UniqueWeaponsUnbound, ../PersonaWeaponsUnbound): when a row is added
+or corrected in one skill, mirror it into the siblings, adjusting
+domain-specific rows. Add rows whenever a native review lands corrections.
 
 #### Russian (from UWU PR #6 native review)
 
@@ -134,16 +137,72 @@ Style rules discovered from the vanilla JP data (mandatory):
 | ultratech | 最先端の技術力 (noun) / 最先端技術級 (attributive) | ウルトラテック | vanilla `TechLevel_Ultra` |
 | Cancel / Reset | キャンセル / リセット | | vanilla Keyed buttons |
 
+#### Simplified Chinese (from this repo's machine-assisted generation, 2026-07)
+
+RimWorld's language folder is `ChineseSimplified` (tar: `ChineseSimplified
+(简体中文).tar`) — the mod's folder must match it exactly, whatever the
+public roster calls the language.
+
+Style rules discovered from the vanilla zh data (mandatory):
+
+- Full-width punctuation in prose (，。、；：（）……); descriptions end with 。;
+  labels and buttons carry no trailing period. Placeholders, digits and units
+  stay ASCII. Vanilla labels use full-width parens: 锻造台（燃料）.
+- Quote cited names in prose with full-width curly quotes — vanilla writes
+  任务“{0}”. Terse stat templates take no quotes ({0}伤害).
+- `traitAdjectives` are bare attributive words with no trailing 的: the zh
+  Odyssey namer composes both [weapon_adjective]的[weapon_noun] and
+  [weapon_adjective][weapon_type], so each must read both ways. Avoid weak
+  single characters (快 → 迅疾).
+- Name grammar: no spaces around [symbols]; zh links with 的 and 之 and drops
+  English "The" ("The X of Y" → Y之X). Material names compose directly:
+  [stuff_adjective][weapon_noun] → 钢铁长剑, [stuff_adjective]之[badass_noun]
+  → 翡翠之獠牙.
+- Battle-log grammar: zh [skillAdv] entries end in 地, so an optional
+  [skillAdvMaybe] slots cleanly before the verb; [RECIPIENT_possessive] is
+  idiomatically dropped (vanilla zh does the same).
+- Vanilla zh files can contain untranslated English values (Odyssey's
+  ancient-mercenaries name symbols) — vanilla incompleteness is not style
+  guidance. Some vanilla zh files carry a BOM; ours never do.
+
+| English | Use | Never | Why |
+|---|---|---|---|
+| trait (weapon) | 特性 (stats-entry title 武器特性) | — | Odyssey `WeaponTraits` / `StatsReport_WeaponTraits` |
+| unique weapon | 特化武器 | 独特武器 | Odyssey `UniqueWeapon` |
+| ultratech (attributive) | 极致科技 | 超科技 | `TechLevel_Ultra`=极致时代; `BodyPartsUltra`=极致科技 |
+| monosword / plasmasword / zeushammer | 单分子剑 / 等离子剑 / 宙斯锤 | | Royalty weapon labels |
+| longsword / spear / mace / knife / gladius / axe / warhammer | 长剑 / 长矛 / 钉头锤 / 匕首 / 短剑 / 战斧 / 战锤 | | Core/Odyssey/Royalty labels |
+| plasteel | 玻璃钢 | 塑钢 | Core `Plasteel` — counterintuitive, always check |
+| wood (material adjective) | 木 | | `WoodLog.stuffProps.stuffAdjective` |
+| wielder (stat context) / bearer (flavour prose) | 使用者 / 持有者 | | Royalty `SpeedBoost`, Odyssey `EMPPulser` descs |
+| stun / EMP | 击晕 / 电磁脉冲 (prose may keep "EMP") | | Core damage defs; zeushammer desc uses EMP冲击 |
+| mechanoid | 机械族 | 机械体 | Core |
+| item stash / bandit camp / ancient mercenaries | 物品藏匿点 / 匪徒营地 / 古代雇佣兵 | | Core sites, Odyssey quest |
+| ancient (sealed) crate | 密封储物箱 | | Odyssey `AncientSealedCrate` |
+| tribesfolk / tribal chief | 部众 / 酋长 | | Core `TribeRough` |
+| quality tiers | 极差/较差/一般/良好/极佳/大师级/传奇级 | | Core `QualityCategory_*` |
+
+Mod-decided terms pending native review (from the 2026-07 commit): 格挡
+(parry, register-matched to `TextMote_Dodge` 闪避), 战团 (warband), 战帮
+(war party), 剑格 / 十字护手 (quillons / crossguard), 撼地 (earthshake),
+鼓舞呐喊 (rallying cry), 士气大振 (rallied), 传世 (storied), 打桩头
+(piledriver), 阿片 (opiated), 珐琅 (enameled), 无回弹 (dead-blow).
+
 ### Cross-language lessons
 
 - Wrap injected `{0}` def labels in the language's quote marks (JP 「{0}」,
-  RU «{0}») — injected labels never inflect, and quoting sidesteps case and
-  agreement problems.
+  RU «{0}», zh-Hans “{0}”) — injected labels never inflect, and quoting
+  sidesteps case and agreement problems.
 - When an English string is reworded, refresh the EN comments in every
   language **in the same commit** — the checker reports the mismatch as STALE
   either way, but batching avoids churn.
 - Coined vanilla terms may be a portmanteau in one language and a plain word
   in another — always check, never extrapolate between languages.
+- Mod-coined terms recur in def labels AND in Keyed settings prose that
+  restates them. When generation is chunked across files or subagents,
+  reconcile those terms across the whole language before committing (the
+  zh-Hans run needed an alignment pass for earthshake / rallying cry /
+  rallied / storied).
 
 ## Workflows
 

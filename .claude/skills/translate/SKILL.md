@@ -254,15 +254,38 @@ eight tokens, and no others:
 (이)가   (와)과   (을)를   (은)는   (아)야   (이)어   (으)로   (이)
 ```
 
-- Every particle following `{0}`, `[symbol]` or `[TOKEN_x]` MUST use a marker.
-  `{0}(을)를 생성` is correct; `{0}를 생성` breaks on consonant-final labels.
+- Every *allomorphic* particle following `{0}`, `[symbol]` or `[TOKEN_x]` MUST use
+  a marker. `{0}(을)를 생성` is correct; `{0}를 생성` breaks on consonant-final
+  labels. Only five distinctions inflect (은/는, 이/가, 을/를, 와/과, 으로/로);
+  **`에`, `에서` and `의` are invariant** — write those bare after a placeholder.
 - Never hand-roll `{0}을(를)` — the worker does not recognize it.
-- The one safe exception, which vanilla ko itself uses: a symbol that always
+- **Spelling is exact, and `(와)과` is asymmetric.** For every token the paren
+  holds the post-*consonant* form — except `(와)과`, where `JosaPatternPaired`
+  maps to `("과","와")`, so the paren holds the post-*vowel* form. `(과)와` matches
+  nothing and ships literally.
+- **A marker resolving off a digit is always wrong.** `HasJong()` falls back to
+  `AlphabetEndPattern` = `{b,c,k,l,m,n,p,q,t}` for non-Korean chars, which has no
+  digits, so a number always yields the vowel form — right for 2/4/5/9
+  (이·사·오·구), wrong for 1(일) 3(삼) 6(육) 7(칠) 8(팔) 0(영). Phrase around it
+  (`{1} x{2} 예약에 실패했습니다`), never mark it. Same list means a Latin tail is
+  consonant-final only for those nine letters, so `Odyssey` → `y` → vowel form.
+- **Quoting interacts with resolution.** `FindLastChar` skips a preceding `"`,
+  `'` or `)` (walking back past the matching `(` and any spaces) to reach the real
+  final character, so `"{0}"(을)를` resolves correctly. Curly `“ ”` and corner
+  `「 」` are **not** skipped: they fall through to `default`, and
+  `char.IsLetterOrDigit('”')` is false, so the token is returned unresolved and
+  the raw `(은)는` shows on screen. Korean therefore needs no defensive quoting at
+  all — josa does the job quoting does in ja/ru/zh.
+- The one safe unmarked case, which vanilla ko itself uses: a symbol that always
   resolves the same way, e.g. `[refugee_pronoun]는` (Korean pronouns are always
-  vowel-final). Def labels, pawn names and material words are never safe.
-- A lint for this lives outside the repo checker (which is language-agnostic);
-  it was calibrated to zero false positives against Odyssey's WeaponTraitDefs
-  and Core's DamageDefs.
+  vowel-final). Def labels, pawn names, material words and numbers are never safe.
+- A lint for this lives outside the repo checker (which is language-agnostic).
+  It was calibrated to zero false positives against the vanilla ko Keyed corpus,
+  Odyssey's WeaponTraitDefs and Core's DamageDefs. Four patterns fooled earlier
+  drafts and must stay excluded: `(와)과의` (valid token plus ordinary trailing
+  `의`), `기간 (일)` (a parenthetical unit, not a marker), bare `0으로` (no marker,
+  so untouched and already correct), and `{2}(으)로` (correct authoring; only a
+  *literal* digit before a marker is provably wrong).
 
 Other style rules discovered from the vanilla ko data (mandatory):
 
@@ -353,20 +376,180 @@ buildup), 투여됨 (dosed), 찢긴 (ragged), 명장이 벼린 (master-forged), 
 (cleaver), 쇠메 (maul), 쇠뭉치 (mace head), 혈홍색 / 탄흑색 (colours, patterned
 on Odyssey's 염홍색 / 전청색).
 
+#### German (preseeded from PersonaWeaponsUnbound's 2026-07-28 generation — NOT
+yet generated here)
+
+Nothing German has been generated in this repo. The rows and rules below were
+grounded against the de Core/Royalty/Ideology/Odyssey tars during PWU's run and
+are reusable as-is; the domain rows specific to this repo (naming grammar,
+stuff, quest sites) were ground for this file. Language folder is `German` (tar:
+`German (Deutsch).tar`).
+
+Style rules from the vanilla de data (mandatory):
+
+- **ASCII single quotes** for cited def labels and UI labels — vanilla writes
+  `Forschungsprojekt '{0}'`. Core+Royalty Keyed ship 140 single-quoted
+  placeholders and **zero** German `„…"`. Never use `„ "`, `» «`, or curly
+  quotes. Pawn names are not quoted.
+- **En dash `–`, never em dash `—`** (20 vs 0). English source uses `—`, so every
+  dash needs converting; `<!-- EN: -->` comments keep the English form verbatim.
+- Ellipsis is ASCII `...` (74 in Core Keyed, `…` zero).
+- Descriptions end with `.`; labels and buttons take none. Player-facing prose is
+  informal **du** with imperatives, never Sie.
+- `JobDef.reportString` and `RecipeDef.jobString` are third-person **with** a
+  terminal period (`wendet TargetB an.`, `Stellt Hightech-Bauteil her.`) —
+  unlike ja/ko, which take none. `RecipeDef.label` is `X herstellen`, no article.
+- Research labels are lowercase noun phrases (Hightech-Fabrikation, lange
+  Klingen, mehrläufige Waffen) or verb-final phrases (Bier brauen).
+
+**The trait row collapses in German.** This repo's RU glossary hangs on
+свойство-not-черта, because RU uses a different word for pawn traits. German has
+no such split: Odyssey's `Stat_ThingUniqueWeaponTrait_Label`, Royalty's
+`Stat_Thing_PersonaWeaponTrait_Label` **and** Core's pawn-trait `<Traits>` are
+all **Merkmale**. The disambiguating form, when no weapon context is present, is
+vanilla's own `StatsReport_WeaponTraits` = **Waffenmerkmale**. Run the lookup
+anyway — just expect it to come back the same.
+
+**Case is the German landmine, not gender** (decompile-verified:
+`Verse.GrammarResolverSimple`, `LanguageWorker_German`, `LanguageWordInfo`).
+`"key".Translate(args)` reaches `GrammarResolverSimple`, not the rulepack
+resolver. Its `obj is string` branch *does* support `{0_gender ? m : f : n}`,
+`{0_definite}`, `{0_indefinite}`, `{0_plural}` on a plain string, resolving
+gender from the word itself via `WordInfo/Gender/{Male,Female,Neuter,Other}.txt`
+(~2450 nouns in Core). But it implements **no `lookup` function**, so
+`{lookup: {0}; decline; N}` — the only route to the 2457-row `decline.txt` case
+forms — silently fails, and de's article helpers are nominative-only. So gender
+is solvable, case is not: restructure any oblique slot rather than guessing an
+article. Two live cases in this repo, both plain-string injections:
+`UMW_ExcludeWoodStuffDesc` (`MeleeWeapon_LongSword.label` = Langschwert, neuter)
+and `UMW_WeaponEnabledDesc` (`weapon.label` — a **mod-coined** label, absent from
+the Gender tables, so `ResolveGender` falls back to its `defaultGender` of
+**Male** and `{0_gender ? …}` becomes a silent coin-flip). Reserve the gender
+symbols for vanilla nouns in nominative slots.
+
+**`RulePackDef` naming grammar works completely differently in German, and this
+is the finding that matters most here.** Odyssey's de
+`RulePacks_Namers_UniqueWeapons.xml` tags every noun with its gender inline and
+strips the marker with `{replace:}` to emit the right article and adjective
+ending:
+
+```
+<li>badass_noun_gender->|M|Mäher</li>
+<li>badass_noun_gender->|F|Witwe</li>
+<li>badass_noun_gender->|N|Ende</li>
+<li>weapon_adjective_weapon_noun->{replace: [weapon_noun]; "|M|"-"[weapon_adjective]er "; "|F|"-"[weapon_adjective]e "; "|N|"-"[weapon_adjective]es "}</li>
+<li>the_badass_concept->{replace: [badass_concept]; "|M|"-"Der "; "|F|"-"Die "; "|N|"-"Das "}</li>
+<li>of_the_badass_concept->{replace: [badass_concept_gender_gen]; "|M|"-"des "; "|F|"-"der "; "|N|"-"des "}</li>
+<li>weapon_noun_ungendered->{replace: [weapon_noun]; "|M|"-""; "|F|"-""; "|N|"-""}</li>
+```
+
+Adopt that shape for any de naming grammar here: a `*_gender` symbol carrying
+`|M|`/`|F|`/`|N|`-prefixed nouns, plus `{replace:}` wrappers per syntactic slot
+(bare, definite, genitive, adjective-agreeing), and an `_ungendered` variant that
+strips the marker where no agreement is needed. A bare noun list with no markers
+cannot be inflected at all. **Caveat:** in that same vanilla file the
+*scaffolding* is German but several leaf lists (`badass_adjective`,
+`badass_concept`) are still English (grim, eternal, justice, revenge) — vanilla
+incompleteness, exactly as noted for zh. Copy the technique, never the vocabulary.
+
+Two more German mechanics from `LanguageWorker_German`, neither visible to the
+checker:
+
+- `PostProcessed` rewrites a trailing English `'s` to `s` (or a bare `'` after
+  s/ß/z/x/ce). A closing ASCII single quote immediately followed by lowercase `s`
+  is silently mangled — never write `'{0}'s`.
+- `PostProcessThingLabelForRelic` truncates a weapon label to its bare weapon
+  noun via `EndsWith` against a hardcoded 26-noun list: Horn, Lanze, Pulser,
+  Werfer, Axt, Flinte, Bogen, Revolver, Gewehr, Stoßzahn, Stab, Hammer, Schwert,
+  Pistole, Dolch, Büchse, Kanone, Granaten, Granate, Keule, Säbel, Messer,
+  Rapier, Klinge, Sense, Speer; on no match it keeps only the substring after the
+  last space or hyphen. **Directly relevant to this repo's `ThingDef` weapon
+  labels** — a de label ending outside those 26 nouns yields a poor relic name.
+  Note Waffe is *not* on the list; Schwert, Hammer, Klinge, Messer, Speer,
+  Keule, Axt and Stab are.
+
+**Stuff naming inverts in German, which directly affects this repo's
+`stuff_adjective` symbol.** Core de's `ThingMadeOfStuffLabel` is `{1} aus {0}`
+where English is `{0} {1}` — "wooden longsword" is "Langschwert aus Holz", not
+"hölzernes Langschwert". Correspondingly de Core defines
+`stuffProps.stuffAdjective` for only 8 defs (WoodLog, Gold, the stone blocks,
+Leather_Heavy), because the prepositional frame replaces the adjective. So there
+is almost no vanilla de source to draw a `stuff_adjective` list from, and
+inventing adjectives to mirror the English pattern will read wrong. Two viable
+shapes, both needing a native call: keep the vanilla `aus [stuff]` frame inside
+the name rule, or supply genuine attributive adjectives (hölzern, stählern,
+plastahlen) with the `|M|/|F|/|N|` agreement machinery above. Flag whichever is
+chosen for review rather than picking silently.
+
+| English | Use | Never | Why |
+|---|---|---|---|
+| trait (weapon) | Merkmal / Merkmale (standalone: Waffenmerkmale) | Eigenschaft, Attribut | Odyssey `Stat_ThingUniqueWeaponTrait_Label`, `StatsReport_WeaponTraits` |
+| unique weapon | einzigartige Waffe | Unikat, besondere Waffe | Odyssey `UniqueWeapon` |
+| longsword / spear / mace / knife / gladius | Langschwert / Speer / Streitkolben / Messer / Gladius | Schwert alone, Keule for mace | Core labels |
+| monosword / plasmasword / zeushammer | Monoschwert / Plasmaschwert / Zeushammer | | Royalty labels (persona forms prefix Persona-) |
+| wood / plasteel / uranium / jade / steel / silver / gold | Holz / Plastahl / Uran / Jade / Stahl / Silber / Gold | Plasteel, Plastik | Core labels — Plastahl is translated |
+| quality / tiers | Qualität / übel·schlecht·normal·gut·exzellent·meisterlich·legendär | | Core `Quality`, `QualityCategory_*` |
+| "{0} quality or better" | `Qualität {0} oder besser` | | reshaped from Core `NormalQualityOrBetter` (pre-inflected, untemplatable) |
+| tech levels | neolithisch / mittelalterlich / industriell / Raumfahrt / Ultra / Archotech | Weltraum, Ultratech | Core `TechLevel_*`; "tech level" = Techstufe |
+| cut / stab / blunt / burn (DamageDef) | Schnitt / Stich / Wucht / Verbrennung | Schnittwunde, Stichwunde (hediff labels) | Core DamageDefs |
+| blood loss / bleed rate | Blutverlust / Blutung | Blutung for the hediff | Core `BloodLoss.label`, `BleedingRate` |
+| EMP stun | Betäubt durch EMP | | Core `StunnedByEMP` |
+| armor penetration / damage / accuracy | Rüstungsdurchdringung / Schaden / Genauigkeit | Panzerung, Treffsicherheit | Core `ArmorPenetration`, `Damage`, `Accuracy` |
+| stopping power / burst count / burst speed | Mannstoppwirkung / Schüsse pro Feuerstoß / Feuerrate | Durchschlagskraft | Core `StoppingPower`, `BurstShotCount`, `BurstShotFireRate` |
+| ability / mood / colour / faction | Fähigkeit / Stimmung / Farbe / Fraktion | | Core `Abilities`, `Mood`, `Color`, `Faction` |
+| bandit camp / item stash / ancient mercenaries | Banditenlager / Versteck mit Waren / antike Söldner | Räuberlager, Warenlager | Core `BanditCamp.label`, `ItemStash.label`, PawnGroup label |
+| mechanite | Mechaniten | Mechanite | Royalty monosword desc |
+| wielder | Träger | Anwender, Nutzer | Royalty weapon-trait descs |
+| relic | Reliquie | Relikt | Ideology `Relic` (reliquary = Reliquienschrein) |
+| ideoligion / reform | Ideologie / Ideologie reformieren | Ideoligion | Ideology `IdeoligionOf`, `ReformIdeoligion` — de uses the plain word, no portmanteau |
+| Crafting (the skill) | Handwerk | Herstellung, Basteln | Core `Crafting.label` |
+| bill / recipe (both) | Auftrag | Rezept, Rechnung | Core `TabBills`, `AddBill`, every `Stat_Recipe_*_Desc` — de collapses the two |
+| Cancel / Reset / Confirm / Randomize | Abbrechen / Zurücksetzen / Bestätigen / Zufällig | | Core buttons |
+| None | Nichts | Keine | Core `None` |
+
 ### Cross-language lessons
 
 - Wrap injected `{0}` def labels in the language's quote marks (JP 「{0}」,
   RU «{0}», zh-Hans “{0}”) — injected labels never inflect, and quoting
-  sidesteps case and agreement problems. **Korean is the exception**: it solves
-  the same problem mechanically with josa markers, so inject bare and mark the
-  particle instead of quoting.
+  sidesteps case and agreement problems. **Korean is the exception, and porting
+  the ja form actively breaks it**: ko solves the same problem mechanically with
+  josa markers, and `FindLastChar` looks through only ASCII `'` `"` `)` to find
+  the syllable that decides the particle. Curly `“ ”` and corner `「 」` are not
+  skipped, so `「{0}」(을)를` silently ships an unresolved `(을)를`. Inject bare and
+  mark the particle.
 - **Check for a `LanguageWorker_<Language>` before generating.** It post-
   processes every string, so it can impose authoring requirements no amount of
   reading the vanilla data will reveal as *mandatory* — Korean's josa markers
   are invisible until you find `ReplaceJosa`. Decompile it:
   `ilspycmd "$RIMWORLD_PATH/RimWorldWin64_Data/Managed/Assembly-CSharp.dll" -t
   "Verse.LanguageWorker_<Language>"`. Languages with heavy inflection (Russian,
-  Polish, Turkish, Czech) are the ones to check first.
+  Polish, Turkish, Czech, German) are the ones to check first. German's rewrites
+  a trailing `'s`, so a closing ASCII single quote followed by lowercase `s` is
+  silently mangled — and its `PostProcessThingLabelForRelic` truncates weapon
+  labels against a hardcoded noun list, which matters for this repo's ThingDef
+  labels.
+- **Know which resolver your strings actually reach** (decompile-verified).
+  `"key".Translate(args)` goes to `Verse.GrammarResolverSimple`, *not* the full
+  rulepack `GrammarResolver`, and the two support different things. On a plain
+  `string` arg `GrammarResolverSimple` gives you `{N_gender ? … : … : …}`,
+  `{N_definite}`, `{N_indefinite}`, `{N_plural}` and the pronoun family — gender
+  is looked up from the word itself via `LanguageWordInfo`, so no `NamedArgument`
+  metadata is needed. It implements **no `lookup` function at all**, so
+  `{lookup: {0}; decline; N}` and every case form it would produce are
+  unavailable there. For inflecting languages that means gender is usually
+  solvable and **case is not**: restructure so nothing has to agree with the
+  injected label. See the German glossary for worked rewrites.
+- **A gender lookup that misses defaults to masculine** (`ResolveGender`'s
+  `defaultGender`), and this mod's own weapon labels are never in the vanilla
+  Gender tables — so `{N_gender ? …}` on a UMW label is a silent coin-flip, not a
+  fix. Reserve it for vanilla nouns in nominative slots. `UMW_WeaponEnabledDesc`
+  is the live example.
+- **Name-grammar gender is solved in the rulepack, not by the resolver.** Where a
+  language inflects, vanilla tags each noun in the rulesStrings with an inline
+  gender marker and strips it with `{replace:}` per syntactic slot — see the
+  German section for Odyssey's `|M|`/`|F|`/`|N|` pattern. A bare noun list cannot
+  be inflected afterwards, so decide this before writing any `RulePackDef`
+  entries, including the `stuff_adjective` symbol.
 - When an English string is reworded, refresh the EN comments in every
   language **in the same commit** — the checker reports the mismatch as STALE
   either way, but batching avoids churn.

@@ -10,9 +10,8 @@
        is inert, and symmetry makes a hostile wielder rallying its own raid correct rather than
        backwards. cooldownTicksRange 180000 (3 days) is deliberately far rarer than Earthshake's 12h
        EMPPulse-parity cooldown — an heirloom moment, not a standing aura. aiCanUse true so a hostile
-       AI wielder MAY rally its own side — but vanilla's ability-AI is only known to drive offensive
-       abilities (every aiCanUse=true Odyssey weapon ability is offensive), so whether hostile AI ever
-       actually casts a self-buff is UNVERIFIED in game; the flag is set so it can.
+       AI wielder can rally its own side; note every other aiCanUse=true Odyssey weapon ability is
+       offensive, so this is the odd one out in that set.
 
        PRESENTATION (all of it lands at the cast, none of it delays the hediff — decompile-verified,
        RimWorld 1.6):

@@ -41,8 +41,9 @@
        (Altitudes maps the enum in order, and MoteOverheadLow > Pawn) without climbing into the
        vision/overlay layers. drawOffscreen is deliberately absent: it only gates the EffecterDef +
        SubEffecter_Sprayer spawn path, and this spawns via FleckMaker, which never checks it.
-       drawSize/growthRate/intensity are the eyeball-tunable knobs, and still want an in-game visual
-       check: the shader's internal ring-sweep timing cannot be read from a decompile. -->
+       drawSize/growthRate/intensity are the eyeball-tunable knobs: the shader's internal ring-sweep
+       timing cannot be read from a decompile, so these were settled by eye in play and any change
+       needs the same. -->
   <FleckDef ParentName="FleckBase">
     <defName>UMW_EarthshakeRipple</defName>
     <altitudeLayer>MoteOverheadLow</altitudeLayer>

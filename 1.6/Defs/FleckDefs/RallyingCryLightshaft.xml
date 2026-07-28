@@ -37,8 +37,8 @@
            day / cold night contrast, so it costs something), or list UMW_RallyingCryLightshaft TWICE in
            the ability's CompProperties_AbilityFleckOnTarget fleckDefs, which spawns two coincident
            beams that compound. Neither is needed yet.
-       drawSize/offset/timings are the eyeball-tunable knobs here, and still want an in-game visual
-       check. Rotation is deliberately 0 (Core tilts its ambient shafts 15 degrees): light straight
+       drawSize/offset/timings are the eyeball-tunable knobs here, settled by eye in play rather than
+       derived. Rotation is deliberately 0 (Core tilts its ambient shafts 15 degrees): light straight
        down over the wielder. -->
   <FleckDef ParentName="FleckBase">
     <defName>UMW_RallyingCryLightshaft</defName>

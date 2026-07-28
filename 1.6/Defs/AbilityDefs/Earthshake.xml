@@ -11,12 +11,9 @@
        only pawn spared is the wielder, who is braced behind the shaft (see excludeCaster below).
        damageDef Stun / damageAmount 4: Core's Stun DamageDef (Defs/DamageDefs/Damages_Stun.xml) inherits
        harmsHealth=false from its StunBase parent, and DamageWorker.Apply gates ALL hit-point damage behind
-       dinfo.Def.harmsHealth — so this explosion should not injure anyone it stuns (decompile-verified,
-       RimWorld 1.6). The duration itself is believed to follow the vanilla "stun ticks =
-       damageAmount * 30" rule (amount 4 -> ~120 ticks, 2s) that Odyssey's own ranged stun sources ride, but
-       that formula is NOT independently decompile-verified. Both the duration math and the harms-health
-       question still want an in-game check; if Stun turns out to injure after all, decide then whether to
-       keep the amount (a slam should plausibly hurt a little) or zero it.
+       dinfo.Def.harmsHealth — so this explosion stuns without injuring (decompile-verified, RimWorld
+       1.6, and confirmed in play). The duration follows the vanilla "stun ticks = damageAmount * 30"
+       rule that Odyssey's own ranged stun sources ride: amount 4 -> ~120 ticks, 2s.
 
        RADIUS 3.9 (verbProperties.range and explosionRadius below must move together —
        decompile-verified, RimWorld 1.6):
@@ -86,7 +83,7 @@
       <li Class="UniqueMeleeWeapons.CompProperties_AbilityGroundShockwave">
         <damageDef>Stun</damageDef>
         <explosionRadius>3.9</explosionRadius> <!-- keep verbProperties.range above in step with this -->
-        <damageAmount>4</damageAmount> <!-- ~120t / 2s stun via the amount*30 rule; unverified in game -->
+        <damageAmount>4</damageAmount> <!-- ~120t / 2s stun via the amount*30 rule -->
         <soundExplode>Explosion_Thump</soundExplode> <!-- Stun's own sound pitched down; see PRESENTATION above -->
         <propagationSpeed>0.3</propagationSpeed> <!-- 0.30s of visible outward roll; see PRESENTATION above -->
         <excludeCaster>true</excludeCaster> <!-- the wielder is braced for it; everyone else is not -->

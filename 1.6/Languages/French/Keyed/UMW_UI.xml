@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Settings: window category (mod-list entry) -->
+  <!-- EN: Unique Melee Weapons -->
+  <UMW_SettingsCategory>Armes de mêlée uniques</UMW_SettingsCategory>
+
+  <!-- Settings: section headers. Only the headers with no vanilla-localized equivalent live here:
+       the Abilities header reuses Core's Keyed <Abilities> string and the Quests header reuses the
+       quests main-tab button's def label, so both arrive pre-translated and must not be duplicated. -->
+  <!-- EN: Weapons -->
+  <UMW_SettingsWeapons>Armes</UMW_SettingsWeapons>
+
+  <!-- EN: Generation -->
+  <UMW_SettingsGeneration>Génération</UMW_SettingsGeneration>
+
+  <!-- Settings: reusable label suffixes. Each includes a leading space, and every applicable one is
+       appended (no precedence between them), so they must read cleanly back to back. -->
+  <!-- EN:  (default) -->
+  <UMW_DefaultSuffix> (par défaut)</UMW_DefaultSuffix>
+
+  <!-- {0} is another piece of content the current value matches, named from its own def label. -->
+  <!-- EN:  (same as {0}) -->
+  <UMW_SameAsSuffix> (identique à {0})</UMW_SameAsSuffix>
+
+  <!-- Settings: Weapons. One checkbox per weapon. {0} is the weapon's own def label (lowercase), whose
+       gender varies (hache unique / glaive unique) and which is absent from the vanilla WordInfo gender
+       tables, so {0_gender} would silently default to masculine. The French therefore never agrees with
+       {0}: it keeps every later reference on "l'arme" and puts no article in front of the placeholder. -->
+  <!-- EN: Allow {0} to be generated. Turn off to remove it from this mod's own reward pool and from every vanilla generation and reward pool, including quest rewards, ancient crates, item stashes and map loot, so it no longer appears. (A third-party mod that rolls loot through its own custom generator may bypass this.) Any that already exist in your save are untouched, and the other weapons take its place in the rolls. Turning it back on is enough to restore it. -->
+  <UMW_WeaponEnabledDesc>Autoriser la génération de cette arme : {0}. Désactivez cette option pour retirer l'arme du groupe de récompenses de ce mod ainsi que de tous les groupes de génération et de récompenses du jeu de base, y compris les récompenses de quête, les caisses scellées, les planques et le butin de la zone, afin qu'elle n'apparaisse plus. (Un mod tiers qui tire son butin avec son propre générateur peut contourner cette option.) Celles qui existent déjà dans votre sauvegarde ne sont pas touchées, et les autres armes prennent sa place dans les tirages. Il suffit de réactiver l'option pour la rétablir.</UMW_WeaponEnabledDesc>
+
+  <!-- Settings: buttons -->
+  <!-- EN: Reset to defaults -->
+  <UMW_ResetToDefaults>Réinitialiser les valeurs par défaut</UMW_ResetToDefaults>
+
+  <!-- Settings: Generation -->
+  <!-- {0} is the wood resource's item label (ThingDef WoodLog, "wood" in English, lowercase). -->
+  <!-- EN: Exclude {0} from generated unique weapons -->
+  <UMW_ExcludeWoodStuff>Exclure les matériaux en {0} des armes uniques générées</UMW_ExcludeWoodStuff>
+
+  <!-- {0} is the vanilla longsword's item label (lowercase), named as the example reward. It is an
+       injected label, so the French reaches it through the vanilla material frame "en bois" (Core's
+       ThingMadeOfStuffLabel is "{1} en {0}") rather than an agreeing adjective, and puts no article
+       in front of it. -->
+  <!-- EN: Unique weapons only enter the game through generated rewards (quests, ancient crates, item stashes), rolled from a random eligible material. With this on, wooden materials are dropped from that roll, so a hard-won reward never lands as a wooden {0}. Turn off to allow wooden uniques. -->
+  <UMW_ExcludeWoodStuffDesc>Les armes uniques n'entrent dans le jeu que par des récompenses générées (quêtes, caisses scellées, planques), avec un matériau tiré au hasard parmi les matériaux valides. Lorsque cette option est active, les matériaux en bois sont écartés de ce tirage, de sorte qu'une récompense durement gagnée n'arrive jamais sous forme de {0} en bois. Désactivez-la pour autoriser les armes uniques en bois.</UMW_ExcludeWoodStuffDesc>
+
+  <!-- Shown only when Royalty is active; the traits it governs need that DLC.
+       {0}, {1}, {2} are the three trait labels (lowercase): mono-moléculaire, à cœur de plasma, tête de Zeus.
+       Each parenthetical describes the trait injected just before it, so keep them paired. -->
+  <!-- EN: Allow ultratech weapon traits -->
+  <UMW_AllowUltratechTraits>Autoriser les traits d'arme ultratechnologiques</UMW_AllowUltratechTraits>
+
+  <!-- EN: Three traits borrow Royalty's ultratech melee kit: {0} (a mechanite-held edge that shears armor), {1} (a plasma sheath that sears and ignites) and {2} (an EMP discharge that stuns mechanoids). Turn off to keep them out of the roll. This is meant for medieval-only or low-tech runs, where a mechanite edge on a hand-forged sword breaks the period. The other traits are unaffected, and weapons that have already rolled one of these keep it. -->
+  <UMW_AllowUltratechTraitsDesc>Trois traits empruntent l'arsenal de mêlée ultratechnologique de Royalty : {0} (un fil maintenu par des mécanites qui cisaille l'armure), {1} (une gaine de plasma qui brûle et enflamme) et {2} (une décharge IEM qui étourdit les mécanoïdes). Désactivez l'option pour les garder hors du tirage. Elle est prévue pour les parties strictement médiévales ou de basse technologie, où un fil à mécanites sur une épée forgée à la main rompt l'époque. Les autres traits ne sont pas affectés, et les armes qui ont déjà tiré l'un de ces traits le conservent.</UMW_AllowUltratechTraitsDesc>
+
+  <!-- Settings: Abilities. Slider labels are shared templates: {0} is the subject's own def label
+       (an ability, a hediff, or the warband faction), capitalized; {1} is the slider's current value.
+       The unit word is part of the template, so hour- and day-based cooldowns are separate keys.
+       French keeps {0} first, as English does, and follows it with a colon: an injected label
+       placed after a preposition would want an article ("le temps de recharge de la secousse"),
+       and its gender is unknowable here. Naming the subject first sidesteps that entirely. -->
+  <!-- EN: {0} cooldown: {1} hours -->
+  <UMW_AbilityCooldownHours>{0} : temps de recharge de {1} heures</UMW_AbilityCooldownHours>
+
+  <!-- EN: {0} cooldown: {1} days -->
+  <UMW_AbilityCooldownDays>{0} : temps de recharge de {1} jours</UMW_AbilityCooldownDays>
+
+  <!-- EN: {0} radius: {1} cells -->
+  <UMW_AbilityRadius>{0} : rayon de {1} cases</UMW_AbilityRadius>
+
+  <!-- EN: {0} duration: {1} hours -->
+  <UMW_HediffDurationHours>{0} : durée de {1} heures</UMW_HediffDurationHours>
+
+  <!-- EN: How long a piledriver weapon must rest between earthshakes. The default matches the cooldown on the EMP pulser, the one weapon-trait ability Odyssey ships with a cooldown. Set to 0 for no cooldown at all. -->
+  <UMW_EarthshakeCooldownDesc>Durée de repos d'une arme à marteau-pilon entre deux secousses telluriques. La valeur par défaut correspond au temps de recharge du pulsar IEM, la seule capacité de trait d'arme livrée avec un temps de recharge par Odyssey. Mettez 0 pour supprimer complètement le temps de recharge.</UMW_EarthshakeCooldownDesc>
+
+  <!-- EN: How far the stunning shockwave reaches. It travels through the ground, so walls do not stop it, but it cannot cross a gap with no floor. The overhead ripple scales to match. Remember the shock is indiscriminate: a wider radius catches more of your own colonists too. -->
+  <UMW_EarthshakeRadiusDesc>Portée de l'onde de choc étourdissante. Elle voyage dans le sol, donc les murs ne l'arrêtent pas, mais elle ne peut pas franchir un vide sans plancher. L'ondulation visible en surface s'ajuste à la même taille. N'oubliez pas que la secousse ne fait pas de distinction : un rayon plus large atteint aussi davantage de vos propres colons.</UMW_EarthshakeRadiusDesc>
+
+  <!-- EN: How long a storied weapon must rest between rallying cries. Measured in days rather than hours on purpose: the default makes it an heirloom moment rather than a standing aura you re-apply every fight. -->
+  <UMW_RallyingCryCooldownDesc>Durée de repos d'une arme de renom entre deux cris de ralliement. La mesure est en jours plutôt qu'en heures à dessein : avec la valeur par défaut, c'est un moment digne d'un héritage familial et non une aura permanente que vous réappliquez à chaque combat.</UMW_RallyingCryCooldownDesc>
+
+  <!-- EN: How far the cry carries. It rallies every humanlike within this range who is not hostile to the wielder and can see them, so allied and neutral pawns are included but walls and closed doors block it. Waking sleepers uses the same range but ignores walls, and catches enemies as well. -->
+  <UMW_RallyingCryRadiusDesc>Portée du cri. Il galvanise tout humanoïde à cette distance qui n'est pas hostile à l'utilisateur et qui peut le voir, ce qui inclut donc les alliés et les neutres, mais les murs et les portes fermées le bloquent. Le réveil des dormeurs utilise la même distance, mais ignore les murs et touche aussi les ennemis.</UMW_RallyingCryRadiusDesc>
+
+  <!-- EN: How long the rallied buff lasts on each pawn the cry reaches, halving both their pain and the time a hit staggers them. Anyone who was asleep is woken instead of rallied, and resents it. Changing this affects cries made from now on; anyone already rallied keeps the duration they were given. -->
+  <UMW_RalliedDurationDesc>Durée de l'effet galvanisé sur chaque personnage atteint par le cri, réduisant de moitié à la fois sa douleur et le temps pendant lequel un coup le fait tituber. Celui qui dormait est réveillé au lieu d'être galvanisé, et le prend mal. Les changements ne concernent que les cris lancés à partir de maintenant : celui qui est déjà galvanisé conserve la durée qui lui a été accordée.</UMW_RalliedDurationDesc>
+
+  <!-- Settings: Quests. The slider label reuses the shared template pattern: {0} is the warband
+       faction's def label (capitalized), {1} the value. The desc's quest examples (ancient
+       mercenaries, bandit camps, item stashes) are vanilla content names, taken here from the
+       official localization. -->
+  <!-- EN: {0} quest commonality: {1} -->
+  <UMW_QuestWeight>{0} : fréquence de quête de {1}</UMW_QuestWeight>
+
+  <!-- EN: Selection weight of the warband quest against the other opportunity-site quests (ancient mercenaries, bandit camps, item stashes...) offered by traders, beggars and reading. Higher = offered more often. 0 disables the quest entirely. -->
+  <UMW_WarbandQuestWeightDesc>Poids de sélection de la quête de la bande de guerre face aux autres quêtes de sites d'opportunité (mercenaires anciens, camps de bandits, planques...) proposées par les commerçants, les mendiants et la lecture. Plus la valeur est élevée, plus la quête est proposée souvent. À 0, la quête est entièrement désactivée.</UMW_WarbandQuestWeightDesc>
+
+</LanguageData>

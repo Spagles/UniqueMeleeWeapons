@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>r_logentry(p=0.4)->[RECIPIENT_definite] caught [INITIATOR_definite]'s [attack_noun] on the crossguard and turned it aside.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] [skillAdvMaybe] parried [INITIATOR_definite]'s [attack_noun] with [RECIPIENT_possessive] quillons.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] turned [INITIATOR_definite]'s [attack_noun] aside on [RECIPIENT_possessive] guard.</li>
+    <li>skillAdvMaybe-></li>
+    <li>skillAdvMaybe->[skillAdv]</li>
+    <li>attack_noun->blow</li>
+    <li>attack_noun->strike</li>
+    <li>attack_noun->swing</li>
+    <li>attack_noun->attack</li>
+    <li>result->but [RECIPIENT_definite] caught it on the crossguard</li>
+    <li>result->but the [attack_noun] was turned aside on [RECIPIENT_possessive] quillons</li>
+    <li>result->but [RECIPIENT_definite] parried with [RECIPIENT_possessive] guard</li>
+  -->
+  <!-- Three French constraints shaped these lines, none of them visible to the checker:
+
+       - [RECIPIENT_possessive] is dropped. French son/sa agrees with the POSSESSED noun, but the
+         symbol resolves from the possessor's gender (Core Grammar.xml: Prohis=son, Proher=sa), so it
+         is structurally wrong here. Core's own combat packs write the possessive literally
+         ("[deflecting] son armure"); these do the same (sa garde, ses quillons).
+       - The English genitive "[INITIATOR_definite]'s [attack_noun]" is not reproducible. French would
+         need "de [INITIATOR_definite]", and the language worker rewrites "de le" to "de" rather than
+         "du", so a masculine attacker would read "le coup de pirate". The attacker is therefore
+         either the sentence's subject or the agent of "porté par", which never contracts.
+       - Tense is passé composé with avoir (matching Core's "a esquivé", "a dévié"), which needs no
+         subject agreement. Where a preceding-object pronoun does force agreement ("l'a reçu"), every
+         attack_noun is deliberately masculine so the single participle form is always correct.
+         "le [attack_noun]" is left uncontracted on purpose: the worker elides "le assaut" to
+         "l'assaut" by itself. -->
+  <UMW_Combat_Parry.rulePack.rulesStrings>
+    <li>r_logentry(p=0.4)->[INITIATOR_definite] a porté un [attack_noun], mais [RECIPIENT_definite] l'a reçu sur la garde en croix et détourné.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] a paré [skillAdvMaybe] de ses quillons le [attack_noun] porté par [INITIATOR_definite].</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] a détourné sur sa garde le [attack_noun] porté par [INITIATOR_definite].</li>
+    <li>skillAdvMaybe-></li>
+    <li>skillAdvMaybe->[skillAdv]</li>
+    <li>attack_noun->coup</li>
+    <li>attack_noun->assaut</li>
+    <li>attack_noun->moulinet</li>
+    <li>attack_noun->revers</li>
+    <li>result->mais [RECIPIENT_definite] a paré sur la garde en croix</li>
+    <li>result->mais le [attack_noun] a été détourné sur les quillons</li>
+    <li>result->mais [RECIPIENT_definite] a paré de sa garde</li>
+  </UMW_Combat_Parry.rulePack.rulesStrings>
+
+  <!-- EN:
+    <li>weapon_adjective->[stuff_adjective]</li>
+    <li>r_weapon_name(p=0.4)->The [stuff_adjective] [weapon_noun]</li>
+    <li>r_weapon_name(p=0.3)->[stuff_adjective] [badass_noun]</li>
+  -->
+  <!-- French names a material with a preposition, not an adjective: Core's ThingMadeOfStuffLabel is
+       "{1} en {0}", and every French stuffAdjective is a bare noun (métal, bois, or, jade,
+       plastacier). So the shared weapon_adjective rule becomes prepositional, which also lets it
+       compose correctly with Odyssey's postposing "[weapon_noun] [weapon_adjective]" pattern
+       ("épée longue en métal"). The definite article is dropped, since [weapon_type]'s gender is
+       unknowable inside the namer. -->
+  <UMW_NamerStuffAdjectives.rulePack.rulesStrings>
+    <li>weapon_adjective->en [stuff_adjective]</li>
+    <li>r_weapon_name(p=0.4)->[weapon_noun] en [stuff_adjective]</li>
+    <li>r_weapon_name(p=0.3)->[badass_noun] en [stuff_adjective]</li>
+  </UMW_NamerStuffAdjectives.rulePack.rulesStrings>
+
+</LanguageData>

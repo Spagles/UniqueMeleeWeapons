@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>questName->The [savage] [warband]</li>
+    <li>questName->[savage] [warband]</li>
+    <li>savage->Savage</li>
+    <li>savage->Wild</li>
+    <li>savage->Fierce</li>
+    <li>savage->Bloodthirsty</li>
+    <li>savage->Roaming</li>
+    <li>warband->Warband</li>
+    <li>warband->War Party</li>
+    <li>warband->Marauders</li>
+    <li>warband->Raiders</li>
+    <li>warband->Warriors</li>
+  -->
+  <!-- French adjectives postpose and agree in gender and number, so the single English [savage] list
+       cannot serve a mix of "Bande de guerre" (fem. sing.) and "Maraudeurs" (masc. plur.). The symbol
+       is split into parallel families instead, one rule per agreement class, and the article is
+       likewise duplicated. Only the leading noun is capitalized, per French title convention. -->
+  <UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+    <li>questName->La [warband_f] [savage_f]</li>
+    <li>questName->Les [warband_m] [savage_m]</li>
+    <li>questName->[warband_f] [savage_f]</li>
+    <li>questName->[warband_m] [savage_m]</li>
+    <li>warband_f->Bande de guerre</li>
+    <li>warband_f->Troupe de guerre</li>
+    <li>warband_m->Maraudeurs</li>
+    <li>warband_m->Pillards</li>
+    <li>warband_m->Guerriers</li>
+    <li>savage_f->sauvage</li>
+    <li>savage_f->indomptée</li>
+    <li>savage_f->féroce</li>
+    <li>savage_f->sanguinaire</li>
+    <li>savage_f->errante</li>
+    <li>savage_m->sauvages</li>
+    <li>savage_m->indomptés</li>
+    <li>savage_m->féroces</li>
+    <li>savage_m->sanguinaires</li>
+    <li>savage_m->errants</li>
+  </UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+
+  <!-- EN:
+    <li>questDescription->[discoveryMethod] the location of a band of marauding tribal warriors. This war party has been preying on settlements and travellers across the surrounding lands.\n\nThe band is led by [LEADER_nameDef], who possesses a unique [WEAPON_quality] weapon. The group contains:\n\n[warbandList]\n\nIf you're able to capture or kill the leader, you can take the unique weapon.\n\n[location]</li>
+    <li>location(atLandmark==true)->The warriors are hiding out in an abandoned settlement at [landmarkName].</li>
+    <li>location(atLandmark==false)->The warriors are hiding out in an abandoned settlement.</li>
+  -->
+  <!-- Modelled on Odyssey's French Script_AncientMercenaries, the sibling this quest was built from:
+       [discoveryMethod] is used bare (French supplies it no case markers), and its renderings of
+       "une arme unique [WEAPON_quality]" and "Si vous parvenez à capturer ou à tuer..." are reused.
+       Quest prose is vous-form, as all French Core prose is. -->
+  <UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+    <li>questDescription->[discoveryMethod] l'emplacement d'une bande de guerriers tribaux maraudeurs. Cette troupe de guerre s'en prend depuis un moment aux colonies et aux voyageurs des terres environnantes.\n\nLa bande est dirigée par [LEADER_nameDef], qui possède une arme unique [WEAPON_quality]. Le groupe contient :\n\n[warbandList]\n\nSi vous parvenez à capturer ou à tuer le chef de guerre, vous pouvez prendre l'arme unique.\n\n[location]</li>
+    <li>location(atLandmark==true)->Les guerriers se cachent dans une colonie abandonnée à [landmarkName].</li>
+    <li>location(atLandmark==false)->Les guerriers se cachent dans une colonie abandonnée.</li>
+  </UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+
+  <!-- EN:
+    <li>subject->tribal raiders</li>
+    <li>subject->marauding warriors</li>
+    <li>subject->savage tribesfolk</li>
+    <li>questMapFeature->raider camp</li>
+    <li>questMapFeature->drawing of a tribal warrior</li>
+    <li>questMapFeature->sketch of a master-forged blade</li>
+    <li>questMapText->dangerous raiders</li>
+    <li>questMapText->a master-forged weapon</li>
+    <li>questMapText->savage warriors</li>
+  -->
+  <!-- Only the plain subject / questMapFeature / questMapText families are needed: unlike German,
+       French consumes no oblique case forms of these. -->
+  <UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+    <li>subject->pillards tribaux</li>
+    <li>subject->guerriers maraudeurs</li>
+    <li>subject->indigènes sauvages</li>
+    <li>questMapFeature->camp de pillards</li>
+    <li>questMapFeature->dessin d'un guerrier tribal</li>
+    <li>questMapFeature->croquis d'une lame forgée par un maître</li>
+    <li>questMapText->pillards dangereux</li>
+    <li>questMapText->une arme forgée par un maître</li>
+    <li>questMapText->guerriers sauvages</li>
+  </UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+
+</LanguageData>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- ThoughtDef stage descriptions are the one place French Core drops the polite register: they are
+       first-person present ("Je suis...", "J'ai l'impression..."), not vous-form prose. -->
+
+  <!-- EN: blood-stained weapon -->
+  <UMW_BloodStainedWeapon.stages.0.label>arme tachée de sang</UMW_BloodStainedWeapon.stages.0.label>
+
+  <!-- EN: I'm carrying a weapon caked in dried blood. Its reek, and the thought of what it's done, turn my stomach. -->
+  <UMW_BloodStainedWeapon.stages.0.description>Je porte une arme croûtée de sang séché. Son odeur, et l'idée de ce qu'elle a fait, me retournent l'estomac.</UMW_BloodStainedWeapon.stages.0.description>
+
+  <!-- EN: blood-stained weapon -->
+  <UMW_BloodStainedWeapon.stages.1.label>arme tachée de sang</UMW_BloodStainedWeapon.stages.1.label>
+
+  <!-- EN: I'm carrying a weapon caked in dried blood. Its reek, and the thought of what it's done, thrill me to the core. -->
+  <UMW_BloodStainedWeapon.stages.1.description>Je porte une arme croûtée de sang séché. Son odeur, et l'idée de ce qu'elle a fait, me font vibrer jusqu'aux os.</UMW_BloodStainedWeapon.stages.1.description>
+
+
+  <!-- EN: storied weapon -->
+  <UMW_StoriedWeapon.stages.0.label>arme de renom</UMW_StoriedWeapon.stages.0.label>
+
+  <!-- EN: I'm carrying a weapon with a name and a history. The deeds of those who bore it before me are remembered, and one day mine will be too. -->
+  <UMW_StoriedWeapon.stages.0.description>Je porte une arme qui a un nom et une histoire. On se souvient des exploits de ceux qui l'ont portée avant moi, et un jour on se souviendra des miens.</UMW_StoriedWeapon.stages.0.description>
+
+</LanguageData>

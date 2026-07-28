@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- In-combat floating text. -->
+
+  <!-- Thrown over a pawn whose weapon parries an incoming melee blow; the parry counterpart of
+       vanilla's <TextMote_Dodge>. French Core renders that mote as the noun "Esquive", not a
+       participle, so this one is the matching noun "Parade" (the French fencing term). -->
+  <!-- EN: Parried -->
+  <UMW_TextMote_Parried>Parade</UMW_TextMote_Parried>
+
+</LanguageData>

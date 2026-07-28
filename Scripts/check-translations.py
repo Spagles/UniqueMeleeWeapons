@@ -4,7 +4,9 @@
 # anything this script can prove is never re-derived by an agent.
 #
 # Checks per non-English language:
-#   Keyed:       missing/extra keys, placeholder mismatches, stale EN comments
+#   Keyed:       missing/extra keys, argument-placeholder mismatches, stale EN
+#                comments (grammar constructs like {PAWN_gender ? a : b : c} are
+#                language-specific and deliberately not compared - see below)
 #   DefInjected: folder names resolvable as def types, defNames exist, field
 #                paths structurally valid against def XML, stale EN comments,
 #                uninjected label/description (warning)
@@ -29,13 +31,33 @@ from pathlib import Path
 PLACEHOLDER_RE = re.compile(r"\{[^{}]*\}")
 EN_COMMENT_RE = re.compile(r"^\s*EN:\s?(.*)$", re.DOTALL)
 
+# A {...} span is one of two different things, and only one of them is an interface
+# contract with the C# call site.
+#
+#   argument placeholder   {0}, {1}, {PAWN_labelShort}
+#       Supplied by the caller. A language that drops or invents one is broken, so
+#       these must match English exactly.
+#
+#   grammar construct      {PAWN_gender ? é : ée : é(e)}, {0_gender ? un : une : un(e)}
+#       Resolved by GrammarResolverSimple from an argument's gender, and inflecting
+#       languages need them where uninflected English does not. French Core writes
+#       Cut.deathMessage as "{0} a été taillad{PAWN_gender ? é : ée : é(e)} à mort."
+#       against an English "{0} has been cut to death." (HealthUtility passes both
+#       pawn.LabelShortCap and pawn.Named("PAWN") precisely so this resolves.)
+#       Comparing these across languages would forbid correct translations.
+#
+# So grammar constructs are excluded before comparing. This does not weaken the
+# argument check: a construct references its subject as "PAWN_gender", never as a
+# bare "{0}", so a translation that dropped a real argument still fails.
+GRAMMAR_CONSTRUCT_RE = re.compile(r"\{[^{}]*\?[^{}]*\}")
+
 
 def norm(text):
     return re.sub(r"\s+", " ", (text or "").strip())
 
 
 def placeholders(text):
-    return set(PLACEHOLDER_RE.findall(text or ""))
+    return set(PLACEHOLDER_RE.findall(GRAMMAR_CONSTRUCT_RE.sub("", text or "")))
 
 
 def parse_with_comments(path):

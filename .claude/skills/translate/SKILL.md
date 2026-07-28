@@ -106,8 +106,8 @@ stun, burn, bleeding), and the opportunity-site quest vocabulary
 ### Glossary — shared across the mod family
 
 The RU and JP rows were learned in the companion mod (UWU) from native review
-(RU) and vanilla-data study (JP); the Simplified Chinese, Korean, German and
-Spanish sections were learned in this repo's 2026-07 generations. Lessons
+(RU) and vanilla-data study (JP); the Simplified Chinese, Korean, German, Spanish
+and French sections were learned in this repo's 2026-07 generations. Lessons
 propagate across all three repos
 (here, ../UniqueWeaponsUnbound, ../PersonaWeaponsUnbound): when a row is added
 or corrected in one skill, mirror it into the siblings, adjusting
@@ -819,6 +819,239 @@ desgarrada` (ragged), `forjado por un maestro` (master-forged), `banda de guerra
 `rojo sangre` / `negro carbón` / `púrpura esmalte` / `blanco mono-molecular` /
 `naranja plasma` (patterned on Odyssey's `azul hielo` / `naranja fuego`).
 
+#### French (from this repo's machine-assisted generation, 2026-07-29)
+
+Language folder is `French` (tar: `French (Français).tar`).
+
+**`LanguageWorker_French` rewrites every string, and this is the finding that shapes
+everything else** (decompile-verified). Its `PostProcessed` runs five regexes in order:
+
+```
+ElisionE   \b(ce|de|je|le|me|ne|se|te|que|quoique|lorsque) + vowel   → c' d' j' l' m' n' s' t' qu' ...
+ElisionLa  \bla + vowel                                             → l'
+ElisionSi  \bsi il(s)                                               → s'il(s)
+DeLe       \bde le(s)                                               → de / des
+ALe        \bà le(s)                                                → au / aux
+```
+
+**So French is the inverse of Spanish: never hand-contract.** Where Core es needs
+`{replace: de [X_definite]; "de &lt;color=…>el "-"…del "}`, French writes `de` / `le` /
+`la` plainly and the worker fixes it — including inside rulepacks and `.Translate()`
+output. Vanilla fr relies on this: `le [attack_noun]` renders "l'assaut", `dégâts de
+{1}` renders "dégâts d'immolation", `en or`/`en argent` need nothing. Two traps in it:
+
+- **`de le` becomes `de`, not `du`.** Group 2 captures only `e`/`es`, so `de les X`
+  correctly yields "des X" but `de le X` yields "de X". Core fr ships this bug (`a
+  [destroyed_past] [destroyed_targets] de [RECIPIENT_definite]` → "la jambe de pirate").
+  Never write `de [X_definite]`; restructure so the entity is a subject, or use an
+  agent phrase — **`par [X_definite]` never contracts** and is the clean escape.
+- **`IsVowel` includes `h`**, so the worker cannot tell *h muet* from *h aspiré* and
+  elides both: `la hache` → "l'hache", `de hampe` → "d'hampe". Never place an
+  elidable word directly before an h-initial noun. (This mod's axe is `hache`, so it
+  matters here.)
+
+`WithDefiniteArticle`/`WithIndefiniteArticle` are **overridden**, handling `l'` before a
+vowel and `le`/`la` by gender directly — so the Keyed `DefiniteForm`/`IndefiniteForm`
+templates are dead code in French, and `[X_definite]` is reliable for pawns. `Pluralize`
+knows `-al`→`-aux`, `-au`/`-eu`→`+x`, and leaves `s`/`x`/`z` alone. `OrdinalNumber` gives
+`1er`, `2e`.
+
+Style rules from the vanilla fr data (mandatory):
+
+- **Formality is `vous`, decisively** — 564 `vous` against **zero** `tu`/`Tu` in
+  Core+DLC Keyed (`Assurez-vous` 15 / `Assure-toi` 0, `votre colonie` 30). This is the
+  opposite of German and Spanish, both of which are informal. Imperatives are the
+  vous form (`Explorez`, `Faites attention`).
+- **ASCII straight double quotes** for cited def labels: `La quête s'appelle "{0}".` —
+  356 ASCII `"` against 14 guillemets `«»` (inconsistently spaced) and **zero** curly
+  `“`. Do not port the ja/zh/ru quote marks.
+- **ASCII apostrophe `'`**, not `’` (1991 vs 65) — and this is load-bearing, not
+  cosmetic: the elision worker emits ASCII `'`, so a curly one would not match.
+- **A space before `:` `;` `!` `?`**, per French typography — 727 ` :` against 30 tight,
+  plus 239 ` ?` and 91 ` !`. It is a **plain ASCII space**, not a no-break or narrow
+  space (only 13 of those exist in the whole corpus). Vanilla fr itself slips here
+  (Odyssey's `Le groupe contient:`); write the space.
+- **Zero dashes.** Core+DLC hold 1 em dash and 6 en dashes, i.e. none — an English `—`
+  must be **reflowed**, as in Spanish and unlike German, which mandates `–`. Ellipsis
+  is ASCII `...`.
+- Descriptions end `.`; labels, buttons and stat fragments take none, and labels are
+  lowercase noun phrases.
+- **`ThoughtDef` stage descriptions are the register exception**: first-person present
+  and informal (`Je suis à la limite de vaciller.`, `J'ai l'impression d'avoir…`), never
+  vous-form.
+- Gender hedging inside a string uses **inline word-splitting**, the French idiom:
+  `{0} a été taillad{PAWN_gender ? é : ée : é(e)} à mort.`, `{PAWN_gender ? un : une :
+  un(e)}`. Note both arities occur — the 3-arg form when a genderless subject is
+  possible, the 2-arg `détendu{PAWN_gender ? : e}` where it is not. A bare-participle
+  `injuryProps` label instead takes a capitalized `(e)`: `Déchiqueté(e)`, `Perforé(e)`.
+- `labelNoun` **carries the indefinite article** (`une taillade`, `un coup de lame`,
+  `une brûlure`) — the shape de and es share and ja/ko/zh lack.
+
+**French solves rulepack gender with RULE-LEVEL CONSTRAINTS — a fourth technique,
+distinct from German's inline `|M|` markers and Spanish's parallel symbol families.**
+Core fr writes one rule per agreement class and lets the resolver pick:
+
+```
+<li>staggered(p=3,SUBJECT_gender==Male)->est stupéfait</li>
+<li>staggered(SUBJECT_gender==Female)->est stupéfaite</li>
+<li>staggered(SUBJECT_gender==None)->est stupéfait</li>
+<li>verb_genericattack(INITIATOR_gender!=Female)->s'est rué</li>   <!-- shorthand for Male+None -->
+```
+
+**Always cover `None`** (or use `!=Female`): a missing branch fails to resolve for
+genderless pawns, i.e. mechanoids. But reach for this only when you must, because:
+
+**Battle-log `rulesStrings` are passé composé with *avoir*** (`a esquivé`, `a dévié`, `a
+évité`, `a échoué`, `a titubé`) — not es's preterite and not de's Präteritum. A participle
+with *avoir* does **not** agree with the subject, which is why most Core fr combat lines
+need no gender handling at all. It *does* agree with a **preceding direct object**, so if
+a line uses an object pronoun (`l'a reçu`), every noun that pronoun can stand for must be
+the same gender — pick the symbol's values accordingly rather than adding gender rules.
+fr `[skillAdv]` values are adverbials (`maladroitement`, `avec habileté`, `de manière
+incompétente`) and Core places `[skillAdvMaybe]` **after** the verb.
+
+**`[X_possessive]` is structurally wrong in French, and this is a fourth distinct answer
+to the possessive question.** Core `Keyed/Grammar.xml` sets `Prohis`=`son`,
+`Proher`=`sa`, `Proits`=`son/sa`, so the symbol resolves from the **possessor's** gender
+— but French `son`/`sa` agrees with the **possessed noun**. The symbol therefore keys off
+the wrong entity no matter what. Counting values rather than comments proves vanilla
+agrees: **1471 occurrences in `<!-- EN: -->` comments, 24 in actual values, and all 24 are
+broken** (Anomaly's `[RECIPIENT_possessive]de son travail` renders "sonde son travail";
+Odyssey's `de [PAWN_possessive]` renders "le visage de son"). Core's combat packs write the
+possessive literally instead — `[deflecting] son armure` — and so should you. So: ko drops
+the symbol, de keeps and inflects it, es keeps it only before a singular noun, **fr
+replaces it with a literal possessive agreeing with the possessed noun.**
+
+**Odyssey's French `NamerUniqueWeapon` is not merely incomplete, it is broken, and none of
+it may be copied.** It defines four parallel symbol families —
+`badass_adjective_feminine`, `badass_noun_feminin` (note the inconsistent spelling),
+`badass_noun_vowel`, `badass_adjective_indef` — that **no rule references**, so every one
+is dead; its rules hardcode a masculine `Le [weapon_type]`; it inverts the English
+possessives (`[ANYPAWN_nameIndef] du [weapon_noun]` for "X's reaper"); and the translator
+left their own unresolved question in the file as `<!-- WeaponType feminine/masculine? -->`.
+The practical consequence is that vanilla fr generates "Le lance" and (via h-aspiré
+elision) "L'hache" for unique weapons whatever a mod does, because that rule lives in
+Odyssey's def and mods can only *add* alternatives to it. Keep your own
+`r_weapon_name` patterns **article-free** so they are at least correct, and don't try to
+repair Odyssey's.
+
+Two def fields this mod owns, both constrained by that namer:
+
+- **`traitAdjectives` must be GENDER-INVARIANT** — the same requirement Spanish has, for
+  the same reason (they postpose onto a `[weapon_noun]` of unknowable gender), and it
+  bites harder here: this mod's roster is four feminine weapons (`hache`, `épée longue`,
+  `masse`, `lance`) against three masculine (`glaive`, `couteau`, `marteau de guerre`), so
+  a masculine-default adjective is wrong more often than right. **Odyssey's own fr file
+  violates this throughout** (`léger`, `légère`, `lourde`, `gênante`, `perçante`, `laid`,
+  `exacte`, plus plurals like `surdimensionnées`), which mostly survives on its almost
+  entirely masculine gun roster — do not copy the adjectives even for the six ports whose
+  labels and descriptions you do copy. Two legal shapes, both attested in that same file:
+  a **prepositional phrase** (`à …`, `de …`, `en …`, `au …`, `sans …`, `d'…` — vanilla ships
+  `sur mesure`, `à percussion`, `de choc`, `à sabot`, `haute capacité`), or an adjective
+  already invariant in gender, i.e. one whose masculine form ends in `-e` (`agile`,
+  `féroce`, `magnifique`, `malcommode`, `infâme`, `mono-moléculaire`). An invariant colour
+  compound (`rouge sang`, `noir carbone`) also works.
+- **`namerLabels` are bare lowercase nouns with NO marker** — as in Spanish, the inverse of
+  German. Odyssey's fr namer never places an agreeing adjective or article beside
+  `[weapon_type]`, precisely because its gender is unknowable there.
+
+**The stuff frame is `en`, and it needs no elision work at all.** Core fr
+`ThingMadeOfStuffLabel` is **`{1} en {0}`** ("épée longue en acier"), and fr
+`stuffProps.stuffAdjective` values are bare nouns. So build the `stuff_adjective` rules on
+`en [stuff_adjective]`: it composes with Odyssey's postposing `[weapon_noun]
+[weapon_adjective]` pattern, and unlike a `de` frame it cannot trip the `de le` bug.
+Keep English's `weapon_adjective->[stuff_adjective]` rule but make it prepositional (as in
+es; de had to drop it). **Trap: `Steel.stuffProps.stuffAdjective` is `métal`, not
+`acier`** — the label and the stuff adjective differ, so a steel weapon reads "épée longue
+en métal". Verify per material rather than assuming the label.
+
+**Quest grammar is the simple kind, like Spanish's.** `[discoveryMethod]` carries no case
+markers and is used bare (`[discoveryMethod] l'emplacement d'une infâme compagnie de
+mercenaires.`), so there is nothing to `{replace:}` away, and `questSubjectRules` needs
+only the plain `subject` / `questMapFeature` / `questMapText` families — no oblique
+variants. Two Odyssey fr renderings are worth reusing verbatim: `une arme unique
+[WEAPON_quality]` and `Si vous parvenez à capturer ou à tuer le chef, vous pouvez prendre
+l'arme unique.`
+
+**`unique <weapon>` is the easy case here:** `unique` is invariant in gender and
+postposes, so one form serves every weapon — Odyssey ships `arc long unique`, `fusil
+d'assaut unique`, `minigun unique`. No es-style `único/única` or de-style ending needed.
+
+**The trait row does NOT collapse in French.** Odyssey's `WeaponTraits` is `Traits d'arme`
+and `Stat_ThingUniqueWeaponTrait_Label` is `Traits`, while Core's pawn-trait section header
+is `Éléments marquants :` — a different word entirely, unlike de (`Merkmale`) and es
+(`Rasgos`), where weapon and pawn traits collide. Royalty's *persona* label is also
+`Traits`, but that is PWU's domain.
+
+| English | Use | Never | Why |
+|---|---|---|---|
+| trait (weapon) | `Traits`; standalone `Traits d'arme` | | Odyssey `WeaponTraits`, `Stat_ThingUniqueWeaponTrait_Label`, `StatsReport_WeaponTraits` (which says `Traits d'armes` — vanilla is inconsistent on the plural) |
+| unique weapon | `arme unique` | | Odyssey `UniqueWeapon` |
+| longsword / spear / mace / knife | `épée longue` (F) / `lance` (F) / `masse` (F) / `couteau` (M) | `épée large`, `massue` for mace | Core labels |
+| **gladius** | **`glaive`** | `gladius` | Core `MeleeWeapon_Gladius` — French translates it rather than borrowing |
+| axe / warhammer / club | `hache` (F) / `marteau de guerre` (M) / `massue` (F) | `hache de guerre` | Core+Royalty. `hache` is h-aspiré: never put `la`/`de` straight before it |
+| tool: handle / point / edge / blade / head / shaft | `manche` (or `poignée` on the longsword) / `pointe` / `tranchant` / `lame` / `tête` / `hampe` | `fil` for edge | Core+Royalty `tools.*.label` |
+| tool capacity: cut / stab / blunt | `coupant` / `perçant` / `contondant` | | Core `ToolCapacityDef` — adjectives, so they cannot simply precede a noun like "dégâts" |
+| **cut / stab (DamageDef)** | **`taillade` / `blessure par lame`** | `perforation` (that is the *hediff* label) | Core splits them: HediffDef `Stab`=`perforation`, DamageDef `Stab`=`blessure par lame`; `Cut`=`taillade` in both. Same trap as ko/de/es |
+| blunt / burn / flame (DamageDef) | `passage à tabac` / `brûlure` / `immolation` | | Core |
+| toxic \<damage\> label | postposed agreeing adjective: `lacération empoisonnée`, `morsure venimeuse` | a prefix | Core `ScratchToxic`, `ToxicBite` |
+| bandaged / sutured / set | `bandée` / `suturée` / `plâtrée` — **agree with their own wound noun** | | Core `HediffComp_TendDuration` |
+| Cut off / Cut out | `Déchiqueté(e)` / `Sectionné(e)`; a stab uses `Perforé(e)` | | Core `Cut`/`Stab.injuryProps` — Core itself differentiates by wound |
+| \<x\> scar | `cicatrice de <noun>` (`cicatrice de taillade`, `cicatrice de brûlure`) | | Core `HediffComp_GetsPermanent` |
+| woozy / sedated | `vaseux` / `sous sédatif` | | Core `Anesthetic.stages.*` |
+| blood loss / bleed rate | `perte de sang` / `saignement` | `hémorragie` (that is the ITab header) | Core `BloodLoss.label`, `Stat_Hediff_TotalBleedFactor_Name` |
+| toxic buildup / anesthetic | `accumulation toxique` / `anesthésie` | | Core |
+| **Dodge (TextMote)** | **`Esquive`** — a NOUN, so match a parry mote to it as a noun (`Parade`) | a participle | Core `TextMote_Dodge`; de and es both use participles here, French does not |
+| stun / EMP | `étourdir`/`étourdi` / **`IEM`** | `EMP`, `IEM` spelled out | Core `EMP.label`=`IEM`, `StunnedByEMP`=`Étourdi par une IEM` |
+| **stagger** | **`faire tituber`** (verb) | the StatDef label | Core glosses it in `StoppingPowerExplanation` ("feront tituber les cibles") and `failtype->a titubé`; `StaggerDurationFactor.label` is `facteur de progression du temps`, a vanilla mistranslation — do not propagate it |
+| melee armor penetration / melee damage multiplier | `pénétration d'armure en mêlée` / `multiplicateur de dégâts en mêlée` | | Core StatDefs |
+| move speed / max hit points / deterioration / flammability / market value | `vitesse de déplacement` / `point de santé maximale` (sic, vanilla singular) / `taux de dégradation` / `inflammabilité` / `valeur marchande` | | Core StatDefs |
+| **cooldown** | **`Temps de recharge`** | `Délai de refroidissement` | `StatsReport_Cooldown`, `ITabs.Cooldown`, `PsychicRitualCooldownLabel`, `CommandOnCooldown` all agree; `Dialogs_Various.CooldownTime` is the lone outlier |
+| quest / ability / radius / cells | `quête` / `capacité` / `rayon` / `cases` | `cellules` for cells | Core `Quest`, `Abilities`, `Ability_EffectRadius`, "dans un rayon de 5 cases" |
+| quality tiers | `horrible·médiocre·normal·bon·excellent·merveille·légendaire` | | Core `QualityCategory_*` |
+| wood / plasteel / uranium / jade / steel / silver / gold | `bois` / **`plastacier`** / `uranium` / `jade` / `acier` (stuffAdjective **`métal`**) / `argent` / `or` | `plastacier` as `plastique`, `acier` as the stuff adjective | Core labels + `stuffAdjective` |
+| monosword / plasmasword / zeushammer | `épée mono-moléculaire` / `épée plasmique` / `marteau de Zeus` | | Royalty labels; the adjective is hyphenated `mono-moléculaire` |
+| mechanite / mechanoid | `mécanites` (F) / `mécanoïde` | `nanomachine` | Core `FibrousMechanites`, Royalty monosword desc |
+| **ultratech** | **`ultratechnologie`** (noun), `ultratechnologique` attributively | `ultra-tech` | Royalty `BroadshieldCore` ("Une pièce d'ultratechnologie"); Core `TechLevel_Ultra` is just `ultra` |
+| wielder / bearer | `utilisateur` / `porteur` | | Odyssey `EMPPulser` ("centrée sur l'utilisateur"), Core gene descs |
+| item stash / bandit camp / ancient mercenaries / sealed crate | `planque` / `camp de bandits` / `mercenaires anciens` / `caisse scellée` | | Core sites, Odyssey quest + `AncientSealedCrate` |
+| abandoned settlement | `colonie abandonnée` | | Odyssey `AbandonedSettlement` (its own label is oddly plural); Core's WorldObjectDef says `base de faction abandonnée` |
+| tribesman / tribespeople / chief / fierce tribe | `indigène` / `indigènes` / `chef` / `tribu indigène féroce` | | Core `TribeRough` |
+| **raider** | **`pillards`** | `assaillants` | Core `RaiderKing38.title`=`roi des pillards`; Ideology's MemeDef `Raider`=`pilleur` is the outlier |
+| quest / mod UI: Cancel / Reset / Reset to defaults / Default / None | `Annuler` / `Réinitialiser` / `Réinitialiser les valeurs par défaut` / `Par défaut` / `Aucune` | | Core buttons |
+| Traders will pay more/less for it. | `Les commerçants en paieront un prix plus élevé.` / `Les commerçants en paieront moins cher.` | | Odyssey `GoldInlay`/`Ugly` — reuse verbatim (its `JadeInlay` uses a third variant, `paieront plus cher pour cela`) |
+
+The six Odyssey ports have official fr labels, and descriptions matching our English word
+for word for four of them (`ornemental`, `laid`, `incrusté d'or`, `incrusté de jade`);
+copy those verbatim. `Lightweight` (`léger`) and `Cumbersome` (`encombrant`) need only
+their aim-vs-swing clause adapted. As in ko, de and es, Odyssey's `Ugly` adjective
+*indices* differ from ours, so re-map by meaning — but replace all six ports' adjectives
+with invariant forms per the rule above.
+
+Mod-decided terms pending native review (from the 2026-07-29 commit), every trait
+adjective among them gender-invariant by construction: `pointe perforante` (armor spike,
+with `perce-armure` / `brise-plaque`), `barbelé` (barbed; barbs = `barbelures`), `fondu en
+cloche` (bell-cast), `taché de sang` (blood-stained), `carbonisé`, `à contrepoids`
+(counterweighted), `sans rebond` (dead-blow, from the real tool term *marteau sans
+rebond*), `émaillé`, `empoisonné` (envenomed), `à ailettes` (flanged; flanges =
+`ailettes`), `à tête lourde` (head-weighted), `pointe d'aiguille`, `opiacé`,
+**`marteau-pilon`** (piledriver — the literal *sonnette de battage* is too obscure),
+`à cœur de plasma`, `à quillons` (quilloned — `quillon` is itself the French source word;
+crossguard = `garde en croix`, guard = `garde`), `fil de rasoir` (razored), `à dents de
+scie` (serrated), `de renom` (storied), `clouté` (studded; studs = `clous`), `tête de
+Zeus`; **`Parade`** (the parry mote, register-matched to the noun `Esquive`) with
+`parer`/`détourner` in the log lines, `secousse tellurique` (earthshake), `cri de
+ralliement` (rallying cry) / **`galvanisé`** (rallied — `rallié` reads as "joined a cause"
+in French, so the pair is deliberately loosened and is the likeliest reviewer question),
+`accumulation de sédatif` with the stage ladder `dosé`/`vaseux`/`sous sédatif`, `taillade
+déchiquetée` / `perforation déchiquetée` (ragged), `forgé par un maître` (master-forged),
+`bande de guerre` (warband), `camp de la bande de guerre`, `troupe de guerre` (war party),
+**`chef de guerre`** (warlord — Core's `Warlordess56.title` is `machine de guerre`, a loose
+rendering that does not mean warlord, so this one is a coinage), `couperet` (cleaver),
+`mailloche` (maul), `taillant` (bit), `épieu` (lance), `pique` (pike), `gourdin`
+(bludgeon), and the colours `rouge sang` / `noir carbone` / `violet émail` / `blanc
+mono-moléculaire` / `orange plasma` (patterned on Odyssey's `bleu glacier` / `orange feu`).
+
 ### Cross-language lessons
 
 - Wrap injected `{0}` def labels in the language's quote marks (JP 「{0}」,
@@ -836,29 +1069,40 @@ desgarrada` (ragged), `forjado por un maestro` (master-forged), `banda de guerra
   `{replace:}` appends `-er/-e/-es` to — a noun is silently broken there and fine
   elsewhere — and in es anything **gender-invariant**, i.e. an invariant adjective or
   a `de …` phrase, since it postposes onto nouns of both genders with no agreement
-  machinery. Likewise `namerLabels` is plain text in ja/ko/zh, must carry a
-  `|M|/|F|/|N|` marker in de, and must be a **bare unmarked noun** in es. Before
-  translating a field that feeds name generation, read how the target language's
-  vanilla namer *consumes* it, not just how it reads.
-- **Gendered/inflecting languages solve name grammar in one of two ways, and you must
+  machinery — and the same in fr, where the legal shapes are a prepositional phrase or
+  an adjective whose masculine form already ends in `-e`. Likewise `namerLabels` is plain
+  text in ja/ko/zh, must carry a `|M|/|F|/|N|` marker in de, and must be a **bare
+  unmarked noun** in es and fr. Before translating a field that feeds name generation,
+  read how the target language's vanilla namer *consumes* it, not just how it reads.
+- **Gendered/inflecting languages solve name grammar in one of three ways, and you must
   find out which before writing any rulepack.** German tags each noun inline
   (`|M|Mäher`) and strips the marker with `{replace:}` per syntactic slot. Spanish
   instead keeps **parallel symbol families** (`badass_concept` / `badass_conceptF`)
-  and writes one rule per gender. The two are mutually exclusive: porting German's
-  markers into Spanish ships literal `|M|` to screen, and porting Spanish's split into
-  German loses the adjective endings.
-- **The article/preposition contraction is the author's job, not the worker's.** No
-  `LanguageWorker` fuses `de`+`el`; Spanish must do it in the rulepack with
-  `{replace: de [X_definite]; "de &lt;color=#D09B61FF>el "-"&lt;color=#D09B61FF>del "}`,
-  colour code and all. **And vanilla is not uniformly right here** — Core es also
-  ships a truncated variant of that idiom, 20 times, which renders "de del". Verify a
-  vanilla pattern actually works before copying it; frequency is not correctness.
-- **The possessive symbol has three different correct answers, so never generalize
+  and writes one rule per gender. French uses neither: it puts a **constraint on the rule
+  itself** (`staggered(SUBJECT_gender==Female)->est stupéfaite`), which the resolver
+  selects on. The three are mutually exclusive: porting German's markers into Spanish
+  ships literal `|M|` to screen, and porting Spanish's split into German loses the
+  adjective endings. With the fr form, **always write the `==None` branch too** (or use
+  `!=Female`) — a missing branch fails to resolve for genderless pawns, i.e. mechanoids.
+- **Check whether the worker contracts before writing any contraction scaffolding — the
+  answer inverts between languages.** Spanish must fuse `de`+`el` by hand in the rulepack
+  with `{replace: de [X_definite]; "de &lt;color=#D09B61FF>el "-"&lt;color=#D09B61FF>del "}`,
+  colour code and all. French must do the **opposite and write nothing**:
+  `LanguageWorker_French.PostProcessed` elides `de`/`le`/`la`/`que` before a vowel and
+  fuses `à le`→`au`, `de les`→`des` automatically, so hand-contracting would double-apply.
+  **And vanilla is not uniformly right in either** — Core es ships a truncated variant of
+  its idiom 20 times that renders "de del", and the fr worker turns `de le` into `de`
+  rather than `du` while eliding *h aspiré* it should leave alone. Verify a vanilla
+  pattern actually works before copying it; frequency is not correctness.
+- **The possessive symbol has four different correct answers, so never generalize
   one.** ko drops `[RECIPIENT_possessive]` (Korean omits possessives), de keeps it and
-  inflects it inline (`[RECIPIENT_possessive]em Handschutz`), and es keeps it **only
-  before a singular noun** — es `su` has no plural form, so a plural possessed noun
-  needs the definite article instead. Check `Keyed/Grammar.xml` for the language's
-  actual `Prohis`/`Proher`/`Proits` values rather than assuming the symbol inflects.
+  inflects it inline (`[RECIPIENT_possessive]em Handschutz`), es keeps it **only
+  before a singular noun** (es `su` has no plural form, so a plural possessed noun
+  needs the definite article instead), and fr **cannot use it at all**: French `son`/`sa`
+  agrees with the *possessed* noun while the symbol resolves from the *possessor's*
+  gender, so Core fr writes the possessive literally (`son armure`). Check
+  `Keyed/Grammar.xml` for the language's actual `Prohis`/`Proher`/`Proits` values rather
+  than assuming the symbol inflects — fr's are `son`/`sa`/`son/sa`, which is the tell.
 - **A DamageDef and a HediffDef of the same name often have different labels**, and
   translating from the wrong one is an easy, invisible error: es Core has DamageDef
   `Stab`=`apuñalamiento` but HediffDef `Stab`=`puñalada`; ko has `찔림` vs `베임`; de has
@@ -891,7 +1135,27 @@ desgarrada` (ragged), `forjado por un maestro` (master-forged), `banda de guerra
   a trailing `'s`, so a closing ASCII single quote followed by lowercase `s` is
   silently mangled — and its `PostProcessThingLabelForRelic` truncates weapon
   labels against a hardcoded noun list, which matters for this repo's ThingDef
-  labels.
+  labels. **A worker can also do work *for* you, which is just as important to know**:
+  French's elides and contracts automatically, so the correct authoring there is to write
+  the uncontracted form and leave it alone. Read the worker before deciding what to write,
+  not only to find what it forbids.
+- **Simulate the worker rather than reasoning about it.** Its regexes are short enough to
+  reimplement in a few lines of Python, and running your actual strings through them
+  catches what eyeballing does not — it is how the fr pass confirmed `en or` → "en or",
+  `le assaut` → "l'assaut", `dégâts de IEM` → "dégâts d'IEM", and how it found that
+  Odyssey's own `Le [weapon_type]` rule emits "Le lance" and "L'hache" no matter what a
+  mod adds.
+- **Vanilla's translation of the very def you are extending can be broken, not just
+  incomplete — check that a file's symbols are actually *referenced* before copying its
+  technique.** Odyssey's fr `NamerUniqueWeapon` defines four gender/vowel symbol families
+  that no rule uses (so all four are dead), hardcodes a masculine article, inverts the
+  English possessives, and carries the translator's own unresolved
+  `<!-- WeaponType feminine/masculine? -->` question. "Vanilla does it" is not evidence
+  it works; grep for the symbol on the *left* of `->` and on the right.
+- **A pre-existing vanilla defect you cannot fix should still be recorded.** Our rulepacks
+  are *added* to vanilla's namer, so a broken vanilla `r_weapon_name` keeps firing. Note
+  it in the glossary and keep your own patterns correct rather than trying to repair
+  theirs from a language folder.
 - **Know which resolver your strings actually reach** (decompile-verified).
   `"key".Translate(args)` goes to `Verse.GrammarResolverSimple`, *not* the full
   rulepack `GrammarResolver`, and the two support different things. On a plain
@@ -908,12 +1172,19 @@ desgarrada` (ragged), `forjado por un maestro` (master-forged), `banda de guerra
   Gender tables — so `{N_gender ? …}` on a UMW label is a silent coin-flip, not a
   fix. Reserve it for vanilla nouns in nominative slots. `UMW_WeaponEnabledDesc`
   is the live example.
-- **Name-grammar gender is solved in the rulepack, not by the resolver.** Where a
-  language inflects, vanilla tags each noun in the rulesStrings with an inline
-  gender marker and strips it with `{replace:}` per syntactic slot — see the
-  German section for Odyssey's `|M|`/`|F|`/`|N|` pattern. A bare noun list cannot
-  be inflected afterwards, so decide this before writing any `RulePackDef`
-  entries, including the `stuff_adjective` symbol.
+- **Name-grammar gender is solved in the rulepack, not by the resolver** — by one of the
+  three techniques above (de's inline markers, es's parallel symbol families, fr's
+  rule-level constraints), never by the resolver's `{N_gender}`. A bare noun list cannot
+  be inflected afterwards, so decide which technique applies before writing any
+  `RulePackDef` entries, including the `stuff_adjective` symbol.
+- **The checker compares argument placeholders, not grammar constructs, and that
+  distinction is deliberate.** `{0}`/`{PAWN_labelShort}` are supplied by the C# call site
+  and must match English exactly; `{PAWN_gender ? é : ée : é(e)}` is inflection the target
+  language needs and uninflected English never has. `Scripts/check-translations.py`
+  excludes any `{...}` containing `?` before comparing (see the comment on
+  `GRAMMAR_CONSTRUCT_RE`), which is what lets fr render `Cut.deathMessage` the way Core fr
+  does. Confirm the named argument exists at the call site before relying on one:
+  `HealthUtility` passes `pawn.Named("PAWN")` alongside `{0}` specifically for this.
 - When an English string is reworded, refresh the EN comments in every
   language **in the same commit** — the checker reports the mismatch as STALE
   either way, but batching avoids churn.

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- DamageDef labels, which in French Core are NOT the same words as the matching HediffDefs:
+       DamageDef Cut = "taillade" and Stab = "blessure par lame", while HediffDef Stab = "perforation".
+       These are DamageDefs, so they take the DamageDef words. The toxic variant follows Core's
+       ScratchToxic / ToxicBite, which postpose an agreeing adjective ("lacération empoisonnée").
+
+       deathMessage uses the inline gender split French Core uses throughout, with the three-way form
+       ("{PAWN_gender ? é : ée : é(e)}") so a genderless victim still reads correctly. The cut message
+       is Core's Cut.deathMessage verbatim; Core reuses that same line for Stab, but our English
+       distinguishes the two, so the stab variant does too. -->
+
+  <!-- EN: cut -->
+  <UMW_Cut_Ragged.label>taillade</UMW_Cut_Ragged.label>
+
+  <!-- EN: {0} has been cut to death. -->
+  <UMW_Cut_Ragged.deathMessage>{0} a été taillad{PAWN_gender ? é : ée : é(e)} à mort.</UMW_Cut_Ragged.deathMessage>
+
+
+  <!-- EN: stab -->
+  <UMW_Stab_Deep.label>blessure par lame</UMW_Stab_Deep.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Deep.deathMessage>{0} a été transperc{PAWN_gender ? é : ée : é(e)} à mort.</UMW_Stab_Deep.deathMessage>
+
+
+  <!-- EN: stab -->
+  <UMW_Stab_Ragged.label>blessure par lame</UMW_Stab_Ragged.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Ragged.deathMessage>{0} a été transperc{PAWN_gender ? é : ée : é(e)} à mort.</UMW_Stab_Ragged.deathMessage>
+
+
+  <!-- EN: toxic stab -->
+  <UMW_Stab_Tox.label>blessure par lame empoisonnée</UMW_Stab_Tox.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Tox.deathMessage>{0} a été transperc{PAWN_gender ? é : ée : é(e)} à mort.</UMW_Stab_Tox.deathMessage>
+
+
+  <!-- EN: tranquilizing stab -->
+  <UMW_Stab_Tranq.label>blessure par lame tranquillisante</UMW_Stab_Tranq.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Tranq.deathMessage>{0} a été transperc{PAWN_gender ? é : ée : é(e)} à mort.</UMW_Stab_Tranq.deathMessage>
+
+</LanguageData>

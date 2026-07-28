@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: blood red -->
+  <UMW_BloodRed.label>ブラッドレッド</UMW_BloodRed.label>
+
+
+  <!-- EN: carbon black -->
+  <UMW_CarbonBlack.label>カーボンブラック</UMW_CarbonBlack.label>
+
+
+  <!-- EN: enamel purple -->
+  <UMW_EnamelPurple.label>琺瑯パープル</UMW_EnamelPurple.label>
+
+
+  <!-- EN: monomolecular white -->
+  <UMW_MonoWhite.label>単分子ホワイト</UMW_MonoWhite.label>
+
+
+  <!-- EN: plasma orange -->
+  <UMW_PlasmaOrange.label>プラズマオレンジ</UMW_PlasmaOrange.label>
+
+</LanguageData>

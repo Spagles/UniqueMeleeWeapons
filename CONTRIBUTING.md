@@ -9,17 +9,17 @@ The mod targets the languages below, chosen by RimWorld's per-language
 audience size. Contributions for any other language RimWorld supports are
 welcome too.
 
-| Language             | Status           | Credit |
-| -------------------- | ---------------- | ------ |
-| English              | Source           | —      |
-| Simplified Chinese   | Machine-assisted |        |
-| Russian              | Machine-assisted |        |
-| Korean               | Planned          |        |
-| German               | Planned          |        |
-| Spanish              | Planned          |        |
-| French               | Planned          |        |
-| Brazilian Portuguese | Planned          |        |
-| Japanese             | Planned          |        |
+| Language             | Status           | Credit  |
+| -------------------- | ---------------- | ------- |
+| English              | Source           | —       |
+| Simplified Chinese   | Machine-assisted | Fable 5 |
+| Russian              | Machine-assisted | Fable 5 |
+| Korean               | Planned          |         |
+| German               | Planned          |         |
+| Spanish              | Planned          |         |
+| French               | Planned          |         |
+| Brazilian Portuguese | Planned          |         |
+| Japanese             | Machine-assisted | Opus 5  |
 
 Statuses: **Source** (the authoritative English strings), **Machine-assisted**
 (generated with terminology grounded against the official RimWorld

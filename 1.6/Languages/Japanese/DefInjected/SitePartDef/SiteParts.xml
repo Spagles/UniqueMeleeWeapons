@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: warband camp -->
+  <UMW_WarbandCamp.label>戦士団の野営地</UMW_WarbandCamp.label>
+
+  <!-- EN: A hostile warband hiding out in an abandoned settlement. -->
+  <UMW_WarbandCamp.description>放棄された集落に潜んでいる敵対的な戦士団です.</UMW_WarbandCamp.description>
+
+</LanguageData>

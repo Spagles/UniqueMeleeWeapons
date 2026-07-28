@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>questName->The [savage] [warband]</li>
+    <li>questName->[savage] [warband]</li>
+    <li>savage->Savage</li>
+    <li>savage->Wild</li>
+    <li>savage->Fierce</li>
+    <li>savage->Bloodthirsty</li>
+    <li>savage->Roaming</li>
+    <li>warband->Warband</li>
+    <li>warband->War Party</li>
+    <li>warband->Marauders</li>
+    <li>warband->Raiders</li>
+    <li>warband->Warriors</li>
+  -->
+  <UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+    <li>questName->[savage][warband]</li>
+    <li>questName->[savage][warband]</li>
+    <li>savage->野蛮な</li>
+    <li>savage->荒々しい</li>
+    <li>savage->凶暴な</li>
+    <li>savage->血に飢えた</li>
+    <li>savage->流浪の</li>
+    <li>warband->戦士団</li>
+    <li>warband->襲撃団</li>
+    <li>warband->略奪者</li>
+    <li>warband->襲撃者</li>
+    <li>warband->戦士</li>
+  </UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+
+  <!-- EN:
+    <li>questDescription->[discoveryMethod] the location of a band of marauding tribal warriors. This war party has been preying on settlements and travellers across the surrounding lands.\n\nThe band is led by [LEADER_nameDef], who possesses a unique [WEAPON_quality] weapon. The group contains:\n\n[warbandList]\n\nIf you're able to capture or kill the leader, you can take the unique weapon.\n\n[location]</li>
+    <li>location(atLandmark==true)->The warriors are hiding out in an abandoned settlement at [landmarkName].</li>
+    <li>location(atLandmark==false)->The warriors are hiding out in an abandoned settlement.</li>
+  -->
+  <UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+    <li>questDescription->[discoveryMethod]各地を荒らし回る部族の戦士たちのいる場所を発見しました.この襲撃団は周辺一帯の集落や旅人を餌食にしてきました.\n\nこの一団は[LEADER_nameDef]によって率いられ,特別な[WEAPON_quality]の武器を持っています.このグループの編成は以下の通りです:\n\n[warbandList]\n\nリーダーを捕らえるか倒すことができれば,特別な武器を手に入れることができるでしょう.\n\n[location]</li>
+    <li>location(atLandmark==true)->戦士たちは[landmarkName]がある場所の放棄された集落に隠れています.</li>
+    <li>location(atLandmark==false)->戦士たちは放棄された集落に隠れています.</li>
+  </UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+
+  <!-- EN:
+    <li>subject->tribal raiders</li>
+    <li>subject->marauding warriors</li>
+    <li>subject->savage tribesfolk</li>
+    <li>questMapFeature->raider camp</li>
+    <li>questMapFeature->drawing of a tribal warrior</li>
+    <li>questMapFeature->sketch of a master-forged blade</li>
+    <li>questMapText->dangerous raiders</li>
+    <li>questMapText->a master-forged weapon</li>
+    <li>questMapText->savage warriors</li>
+  -->
+  <UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+    <li>subject->部族の襲撃者</li>
+    <li>subject->荒らし回る戦士</li>
+    <li>subject->未開の蛮族</li>
+    <li>questMapFeature->襲撃者の野営地</li>
+    <li>questMapFeature->部族の戦士の絵</li>
+    <li>questMapFeature->名工が鍛えた刃のスケッチ</li>
+    <li>questMapText->危険な襲撃者</li>
+    <li>questMapText->名工が鍛えた武器</li>
+    <li>questMapText->野蛮な戦士</li>
+  </UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+
+</LanguageData>

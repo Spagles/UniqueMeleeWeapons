@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: cut -->
+  <UMW_Cut_Ragged.label>斬る</UMW_Cut_Ragged.label>
+
+  <!-- EN: {0} has been cut to death. -->
+  <UMW_Cut_Ragged.deathMessage>{0}は 斬られて死亡しました.</UMW_Cut_Ragged.deathMessage>
+
+
+  <!-- EN: stab -->
+  <UMW_Stab_Deep.label>刺す</UMW_Stab_Deep.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Deep.deathMessage>{0}は 刺されて死亡しました.</UMW_Stab_Deep.deathMessage>
+
+
+  <!-- EN: stab -->
+  <UMW_Stab_Ragged.label>刺す</UMW_Stab_Ragged.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Ragged.deathMessage>{0}は 刺されて死亡しました.</UMW_Stab_Ragged.deathMessage>
+
+
+  <!-- EN: toxic stab -->
+  <UMW_Stab_Tox.label>毒の刺突</UMW_Stab_Tox.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Tox.deathMessage>{0}は 刺されて死亡しました.</UMW_Stab_Tox.deathMessage>
+
+
+  <!-- EN: tranquilizing stab -->
+  <UMW_Stab_Tranq.label>麻酔の刺突</UMW_Stab_Tranq.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Tranq.deathMessage>{0}は 刺されて死亡しました.</UMW_Stab_Tranq.deathMessage>
+
+</LanguageData>

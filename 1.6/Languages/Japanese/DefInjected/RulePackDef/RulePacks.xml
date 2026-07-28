@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>r_logentry(p=0.4)->[RECIPIENT_definite] caught [INITIATOR_definite]'s [attack_noun] on the crossguard and turned it aside.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] [skillAdvMaybe] parried [INITIATOR_definite]'s [attack_noun] with [RECIPIENT_possessive] quillons.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] turned [INITIATOR_definite]'s [attack_noun] aside on [RECIPIENT_possessive] guard.</li>
+    <li>skillAdvMaybe-></li>
+    <li>skillAdvMaybe->[skillAdv]</li>
+    <li>attack_noun->blow</li>
+    <li>attack_noun->strike</li>
+    <li>attack_noun->swing</li>
+    <li>attack_noun->attack</li>
+    <li>result->but [RECIPIENT_definite] caught it on the crossguard</li>
+    <li>result->but the [attack_noun] was turned aside on [RECIPIENT_possessive] quillons</li>
+    <li>result->but [RECIPIENT_definite] parried with [RECIPIENT_possessive] guard</li>
+  -->
+  <UMW_Combat_Parry.rulePack.rulesStrings>
+    <li>r_logentry(p=0.4)->[RECIPIENT_definite]は[INITIATOR_definite]の[attack_noun]をクロスガードで受け止め,わきへ払いのけた.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite]は[INITIATOR_definite]の[attack_noun]を[RECIPIENT_possessive]鍔で[skillAdvMaybe]受け流した.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite]は[INITIATOR_definite]の[attack_noun]を[RECIPIENT_possessive]鍔で受け流した.</li>
+    <li>skillAdvMaybe-></li>
+    <li>skillAdvMaybe->[skillAdv]</li>
+    <li>attack_noun->一撃</li>
+    <li>attack_noun->斬撃</li>
+    <li>attack_noun->振り</li>
+    <li>attack_noun->攻撃</li>
+    <li>result->しかし[RECIPIENT_definite]はクロスガードでそれを受け止めた</li>
+    <li>result->しかしその[attack_noun]は[RECIPIENT_possessive]鍔で受け流された</li>
+    <li>result->しかし[RECIPIENT_definite]は鍔で受け流した</li>
+  </UMW_Combat_Parry.rulePack.rulesStrings>
+
+  <!-- EN:
+    <li>weapon_adjective->[stuff_adjective]</li>
+    <li>r_weapon_name(p=0.4)->The [stuff_adjective] [weapon_noun]</li>
+    <li>r_weapon_name(p=0.3)->[stuff_adjective] [badass_noun]</li>
+  -->
+  <UMW_NamerStuffAdjectives.rulePack.rulesStrings>
+    <li>weapon_adjective->[stuff_adjective]の</li>
+    <li>r_weapon_name(p=0.4)->[stuff_adjective]の[weapon_noun]</li>
+    <li>r_weapon_name(p=0.3)->[stuff_adjective]の[badass_noun]</li>
+  </UMW_NamerStuffAdjectives.rulePack.rulesStrings>
+
+</LanguageData>

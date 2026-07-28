@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: unique axe -->
+  <UMW_Axe_Unique.label>einzigartige Axt</UMW_Axe_Unique.label>
+
+  <!-- EN: An axe bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Axe_Unique.description>Eine Axt mit den Spuren einer Meisterhand. Keine zwei sind gleich geschmiedet.</UMW_Axe_Unique.description>
+
+  <!-- EN: axe -->
+  <UMW_Axe_Unique.comps.5.namerLabels.0>|F|Axt</UMW_Axe_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: cleaver -->
+  <UMW_Axe_Unique.comps.5.namerLabels.1>|M|Spalter</UMW_Axe_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: bit -->
+  <UMW_Axe_Unique.comps.5.namerLabels.2>|F|Schneide</UMW_Axe_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Axe_Unique.comps.5.namerLabels.3>|F|Klinge</UMW_Axe_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique gladius -->
+  <UMW_Gladius_Unique.label>einzigartiger Gladius</UMW_Gladius_Unique.label>
+
+  <!-- EN: A gladius bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Gladius_Unique.description>Ein Gladius mit den Spuren einer Meisterhand. Keine zwei sind gleich geschmiedet.</UMW_Gladius_Unique.description>
+
+  <!-- EN: gladius -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.0>|M|Gladius</UMW_Gladius_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.1>|F|Klinge</UMW_Gladius_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: sword -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.2>|N|Schwert</UMW_Gladius_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.3>|F|Schneide</UMW_Gladius_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique knife -->
+  <UMW_Knife_Unique.label>einzigartiges Messer</UMW_Knife_Unique.label>
+
+  <!-- EN: A knife honed by a master's hand. No two are forged alike. -->
+  <UMW_Knife_Unique.description>Ein Messer, von Meisterhand geschliffen. Keine zwei sind gleich geschmiedet.</UMW_Knife_Unique.description>
+
+  <!-- EN: knife -->
+  <UMW_Knife_Unique.comps.5.namerLabels.0>|N|Messer</UMW_Knife_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_Knife_Unique.comps.5.namerLabels.1>|F|Klinge</UMW_Knife_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: dagger -->
+  <UMW_Knife_Unique.comps.5.namerLabels.2>|M|Dolch</UMW_Knife_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Knife_Unique.comps.5.namerLabels.3>|F|Schneide</UMW_Knife_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique longsword -->
+  <UMW_LongSword_Unique.label>einzigartiges Langschwert</UMW_LongSword_Unique.label>
+
+  <!-- EN: A longsword bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_LongSword_Unique.description>Ein Langschwert mit den Spuren einer Meisterhand. Keine zwei sind gleich geschmiedet.</UMW_LongSword_Unique.description>
+
+  <!-- EN: longsword -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.0>|N|Langschwert</UMW_LongSword_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.1>|F|Klinge</UMW_LongSword_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: sword -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.2>|N|Schwert</UMW_LongSword_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.3>|F|Schneide</UMW_LongSword_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique mace -->
+  <UMW_Mace_Unique.label>einzigartiger Streitkolben</UMW_Mace_Unique.label>
+
+  <!-- EN: A mace bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Mace_Unique.description>Ein Streitkolben mit den Spuren einer Meisterhand. Keine zwei sind gleich geschmiedet.</UMW_Mace_Unique.description>
+
+  <!-- EN: mace -->
+  <UMW_Mace_Unique.comps.5.namerLabels.0>|M|Streitkolben</UMW_Mace_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: bludgeon -->
+  <UMW_Mace_Unique.comps.5.namerLabels.1>|M|Knüppel</UMW_Mace_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: club -->
+  <UMW_Mace_Unique.comps.5.namerLabels.2>|F|Keule</UMW_Mace_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: head -->
+  <UMW_Mace_Unique.comps.5.namerLabels.3>|M|Kopf</UMW_Mace_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique spear -->
+  <UMW_Spear_Unique.label>einzigartiger Speer</UMW_Spear_Unique.label>
+
+  <!-- EN: A spear bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Spear_Unique.description>Ein Speer mit den Spuren einer Meisterhand. Keine zwei sind gleich geschmiedet.</UMW_Spear_Unique.description>
+
+  <!-- EN: spear -->
+  <UMW_Spear_Unique.comps.5.namerLabels.0>|M|Speer</UMW_Spear_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: lance -->
+  <UMW_Spear_Unique.comps.5.namerLabels.1>|F|Lanze</UMW_Spear_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: pike -->
+  <UMW_Spear_Unique.comps.5.namerLabels.2>|F|Pike</UMW_Spear_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: point -->
+  <UMW_Spear_Unique.comps.5.namerLabels.3>|F|Spitze</UMW_Spear_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique warhammer -->
+  <UMW_Warhammer_Unique.label>einzigartiger Kriegshammer</UMW_Warhammer_Unique.label>
+
+  <!-- EN: A warhammer bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Warhammer_Unique.description>Ein Kriegshammer mit den Spuren einer Meisterhand. Keine zwei sind gleich geschmiedet.</UMW_Warhammer_Unique.description>
+
+  <!-- EN: warhammer -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.0>|M|Kriegshammer</UMW_Warhammer_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: hammer -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.1>|M|Hammer</UMW_Warhammer_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: maul -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.2>|M|Vorschlaghammer</UMW_Warhammer_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: head -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.3>|M|Kopf</UMW_Warhammer_Unique.comps.5.namerLabels.3>
+
+</LanguageData>

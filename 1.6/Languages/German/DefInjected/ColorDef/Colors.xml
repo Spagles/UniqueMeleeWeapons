@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: blood red -->
+  <UMW_BloodRed.label>blutrot</UMW_BloodRed.label>
+
+
+  <!-- EN: carbon black -->
+  <UMW_CarbonBlack.label>karbonschwarz</UMW_CarbonBlack.label>
+
+
+  <!-- EN: enamel purple -->
+  <UMW_EnamelPurple.label>emailviolett</UMW_EnamelPurple.label>
+
+
+  <!-- EN: monomolecular white -->
+  <UMW_MonoWhite.label>monomolekularweiß</UMW_MonoWhite.label>
+
+
+  <!-- EN: plasma orange -->
+  <UMW_PlasmaOrange.label>plasmaorange</UMW_PlasmaOrange.label>
+
+</LanguageData>

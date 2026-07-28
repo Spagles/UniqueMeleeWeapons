@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>r_logentry(p=0.4)->[RECIPIENT_definite] caught [INITIATOR_definite]'s [attack_noun] on the crossguard and turned it aside.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] [skillAdvMaybe] parried [INITIATOR_definite]'s [attack_noun] with [RECIPIENT_possessive] quillons.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] turned [INITIATOR_definite]'s [attack_noun] aside on [RECIPIENT_possessive] guard.</li>
+    <li>skillAdvMaybe-></li>
+    <li>skillAdvMaybe->[skillAdv]</li>
+    <li>attack_noun->blow</li>
+    <li>attack_noun->strike</li>
+    <li>attack_noun->swing</li>
+    <li>attack_noun->attack</li>
+    <li>result->but [RECIPIENT_definite] caught it on the crossguard</li>
+    <li>result->but the [attack_noun] was turned aside on [RECIPIENT_possessive] quillons</li>
+    <li>result->but [RECIPIENT_definite] parried with [RECIPIENT_possessive] guard</li>
+  -->
+  <UMW_Combat_Parry.rulePack.rulesStrings>
+    <li>r_logentry(p=0.4)->[INITIATOR_definite] schlug zu, doch [RECIPIENT_definite] fing den [attack_noun] an der Parierstange auf und lenkte ihn ab.</li>
+    <li>r_logentry(p=0.3)->[INITIATOR_definite] holte aus, doch [RECIPIENT_definite] parierte den [skillAdvMaybe] [attack_noun] mit [RECIPIENT_possessive]en Parierstangen.</li>
+    <li>r_logentry(p=0.3)->[INITIATOR_definite] griff an, doch [RECIPIENT_definite] lenkte den [attack_noun] mit [RECIPIENT_possessive]em Handschutz zur Seite.</li>
+    <li>skillAdvMaybe-></li>
+    <li>skillAdvMaybe->[skillAdv] geführten</li>
+    <li>attack_noun->Schlag</li>
+    <li>attack_noun->Hieb</li>
+    <li>attack_noun->Streich</li>
+    <li>attack_noun->Angriff</li>
+    <li>result->aber [RECIPIENT_definite] fing den [attack_noun] an der Parierstange auf</li>
+    <li>result->aber der [attack_noun] wurde an [RECIPIENT_possessive]en Parierstangen abgelenkt</li>
+    <li>result->aber [RECIPIENT_definite] parierte mit [RECIPIENT_possessive]em Handschutz</li>
+  </UMW_Combat_Parry.rulePack.rulesStrings>
+
+  <!-- EN:
+    <li>weapon_adjective->[stuff_adjective]</li>
+    <li>r_weapon_name(p=0.4)->The [stuff_adjective] [weapon_noun]</li>
+    <li>r_weapon_name(p=0.3)->[stuff_adjective] [badass_noun]</li>
+  -->
+  <UMW_NamerStuffAdjectives.rulePack.rulesStrings>
+    <li>umw_the_weapon_noun->{replace: [weapon_noun]; "|M|"-"Der "; "|F|"-"Die "; "|N|"-"Das "}</li>
+    <li>r_weapon_name(p=0.4)->[umw_the_weapon_noun] aus [stuff_adjective]</li>
+    <li>r_weapon_name(p=0.3)->[badass_noun] aus [stuff_adjective]</li>
+    <li>r_weapon_name(p=0.3)->[weapon_noun_ungendered] aus [stuff_adjective]</li>
+  </UMW_NamerStuffAdjectives.rulePack.rulesStrings>
+
+</LanguageData>

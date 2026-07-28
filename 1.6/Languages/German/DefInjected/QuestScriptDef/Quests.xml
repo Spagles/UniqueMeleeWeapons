@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>questName->The [savage] [warband]</li>
+    <li>questName->[savage] [warband]</li>
+    <li>savage->Savage</li>
+    <li>savage->Wild</li>
+    <li>savage->Fierce</li>
+    <li>savage->Bloodthirsty</li>
+    <li>savage->Roaming</li>
+    <li>warband->Warband</li>
+    <li>warband->War Party</li>
+    <li>warband->Marauders</li>
+    <li>warband->Raiders</li>
+    <li>warband->Warriors</li>
+  -->
+  <UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+    <li>questName->[the_savage_warband]</li>
+    <li>questName->[savage_warband]</li>
+    <li>the_savage_warband->{replace: [warband_gender]; "|M|"-"Der [savage_adj]e "; "|F|"-"Die [savage_adj]e "; "|N|"-"Das [savage_adj]e "; "|P|"-"Die [savage_adj]en "}</li>
+    <li>savage_warband->{replace: [warband_gender]; "|M|"-"[savage_adj]er "; "|F|"-"[savage_adj]e "; "|N|"-"[savage_adj]es "; "|P|"-"[savage_adj]e "}</li>
+    <li>savage->barbarisch</li>
+    <li>savage->wild</li>
+    <li>savage->grimmig</li>
+    <li>savage->blutrünstig</li>
+    <li>savage->umherziehend</li>
+    <li>savage_adj->barbarisch</li>
+    <li>savage_adj->wild</li>
+    <li>savage_adj->grimmig</li>
+    <li>savage_adj->blutrünstig</li>
+    <li>savage_adj->umherziehend</li>
+    <li>warband->Kriegerbande</li>
+    <li>warband->Kriegszug</li>
+    <li>warband->Marodeure</li>
+    <li>warband->Plünderer</li>
+    <li>warband->Krieger</li>
+    <li>warband_gender->|F|Kriegerbande</li>
+    <li>warband_gender->|M|Kriegszug</li>
+    <li>warband_gender->|P|Marodeure</li>
+    <li>warband_gender->|P|Plünderer</li>
+    <li>warband_gender->|P|Krieger</li>
+  </UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+
+  <!-- EN:
+    <li>questDescription->[discoveryMethod] the location of a band of marauding tribal warriors. This war party has been preying on settlements and travellers across the surrounding lands.\n\nThe band is led by [LEADER_nameDef], who possesses a unique [WEAPON_quality] weapon. The group contains:\n\n[warbandList]\n\nIf you're able to capture or kill the leader, you can take the unique weapon.\n\n[location]</li>
+    <li>location(atLandmark==true)->The warriors are hiding out in an abandoned settlement at [landmarkName].</li>
+    <li>location(atLandmark==false)->The warriors are hiding out in an abandoned settlement.</li>
+  -->
+  <UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+    <li>questDescription->{replace: [discoveryMethod]; "|thing_nom|"-"[thing_nom]"; "|thing_gen|"-"[thing_gen]"; "|thing_dat|"-"[thing_dat]"; "|thing_acc|"-"[thing_acc]"; "|thing_nom_embedded|"-"[thing_nom_embedded]"; "|thing_gen_embedded|"-"[thing_gen_embedded]"; "|thing_dat_embedded|"-"[thing_dat_embedded]"; "|thing_acc_embedded|"-"[thing_acc_embedded]"}. Dieser Kriegszug überfällt seit einiger Zeit Siedlungen und Reisende in der ganzen Umgebung.\n\nAngeführt wird die Bande von [LEADER_nameDef], {LEADER_gender ? der : die} eine einzigartige Waffe von [WEAPON_quality]er Qualität besitzt. Die Gruppe besteht aus:\n\n[warbandList]\n\nWenn du es schaffst, {LEADER_gender ? den Anführer : die Anführerin} einzufangen oder zu töten, kannst du die einzigartige Waffe an dich nehmen.\n\n[location]</li>
+    <li>location(atLandmark==true)->Die Krieger verstecken sich in einer verlassenen Siedlung nahe [landmarkName].</li>
+    <li>location(atLandmark==false)->Die Krieger verstecken sich in einer verlassenen Siedlung.</li>
+    <li>thing_nom->der Aufenthaltsort einer Bande marodierender Stammeskrieger</li>
+    <li>thing_gen->des Aufenthaltsortes einer Bande marodierender Stammeskrieger</li>
+    <li>thing_dat->dem Aufenthaltsort einer Bande marodierender Stammeskrieger</li>
+    <li>thing_acc->den Aufenthaltsort einer Bande marodierender Stammeskrieger</li>
+    <li>thing_nom_embedded->der Aufenthaltsort einer Bande marodierender Stammeskrieger</li>
+    <li>thing_gen_embedded->des Aufenthaltsortes einer Bande marodierender Stammeskrieger</li>
+    <li>thing_dat_embedded->dem Aufenthaltsort einer Bande marodierender Stammeskrieger</li>
+    <li>thing_acc_embedded->den Aufenthaltsort einer Bande marodierender Stammeskrieger</li>
+  </UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+
+  <!-- EN:
+    <li>subject->tribal raiders</li>
+    <li>subject->marauding warriors</li>
+    <li>subject->savage tribesfolk</li>
+    <li>questMapFeature->raider camp</li>
+    <li>questMapFeature->drawing of a tribal warrior</li>
+    <li>questMapFeature->sketch of a master-forged blade</li>
+    <li>questMapText->dangerous raiders</li>
+    <li>questMapText->a master-forged weapon</li>
+    <li>questMapText->savage warriors</li>
+  -->
+  <UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+    <li>subject->Stammesraider</li>
+    <li>subject->marodierende Krieger</li>
+    <li>subject->wilde Ureinwohner</li>
+    <li>questMapFeature->Raiderlager</li>
+    <li>questMapFeature->Zeichnung eines Stammeskriegers</li>
+    <li>questMapFeature->Skizze einer meistergeschmiedeten Klinge</li>
+    <li>questMapFeatureGenIndef->eines Raiderlagers</li>
+    <li>questMapFeatureGenIndef->einer Zeichnung eines Stammeskriegers</li>
+    <li>questMapFeatureGenIndef->einer Skizze einer meistergeschmiedeten Klinge</li>
+    <li>questMapFeatureDatIndef->einem Raiderlager</li>
+    <li>questMapFeatureDatIndef->einer Zeichnung eines Stammeskriegers</li>
+    <li>questMapFeatureDatIndef->einer Skizze einer meistergeschmiedeten Klinge</li>
+    <li>questMapText->gefährliche Raider</li>
+    <li>questMapText->eine meistergeschmiedete Waffe</li>
+    <li>questMapText->wilde Krieger</li>
+  </UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+
+</LanguageData>

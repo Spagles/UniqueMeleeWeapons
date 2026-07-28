@@ -32,6 +32,10 @@ _ReSharper*/
 *.rws
 *.rws.old
 
+# Python bytecode (Scripts/ holds the translation checker)
+__pycache__/
+*.py[cod]
+
 # OS specific
 .DS_Store
 Thumbs.db

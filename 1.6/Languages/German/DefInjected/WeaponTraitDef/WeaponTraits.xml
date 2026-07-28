@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: armor spike -->
+  <UMW_ArmorSpike.label>Panzerdorn</UMW_ArmorSpike.label>
+
+  <!-- EN: The point is reinforced into a heavy armor-piercing spike that punches through plate and carapace. -->
+  <UMW_ArmorSpike.description>Die Spitze ist zu einem schweren, panzerbrechenden Dorn verstärkt, der Plattenpanzer und Chitin durchschlägt.</UMW_ArmorSpike.description>
+
+  <!-- EN: lancing -->
+  <UMW_ArmorSpike.traitAdjectives.0>stechend</UMW_ArmorSpike.traitAdjectives.0>
+
+  <!-- EN: armorbane -->
+  <UMW_ArmorSpike.traitAdjectives.1>panzerbrechend</UMW_ArmorSpike.traitAdjectives.1>
+
+  <!-- EN: punching -->
+  <UMW_ArmorSpike.traitAdjectives.2>durchschlagend</UMW_ArmorSpike.traitAdjectives.2>
+
+
+  <!-- EN: barbed -->
+  <UMW_Barbed.label>Widerhaken</UMW_Barbed.label>
+
+  <!-- EN: Barbs behind the point catch in the wound and tear it wider as the weapon is drawn back out. -->
+  <UMW_Barbed.description>Widerhaken hinter der Spitze verfangen sich in der Wunde und reißen sie beim Herausziehen der Waffe weiter auf.</UMW_Barbed.description>
+
+  <!-- EN: barbed -->
+  <UMW_Barbed.traitAdjectives.0>widerhakenbesetzt</UMW_Barbed.traitAdjectives.0>
+
+  <!-- EN: hooked -->
+  <UMW_Barbed.traitAdjectives.1>hakenbewehrt</UMW_Barbed.traitAdjectives.1>
+
+  <!-- EN: cruel -->
+  <UMW_Barbed.traitAdjectives.2>grausam</UMW_Barbed.traitAdjectives.2>
+
+
+  <!-- EN: bell-cast -->
+  <UMW_BellCast.label>glockengegossen</UMW_BellCast.label>
+
+  <!-- EN: The head is cast solid like a bell. A clean strike rings a resonance through armor and bone, briefly stunning the target. -->
+  <UMW_BellCast.description>Der Kopf ist massiv gegossen wie eine Glocke. Ein sauberer Treffer schickt einen dröhnenden Nachhall durch Rüstung und Knochen und betäubt das Ziel kurzzeitig.</UMW_BellCast.description>
+
+  <!-- EN: bell-cast -->
+  <UMW_BellCast.traitAdjectives.0>glockengegossen</UMW_BellCast.traitAdjectives.0>
+
+  <!-- EN: ringing -->
+  <UMW_BellCast.traitAdjectives.1>dröhnend</UMW_BellCast.traitAdjectives.1>
+
+  <!-- EN: resonant -->
+  <UMW_BellCast.traitAdjectives.2>hallend</UMW_BellCast.traitAdjectives.2>
+
+
+  <!-- EN: blood-stained -->
+  <UMW_BloodStained.label>blutbefleckt</UMW_BloodStained.label>
+
+  <!-- EN: This weapon is caked in layers of dark, dried blood. The sight of it can send the people it wounds fleeing in panic, though carrying so grisly a thing weighs on all but the hardened. Traders will pay less for it. -->
+  <UMW_BloodStained.description>Diese Waffe ist mit Schichten aus dunklem, getrocknetem Blut verkrustet. Ihr Anblick kann die Menschen, die sie verwundet, in Panik davonlaufen lassen, doch es belastet jeden, der nicht abgehärtet ist, ein so grausiges Ding mit sich zu führen. Händler werden weniger dafür bezahlen.</UMW_BloodStained.description>
+
+  <!-- EN: blood-stained -->
+  <UMW_BloodStained.traitAdjectives.0>blutbefleckt</UMW_BloodStained.traitAdjectives.0>
+
+  <!-- EN: bloody -->
+  <UMW_BloodStained.traitAdjectives.1>blutig</UMW_BloodStained.traitAdjectives.1>
+
+  <!-- EN: gory -->
+  <UMW_BloodStained.traitAdjectives.2>blutverkrustet</UMW_BloodStained.traitAdjectives.2>
+
+  <!-- EN: sanguine -->
+  <UMW_BloodStained.traitAdjectives.3>blutrot</UMW_BloodStained.traitAdjectives.3>
+
+
+  <!-- EN: carbonized -->
+  <UMW_Carbonized.label>karbonisiert</UMW_Carbonized.label>
+
+  <!-- EN: This weapon has been through fire. Its charred surface is hardened by the heat, and what is already burnt does not easily burn again. The hardened surface hits harder than it should, but the scorched body is brittle and weathers badly. -->
+  <UMW_Carbonized.description>Diese Waffe ist durchs Feuer gegangen. Ihre verkohlte Oberfläche ist durch die Hitze gehärtet, und was schon verbrannt ist, brennt nicht leicht erneut. Die gehärtete Oberfläche trifft härter, als sie sollte, doch der versengte Körper ist brüchig und verwittert schnell.</UMW_Carbonized.description>
+
+  <!-- EN: carbonized -->
+  <UMW_Carbonized.traitAdjectives.0>karbonisiert</UMW_Carbonized.traitAdjectives.0>
+
+  <!-- EN: fire-blackened -->
+  <UMW_Carbonized.traitAdjectives.1>feuergeschwärzt</UMW_Carbonized.traitAdjectives.1>
+
+  <!-- EN: charred -->
+  <UMW_Carbonized.traitAdjectives.2>verkohlt</UMW_Carbonized.traitAdjectives.2>
+
+  <!-- EN: soot-stained -->
+  <UMW_Carbonized.traitAdjectives.3>rußschwarz</UMW_Carbonized.traitAdjectives.3>
+
+
+  <!-- EN: counterweighted -->
+  <UMW_Counterweighted.label>Gegengewicht</UMW_Counterweighted.label>
+
+  <!-- EN: A counterweight tames the heft, making the weapon quicker to recover between swings at a slight cost to power. -->
+  <UMW_Counterweighted.description>Ein Gegengewicht zähmt die Schwere, sodass sich die Waffe zwischen den Schwüngen schneller wieder fängt – zum Preis von etwas Schlagkraft.</UMW_Counterweighted.description>
+
+  <!-- EN: balanced -->
+  <UMW_Counterweighted.traitAdjectives.0>ausgewuchtet</UMW_Counterweighted.traitAdjectives.0>
+
+  <!-- EN: swift -->
+  <UMW_Counterweighted.traitAdjectives.1>flink</UMW_Counterweighted.traitAdjectives.1>
+
+
+  <!-- EN: cumbersome -->
+  <UMW_Cumbersome.label>unhandlich</UMW_Cumbersome.label>
+
+  <!-- EN: This weapon is bulky and overbuilt, slowing its swing. -->
+  <UMW_Cumbersome.description>Diese Waffe ist unhandlich und verlangsamt jeden Schwung.</UMW_Cumbersome.description>
+
+  <!-- EN: cumbersome -->
+  <UMW_Cumbersome.traitAdjectives.0>unhandlich</UMW_Cumbersome.traitAdjectives.0>
+
+  <!-- EN: bulky -->
+  <UMW_Cumbersome.traitAdjectives.1>sperrig</UMW_Cumbersome.traitAdjectives.1>
+
+  <!-- EN: ungainly -->
+  <UMW_Cumbersome.traitAdjectives.2>klobig</UMW_Cumbersome.traitAdjectives.2>
+
+
+  <!-- EN: dead-blow -->
+  <UMW_DeadBlow.label>rückschlagfrei</UMW_DeadBlow.label>
+
+  <!-- EN: The hollow head is filled with loose shot that slams forward on impact, dumping the blow's full momentum into the target without a trace of rebound. Struck targets reel and stumble, even when the blow doesn't drop them. -->
+  <UMW_DeadBlow.description>Der hohle Kopf ist mit lose liegendem Schrot gefüllt, das beim Aufprall nach vorn schlägt und die gesamte Wucht des Schlages ins Ziel treibt, ohne die Spur eines Rückschlags. Getroffene Ziele taumeln und stolpern, selbst wenn der Schlag sie nicht niederstreckt.</UMW_DeadBlow.description>
+
+  <!-- EN: dead-blow -->
+  <UMW_DeadBlow.traitAdjectives.0>rückschlagfrei</UMW_DeadBlow.traitAdjectives.0>
+
+  <!-- EN: shot-filled -->
+  <UMW_DeadBlow.traitAdjectives.1>schrotgefüllt</UMW_DeadBlow.traitAdjectives.1>
+
+  <!-- EN: battering -->
+  <UMW_DeadBlow.traitAdjectives.2>hämmernd</UMW_DeadBlow.traitAdjectives.2>
+
+
+  <!-- EN: enameled -->
+  <UMW_Enameled.label>emailliert</UMW_Enameled.label>
+
+  <!-- EN: A vitreous enamel has been fired and fused over the body of this weapon, glazing it in a deep, glossy violet. Traders will pay more for it. -->
+  <UMW_Enameled.description>Über den Körper dieser Waffe wurde ein glasartiges Email gebrannt und verschmolzen, das sie in ein tiefes, glänzendes Violett taucht. Händler werden mehr dafür bezahlen.</UMW_Enameled.description>
+
+  <!-- EN: enameled -->
+  <UMW_Enameled.traitAdjectives.0>emailliert</UMW_Enameled.traitAdjectives.0>
+
+  <!-- EN: glazed -->
+  <UMW_Enameled.traitAdjectives.1>glasiert</UMW_Enameled.traitAdjectives.1>
+
+  <!-- EN: violet-sheened -->
+  <UMW_Enameled.traitAdjectives.2>violettschimmernd</UMW_Enameled.traitAdjectives.2>
+
+
+  <!-- EN: envenomed -->
+  <UMW_Envenomed.label>vergiftet</UMW_Envenomed.label>
+
+  <!-- EN: The point is coated in a slow neurotoxic venom which causes toxic buildup in those it wounds. -->
+  <UMW_Envenomed.description>Die Spitze ist mit einem langsam wirkenden Nervengift bestrichen, das bei allen, die sie verwundet, eine Vergiftung auslöst.</UMW_Envenomed.description>
+
+  <!-- EN: envenomed -->
+  <UMW_Envenomed.traitAdjectives.0>vergiftet</UMW_Envenomed.traitAdjectives.0>
+
+  <!-- EN: venomous -->
+  <UMW_Envenomed.traitAdjectives.1>giftig</UMW_Envenomed.traitAdjectives.1>
+
+  <!-- EN: poisoned -->
+  <UMW_Envenomed.traitAdjectives.2>giftgetränkt</UMW_Envenomed.traitAdjectives.2>
+
+  <!-- EN: toxic -->
+  <UMW_Envenomed.traitAdjectives.3>toxisch</UMW_Envenomed.traitAdjectives.3>
+
+
+  <!-- EN: flanged -->
+  <UMW_Flanged.label>gerippt</UMW_Flanged.label>
+
+  <!-- EN: Flanges ridge the head, concentrating the force of a blow into a narrow edge that cracks armor plate rather than merely denting it. -->
+  <UMW_Flanged.description>Schlagrippen ziehen sich über den Kopf und bündeln die Kraft des Schlages auf eine schmale Kante, die Panzerplatten aufbricht, statt sie nur zu verbeulen.</UMW_Flanged.description>
+
+  <!-- EN: flanged -->
+  <UMW_Flanged.traitAdjectives.0>gerippt</UMW_Flanged.traitAdjectives.0>
+
+  <!-- EN: riving -->
+  <UMW_Flanged.traitAdjectives.1>spaltend</UMW_Flanged.traitAdjectives.1>
+
+  <!-- EN: armor-cracking -->
+  <UMW_Flanged.traitAdjectives.2>rüstungsbrechend</UMW_Flanged.traitAdjectives.2>
+
+
+  <!-- EN: gold inlay -->
+  <UMW_GoldInlay.label>vergoldet</UMW_GoldInlay.label>
+
+  <!-- EN: This weapon is inlaid with gold. Traders will pay more for it. -->
+  <UMW_GoldInlay.description>Diese Waffe ist vergoldet. Händler werden mehr dafür bezahlen.</UMW_GoldInlay.description>
+
+  <!-- EN: gold -->
+  <UMW_GoldInlay.traitAdjectives.0>golden</UMW_GoldInlay.traitAdjectives.0>
+
+  <!-- EN: golden -->
+  <UMW_GoldInlay.traitAdjectives.1>vergoldet</UMW_GoldInlay.traitAdjectives.1>
+
+
+  <!-- EN: head-weighted -->
+  <UMW_HeadWeighted.label>kopfschwer</UMW_HeadWeighted.label>
+
+  <!-- EN: Mass is gathered toward the striking end so each swing lands with devastating force, though it is slower to recover. -->
+  <UMW_HeadWeighted.description>Die Masse ist zum Schlagende hin gebündelt, sodass jeder Schwung mit verheerender Kraft trifft – dafür fängt sich die Waffe langsamer wieder.</UMW_HeadWeighted.description>
+
+  <!-- EN: devastating -->
+  <UMW_HeadWeighted.traitAdjectives.0>wuchtig</UMW_HeadWeighted.traitAdjectives.0>
+
+  <!-- EN: mighty -->
+  <UMW_HeadWeighted.traitAdjectives.1>mächtig</UMW_HeadWeighted.traitAdjectives.1>
+
+  <!-- EN: ponderous -->
+  <UMW_HeadWeighted.traitAdjectives.2>schwerfällig</UMW_HeadWeighted.traitAdjectives.2>
+
+
+  <!-- EN: jade inlay -->
+  <UMW_JadeInlay.label>jadeverziert</UMW_JadeInlay.label>
+
+  <!-- EN: This weapon is adorned with jade. Traders will pay more for it. -->
+  <UMW_JadeInlay.description>Diese Waffe ist mit Jade verziert. Händler werden mehr dafür bezahlen.</UMW_JadeInlay.description>
+
+  <!-- EN: jade -->
+  <UMW_JadeInlay.traitAdjectives.0>jadeverziert</UMW_JadeInlay.traitAdjectives.0>
+
+
+  <!-- EN: lightweight -->
+  <UMW_Lightweight.label>leicht</UMW_Lightweight.label>
+
+  <!-- EN: This weapon is much lighter than normal, quickening its swing. -->
+  <UMW_Lightweight.description>Diese Waffe wiegt deutlich weniger als üblich, was ihre Schwünge beschleunigt.</UMW_Lightweight.description>
+
+  <!-- EN: light -->
+  <UMW_Lightweight.traitAdjectives.0>leicht</UMW_Lightweight.traitAdjectives.0>
+
+  <!-- EN: nimble -->
+  <UMW_Lightweight.traitAdjectives.1>wendig</UMW_Lightweight.traitAdjectives.1>
+
+  <!-- EN: quickdraw -->
+  <UMW_Lightweight.traitAdjectives.2>schnellziehbar</UMW_Lightweight.traitAdjectives.2>
+
+
+  <!-- EN: monomolecular -->
+  <UMW_Monomolecular.label>monomolekular</UMW_Monomolecular.label>
+
+  <!-- EN: The edge is honed to a single molecule and held there by a lattice of mechanites. It parts armor and bone as though they were not there. -->
+  <UMW_Monomolecular.description>Die Schneide ist auf ein einzelnes Molekül geschärft und wird von einem Gitter aus Mechaniten in diesem Zustand gehalten. Sie teilt Rüstung und Knochen, als wären sie nicht vorhanden.</UMW_Monomolecular.description>
+
+  <!-- EN: mono-edged -->
+  <UMW_Monomolecular.traitAdjectives.0>monomolekular</UMW_Monomolecular.traitAdjectives.0>
+
+  <!-- EN: crystalline -->
+  <UMW_Monomolecular.traitAdjectives.1>kristallin</UMW_Monomolecular.traitAdjectives.1>
+
+  <!-- EN: honed -->
+  <UMW_Monomolecular.traitAdjectives.2>hauchfein</UMW_Monomolecular.traitAdjectives.2>
+
+
+  <!-- EN: needle point -->
+  <UMW_NeedlePoint.label>Nadelspitze</UMW_NeedlePoint.label>
+
+  <!-- EN: Tapered to a fine needle, the point drives deep beneath bone and muscle, seeking the organs within. The slender point is harder to land cleanly. -->
+  <UMW_NeedlePoint.description>Zu einer feinen Nadel verjüngt, dringt die Spitze tief unter Knochen und Muskeln vor und sucht die Organe im Innern. Die schlanke Spitze lässt sich schwerer sauber ansetzen.</UMW_NeedlePoint.description>
+
+  <!-- EN: needle -->
+  <UMW_NeedlePoint.traitAdjectives.0>nadelspitz</UMW_NeedlePoint.traitAdjectives.0>
+
+  <!-- EN: needling -->
+  <UMW_NeedlePoint.traitAdjectives.1>feinspitzig</UMW_NeedlePoint.traitAdjectives.1>
+
+  <!-- EN: hypodermic -->
+  <UMW_NeedlePoint.traitAdjectives.2>durchdringend</UMW_NeedlePoint.traitAdjectives.2>
+
+
+  <!-- EN: opiated -->
+  <UMW_Opiated.label>opiatbeschichtet</UMW_Opiated.label>
+
+  <!-- EN: The point is coated in a potent opiate that builds in the blood with each hit, eventually rendering the victim unconscious. -->
+  <UMW_Opiated.description>Die Spitze ist mit einem starken Opiat bestrichen, das sich mit jedem Treffer im Blut anreichert und das Opfer schließlich bewusstlos macht.</UMW_Opiated.description>
+
+  <!-- EN: opiated -->
+  <UMW_Opiated.traitAdjectives.0>opiatbeschichtet</UMW_Opiated.traitAdjectives.0>
+
+  <!-- EN: sedative -->
+  <UMW_Opiated.traitAdjectives.1>sedierend</UMW_Opiated.traitAdjectives.1>
+
+  <!-- EN: soporific -->
+  <UMW_Opiated.traitAdjectives.2>einschläfernd</UMW_Opiated.traitAdjectives.2>
+
+  <!-- EN: numbing -->
+  <UMW_Opiated.traitAdjectives.3>betäubend</UMW_Opiated.traitAdjectives.3>
+
+
+  <!-- EN: ornamental -->
+  <UMW_Ornamental.label>verziert</UMW_Ornamental.label>
+
+  <!-- EN: This weapon was crafted for aesthetics over functionality. It deals less damage but looks great. -->
+  <UMW_Ornamental.description>Diese Waffe wurde eher aus ästhetischen als aus funktionalen Gründen hergestellt. Sie verursacht weniger Schaden, sieht aber toll aus.</UMW_Ornamental.description>
+
+  <!-- EN: beautiful -->
+  <UMW_Ornamental.traitAdjectives.0>schön</UMW_Ornamental.traitAdjectives.0>
+
+  <!-- EN: elegant -->
+  <UMW_Ornamental.traitAdjectives.1>elegant</UMW_Ornamental.traitAdjectives.1>
+
+  <!-- EN: ornamental -->
+  <UMW_Ornamental.traitAdjectives.2>verziert</UMW_Ornamental.traitAdjectives.2>
+
+
+  <!-- EN: piledriver -->
+  <UMW_Piledriver.label>Rammkopf</UMW_Piledriver.label>
+
+  <!-- EN: The head is built as a piledriver. On command the weapon's full mass can be slammed into the ground, sending a stunning shockwave out through the earth. The shock is indiscriminate; it stuns friend and foe alike, though the braced wielder is spared. Once used, the mechanism takes time to reset. -->
+  <UMW_Piledriver.description>Der Kopf ist als Ramme gebaut. Auf Befehl lässt sich die volle Masse der Waffe in den Boden rammen, wodurch eine betäubende Schockwelle durch die Erde läuft. Der Stoß trifft ohne Unterschied: Er betäubt Freund und Feind gleichermaßen, nur der abgestützte Träger bleibt verschont. Nach dem Gebrauch braucht der Mechanismus Zeit, bis er wieder einsatzbereit ist.</UMW_Piledriver.description>
+
+  <!-- EN: piledriving -->
+  <UMW_Piledriver.traitAdjectives.0>rammend</UMW_Piledriver.traitAdjectives.0>
+
+  <!-- EN: earthshaking -->
+  <UMW_Piledriver.traitAdjectives.1>erderschütternd</UMW_Piledriver.traitAdjectives.1>
+
+  <!-- EN: quaking -->
+  <UMW_Piledriver.traitAdjectives.2>erschütternd</UMW_Piledriver.traitAdjectives.2>
+
+  <!-- EN: thunderous -->
+  <UMW_Piledriver.traitAdjectives.3>donnernd</UMW_Piledriver.traitAdjectives.3>
+
+
+  <!-- EN: plasma-cored -->
+  <UMW_PlasmaCored.label>plasmaumhüllt</UMW_PlasmaCored.label>
+
+  <!-- EN: The core of the blade channels a sheath of plasma, held in place by an energy field and released into the wounds it cuts. It sears flesh and sometimes ignites the target. -->
+  <UMW_PlasmaCored.description>Der Kern der Klinge ist von Plasma umhüllt, das von einem Kraftfeld in Position gehalten und in jede geschnittene Wunde entladen wird. Es versengt das Fleisch und steckt das Ziel manchmal in Brand.</UMW_PlasmaCored.description>
+
+  <!-- EN: plasma-cored -->
+  <UMW_PlasmaCored.traitAdjectives.0>plasmaumhüllt</UMW_PlasmaCored.traitAdjectives.0>
+
+  <!-- EN: burning -->
+  <UMW_PlasmaCored.traitAdjectives.1>brennend</UMW_PlasmaCored.traitAdjectives.1>
+
+  <!-- EN: searing -->
+  <UMW_PlasmaCored.traitAdjectives.2>sengend</UMW_PlasmaCored.traitAdjectives.2>
+
+  <!-- EN: fiery -->
+  <UMW_PlasmaCored.traitAdjectives.3>feurig</UMW_PlasmaCored.traitAdjectives.3>
+
+  <!-- EN: incandescent -->
+  <UMW_PlasmaCored.traitAdjectives.4>glühend</UMW_PlasmaCored.traitAdjectives.4>
+
+
+  <!-- EN: quilloned -->
+  <UMW_Quilloned.label>Parierstangen</UMW_Quilloned.label>
+
+  <!-- EN: Quillons flare wide from the hilt, letting the wielder catch incoming blows and turn them aside. -->
+  <UMW_Quilloned.description>Parierstangen stehen weit vom Griff ab, sodass der Träger eingehende Schläge auffangen und parieren kann.</UMW_Quilloned.description>
+
+  <!-- EN: quilloned -->
+  <UMW_Quilloned.traitAdjectives.0>parierstangenbewehrt</UMW_Quilloned.traitAdjectives.0>
+
+  <!-- EN: cross-guarded -->
+  <UMW_Quilloned.traitAdjectives.1>kreuzbewehrt</UMW_Quilloned.traitAdjectives.1>
+
+  <!-- EN: warding -->
+  <UMW_Quilloned.traitAdjectives.2>wehrhaft</UMW_Quilloned.traitAdjectives.2>
+
+
+  <!-- EN: razored -->
+  <UMW_Razored.label>rasierscharf</UMW_Razored.label>
+
+  <!-- EN: The edge is honed to a keen razor that bites deeper and drives cleanly through armor. -->
+  <UMW_Razored.description>Die Schneide ist zu einer rasierscharfen Klinge geschliffen, die tiefer beißt und sauber durch Rüstung dringt.</UMW_Razored.description>
+
+  <!-- EN: razored -->
+  <UMW_Razored.traitAdjectives.0>rasierscharf</UMW_Razored.traitAdjectives.0>
+
+  <!-- EN: razor-sharp -->
+  <UMW_Razored.traitAdjectives.1>messerscharf</UMW_Razored.traitAdjectives.1>
+
+  <!-- EN: keen -->
+  <UMW_Razored.traitAdjectives.2>haarscharf</UMW_Razored.traitAdjectives.2>
+
+
+  <!-- EN: serrated -->
+  <UMW_Serrated.label>gezahnt</UMW_Serrated.label>
+
+  <!-- EN: The edge is cut into vicious teeth that tear ragged, freely bleeding wounds, though they slash a little shallower than a clean edge. On a thrust the same teeth catch and rip flesh as the blade is drawn back. -->
+  <UMW_Serrated.description>In die Schneide sind bösartige Zähne geschnitten, die ausgefranste, stark blutende Wunden reißen, dafür aber etwas flacher schneiden als eine glatte Klinge. Beim Stich verfangen sich dieselben Zähne und reißen das Fleisch auf, während die Waffe zurückgezogen wird.</UMW_Serrated.description>
+
+  <!-- EN: serrated -->
+  <UMW_Serrated.traitAdjectives.0>gezahnt</UMW_Serrated.traitAdjectives.0>
+
+  <!-- EN: jagged -->
+  <UMW_Serrated.traitAdjectives.1>gezackt</UMW_Serrated.traitAdjectives.1>
+
+  <!-- EN: vicious -->
+  <UMW_Serrated.traitAdjectives.2>bösartig</UMW_Serrated.traitAdjectives.2>
+
+  <!-- EN: sawtooth -->
+  <UMW_Serrated.traitAdjectives.3>sägeartig</UMW_Serrated.traitAdjectives.3>
+
+
+  <!-- EN: storied -->
+  <UMW_Storied.label>geschichtsträchtig</UMW_Storied.label>
+
+  <!-- EN: This weapon carries a recorded lineage of named bearers and remembered deeds. The wielder can raise it high in a rallying cry; allies who see it are steeled, and for a time wounds barely slow them. Such a moment can only be called upon once every few days. -->
+  <UMW_Storied.description>Diese Waffe trägt eine aufgezeichnete Ahnenreihe namentlich bekannter Träger und erinnerter Taten. Wer sie führt, kann sie zu einem Schlachtruf hoch erheben: Verbündete, die das sehen, sind angespornt, und Wunden bremsen sie für eine Zeit kaum. Ein solcher Augenblick lässt sich nur alle paar Tage herbeirufen.</UMW_Storied.description>
+
+  <!-- EN: storied -->
+  <UMW_Storied.traitAdjectives.0>geschichtsträchtig</UMW_Storied.traitAdjectives.0>
+
+  <!-- EN: fabled -->
+  <UMW_Storied.traitAdjectives.1>sagenumwoben</UMW_Storied.traitAdjectives.1>
+
+  <!-- EN: ancestral -->
+  <UMW_Storied.traitAdjectives.2>altehrwürdig</UMW_Storied.traitAdjectives.2>
+
+  <!-- EN: honored -->
+  <UMW_Storied.traitAdjectives.3>ruhmreich</UMW_Storied.traitAdjectives.3>
+
+
+  <!-- EN: studded -->
+  <UMW_Studded.label>genietet</UMW_Studded.label>
+
+  <!-- EN: The head is set with hard studs that concentrate the impact, driving extra force into every blow. -->
+  <UMW_Studded.description>Der Kopf ist mit harten Nieten beschlagen, die den Aufprall bündeln und jedem Schlag zusätzliche Kraft mitgeben.</UMW_Studded.description>
+
+  <!-- EN: studded -->
+  <UMW_Studded.traitAdjectives.0>genietet</UMW_Studded.traitAdjectives.0>
+
+  <!-- EN: knurled -->
+  <UMW_Studded.traitAdjectives.1>nietenbesetzt</UMW_Studded.traitAdjectives.1>
+
+  <!-- EN: cruel -->
+  <UMW_Studded.traitAdjectives.2>grausam</UMW_Studded.traitAdjectives.2>
+
+
+  <!-- EN: ugly -->
+  <UMW_Ugly.label>hässlich</UMW_Ugly.label>
+
+  <!-- EN: This weapon was crafted with no respect for aesthetics. It looks like junk but gets the job done. Traders will pay less for it. -->
+  <UMW_Ugly.description>Bei dieser Waffe wurde keine Rücksicht auf Ästhetik genommen. Sie sieht zwar aus wie Schrott, erfüllt aber ihren Zweck. Händler werden weniger dafür bezahlen.</UMW_Ugly.description>
+
+  <!-- EN: crude -->
+  <UMW_Ugly.traitAdjectives.0>primitiv</UMW_Ugly.traitAdjectives.0>
+
+  <!-- EN: ugly -->
+  <UMW_Ugly.traitAdjectives.1>hässlich</UMW_Ugly.traitAdjectives.1>
+
+  <!-- EN: monstrous -->
+  <UMW_Ugly.traitAdjectives.2>grässlich</UMW_Ugly.traitAdjectives.2>
+
+
+  <!-- EN: zeus-headed -->
+  <UMW_ZeusHeaded.label>Zeuskopf</UMW_ZeusHeaded.label>
+
+  <!-- EN: The head houses a miniaturized zeus-cell that releases an electromagnetic discharge on impact, temporarily disabling electronics and mechanoids. -->
+  <UMW_ZeusHeaded.description>Im Kopf sitzt ein verkleinerter Zeus-Kondensator, der bei einem Treffer einen elektromagnetischen Impuls auslöst und Elektronik und Mechanoiden vorübergehend lahmlegt.</UMW_ZeusHeaded.description>
+
+  <!-- EN: zeus-headed -->
+  <UMW_ZeusHeaded.traitAdjectives.0>EMP-verstärkt</UMW_ZeusHeaded.traitAdjectives.0>
+
+  <!-- EN: thunderous -->
+  <UMW_ZeusHeaded.traitAdjectives.1>blitzschlagend</UMW_ZeusHeaded.traitAdjectives.1>
+
+  <!-- EN: electric -->
+  <UMW_ZeusHeaded.traitAdjectives.2>elektrisch</UMW_ZeusHeaded.traitAdjectives.2>
+
+  <!-- EN: shocking -->
+  <UMW_ZeusHeaded.traitAdjectives.3>schockend</UMW_ZeusHeaded.traitAdjectives.3>
+
+</LanguageData>

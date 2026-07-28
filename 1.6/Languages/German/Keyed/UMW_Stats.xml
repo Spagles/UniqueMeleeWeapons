@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Info card: per-trait effect lines under vanilla's "Weapon traits" entry, one " - ..." line
+       each. Keep them short — the entry lists up to three traits at once. -->
+  <!-- Per-tool damage / armor penetration. {0} is a tool capacity ("cut", "cut and stab") or the
+       UMW_TraitStat_AllTools word when the trait modifies every tool. -->
+  <!-- EN: melee -->
+  <UMW_TraitStat_AllTools>Nahkampf</UMW_TraitStat_AllTools>
+
+  <!-- EN: {0} damage -->
+  <UMW_TraitStat_ToolDamage>Schaden ({0})</UMW_TraitStat_ToolDamage>
+
+  <!-- EN: {0} armor penetration -->
+  <UMW_TraitStat_ToolArmorPenetration>Rüstungsdurchdringung ({0})</UMW_TraitStat_ToolArmorPenetration>
+
+  <!-- EN: min. {0} -->
+  <UMW_TraitStat_Minimum>min. {0}</UMW_TraitStat_Minimum>
+
+  <!-- Rerouted base hit. {0} is the injury hediff's label; the bleed clause is appended in
+       parentheses when the new wound bleeds at a different rate than the one it replaces. -->
+  <!-- EN: Wound type: {0} -->
+  <UMW_TraitStat_WoundType>Wundart: {0}</UMW_TraitStat_WoundType>
+
+  <!-- EN: bleed rate {0} -->
+  <UMW_TraitStat_BleedRate>Blutung {0}</UMW_TraitStat_BleedRate>
+
+  <!-- EN: Stabs strike internal organs {0} of the time -->
+  <UMW_TraitStat_ForcedInternal>Stiche treffen in {0} der Fälle innere Organe</UMW_TraitStat_ForcedInternal>
+
+  <!-- On-hit effects. {0} (or {1}) is one of the effect clauses below; the chance form is used
+       whenever the effect can fail to proc. -->
+  <!-- EN: On hit: {0} -->
+  <UMW_TraitStat_OnHit>Bei Treffer: {0}</UMW_TraitStat_OnHit>
+
+  <!-- EN: On hit ({0}): {1} -->
+  <UMW_TraitStat_OnHitChance>Bei Treffer ({0}): {1}</UMW_TraitStat_OnHitChance>
+
+  <!-- EN: {0} {1} damage -->
+  <UMW_TraitStat_ExtraDamage>{0} Schaden ({1})</UMW_TraitStat_ExtraDamage>
+
+  <!-- EN: {0} {1} damage, {2} armor penetration -->
+  <UMW_TraitStat_ExtraDamageAP>{0} Schaden ({1}), {2} Rüstungsdurchdringung</UMW_TraitStat_ExtraDamageAP>
+
+  <!-- EN: {0} {1} damage, not reduced by armor -->
+  <UMW_TraitStat_ExtraDamageIgnoreArmor>{0} Schaden ({1}), nicht von Rüstung gemildert</UMW_TraitStat_ExtraDamageIgnoreArmor>
+
+  <!-- EN: stun for {0} -->
+  <UMW_TraitStat_Stun>Betäubung für {0}</UMW_TraitStat_Stun>
+
+  <!-- EN: stagger for {0} ({1} move speed) -->
+  <UMW_TraitStat_Stagger>Taumeln für {0} ({1} Laufgeschwindigkeit)</UMW_TraitStat_Stagger>
+
+  <!-- EN: {0} (flesh only) -->
+  <UMW_TraitStat_FleshOnly>{0} (nur organische Ziele)</UMW_TraitStat_FleshOnly>
+
+  <!-- EN: {0} (humanlikes only) -->
+  <UMW_TraitStat_HumanlikeOnly>{0} (nur Menschen)</UMW_TraitStat_HumanlikeOnly>
+
+  <!-- Wielder-side stat effect. {0} is a stat line or, for a hediff with no stat modifiers, the
+       hediff's own label. -->
+  <!-- EN: {0} (wielder) -->
+  <UMW_TraitStat_Wielder>{0} (Träger)</UMW_TraitStat_Wielder>
+
+  <!-- Defender-side parry. {0} is the parry chance. -->
+  <!-- EN: {0} chance to parry melee attacks -->
+  <UMW_TraitStat_Parry>{0} Chance, Nahkampfangriffe zu parieren</UMW_TraitStat_Parry>
+
+  <!-- Ability granted by the trait. {0} is the AbilityDef's label. -->
+  <!-- EN: Grants ability: {0} -->
+  <UMW_TraitStat_GrantsAbility>Verleiht Fähigkeit: {0}</UMW_TraitStat_GrantsAbility>
+
+  <!-- Forced art inscription: the weapon always carries an art title and description, regardless
+       of quality. -->
+  <!-- EN: Always bears an art inscription -->
+  <UMW_TraitStat_ForcedArt>Trägt immer eine Kunstinschrift</UMW_TraitStat_ForcedArt>
+
+</LanguageData>

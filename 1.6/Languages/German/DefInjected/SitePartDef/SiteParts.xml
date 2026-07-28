@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: warband camp -->
+  <UMW_WarbandCamp.label>Kriegerbandenlager</UMW_WarbandCamp.label>
+
+  <!-- EN: A hostile warband hiding out in an abandoned settlement. -->
+  <UMW_WarbandCamp.description>Eine feindliche Kriegerbande, die sich in einer verlassenen Siedlung versteckt.</UMW_WarbandCamp.description>
+
+</LanguageData>

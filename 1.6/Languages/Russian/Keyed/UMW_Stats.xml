@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
-  <!-- Info card: the per-trait effect lines added to vanilla's "Weapon traits" entry by
-       Source/1.6/Traits/TraitEffectSummary.cs. Each renders as one " - ..." line under its trait,
-       matching the format vanilla uses for a trait's own statOffsets/statFactors. Keep them short —
-       the entry lists up to three traits at once. -->
+  <!-- Info card: per-trait effect lines under vanilla's "Weapon traits" entry, one " - ..." line
+       each. Keep them short — the entry lists up to three traits at once. -->
   <!-- Per-tool damage / armor penetration. {0} is a tool capacity ("cut", "cut and stab") or the
        UMW_TraitStat_AllTools word when the trait modifies every tool. -->
   <!-- EN: melee -->
@@ -20,9 +18,7 @@
   <UMW_TraitStat_Minimum>мин. {0}</UMW_TraitStat_Minimum>
 
   <!-- Rerouted base hit. {0} is the injury hediff's label; the bleed clause is appended in
-       parentheses when the new wound bleeds at a different rate than the one it replaces. The
-       forced-internal line states the rerouted damage's stabChanceOfForcedInternal (vanilla stabs
-       roll 60%), shown when the conversion changes it. -->
+       parentheses when the new wound bleeds at a different rate than the one it replaces. -->
   <!-- EN: Wound type: {0} -->
   <UMW_TraitStat_WoundType>Тип раны: {0}</UMW_TraitStat_WoundType>
 
@@ -61,16 +57,12 @@
   <!-- EN: {0} (humanlikes only) -->
   <UMW_TraitStat_HumanlikeOnly>{0} (только человекоподобные)</UMW_TraitStat_HumanlikeOnly>
 
-  <!-- Wielder-side stat effect, carried by the trait's equippedStatOffsets (routed live by
-       StatWorker_UniqueTraitStatOffsets_Patch) or, should a trait ever need a stat factor, by an
-       equipped hediff. {0} is a stat line or, for a hediff with no stat modifiers, the hediff's own
-       label. The stat line is rendered unfinalized, so a stat with a postProcessCurve shows its raw
-       offset rather than a percentage ("Melee hit chance -1.0", the way vanilla shows Nimble's +15) —
-       see the StatWorker patch header for why those offsets are whole numbers. -->
+  <!-- Wielder-side stat effect. {0} is a stat line or, for a hediff with no stat modifiers, the
+       hediff's own label. -->
   <!-- EN: {0} (wielder) -->
   <UMW_TraitStat_Wielder>{0} (при экипировке)</UMW_TraitStat_Wielder>
 
-  <!-- Defender-side parry (MeleeParryExtension). {0} is the parry chance. -->
+  <!-- Defender-side parry. {0} is the parry chance. -->
   <!-- EN: {0} chance to parry melee attacks -->
   <UMW_TraitStat_Parry>шанс {0} парировать атаки ближнего боя</UMW_TraitStat_Parry>
 
@@ -78,8 +70,8 @@
   <!-- EN: Grants ability: {0} -->
   <UMW_TraitStat_GrantsAbility>Даёт способность: {0}</UMW_TraitStat_GrantsAbility>
 
-  <!-- Forced art inscription (ForcedArtExtension): the weapon always carries an art title and
-       description, regardless of quality. -->
+  <!-- Forced art inscription: the weapon always carries an art title and description, regardless
+       of quality. -->
   <!-- EN: Always bears an art inscription -->
   <UMW_TraitStat_ForcedArt>Всегда украшено художественной гравировкой</UMW_TraitStat_ForcedArt>
 

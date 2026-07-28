@@ -5,10 +5,7 @@
   <!-- EN: Unique Melee Weapons -->
   <UMW_SettingsCategory>特化近战武器</UMW_SettingsCategory>
 
-  <!-- Settings: section headers. Only the headers with no vanilla-localized equivalent live here:
-       the Abilities header reuses Core's Keyed <Abilities> string and the Quests header reuses the
-       quests main-tab button's def label (MainButtonDefOf.Quests), so both arrive pre-translated in
-       every language and must not be duplicated in this file. -->
+  <!-- Settings: section headers. -->
   <!-- EN: Weapons -->
   <UMW_SettingsWeapons>武器</UMW_SettingsWeapons>
 
@@ -24,11 +21,7 @@
   <!-- EN:  (same as {0}) -->
   <UMW_SameAsSuffix>（与“{0}”相同）</UMW_SameAsSuffix>
 
-  <!-- Settings: Weapons. One checkbox per weapon, labelled from the weapon's own def label; the row list
-       is generated, so this is the only string it needs. {0} is that label (lowercase).
-       "This mod's own ... and every vanilla" is a deliberate qualifier, not filler: the gate covers every
-       pool that asks ThingSetMakerUtility, which is all shipped content, but a third-party mod rolling
-       loot through its own custom generator can bypass it (see ThingSetMakerUtility_CanGenerate_Patch.cs). -->
+  <!-- Settings: Weapons. One checkbox per weapon. {0} is the weapon's own def label (lowercase). -->
   <!-- EN: Allow {0} to be generated. Turn off to remove it from this mod's own reward pool and from every vanilla generation and reward pool, including quest rewards, ancient crates, item stashes and map loot, so it no longer appears. (A third-party mod that rolls loot through its own custom generator may bypass this.) Any that already exist in your save are untouched, and the other weapons take its place in the rolls. Turning it back on is enough to restore it. -->
   <UMW_WeaponEnabledDesc>允许生成“{0}”。关闭后，该武器会从本模组自身的奖励池以及原版的所有生成池和奖励池中移除，包括任务奖励、密封储物箱、物品藏匿点和地图战利品，此后不会再出现。（通过自带生成器分配战利品的第三方模组可能绕过此设置。）存档中已有的该武器不受影响，其余武器会在抽取中顶替它的位置。重新开启即可将其恢复。</UMW_WeaponEnabledDesc>
 

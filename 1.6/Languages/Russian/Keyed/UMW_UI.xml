@@ -5,10 +5,7 @@
   <!-- EN: Unique Melee Weapons -->
   <UMW_SettingsCategory>Уникальное оружие ближнего боя</UMW_SettingsCategory>
 
-  <!-- Settings: section headers. Only the headers with no vanilla-localized equivalent live here:
-       the Abilities header reuses Core's Keyed <Abilities> string and the Quests header reuses the
-       quests main-tab button's def label (MainButtonDefOf.Quests), so both arrive pre-translated in
-       every language and must not be duplicated in this file. -->
+  <!-- Settings: section headers. -->
   <!-- EN: Weapons -->
   <UMW_SettingsWeapons>Оружие</UMW_SettingsWeapons>
 
@@ -24,11 +21,7 @@
   <!-- EN:  (same as {0}) -->
   <UMW_SameAsSuffix> (как у «{0}»)</UMW_SameAsSuffix>
 
-  <!-- Settings: Weapons. One checkbox per weapon, labelled from the weapon's own def label; the row list
-       is generated, so this is the only string it needs. {0} is that label (lowercase).
-       "This mod's own ... and every vanilla" is a deliberate qualifier, not filler: the gate covers every
-       pool that asks ThingSetMakerUtility, which is all shipped content, but a third-party mod rolling
-       loot through its own custom generator can bypass it (see ThingSetMakerUtility_CanGenerate_Patch.cs). -->
+  <!-- Settings: Weapons. One checkbox per weapon. {0} is the weapon's own def label (lowercase). -->
   <!-- EN: Allow {0} to be generated. Turn off to remove it from this mod's own reward pool and from every vanilla generation and reward pool, including quest rewards, ancient crates, item stashes and map loot, so it no longer appears. (A third-party mod that rolls loot through its own custom generator may bypass this.) Any that already exist in your save are untouched, and the other weapons take its place in the rolls. Turning it back on is enough to restore it. -->
   <UMW_WeaponEnabledDesc>Разрешить генерацию «{0}». Отключите, чтобы убрать это оружие из собственного пула наград мода и из всех игровых пулов генерации и наград — включая награды за задания, герметичные ящики, тайники и добычу на карте, — после чего оно перестанет появляться. (Сторонний мод, распределяющий добычу через собственный генератор, может обойти эту настройку.) Экземпляры, уже существующие в сохранении, останутся нетронутыми, а место этого оружия в розыгрышах займут остальные. Чтобы вернуть его, достаточно снова включить настройку.</UMW_WeaponEnabledDesc>
 

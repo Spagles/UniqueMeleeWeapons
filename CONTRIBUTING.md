@@ -16,10 +16,14 @@ welcome too.
 | Russian              | Machine-assisted | Fable 5 |
 | Korean               | Machine-assisted | Opus 5  |
 | German               | Machine-assisted | Opus 5  |
-| Spanish              | Planned          |         |
+| Spanish              | Machine-assisted | Opus 5  |
 | French               | Planned          |         |
 | Brazilian Portuguese | Planned          |         |
 | Japanese             | Machine-assisted | Opus 5  |
+
+Spanish here means Castilian (RimWorld's `Spanish` language folder). RimWorld also
+ships a separate Latin American Spanish (`SpanishLatin`); a translation for it is
+welcome as its own folder rather than as edits to this one.
 
 Statuses: **Source** (the authoritative English strings), **Machine-assisted**
 (generated with terminology grounded against the official RimWorld

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>questName->The [savage] [warband]</li>
+    <li>questName->[savage] [warband]</li>
+    <li>savage->Savage</li>
+    <li>savage->Wild</li>
+    <li>savage->Fierce</li>
+    <li>savage->Bloodthirsty</li>
+    <li>savage->Roaming</li>
+    <li>warband->Warband</li>
+    <li>warband->War Party</li>
+    <li>warband->Marauders</li>
+    <li>warband->Raiders</li>
+    <li>warband->Warriors</li>
+  -->
+  <UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+    <li>questName->La [warband_f] [savage_f]</li>
+    <li>questName->Los [warband_m] [savage_m]</li>
+    <li>questName->[warband_f] [savage_f]</li>
+    <li>questName->[warband_m] [savage_m]</li>
+    <li>warband_f->banda de guerra</li>
+    <li>warband_f->partida de guerra</li>
+    <li>warband_m->merodeadores</li>
+    <li>warband_m->saqueadores</li>
+    <li>warband_m->guerreros</li>
+    <li>savage_f->salvaje</li>
+    <li>savage_f->indómita</li>
+    <li>savage_f->feroz</li>
+    <li>savage_f->sanguinaria</li>
+    <li>savage_f->errante</li>
+    <li>savage_m->salvajes</li>
+    <li>savage_m->indómitos</li>
+    <li>savage_m->feroces</li>
+    <li>savage_m->sanguinarios</li>
+    <li>savage_m->errantes</li>
+  </UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+
+  <!-- EN:
+    <li>questDescription->[discoveryMethod] the location of a band of marauding tribal warriors. This war party has been preying on settlements and travellers across the surrounding lands.\n\nThe band is led by [LEADER_nameDef], who possesses a unique [WEAPON_quality] weapon. The group contains:\n\n[warbandList]\n\nIf you're able to capture or kill the leader, you can take the unique weapon.\n\n[location]</li>
+    <li>location(atLandmark==true)->The warriors are hiding out in an abandoned settlement at [landmarkName].</li>
+    <li>location(atLandmark==false)->The warriors are hiding out in an abandoned settlement.</li>
+  -->
+  <UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+    <li>questDescription->[discoveryMethod] la ubicación de una banda de guerreros tribales merodeadores. Esta partida de guerra lleva tiempo asaltando asentamientos y viajeros por las tierras de los alrededores.\n\nLa banda está liderada por [LEADER_nameDef], quien posee un arma única: [WEAPON_quality]. El grupo está formado por:\n\n[warbandList]\n\nSi logras capturar o matar al líder, puedes tomar su arma.\n\n[location]</li>
+    <li>location(atLandmark==true)->Los guerreros se esconden en un asentamiento abandonado en [landmarkName].</li>
+    <li>location(atLandmark==false)->Los guerreros se esconden en un asentamiento abandonado.</li>
+  </UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+
+  <!-- EN:
+    <li>subject->tribal raiders</li>
+    <li>subject->marauding warriors</li>
+    <li>subject->savage tribesfolk</li>
+    <li>questMapFeature->raider camp</li>
+    <li>questMapFeature->drawing of a tribal warrior</li>
+    <li>questMapFeature->sketch of a master-forged blade</li>
+    <li>questMapText->dangerous raiders</li>
+    <li>questMapText->a master-forged weapon</li>
+    <li>questMapText->savage warriors</li>
+  -->
+  <UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+    <li>subject->saqueadores tribales</li>
+    <li>subject->guerreros merodeadores</li>
+    <li>subject->tribales salvajes</li>
+    <li>questMapFeature->campamento de saqueadores</li>
+    <li>questMapFeature->dibujo de un guerrero tribal</li>
+    <li>questMapFeature->boceto de una hoja forjada por un maestro</li>
+    <li>questMapText->saqueadores peligrosos</li>
+    <li>questMapText->un arma forjada por un maestro</li>
+    <li>questMapText->guerreros salvajes</li>
+  </UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+
+</LanguageData>

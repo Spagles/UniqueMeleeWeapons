@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- In-combat floating text. -->
+  <!-- Thrown over a pawn whose weapon parries an incoming melee blow; the parry counterpart of
+       vanilla's <TextMote_Dodge>Dodge</TextMote_Dodge> (es: Esquivado), so keep the same
+       single-word past-participle register. "Parado" is avoided because it reads as
+       "standing"/"unemployed" in Spanish. -->
+  <!-- EN: Parried -->
+  <UMW_TextMote_Parried>Desviado</UMW_TextMote_Parried>
+
+</LanguageData>

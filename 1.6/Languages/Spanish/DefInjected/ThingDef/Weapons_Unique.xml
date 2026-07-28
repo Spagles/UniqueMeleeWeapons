@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: unique axe -->
+  <UMW_Axe_Unique.label>hacha única</UMW_Axe_Unique.label>
+
+  <!-- EN: An axe bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Axe_Unique.description>Un hacha con las marcas de una mano maestra. No se forjan dos iguales.</UMW_Axe_Unique.description>
+
+  <!-- EN: axe -->
+  <UMW_Axe_Unique.comps.5.namerLabels.0>hacha</UMW_Axe_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: cleaver -->
+  <UMW_Axe_Unique.comps.5.namerLabels.1>machete</UMW_Axe_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: bit -->
+  <UMW_Axe_Unique.comps.5.namerLabels.2>hoja</UMW_Axe_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Axe_Unique.comps.5.namerLabels.3>filo</UMW_Axe_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique gladius -->
+  <UMW_Gladius_Unique.label>gladius único</UMW_Gladius_Unique.label>
+
+  <!-- EN: A gladius bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Gladius_Unique.description>Un gladius con las marcas de una mano maestra. No se forjan dos iguales.</UMW_Gladius_Unique.description>
+
+  <!-- EN: gladius -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.0>gladius</UMW_Gladius_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.1>hoja</UMW_Gladius_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: sword -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.2>espada</UMW_Gladius_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.3>filo</UMW_Gladius_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique knife -->
+  <UMW_Knife_Unique.label>cuchillo único</UMW_Knife_Unique.label>
+
+  <!-- EN: A knife honed by a master's hand. No two are forged alike. -->
+  <UMW_Knife_Unique.description>Un cuchillo afilado por una mano maestra. No se forjan dos iguales.</UMW_Knife_Unique.description>
+
+  <!-- EN: knife -->
+  <UMW_Knife_Unique.comps.5.namerLabels.0>cuchillo</UMW_Knife_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_Knife_Unique.comps.5.namerLabels.1>hoja</UMW_Knife_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: dagger -->
+  <UMW_Knife_Unique.comps.5.namerLabels.2>daga</UMW_Knife_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Knife_Unique.comps.5.namerLabels.3>filo</UMW_Knife_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique longsword -->
+  <UMW_LongSword_Unique.label>espada larga única</UMW_LongSword_Unique.label>
+
+  <!-- EN: A longsword bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_LongSword_Unique.description>Una espada larga con las marcas de una mano maestra. No se forjan dos iguales.</UMW_LongSword_Unique.description>
+
+  <!-- EN: longsword -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.0>espada larga</UMW_LongSword_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.1>hoja</UMW_LongSword_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: sword -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.2>espada</UMW_LongSword_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.3>filo</UMW_LongSword_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique mace -->
+  <UMW_Mace_Unique.label>maza única</UMW_Mace_Unique.label>
+
+  <!-- EN: A mace bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Mace_Unique.description>Una maza con las marcas de una mano maestra. No se forjan dos iguales.</UMW_Mace_Unique.description>
+
+  <!-- EN: mace -->
+  <UMW_Mace_Unique.comps.5.namerLabels.0>maza</UMW_Mace_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: bludgeon -->
+  <UMW_Mace_Unique.comps.5.namerLabels.1>garrote</UMW_Mace_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: club -->
+  <UMW_Mace_Unique.comps.5.namerLabels.2>porra</UMW_Mace_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: head -->
+  <UMW_Mace_Unique.comps.5.namerLabels.3>cabeza</UMW_Mace_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique spear -->
+  <UMW_Spear_Unique.label>lanza única</UMW_Spear_Unique.label>
+
+  <!-- EN: A spear bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Spear_Unique.description>Una lanza con las marcas de una mano maestra. No se forjan dos iguales.</UMW_Spear_Unique.description>
+
+  <!-- EN: spear -->
+  <UMW_Spear_Unique.comps.5.namerLabels.0>lanza</UMW_Spear_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: lance -->
+  <UMW_Spear_Unique.comps.5.namerLabels.1>lanzón</UMW_Spear_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: pike -->
+  <UMW_Spear_Unique.comps.5.namerLabels.2>pica</UMW_Spear_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: point -->
+  <UMW_Spear_Unique.comps.5.namerLabels.3>punta</UMW_Spear_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique warhammer -->
+  <UMW_Warhammer_Unique.label>martillo de guerra único</UMW_Warhammer_Unique.label>
+
+  <!-- EN: A warhammer bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Warhammer_Unique.description>Un martillo de guerra con las marcas de una mano maestra. No se forjan dos iguales.</UMW_Warhammer_Unique.description>
+
+  <!-- EN: warhammer -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.0>martillo de guerra</UMW_Warhammer_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: hammer -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.1>martillo</UMW_Warhammer_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: maul -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.2>mazo</UMW_Warhammer_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: head -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.3>cabeza</UMW_Warhammer_Unique.comps.5.namerLabels.3>
+
+</LanguageData>

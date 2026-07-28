@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: blood-stained weapon -->
+  <UMW_BloodStainedWeapon.stages.0.label>arma manchada de sangre</UMW_BloodStainedWeapon.stages.0.label>
+
+  <!-- EN: I'm carrying a weapon caked in dried blood. Its reek, and the thought of what it's done, turn my stomach. -->
+  <UMW_BloodStainedWeapon.stages.0.description>Llevo un arma cubierta de costras de sangre seca. Su hedor, y pensar en lo que ha hecho, me revuelven el estómago.</UMW_BloodStainedWeapon.stages.0.description>
+
+  <!-- EN: blood-stained weapon -->
+  <UMW_BloodStainedWeapon.stages.1.label>arma manchada de sangre</UMW_BloodStainedWeapon.stages.1.label>
+
+  <!-- EN: I'm carrying a weapon caked in dried blood. Its reek, and the thought of what it's done, thrill me to the core. -->
+  <UMW_BloodStainedWeapon.stages.1.description>Llevo un arma cubierta de costras de sangre seca. Su hedor, y pensar en lo que ha hecho, me estremecen hasta la médula.</UMW_BloodStainedWeapon.stages.1.description>
+
+
+  <!-- EN: storied weapon -->
+  <UMW_StoriedWeapon.stages.0.label>arma de renombre</UMW_StoriedWeapon.stages.0.label>
+
+  <!-- EN: I'm carrying a weapon with a name and a history. The deeds of those who bore it before me are remembered, and one day mine will be too. -->
+  <UMW_StoriedWeapon.stages.0.description>Llevo un arma con nombre e historia. Las hazañas de quienes la portaron antes que yo se recuerdan, y algún día se recordarán también las mías.</UMW_StoriedWeapon.stages.0.description>
+
+</LanguageData>

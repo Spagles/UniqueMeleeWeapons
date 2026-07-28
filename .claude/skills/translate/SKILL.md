@@ -106,8 +106,9 @@ stun, burn, bleeding), and the opportunity-site quest vocabulary
 ### Glossary — shared across the mod family
 
 The RU and JP rows were learned in the companion mod (UWU) from native review
-(RU) and vanilla-data study (JP); the Simplified Chinese and Korean sections
-were learned in this repo's 2026-07 generations. Lessons propagate across all three repos
+(RU) and vanilla-data study (JP); the Simplified Chinese, Korean, German and
+Spanish sections were learned in this repo's 2026-07 generations. Lessons
+propagate across all three repos
 (here, ../UniqueWeaponsUnbound, ../PersonaWeaponsUnbound): when a row is added
 or corrected in one skill, mirror it into the siblings, adjusting
 domain-specific rows. Add rows whenever a native review lands corrections.
@@ -633,6 +634,191 @@ uninflected stems where they are trait adjectives: `Panzerdorn` (armor spike),
 / `monomolekularweiß` / `plasmaorange` (patterned on Odyssey's
 `eisblau`/`feuerorange`).
 
+#### Spanish (Castellano) (from this repo's machine-assisted generation, 2026-07-29)
+
+RimWorld ships **two** Spanish languages: `Spanish (Español(Castellano)).tar` and
+`SpanishLatin (Español(Latinoamérica)).tar`. The roster's "Spanish" means the
+Castilian one, so the mod folder is `Spanish` (the parenthetical is stripped by
+`legacyFolderName`, same mechanism as `Japanese`/`Korean`). A LatAm pass would be a
+separate `SpanishLatin` folder, not an edit to this one.
+
+`Verse.LanguageWorker_Spanish` is decompiled and **imposes no hidden authoring
+requirements** — no `PostProcessed` override (unlike German), no particle system
+(unlike Korean). It prepends `el/la/los/las` and `un/una/unos/unas` from the word's
+gender, returns names unchanged, has full `Pluralize` rules plus a `plural.txt`
+lookup, and renders ordinals `N.º`. Notably it does **not** contract `de el`/`a el`
+— see below, that is the author's job.
+
+Style rules from the vanilla es data (mandatory):
+
+- **ASCII straight double quotes** for cited def labels: vanilla writes
+  `La misión se llama "{0}".` — 7689 ASCII `"` against **7** curly `“` and **zero**
+  guillemets `«»`. Do not port ja's 「」, ru's «», or zh's “”.
+- **Inverted opening marks are required**: `¿…?`, `¡…!` (168 / 433 in Core).
+- **Zero dashes.** Core+DLC contain **no** em dashes and **no** en dashes, so an
+  English `—` must be **reflowed**, not converted. This is the opposite of German,
+  which mandates `–`.
+- Ellipsis is ASCII `...`. Descriptions end `.`; labels, buttons and stat fragments
+  take none, and labels are lowercase noun phrases.
+- **Informal tú with imperatives**, decisively: Explora 12 / Explore 0, Asegúrate
+  41 / Asegúrese 0, `tu colonia` 61 / `su colonia` 3.
+- **Adjectives postpose and agree in gender + number.** So `unique <weapon>` is
+  `<arma> único/única` — Odyssey ships `arco grande único`, `escopeta automática
+  única`, `minigun única`.
+- Two different gender hedges, and the right one depends on the field: a
+  `deathMessage` takes the inline resolver form (`{0} ha muerto quemad{0_gender ?
+  o : a}.`), while a bare-participle `injuryProps.destroyedLabel` takes a
+  capitalized `(a)` (`Lacerado(a)`, `Seccionado(a)`, `Quemado(a)`).
+- `labelNoun` **carries the indefinite article** (`un corte`, `una puñalada`, `una
+  quemadura`) — the same shape German has and ja/ko/zh don't.
+
+**Spanish solves name-grammar gender by SPLITTING SYMBOLS, not by tagging nouns.**
+Odyssey's es `NamerUniqueWeapon` keeps parallel families — `badass_concept` (M) vs
+`badass_conceptF` (F), `concept` vs `conceptF` — and writes one rule per gender
+(`[weapon_type] del [badass_concept]` / `… de la [badass_conceptF]`). There are no
+inline `|M|`-style markers and no `{replace:}` gender stripping. Consequences:
+
+- **`namerLabels` are bare lowercase nouns with NO markers** — the exact inverse of
+  German. Odyssey's es namer never puts an article or an agreeing adjective beside
+  `[weapon_type]`, precisely because its gender is unknowable there, so nothing
+  needs marking.
+- **`traitAdjectives` must be GENDER-INVARIANT**, because they postpose straight onto
+  a weapon noun of either gender (`[weapon_type] [trait_adjective]` → `espada larga`
+  F or `martillo de guerra` M). Two legal shapes, both used throughout Odyssey's own
+  es trait file: an invariant adjective (`-e`, `-al`, `-ar`, `-z`, `-ista`, `-ble`,
+  `-il` — `torpe`, `elegante`, `ornamental`, `ágil`, `veloz`, `brillante`,
+  `horripilante`), or a **prepositional phrase** (`de oro`, `de jade`, `de adorno`,
+  `de gran tamaño`, `de manejo torpe`, `con buscador`). A bare `-o`/`-a` adjective is
+  silently broken on half the weapons. Note the trait's own `label` is a different
+  field and *may* inflect — Odyssey uses default masculine (`ligero`, `feo`).
+  Also keep such an adjective **material-neutral**: a universal trait rolls on wood,
+  jade and plasteel too, so `de acero carbonizado` is wrong where
+  `de superficie carbonizada` is right.
+- **Weapon names carry no definite article at all** in Odyssey's es patterns. Drop
+  English's "The" rather than trying to supply `el`/`la`.
+- **es redefines `weapon_adjective` as a prepositional phrase**, not an adjective
+  (`weapon_adjective->del [concept]` / `de la [conceptF]`). Its `badass_adjective`
+  list survives but is referenced by no rule — dead weight in es.
+
+**`de el` → `del` and `a el` → `al` must be contracted by hand.** `[X_definite]`
+emits `el …` already wrapped in a colour tag, so Core es fixes this 89 times with the
+colour code baked into the search pattern:
+
+```
+{replace: de [RECIPIENT_definite]; "de &lt;color=#D09B61FF>el "-"&lt;color=#D09B61FF>del "}
+{replace: a [RECIPIENT_definite]; "a &lt;color=#D09B61FF>el "-"&lt;color=#D09B61FF>al "}
+```
+
+Feminine (`de la pirata`) and named pawns (`de Roberto`, no article) simply don't
+match and pass through untouched, which is correct. **Core es also ships a shorter
+variant, `{replace: de [X]; ">el "-">del "}` (20 uses in `RulePacks_CombatRanged`),
+and that one is buggy** — it leaves the literal `de ` outside the match and renders
+"de del proyectil". Copy the full form only. The alternative is to restructure so no
+`de`/`a` precedes a `_definite` symbol.
+
+**`[RECIPIENT_possessive]` resolves to `su` and has NO plural form** — Core
+`Keyed/Grammar.xml` sets `Prohis`/`Proher`/`Proits` all to `su`. Since Spanish `su`
+agrees in number with the *possessed* noun, the symbol is only safe before a
+**singular** noun; `[RECIPIENT_possessive] gavilanes` would ship "su gavilanes" every
+roll. Use the definite article for plurals (`los gavilanes`), which is also the more
+idiomatic Spanish for one's own equipment. This is a third distinct answer to the
+possessive question: ko drops the symbol, de keeps and inflects it, es keeps it only
+in the singular.
+
+**Battle-log `rulesStrings` are preterite** (`evitó`, `falló`, `vaciló`, `se tropezó`,
+`se tambaleó`, `se resbaló`, `saltó`) — not the perfect. es `[skillAdv]` values are
+adverbs (`incompetentemente`, `ineptamente`), and Core places `[skillAdvMaybe]`
+*before* the verb.
+
+**The stuff frame inverts, and here the `weapon_adjective` rule SURVIVES** (unlike
+German, where it had to be dropped). Core es `ThingMadeOfStuffLabel` is `{1} de {0}`,
+and es `stuffProps.stuffAdjective` values are bare nouns (`acero`, `plastiacero`,
+`madera`, `jade`, `oro`, plus pre-framed `piel gruesa` / `cuero ligero`). Because es
+`weapon_adjective` is *already* prepositional, `weapon_adjective->de
+[stuff_adjective]` composes correctly with every Odyssey pattern (`espada larga de
+acero`, `filo de plastiacero`). Build the `r_weapon_name` patterns on the same `de`
+frame, article-free.
+
+**Quest grammar is markedly simpler than German's.** `[discoveryMethod]` carries no
+case markers in es — Odyssey uses it bare (`[discoveryMethod] la ubicación de una
+infame compañía de mercenarios.`) — so there is nothing to `{replace:}` away, and
+`questSubjectRules` needs only the plain `subject` / `questMapFeature` /
+`questMapText` families, with no genitive/dative variants. Two Odyssey es renderings
+are worth reusing verbatim: `un arma única: [WEAPON_quality]` (a colon sidesteps
+quality-adjective agreement) and `Si logras capturar o matar al líder, puedes tomar
+su arma.`
+
+**The trait row collapses in Spanish, exactly as it does in German.** Odyssey's
+`Stat_ThingUniqueWeaponTrait_Label`, `WeaponTraits` **and** Core's pawn-trait
+`Traits` are all **Rasgos**; the disambiguated form is vanilla's own
+`StatsReport_WeaponTraits` = **Rasgos del arma**. Royalty's *persona* word is
+`Características` (PWU's domain, not ours). Run the lookup anyway; expect a collision.
+
+| English | Use | Never | Why |
+|---|---|---|---|
+| trait (weapon) | `rasgo` / `rasgos`; standalone `Rasgos del arma` | `propiedad`, `característica` | Odyssey `Stat_ThingUniqueWeaponTrait_Label`, `StatsReport_WeaponTraits`; `Características` is Royalty's persona word |
+| unique weapon | `arma única` | | Odyssey `UniqueWeapon` |
+| longsword / spear / mace / knife / gladius | `espada larga` (F) / `lanza` (F) / `maza` (F) / `cuchillo` (M) / `gladius` (M) | | Core labels; genders matter for the `único/única` suffix |
+| axe / warhammer / club | `hacha` (F, takes *el/un hacha*) / `martillo de guerra` (M) / `porra` (F) | | Core |
+| monosword / plasmasword / zeushammer | `mono-espada` / `espada de plasma` / `martillo de Zeus` | | Royalty labels |
+| **monomolecular (adjective)** | **`mono-molecular`** — hyphenated | `monomolecular` | Royalty renders the *adjective* hyphenated 4/4, though its *noun* varies (`mono-espada` 2 / `monoespada` 3) |
+| tool: handle / point / edge / blade / head / shaft | `mango` (bladed, blunt) or `empuñadura` (axe, warhammer, ultratech) / `punta` / `filo` / `hoja` / `cabeza` / `ástil` | | Core+Royalty `tools.*.label` |
+| **cut / stab (DamageDef)** | **`corte` / `apuñalamiento`** | `puñalada` (that is the *hediff* label) | Core splits them: DamageDef `Stab`=`apuñalamiento`, HediffDef `Stab`=`puñalada`; both `Cut`=`corte`. Same trap as ko/de |
+| blunt / burn / flame (DamageDef) | `contusión` / `quemadura` / `llama` | | Core |
+| toxic \<damage\> label | postposed agreeing adjective: `arañazo tóxico`, so a toxic stab is `apuñalamiento tóxico` | a prefix | Core `ScratchToxic` |
+| bandaged / tended / sutured | `vendada` / `atendida` / `suturada` — **agree with their own wound noun's gender** | | Core `HediffComp_TendDuration`; `corte` (M) and `puñalada` (F) therefore differ |
+| Cut off / Cut out | `Lacerado(a)` / `Seccionado(a)`; a stab uses `Perforado(a)` | | Core `Cut`/`Stab.injuryProps` — Core itself differentiates by wound |
+| \<x\> scar | `cicatriz de <noun>` (Core converts adjectival forms: "shredded scar" → `cicatriz de desgarramiento`) | `cicatriz <adj>` | Core `HediffComp_GetsPermanent` |
+| woozy / sedated | `atontado` / `sedado` | | Core `Anesthetic.stages.*` — **don't spend `sedado` on another stage**; "dosed" needed a fresh word (`medicado`) |
+| blood loss / bleeding | `pérdida de sangre` / `Hemorragia` | `sangrado` | Core `BloodLoss.label`, `BleedingRate` |
+| toxic buildup / anesthetic | `acumulación tóxica` / `anestesia` | | Core |
+| **Dodge (TextMote)** | **`Esquivado`** (past participle — match this register for a parry mote) | | Core `TextMote_Dodge` |
+| stun / EMP / stagger | `aturdir`/`aturdido` / **`PEM`** / `tambaleo` | `EMP` | Core `Stun`, `EMP.label`, `StunnedByEMP`=`Aturdido por PEM`, `StaggerDurationFactor` |
+| melee armor penetration / melee damage multiplier | `penetración de armadura CaC` / `multi. de daño cuerpo a cuerpo` | | Core StatDefs |
+| move speed / max hit points / deterioration / flammability / market value | `velocidad de movimiento` / `puntos de impacto máximos` / `índice de deterioro` / `inflamabilidad` / `valor de mercado` | | Core StatDefs |
+| **quest** | **`misión`** | `búsqueda` | Core `Quest`, MainButton `Quests.label`=`misiones` |
+| cooldown / ability / radius / cells | `enfriamiento` / `habilidad` / `radio` / `casillas` | | Core |
+| quality tiers | `horrible·mediocre·normal·bueno·excelente·obra maestra·legendaria` | | Core `QualityCategory_*` |
+| wood / plasteel / uranium / jade / steel / silver / gold | `madera` / **`plastiacero`** / `uranio` / `jade` / `acero` / `plata` / `oro` | `plasacero` | Core labels + `stuffAdjective` |
+| **purple (weapon colour)** | **`púrpura`** | `morado` | Core's generic ColorDefs say `morado`, but **Odyssey's own `UniqueWeapon_*` colour defs — the exact analog — say `púrpura`** (`púrpura apagado`). Match the nearer file |
+| mechanite / mechanoid | `mecanita`/`mecanitas` (F) / `mecanoide` | `nanomáquina` | Royalty monosword desc |
+| wielder / bearer | `usuario` / `portador` | | Odyssey `EMPPulser` (`pulso PEM`, `centrado en el usuario`), Royalty trait descs |
+| item stash / bandit camp / ancient mercenaries / sealed crate | `Alijo de objetos` / `campamento de bandidos` / `mercenarios antiguos` / `caja sellada` | | Core sites, Odyssey quest + `AncientSealedCrate` |
+| abandoned settlement | `asentamiento abandonado` (Odyssey) or `colonia abandonada` (Core) | | both attested; prefer Odyssey's for a site part |
+| tribesman / tribespeople / chief / fierce tribe | `tribal` / `tribales` / `jefe` / `tribu agresiva` | | Core `TribeRough` |
+| **warlord** | **`señor de la guerra`**; short `caudillo` | | Core `Warlordess56.title`/`.titleShort` — vanilla-attested, not a coinage |
+| relic / ultratech (tech level) | `reliquia` / `ultra` | | Ideology `Relic`, Core `TechLevel_Ultra`. The *adjective* `ultratecnológico` is Core-attested (6+) and safe in prose |
+| Cancel / Reset / Confirm / Default / None | `Cancelar` / `Restablecer` / `Confirmar` / `Por defecto` / `Ninguno` | | Core buttons |
+| Traders will pay more/less for it. | `Los comerciantes pagarán más por ella.` / `… menos por ella.` | | Odyssey `GoldInlay`/`Ugly` — reuse verbatim |
+
+The six Odyssey ports have official es labels, adjectives and — for four of them —
+descriptions matching our English word for word (`ornamental`, `feo`, `incrustación
+de oro`, `incrustación de jade`); copy those verbatim. `Lightweight` (`ligero`) and
+`Cumbersome` (`torpe`) need only their aim-vs-swing clause adapted. As in ko and de,
+Odyssey's `Ugly` adjective *indices* differ from ours: re-map by meaning
+(crude=`de aspecto horrible`, ugly=`horripilante`, monstrous=`horrible`).
+
+Mod-decided terms pending native review (from the 2026-07-29 commit), every trait
+adjective among them gender-invariant by construction: `pico perforante` (armor
+spike), `con lengüetas` (barbed), `fundido en campana` (bell-cast), `manchado de
+sangre` (blood-stained), `carbonizado`, `contrapesado`, `sin rebote` (dead-blow),
+`esmaltado`, `envenenado`, `de aletas` (flanged; flanges = `aletas`), `de cabeza
+pesada` (head-weighted), `punta de aguja`, `opiáceo`, `martinete` (piledriver),
+`núcleo de plasma`, `con gavilanes` (quilloned; quillons = `gavilanes`, crossguard =
+`cruz`, guard = `guarda` — **not** `guarnición`, which vanilla uses for "military
+garrison"), `filo de navaja` (razored), `serrado`, `de renombre` (storied), `con
+tachuelas` (studded), `cabeza de Zeus`; `Desviado` (the parry mote, register-matched
+to `Esquivado`; `Parada` is the fencing term and the likeliest reviewer alternative)
+with `desviar`/`paró`/`detuvo` in the log lines, `sacudida telúrica` (earthshake),
+`arenga` (rallying cry) / `arengado` (rallied), `acumulación de sedante` with the
+stage ladder `medicado`/`atontado`/`sedado`, `corte desgarrado` / `puñalada
+desgarrada` (ragged), `forjado por un maestro` (master-forged), `banda de guerra`
+(warband), `campamento de la banda de guerra`, `partida de guerra` (war party),
+`guerrero tribal` / `saqueador tribal`, `machete` (cleaver, vanilla-attested),
+`mazo` (maul), `lanzón` (lance), `pica` (pike), `garrote` (bludgeon), and the colours
+`rojo sangre` / `negro carbón` / `púrpura esmalte` / `blanco mono-molecular` /
+`naranja plasma` (patterned on Odyssey's `azul hielo` / `naranja fuego`).
+
 ### Cross-language lessons
 
 - Wrap injected `{0}` def labels in the language's quote marks (JP 「{0}」,
@@ -646,11 +832,49 @@ uninflected stems where they are trait adjectives: `Panzerdorn` (armor spike),
 - **The same def field can demand a different part of speech per language, and no
   checker sees it.** `traitAdjectives` wants an attributive phrase in ja (`の`/`な`-
   terminated), a bare modifier in zh (no trailing `的`), either form in ko (spaces,
-  so verb forms work), and in de an **uninflected adjective stem** that a
+  so verb forms work), in de an **uninflected adjective stem** that a
   `{replace:}` appends `-er/-e/-es` to — a noun is silently broken there and fine
-  elsewhere. Likewise `namerLabels` is plain text in ja/ko/zh but must carry a
-  `|M|/|F|/|N|` marker in de. Before translating a field that feeds name generation,
-  read how the target language's vanilla namer *consumes* it, not just how it reads.
+  elsewhere — and in es anything **gender-invariant**, i.e. an invariant adjective or
+  a `de …` phrase, since it postposes onto nouns of both genders with no agreement
+  machinery. Likewise `namerLabels` is plain text in ja/ko/zh, must carry a
+  `|M|/|F|/|N|` marker in de, and must be a **bare unmarked noun** in es. Before
+  translating a field that feeds name generation, read how the target language's
+  vanilla namer *consumes* it, not just how it reads.
+- **Gendered/inflecting languages solve name grammar in one of two ways, and you must
+  find out which before writing any rulepack.** German tags each noun inline
+  (`|M|Mäher`) and strips the marker with `{replace:}` per syntactic slot. Spanish
+  instead keeps **parallel symbol families** (`badass_concept` / `badass_conceptF`)
+  and writes one rule per gender. The two are mutually exclusive: porting German's
+  markers into Spanish ships literal `|M|` to screen, and porting Spanish's split into
+  German loses the adjective endings.
+- **The article/preposition contraction is the author's job, not the worker's.** No
+  `LanguageWorker` fuses `de`+`el`; Spanish must do it in the rulepack with
+  `{replace: de [X_definite]; "de &lt;color=#D09B61FF>el "-"&lt;color=#D09B61FF>del "}`,
+  colour code and all. **And vanilla is not uniformly right here** — Core es also
+  ships a truncated variant of that idiom, 20 times, which renders "de del". Verify a
+  vanilla pattern actually works before copying it; frequency is not correctness.
+- **The possessive symbol has three different correct answers, so never generalize
+  one.** ko drops `[RECIPIENT_possessive]` (Korean omits possessives), de keeps it and
+  inflects it inline (`[RECIPIENT_possessive]em Handschutz`), and es keeps it **only
+  before a singular noun** — es `su` has no plural form, so a plural possessed noun
+  needs the definite article instead. Check `Keyed/Grammar.xml` for the language's
+  actual `Prohis`/`Proher`/`Proits` values rather than assuming the symbol inflects.
+- **A DamageDef and a HediffDef of the same name often have different labels**, and
+  translating from the wrong one is an easy, invisible error: es Core has DamageDef
+  `Stab`=`apuñalamiento` but HediffDef `Stab`=`puñalada`; ko has `찔림` vs `베임`; de has
+  `Stich` vs `Stichwunde`. Always confirm which def *type* you are looking at.
+- **When two vanilla files disagree, prefer the nearer analog, not the more central
+  one.** es Core's generic ColorDefs render purple `morado`, but Odyssey's own
+  `UniqueWeapon_*` colour defs — same def type, same purpose as ours — render it
+  `púrpura`. The closer file wins.
+- **Don't spend a vanilla word on the wrong slot.** es Core's `Anesthetic` stages
+  already own `atontado` (woozy) and `sedado` (sedated); assigning `sedado` to a
+  different stage of our own hediff forced an invented word for the stage that
+  actually means it. Map a def's stages against vanilla's equivalent ladder *first*,
+  then coin only for what is left over.
+- **Keep a trait adjective material-neutral.** A universal trait rolls on every stuff,
+  so an adjective naming one material ("de acero carbonizado") is wrong on the wooden
+  and jade rolls. Name the feature, not the substrate.
 - **Distinguish comment occurrences from value occurrences when mining the tar.**
   Grepping a symbol across a language's files counts English `<!-- EN: -->` text too,
   which inverts the conclusion: `[RECIPIENT_possessive]` looked used in ko but was

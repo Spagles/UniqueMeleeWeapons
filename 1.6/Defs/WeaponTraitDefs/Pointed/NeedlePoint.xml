@@ -2,20 +2,20 @@
 <Defs>
 
   <!-- UMW_Pointed. Point shape — a fine needle that slips past armor and bone to find the organs.
-       IDENTITY (reshaped 2026-07-27): the trait's lever is WHERE the wound lands, not how big it is —
-       a MeleeDamageConversionExtension reroutes the base Stab hit to UMW_Stab_Deep, raising
+       IDENTITY: the trait's lever is WHERE the wound lands, not how big it is — a
+       MeleeDamageConversionExtension reroutes the base Stab hit to UMW_Stab_Deep, raising
        stabChanceOfForcedInternal 0.6 -> 0.85 (the def carries the worked mechanics and sizing).
-       Reshape rationale: the roster already leans on damage-vs-AP factor tradeoffs (HeadWeighted,
-       Counterweighted, Studded, Razored); the earlier x1.2-with-malus shape made NeedlePoint a
-       me-too stat trait. Organ-seeking is an untouched axis, is literally the "drives deeper"
-       fiction, and differentiates the Point family: raw armor answer (ArmorSpike), attrition
-       bleeding (Barbed), vitals-seeking lethality (this) — the kill-weapon mirror of Opiated's
-       capture coating. Conversion and tool mods alike touch only Stab-capacity swings, so the spear
-       and knife are its prime carriers; a longsword or gladius is affected only on point-tool swings.
+       Keep it OFF the damage-vs-AP axis: the roster already leans on factor tradeoffs there
+       (HeadWeighted, Counterweighted, Studded, Razored), so a stat-shaped NeedlePoint is a me-too.
+       Organ-seeking is an untouched axis, is literally the "drives deeper" fiction, and
+       differentiates the Point family: raw armor answer (ArmorSpike), attrition bleeding (Barbed),
+       vitals-seeking lethality (this) — the kill-weapon mirror of Opiated's capture coating.
+       Conversion and tool mods alike touch only Stab-capacity swings, so the spear and knife are its
+       prime carriers; a longsword or gladius is affected only on point-tool swings.
 
-       DAMAGE/AP are UNCOUPLED, Stab-only, via MeleeToolModExtension (same pass): the earlier
-       weapon-wide MeleeWeapon_DamageMultiplier rider also buffed a longsword's edge cuts, which a
-       point trait has no business doing, and its damage-up read against the needle fiction.
+       DAMAGE/AP are UNCOUPLED and Stab-only, via MeleeToolModExtension — NOT a weapon-wide
+       MeleeWeapon_DamageMultiplier rider, which would buff a longsword's edge cuts too, which a
+       point trait has no business doing.
        - armorPenetrationFactor x1.3 = PiercingArrows, Odyssey's "bodkin-tipped arrows" — its own
          needle-point fiction and the named anchor. A FACTOR, not a floor, on purpose: the floor is
          ArmorSpike's identity (a guaranteed baseline that rescues poor quality/soft stuff), while a
@@ -28,14 +28,13 @@
        VEHICLE for the malus: trait-level equippedStatOffsets, made live for our defs by
        StatWorker_UniqueTraitStatOffsets_Patch (the patch header carries the decompile audit and the
        raw-units/display rules); shows as the weapon's own "Relevant gear" line in the wielder's
-       MeleeHitChance breakdown. Replaced the former UMW_NeedlePointGrip equipped hediff.
+       MeleeHitChance breakdown.
 
        TUNING: MeleeHitChance offsets are RAW pre-curve units; the curve ((0,0.50) (10,0.80)
        (20,0.90)) prices -1 at 3pp of hit chance below the raw-10 knot and 1pp above — unforgiving
-       to whoever hasn't mastered it, without maiming them (an earlier -2 ate half of the then-x1.2
-       buff below the knot; softened in the same pass that reshaped the identity). Raw Stab DPS nets
-       slightly NEGATIVE (x0.95 by the hit ratio: ~-9% mid-skill before armor) — deliberate and
-       honest: the payoff is placement (85% organ strikes) and penetration (x1.3), not throughput.
+       to whoever hasn't mastered it, without maiming them. Raw Stab DPS nets slightly NEGATIVE
+       (x0.95 by the hit ratio: ~-9% mid-skill before armor) — deliberate and honest: the payoff is
+       placement (85% organ strikes) and penetration (x1.3), not throughput.
        MV 70: PiercingArrows prices the +30% AP alone at 40; the organ-seeking premium sits it
        below ParalyticArrows' 80 / HollowPoint's 85, discounted for the hit-chance and damage
        costs. cf. Brawler +4, the nearest Core offset to MeleeHitChance. -->

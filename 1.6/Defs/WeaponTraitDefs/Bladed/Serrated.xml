@@ -5,8 +5,9 @@
        the bleedier, scar-prone UMW_Cut_Ragged. MeleeToolModExtension then shapes per-tool damage: the Cut
        deals -10% (a sawtooth edge slashes less cleanly) while the Stab deals +10%, because on a thrust the
        same teeth catch and tear flesh on the way out — a nastier exit wound (the boost is the serration's
-       after-effect, NOT a finer point). Unlike the old weapon-wide -10% MeleeWeapon_DamageMultiplier this
-       no longer reduces armor pen; the ragged bleed is the whole tradeoff. The Edge tag keeps it mutually
+       after-effect, NOT a finer point). Per-tool on purpose: a weapon-wide MeleeWeapon_DamageMultiplier
+       would drag armor pen down with it (the two share that one stat), and here the ragged bleed is
+       meant to be the whole tradeoff. The Edge tag keeps it mutually
        exclusive with Razored/Monomolecular. Also tags the cross-category "Ragged" token shared with
        UMW_Barbed: they are the same wound concept per damage channel (Odyssey's ToxRounds/ToxPellets
        pattern), so a Bladed+Pointed weapon must not tell the tearing-wound story twice. -->

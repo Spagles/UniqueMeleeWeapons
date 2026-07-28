@@ -16,12 +16,12 @@
          • fadeIn 3 -> 0.35, fadeOut 3 -> 1.5, solidTime 1 -> 4.15, life 7s -> 6.0s. The beam has to land
            *with* the cry, and its life is matched to the cast pose (0.5s warmup + 5s
            verbProperties.defaultCooldownTime = 5.5s of raised weapon) so the light outlasts the pose by
-           only a beat. Settled by eye in play (2026-07-25).
+           only a beat. Settled by eye in play.
          • scaleTime 7 -> 3, i.e. HALF the lifetime, so the width pulse flares once as the beam lands and
            the beam then holds its base width for the rest. That is not a repeat: CurvedScalerExt
            .ScaleAtTime evaluates the curve at Mathf.Clamp01(ageSecs / scaleTime), so past scaleTime the
            input pins at 1 where this curve's last point is 0 — the scaler simply stops contributing and
-           the x-axis scale sits back at 1. A pulse cannot loop (decompile-verified 2026-07-25). Raise
+           the x-axis scale sits back at 1. A pulse cannot loop (decompile-verified, RimWorld 1.6). Raise
            scaleTime to the full 6 if the flare should instead stretch across the whole beam's life.
          • unattachedDrawOffset (0,0,4) added. FleckStatic.Setup feeds def.unattachedDrawOffset into
            FleckDrawPosition, so this raises the shaft to put its lower end on the pawn instead of
@@ -37,9 +37,9 @@
            day / cold night contrast, so it costs something), or list UMW_RallyingCryLightshaft TWICE in
            the ability's CompProperties_AbilityFleckOnTarget fleckDefs, which spawns two coincident
            beams that compound. Neither is needed yet.
-       drawSize/offset/timings are the eyeball-tunable knobs here; see §7 of the spec for the in-game
-       visual check. Rotation is deliberately 0 (Core tilts its ambient shafts 15 degrees): light
-       straight down over the wielder. -->
+       drawSize/offset/timings are the eyeball-tunable knobs here, and still want an in-game visual
+       check. Rotation is deliberately 0 (Core tilts its ambient shafts 15 degrees): light straight
+       down over the wielder. -->
   <FleckDef ParentName="FleckBase">
     <defName>UMW_RallyingCryLightshaft</defName>
     <altitudeLayer>MoteOverhead</altitudeLayer>

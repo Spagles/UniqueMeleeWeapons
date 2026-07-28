@@ -5,8 +5,8 @@
        hand-guard (quillons, a basket, a wide crossguard). Odyssey precedent for gating a category on a
        physical construction feature rather than a mechanism: Sighted/Scoped/Rifle/Shotgun, several of
        them single-member. Membership today: the longsword and gladius (both true swords with a
-       crossguard); the spear stays out by decision (D9, 2026-07-24 — a haft has nothing to mount a
-       guard on); knife/mace are excluded by design (no guard-bearing hilt). "Guard" exclusion token
+       crossguard); the spear stays out (a haft has nothing to mount a guard on); knife/mace are
+       excluded by design (no guard-bearing hilt). "Guard" exclusion token
        (one guard-family trait per weapon): UMW_Quilloned. -->
   <WeaponCategoryDef>
     <defName>UMW_Guarded</defName>

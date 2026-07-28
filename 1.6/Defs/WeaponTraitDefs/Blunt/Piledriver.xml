@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- UMW_Blunt. Ability trait (renamed from UMW_Earthshaker, 2026-07-24 — the TRAIT names the hardware,
-       the ABILITY names the act, mirroring Odyssey's EMPPulser trait -> EMPPulse ability) —
-       grants AbilityDefs/Earthshake.xml (UMW_Earthshake) via the vanilla
-       abilityProps vehicle (WeaponTraitDef.abilityProps : CompProperties_EquippableAbilityReloadable,
-       copied onto the weapon's ability comp by CompUniqueWeapon.Setup with zero Harmony; see
-       Docs/Specs/Trait-Roster-Expansion.md §5/§2.2 and Earthshake.xml's own header). Pure-cooldown form,
+  <!-- UMW_Blunt. Ability trait (the TRAIT names the hardware, the ABILITY names the act, mirroring
+       Odyssey's EMPPulser trait -> EMPPulse ability) — grants AbilityDefs/Earthshake.xml
+       (UMW_Earthshake) via the vanilla abilityProps vehicle (WeaponTraitDef.abilityProps :
+       CompProperties_EquippableAbilityReloadable, copied onto the weapon's ability comp by
+       CompUniqueWeapon.Setup with zero Harmony; see Earthshake.xml's own header). Pure-cooldown form,
        same shape as Odyssey's EMPPulser trait (just <abilityDef>, no maxCharges/ammo). REQUIRES the
        weapon def to carry CompProperties_EquippableAbilityReloadable in place of plain CompEquippable
-       (the §2.2 comps rework, applied to all 7 weapon defs in a parallel change) — CompUniqueWeapon.Setup
+       (true of all 7 weapon defs) — CompUniqueWeapon.Setup
        dereferences TryGetComp<CompEquippableAbilityReloadable>() with no null check whenever a rolled
        trait has abilityProps, so a weapon missing the comp would NPE the instant this trait rolls.
        Earthshake's shockwave is indiscriminate (see that def) — say so here too, since a wielder

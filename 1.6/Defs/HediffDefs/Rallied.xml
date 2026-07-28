@@ -3,15 +3,15 @@
 
   <!-- Timed rally buff granted by UMW_RallyingCry (AbilityDefs/RallyingCry.xml) to every humanlike of
        the CASTER's faction in earshot/eyeshot (see CompAbilityEffect_RallyAllies). Payload is pain
-       dampening only (user pick, 2026-07-24): rallied fighters shrug off wounds and hit pain-shock far
-       later — a payload that stays real when a hostile AI wielder rallies its own raid, unlike the mood
-       memory it replaced (mood is inert on NPCs). painFactor 0.5 sits at go-juice's painkiller tier;
+       dampening only: rallied fighters shrug off wounds and hit pain-shock far later — a payload that
+       stays real when a hostile AI wielder rallies its own raid, where a mood memory would be inert.
+       painFactor 0.5 sits at go-juice's painkiller tier;
        5000t (2 in-game hours) covers an engagement without lingering, and the ability's 3-day cooldown
        keeps this an heirloom moment rather than a standing aura. isBad false so it never raises a
        health alert; everCurableByItem false so medicine can't strip it.
 
-       StaggerDurationFactor 0.5 added 2026-07-25 (user directive), which halves the walk-it-off
-       slowdown a hit inflicts: RimWorld.StaggerHandler.StaggerFor multiplies its tick count by the
+       StaggerDurationFactor 0.5 halves the walk-it-off slowdown a hit inflicts:
+       RimWorld.StaggerHandler.StaggerFor multiplies its tick count by the
        pawn's StaggerDurationFactor, so the stat is live rather than one of the inert ones. Anomaly's
        RageSpeed (an enrage hediff of exactly this shape: not-bad, painFactor plus statFactors) and
        Biotech's Unstoppable gene are vanilla's only two users and both take it to 0 for outright

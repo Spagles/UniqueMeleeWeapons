@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- UMW_Melee. Renamed from "Scorched" (user, 2026-07-24 — "sounds cooler"); the description keeps
-       the charred imagery the old name implied, and stays material-agnostic (chars wood, soots metal)
-       since any stuff can roll it. Enameled is its aesthetic mirror (same BodyColor+Appearance tags and
-       ForcedColorTwoExtension wiring, devaluing where Enameled enhances) but not its mechanical one:
+  <!-- UMW_Melee. The description leans on charred imagery and stays material-agnostic (chars wood,
+       soots metal) since any stuff can roll it. Enameled is its aesthetic mirror (same
+       BodyColor+Appearance tags and ForcedColorTwoExtension wiring, devaluing where Enameled
+       enhances) but not its mechanical one:
        this is the only trait trading durability and value for combat performance — the real
        case-hardening/fire-hardening trade, hard surface over a brittle body.
        Why the brittleness is TWO stats: a weapon's HP is only spent by outdoor deterioration, fire and

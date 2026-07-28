@@ -6,7 +6,7 @@
        note in CLAUDE.md. Faithful clone of Core's Stab (keeps DamageWorker_Stab, Sharp armor, the
        vanilla Stab injury hediff, the overkill curve), differing ONLY in
        stabChanceOfForcedInternal 0.6 -> 0.85. That field is the whole mechanic
-       (DamageWorker_Stab.ChooseHitPart, decompile-verified 2026-07-27): the worker picks an outside
+       (DamageWorker_Stab.ChooseHitPart, decompile-verified, RimWorld 1.6): the worker picks an outside
        part by coverage, then with this chance re-picks a random INSIDE part beneath it (heart, lungs,
        liver, kidneys; brain under a head strike), splitting the damage 75% outer / 40% inner. Organs
        are low-HP, so the reroute converts damage into lethality and permanent injury rather than

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- UMW_Guarded. Identity/construction-feature trait (renamed from UMW_Parrying, 2026-07-24 — trait
-       names name the physical feature, not the effect; see the naming tenet in CLAUDE.md) — a flared
-       crossguard lets the wielder catch and turn aside an incoming blow. Gated on the weapon's
+  <!-- UMW_Guarded. Identity/construction-feature trait — a flared crossguard lets the wielder catch
+       and turn aside an incoming blow. Gated on the weapon's
        physical shape via the UMW_Guarded category (longsword/gladius only — see that category's
        file comment), not on an exclusionTags family the way mechanism traits are; "Guard" is instead
        the family token this trait ITSELF seeds for future guard-shape members (riposte, a
@@ -12,12 +11,12 @@
        that beats both the attacker's hit roll and the wielder's dodge roll a flat chance to be
        caught on the guard and negated, with its own battle-log line (UMW_Combat_Parry), the metal
        deflect ping and a "Parried" mote — resolved by Verb_MeleeAttackDamage_Parry_Patch, which
-       mirrors dodge's gates (no parry when surprised, downed or aiming a ranged verb). It replaced
-       an equipped MeleeDodgeChance hediff on 2026-07-27: the hediff vehicle is bladelink's psychic-
-       bond idiom and read as a pawn condition, where a parry chance IS the hardware working; a flat
-       roll also serves conscript and master alike, where a raw dodge offset decayed to ~nothing
-       through the stat's curve. Sizing lives on the extension class header (0.10 ~ net avoidance
-       +9pp mid-skill vs the hediff's +6pp, a deliberate touch stronger for melee's risk premium).
+       mirrors dodge's gates (no parry when surprised, downed or aiming a ranged verb). Deliberately
+       NOT an equipped MeleeDodgeChance hediff: that vehicle is bladelink's psychic-bond idiom and
+       reads as a pawn condition, where a parry chance IS the hardware working; a flat roll also
+       serves conscript and master alike, where a raw dodge offset decays to ~nothing through the
+       stat's curve. Sizing lives on the extension class header (0.10 ~ net avoidance +9pp mid-skill,
+       against +6pp for the hediff shape — a deliberate touch stronger for melee's risk premium).
        MV +50 offset (added capability, not a scaling/devaluation factor): priced at parity with
        Odyssey's ranged QuickReload — the nearest survivability/combat-tempo utility buff at this
        tier (below AimAssistance's +70 accuracy swing, above CustomGrip's +15 cosmetic-adjacent

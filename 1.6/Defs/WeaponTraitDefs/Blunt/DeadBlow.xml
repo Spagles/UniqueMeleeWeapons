@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- UMW_Blunt. Head — a shot-filled dead-blow head (renamed from UMW_Jarring, 2026-07-24 — trait names
-       name the physical feature, not the effect): loose shot inside the head slams forward on impact,
+  <!-- UMW_Blunt. Head — a shot-filled dead-blow head: loose shot inside the head slams forward on impact,
        dumping the blow's full momentum into the target with no rebound. MOVEMENT-only debuff via
        MeleeOnHitEffect_Stagger (target keeps fighting, just slower), hence the higher
        0.5 proc chance vs UMW_BellCast/UMW_ZeusHeaded's stuns (0.25/no-gate-but-adaptation-limited) — a

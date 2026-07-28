@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- UMW_Blunt. The kinetic blunt stun (renamed from UMW_Concussive, 2026-07-24 — trait names name the
-       physical feature, not the effect): the head is cast solid the way a bell is cast, so a clean blow
+  <!-- UMW_Blunt. The kinetic blunt stun: the head is cast solid the way a bell is cast, so a clean blow
        rings resonant shock through armor and bone, briefly stunning the struck (120t @ 25%), flesh and
-       mechs alike. Replaced the old UMW_Weighted
-       (which duplicated this stun atop a heavy-head stat profile already owned by UMW_Heavy/HeadWeighted).
+       mechs alike.
        The "Head" token makes it mutually exclusive with UMW_ZeusHeaded (the electromagnetic, mech-only blunt
        stun) and UMW_DeadBlow (the shot-filled stagger head) — a weapon gets one blunt-head incapacitation
        effect.

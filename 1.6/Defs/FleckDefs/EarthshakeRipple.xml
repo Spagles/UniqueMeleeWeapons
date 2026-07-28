@@ -18,7 +18,7 @@
        Mods cannot ship Unity shaders, so the only genuine screen-distortion available is one of the
        shaderTypes RimWorld already compiled in; this is that, not an imitation of it.
 
-       Sizing (decompile-verified 2026-07-25, RimWorld 1.6). The rendered quad is drawSize * ExactScale
+       Sizing (decompile-verified, RimWorld 1.6). The rendered quad is drawSize * ExactScale
        world units square, and 1 world unit = 1 cell: Graphic_Fleck.DrawFleck multiplies the per-instance
        scale by graphicData.drawSize into the render matrix, over MeshPool's unit plane. FleckStatic starts
        linearScale at the spawn `scale` (1 here, the comp's default) and growthRate ADDS cells/second to
@@ -41,8 +41,8 @@
        (Altitudes maps the enum in order, and MoteOverheadLow > Pawn) without climbing into the
        vision/overlay layers. drawOffscreen is deliberately absent: it only gates the EffecterDef +
        SubEffecter_Sprayer spawn path, and this spawns via FleckMaker, which never checks it.
-       drawSize/growthRate/intensity are the eyeball-tunable knobs; see §7 of the spec for the in-game
-       visual check, since the shader's internal ring-sweep timing cannot be read from a decompile. -->
+       drawSize/growthRate/intensity are the eyeball-tunable knobs, and still want an in-game visual
+       check: the shader's internal ring-sweep timing cannot be read from a decompile. -->
   <FleckDef ParentName="FleckBase">
     <defName>UMW_EarthshakeRipple</defName>
     <altitudeLayer>MoteOverheadLow</altitudeLayer>

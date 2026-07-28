@@ -6,17 +6,16 @@
        wiring. Self-cast, no target: the wielder plants the storied blade and calls out its history,
        and everyone not hostile to the CASTER in earshot/eyeshot steels themselves — the timed
        UMW_Rallied pain-dampening hediff via CompAbilityEffect_RallyAllies. Faction-symmetric with a
-       stat payload per user directive (2026-07-24), replacing the original player-only +4 mood
-       memory: a hediff is real for NPC casters where mood is inert, and symmetry makes a hostile
-       wielder rallying its own raid correct rather than backwards. cooldownTicksRange 180000 (3
-       days) is deliberately far rarer than Earthshake's 12h EMPPulse-parity cooldown — an heirloom
-       moment, not a standing aura. aiCanUse true so a hostile AI wielder MAY rally its own side —
-       but vanilla's ability-AI is only known to drive offensive abilities (every aiCanUse=true
-       Odyssey weapon ability is offensive), so whether hostile AI ever actually casts a self-buff
-       needs the in-game check alongside the §7 ability items; the flag is set so it can.
+       stat payload rather than a player-only mood memory: a hediff is real for NPC casters where mood
+       is inert, and symmetry makes a hostile wielder rallying its own raid correct rather than
+       backwards. cooldownTicksRange 180000 (3 days) is deliberately far rarer than Earthshake's 12h
+       EMPPulse-parity cooldown — an heirloom moment, not a standing aura. aiCanUse true so a hostile
+       AI wielder MAY rally its own side — but vanilla's ability-AI is only known to drive offensive
+       abilities (every aiCanUse=true Odyssey weapon ability is offensive), so whether hostile AI ever
+       actually casts a self-buff is UNVERIFIED in game; the flag is set so it can.
 
-       PRESENTATION (all three parts land at the cast, none of them delay the hediff — decompile-verified
-       2026-07-25, RimWorld 1.6):
+       PRESENTATION (all of it lands at the cast, none of it delays the hediff — decompile-verified,
+       RimWorld 1.6):
          • The raised-weapon pose. PawnRenderUtility.DrawEquipmentAndApparelExtras draws the aimed pose
            for ANY Stance_Busy with a valid focusTarg, i.e. Stance_Warmup *or* Stance_Cooldown. Verb.
            TryCastNextBurstShot calls TryCastShot() — which for Verb_CastAbility is ability.Activate, and
@@ -53,9 +52,9 @@
   <AbilityDef>
     <defName>UMW_RallyingCry</defName>
     <label>rallying cry</label>
-    <!-- Deliberately silent about the waking side effects (user call, 2026-07-25): the gizmo text is for
-         what the player is choosing to do, and the shout rousing sleepers is a consequence they can see
-         happen. The mod-settings tooltips do spell it out, since the radius slider governs it. -->
+    <!-- Deliberately silent about the waking side effects: the gizmo text is for what the player is
+         choosing to do, and the shout rousing sleepers is a consequence they can see happen. The
+         mod-settings tooltips do spell it out, since the radius slider governs it. -->
     <description>Raise the weapon high and shout. Allies who see it are steeled, and for a time wounds barely slow them.</description>
     <iconPath>UI/Commands/UMW_RallyingCry</iconPath>
     <aiCanUse>true</aiCanUse> <!-- faction-symmetric: an AI cast rallies its own side; see header -->

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- UMW_Pointed. Coating — the family's second member (Envenomed is the first; renamed from
-       UMW_Tranquilizing, 2026-07-24 — trait names name the physical differentiator, here the opiate on
-       the point. The support defs keep their sedative/tranq names: they describe the delivered payload,
-       not the weapon feature). Identity: a
+  <!-- UMW_Pointed. Coating — the family's second member (Envenomed is the first). The trait names the
+       opiate on the point, while the support defs keep their sedative/tranq names: those describe the
+       delivered payload, not the weapon feature. Identity: a
        NON-LETHAL CAPTURE coating, not a damage-over-time poison. Each landed hit stacks
        UMW_SedativeBuildup (via the extra UMW_Stab_Tranq hit @ 100%); on a fleshy, unarmored size-1
        target that's roughly one hediff stage per ~1.75 landed hits, downing the target after 3-4 hits

@@ -9,7 +9,7 @@
        hard reason: Core's def is `<sustain>True</sustain>`, and SoundStarter.PlayOneShot hard
        Log.Errors on a sustainer def ("Tried to play sustainer SoundDef ... as a one-shot sound").
        CompAbilityEffect.Apply plays the comp's sound via PlayOneShot, so naming Core's def directly
-       would give a red error and silence (decompile-verified 2026-07-25, RimWorld 1.6).
+       would give a red error and silence (decompile-verified, RimWorld 1.6).
 
        Same grain folder, so this IS Core's throne-speech recording — the game's only human speech audio,
        and what vanilla plays when a pawn addresses a room (JobDriver_GiveSpeech, via soundDefMale /
@@ -18,8 +18,8 @@
 
        CORE-OWNED, not Royalty-gated, despite the clips' internal `Speech_Royal_*` names: the SoundDef
        carries no MayRequire, and the clips sit in the base game's resources.assets with zero hits in any
-       of the five DLC asset bundles (verified 2026-07-25). So no MayRequire is needed here and no
-       absence-fallback is required.
+       of the five DLC asset bundles (verified against RimWorld 1.6). So no MayRequire is needed here
+       and no absence-fallback is required.
 
        What changed from Core, and why:
          • sustain True -> False, and the sustainer-only fields dropped (sustainLoop,
@@ -30,12 +30,11 @@
          • volumeRange 8~10 -> 14~17. Core's is tuned to be half-heard across a throne room, which is too
            quiet for a deliberate shout, but this stays deliberately far below blast levels (cf.
            Explosion_Thump at 80): the clips are 8 kHz mono, chosen so speech reads as indistinct
-           murmuring, and loud playback only exposes that. Landed at 14~17 by ear (user call,
-           2026-07-25) after 20~24 — a touch under Core's own melee one-shots (Pawn_Melee_BigBash 20)
-           and roughly 3 dB down from the first attempt.
+           murmuring, and loud playback only exposes that. Set at 14~17 by ear, a touch under Core's
+           own melee one-shots (Pawn_Melee_BigBash 20).
        Clip lengths measured from the shipped AudioClip records: 0.72-2.09s across this male set of 22,
        against 1.50-4.92s for the female set of 21. So the cry's length varies with who holds the weapon
-       — accepted as character (user call, 2026-07-25). Both sets fit inside the raised-weapon pose, so
+       — accepted as character. Both sets fit inside the raised-weapon pose, so
        nothing is cut off. See RallyingCryShout_Female.xml for the other half of the pair. -->
   <SoundDef>
     <defName>UMW_RallyingCryShout_Male</defName>

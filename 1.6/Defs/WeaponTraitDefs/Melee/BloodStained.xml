@@ -11,7 +11,7 @@
            but only a 2s stun); yet vanilla ALREADY auto-panics damaged humanlikes below their
            kindDef fleeHealthThresholdRange, so late-fight procs read as vanilla behavior and only
            early-fight routs are visible as the trait working. 0.12 makes those perceptible (~1 in 8
-           wounding hits; ~40-60% of extended fights) where the original 0.08 felt inert.
+           wounding hits; ~40-60% of extended fights); much below this it reads as inert.
          • Downside/upside: one two-stage ThoughtDef (UMW_BloodStainedWeapon, worker-routed): -2 mood
            for ordinary pawns, +3 relish for bloodlusters, nullified for the hardened
            (Psychopath, VTE Desensitized/World-weary, hemogenic). See that file for why it must be a

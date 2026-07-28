@@ -4,7 +4,7 @@
   <!-- Situational moodlet for wielding a UMW_Storied unique weapon: the passive half of the Storied
        trait (the active half is the UMW_RallyingCry ability, granted via abilityProps — see
        WeaponTraitDefs/Melee/Storied.xml). Unlike UMW_BloodStainedWeapon this is a plain single-stage
-       thought with NO stage routing and NO nullification list (spec, 2026-07-24): a weapon with a
+       thought with NO stage routing and NO nullification list: a weapon with a
        name and a remembered history is simply a source of quiet pride, not a balanced-both-ways
        effect, so there's nothing to route or exempt. Worker ThoughtWorker_StoriedWeapon reports the
        situation (primary weapon carries the trait) via the shared

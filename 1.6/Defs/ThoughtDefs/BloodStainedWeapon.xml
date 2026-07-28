@@ -4,11 +4,11 @@
   <!-- Situational moodlet for wielding a UMW_BloodStained weapon: ONE def, TWO worker-routed stages —
        stage 0 the -2 penalty for ordinary pawns, stage 1 the +3 bloodlust relish — mirroring Anomaly's
        UnnaturalDarkness (a single situational def whose worker picks between opposite-sign stages).
-         • Why one def, not a penalty def + a requiredTraits buff def (the original shape): situational
+         • Why one def, not a penalty def + a requiredTraits buff def: situational
            thoughts are CREATED even when nullified (SituationalThoughtHandler.TryCreateThought calls
            CanGetThought with checkIfNullified=false, verified by decompile), and the needs tab draws
            every Active situational thought — GetAllMoodThoughts filters MoodOffset()==0 rows for
-           MEMORIES only. So a bloodlust pawn saw two same-label rows: the +3 buff AND the
+           MEMORIES only. So a bloodlust pawn would see two same-label rows: the +3 buff AND the
            Bloodlust-nullified penalty as a grey 0. One def = one row, whichever sign it takes.
          • Bloodlust is routed by the WORKER (ActiveAtStage(1)), never listed in nullifyingTraits — a
            nullifier zeroes the whole def, relish stage included.

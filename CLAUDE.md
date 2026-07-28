@@ -43,51 +43,15 @@ install), falling back to the `Krafs.Rimworld.Ref` NuGet package in CI.
 The repo lives outside the Mods folder; every local build redeploys automatically and atomically.
 
 - **One manifest, one place:** the `_ModFiles` ItemGroup in the `StageMod` target of
-  `Source/1.6/UniqueMeleeWeapons.csproj`. It is generic over the well-known RimWorld content
-  folders, matched at the mod root *and* under any version/`Common` folder — so a new `1.7/` or a
-  new `Sounds/` needs no build change. Only a brand-new *file type* does.
-- **Extension whitelist:** only formats RimWorld actually loads at runtime ship (see the target's
-  comments for the list and the `.psd`/`.dds` exclusion rationale). Dev notes, art sources, editor
-  backups and `Source/` can never leak into a release.
-- **Self-cleaning:** `StageMod` wipes `$(StageDir)` and recopies, so deleted/renamed content never
-  lingers. `DeployToModFolder` (post-build) calls it against the detected install; CI
-  (`.github/workflows/release.yml`, triggered on `v*.*.*` tags) calls the same target, so the
-  release zip can't drift from the local deploy.
+  `Source/1.6/UniqueMeleeWeapons.csproj` — see that target's comments for how it globs and what it
+  excludes. It is generic over folders, so a new `1.7/` or `Sounds/` needs no build change; only a
+  brand-new *file type* does. Local deploy and CI release both call it, so they can't drift.
 - **Stop hook (`.claude/hooks/sync-mod.sh`):** rebuilds+redeploys after a turn only when
   mod-relevant files changed, logs to `$TMPDIR/umw-build.log`, warns on failure. `.claude/` is
   gitignored, so this is local-only — if it is ever promoted to committed config, move the helper
   somewhere version-controlled.
 
 ## Architecture
-
-### Directory structure
-
-```
-About/                          # Mod metadata
-1.6/
-├── Assemblies/                 # Build output (gitignored)
-├── Defs/                       # One def per file, grouped by def type (see Naming)
-│   ├── ThingDefs/              #   the 7 *_Unique weapons
-│   ├── WeaponCategoryDefs/     #   which traits a weapon may roll; each file documents its
-│   │                           #   trait families, exclusion tokens and membership
-│   ├── WeaponTraitDefs/<Cat>/  #   traits, in a subfolder per category
-│   ├── DamageDefs/ HediffDefs/ ThoughtDefs/ AbilityDefs/ ColorDefs/
-│   ├── ThingSetMakerDefs/      #   our melee-only reward pool
-│   ├── RulePackDefs/           #   material-adjective name grammar
-│   └── FactionDefs/ SitePartDefs/ QuestScriptDefs/   # the warband quest
-├── Patches/                    # XPath patches
-└── Languages/English/Keyed/    # UMW_UI.xml — settings strings
-                                # UMW_Combat.xml — in-combat floating text
-                                # UMW_Stats.xml — info-card trait-effect lines
-Textures/Things/Item/Equipment/WeaponMelee/UniqueWeapons/<Weapon>/
-Source/1.6/
-├── Core/                       # Mod subclass, ModSettings, DefOf, post-def-load startup
-├── Things/                     # UniqueMeleeWeapon (the double-mask thingClass)
-├── Graphics/                   # Graphic_RandomComplex
-├── Traits/                     # DefModExtensions + workers backing melee trait effects
-├── Abilities/ ThingSetMakers/ Quests/
-└── Patches/                    # Harmony patches
-```
 
 ### Naming conventions
 
@@ -111,6 +75,8 @@ Source/1.6/
   step-by-step recipe for adding a setting — including the pattern for a setting that *overrides a
   def field* (written onto the live def at startup and on window close; XML holds only the
   shipped default) — is in `Core/UniqueMeleeWeaponsSettings.cs`.
+- **Keyed files split by purpose:** `UMW_UI.xml` settings strings, `UMW_Combat.xml` in-combat
+  floating text, `UMW_Stats.xml` info-card trait-effect lines.
 - **No em dashes in player-facing text** (def labels/descriptions, `Keyed/`, `About.xml`) — reflow
   the sentence instead. This file, code comments and def comments are unaffected.
 

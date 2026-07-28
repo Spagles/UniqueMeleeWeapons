@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: blood-stained weapon -->
+  <UMW_BloodStainedWeapon.stages.0.label>피에 젖은 무기</UMW_BloodStainedWeapon.stages.0.label>
+
+  <!-- EN: I'm carrying a weapon caked in dried blood. Its reek, and the thought of what it's done, turn my stomach. -->
+  <UMW_BloodStainedWeapon.stages.0.description>굳은 피가 엉긴 무기를 들고 다니고 있어. 그 냄새며, 이 무기가 해온 일을 떠올리면 속이 뒤집혀.</UMW_BloodStainedWeapon.stages.0.description>
+
+  <!-- EN: blood-stained weapon -->
+  <UMW_BloodStainedWeapon.stages.1.label>피에 젖은 무기</UMW_BloodStainedWeapon.stages.1.label>
+
+  <!-- EN: I'm carrying a weapon caked in dried blood. Its reek, and the thought of what it's done, thrill me to the core. -->
+  <UMW_BloodStainedWeapon.stages.1.description>굳은 피가 엉긴 무기를 들고 다니고 있어. 그 냄새며, 이 무기가 해온 일을 떠올리면 뼛속까지 짜릿해져.</UMW_BloodStainedWeapon.stages.1.description>
+
+
+  <!-- EN: storied weapon -->
+  <UMW_StoriedWeapon.stages.0.label>유서 있는 무기</UMW_StoriedWeapon.stages.0.label>
+
+  <!-- EN: I'm carrying a weapon with a name and a history. The deeds of those who bore it before me are remembered, and one day mine will be too. -->
+  <UMW_StoriedWeapon.stages.0.description>이름과 내력이 있는 무기를 들고 다니고 있어. 나보다 먼저 이걸 들었던 이들의 무훈은 아직도 사람들 입에 오르지. 언젠가 내 무훈도 그렇게 될 거야.</UMW_StoriedWeapon.stages.0.description>
+
+</LanguageData>

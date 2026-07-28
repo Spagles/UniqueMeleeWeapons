@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: armor spike -->
+  <UMW_ArmorSpike.label>관통 스파이크</UMW_ArmorSpike.label>
+
+  <!-- EN: The point is reinforced into a heavy armor-piercing spike that punches through plate and carapace. -->
+  <UMW_ArmorSpike.description>끝부분이 판금 갑옷과 외피까지 뚫고 들어가는 무거운 관통 스파이크로 보강돼 있습니다.</UMW_ArmorSpike.description>
+
+  <!-- EN: lancing -->
+  <UMW_ArmorSpike.traitAdjectives.0>찌르는</UMW_ArmorSpike.traitAdjectives.0>
+
+  <!-- EN: armorbane -->
+  <UMW_ArmorSpike.traitAdjectives.1>갑옷 파괴자의</UMW_ArmorSpike.traitAdjectives.1>
+
+  <!-- EN: punching -->
+  <UMW_ArmorSpike.traitAdjectives.2>뚫는</UMW_ArmorSpike.traitAdjectives.2>
+
+
+  <!-- EN: barbed -->
+  <UMW_Barbed.label>미늘</UMW_Barbed.label>
+
+  <!-- EN: Barbs behind the point catch in the wound and tear it wider as the weapon is drawn back out. -->
+  <UMW_Barbed.description>끝부분 뒤쪽에 달린 미늘이 상처에 걸려, 무기를 뽑아낼 때 상처를 더 크게 찢어 놓습니다.</UMW_Barbed.description>
+
+  <!-- EN: barbed -->
+  <UMW_Barbed.traitAdjectives.0>미늘 달린</UMW_Barbed.traitAdjectives.0>
+
+  <!-- EN: hooked -->
+  <UMW_Barbed.traitAdjectives.1>갈고리 모양의</UMW_Barbed.traitAdjectives.1>
+
+  <!-- EN: cruel -->
+  <UMW_Barbed.traitAdjectives.2>잔혹한</UMW_Barbed.traitAdjectives.2>
+
+
+  <!-- EN: bell-cast -->
+  <UMW_BellCast.label>종 주조</UMW_BellCast.label>
+
+  <!-- EN: The head is cast solid like a bell. A clean strike rings a resonance through armor and bone, briefly stunning the target. -->
+  <UMW_BellCast.description>타격부가 종처럼 속이 꽉 찬 통짜로 주조돼 있습니다. 제대로 들어간 일격은 갑옷과 뼈에 공명을 울려 목표를 일시적으로 기절시킵니다.</UMW_BellCast.description>
+
+  <!-- EN: bell-cast -->
+  <UMW_BellCast.traitAdjectives.0>종 주조</UMW_BellCast.traitAdjectives.0>
+
+  <!-- EN: ringing -->
+  <UMW_BellCast.traitAdjectives.1>울리는</UMW_BellCast.traitAdjectives.1>
+
+  <!-- EN: resonant -->
+  <UMW_BellCast.traitAdjectives.2>공명하는</UMW_BellCast.traitAdjectives.2>
+
+
+  <!-- EN: blood-stained -->
+  <UMW_BloodStained.label>혈흔</UMW_BloodStained.label>
+
+  <!-- EN: This weapon is caked in layers of dark, dried blood. The sight of it can send the people it wounds fleeing in panic, though carrying so grisly a thing weighs on all but the hardened. Traders will pay less for it. -->
+  <UMW_BloodStained.description>검게 마른 피가 여러 겹으로 굳어 엉겨 있습니다. 이 무기에 상처를 입은 사람은 그 모습을 보고 겁에 질려 달아나기도 합니다. 다만 이토록 끔찍한 물건을 들고 다니는 일은 담이 큰 사람을 제외하면 누구에게나 마음의 부담이 됩니다. 상인들은 더 적은 돈을 쳐줍니다.</UMW_BloodStained.description>
+
+  <!-- EN: blood-stained -->
+  <UMW_BloodStained.traitAdjectives.0>피에 젖은</UMW_BloodStained.traitAdjectives.0>
+
+  <!-- EN: bloody -->
+  <UMW_BloodStained.traitAdjectives.1>피투성이의</UMW_BloodStained.traitAdjectives.1>
+
+  <!-- EN: gory -->
+  <UMW_BloodStained.traitAdjectives.2>피범벅의</UMW_BloodStained.traitAdjectives.2>
+
+  <!-- EN: sanguine -->
+  <UMW_BloodStained.traitAdjectives.3>검붉은</UMW_BloodStained.traitAdjectives.3>
+
+
+  <!-- EN: carbonized -->
+  <UMW_Carbonized.label>탄화</UMW_Carbonized.label>
+
+  <!-- EN: This weapon has been through fire. Its charred surface is hardened by the heat, and what is already burnt does not easily burn again. The hardened surface hits harder than it should, but the scorched body is brittle and weathers badly. -->
+  <UMW_Carbonized.description>이 무기는 불길을 거쳐 나왔습니다. 그을린 표면은 열을 받아 단단해졌고, 이미 타버린 것은 다시 잘 타지 않습니다. 굳은 표면은 겉보기보다 더 세게 때리지만, 불에 그슬린 본체는 잘 부서지고 쉽게 훼손됩니다.</UMW_Carbonized.description>
+
+  <!-- EN: carbonized -->
+  <UMW_Carbonized.traitAdjectives.0>탄화된</UMW_Carbonized.traitAdjectives.0>
+
+  <!-- EN: fire-blackened -->
+  <UMW_Carbonized.traitAdjectives.1>불에 검어진</UMW_Carbonized.traitAdjectives.1>
+
+  <!-- EN: charred -->
+  <UMW_Carbonized.traitAdjectives.2>그을린</UMW_Carbonized.traitAdjectives.2>
+
+  <!-- EN: soot-stained -->
+  <UMW_Carbonized.traitAdjectives.3>검댕 묻은</UMW_Carbonized.traitAdjectives.3>
+
+
+  <!-- EN: counterweighted -->
+  <UMW_Counterweighted.label>균형추</UMW_Counterweighted.label>
+
+  <!-- EN: A counterweight tames the heft, making the weapon quicker to recover between swings at a slight cost to power. -->
+  <UMW_Counterweighted.description>균형추가 무게를 잡아주어, 위력을 조금 희생하는 대신 휘두른 뒤 자세를 되잡는 속도가 빨라집니다.</UMW_Counterweighted.description>
+
+  <!-- EN: balanced -->
+  <UMW_Counterweighted.traitAdjectives.0>균형 잡힌</UMW_Counterweighted.traitAdjectives.0>
+
+  <!-- EN: swift -->
+  <UMW_Counterweighted.traitAdjectives.1>재빠른</UMW_Counterweighted.traitAdjectives.1>
+
+
+  <!-- EN: cumbersome -->
+  <UMW_Cumbersome.label>불편</UMW_Cumbersome.label>
+
+  <!-- EN: This weapon is bulky and overbuilt, slowing its swing. -->
+  <UMW_Cumbersome.description>부피가 크고 과하게 만들어져 휘두르는 속도가 느립니다.</UMW_Cumbersome.description>
+
+  <!-- EN: cumbersome -->
+  <UMW_Cumbersome.traitAdjectives.0>불편한</UMW_Cumbersome.traitAdjectives.0>
+
+  <!-- EN: bulky -->
+  <UMW_Cumbersome.traitAdjectives.1>무거운</UMW_Cumbersome.traitAdjectives.1>
+
+  <!-- EN: ungainly -->
+  <UMW_Cumbersome.traitAdjectives.2>투박한</UMW_Cumbersome.traitAdjectives.2>
+
+
+  <!-- EN: dead-blow -->
+  <UMW_DeadBlow.label>무반동</UMW_DeadBlow.label>
+
+  <!-- EN: The hollow head is filled with loose shot that slams forward on impact, dumping the blow's full momentum into the target without a trace of rebound. Struck targets reel and stumble, even when the blow doesn't drop them. -->
+  <UMW_DeadBlow.description>속이 빈 타격부에 고정되지 않은 납알이 채워져 있어, 충격의 순간 앞으로 쏟아지며 일격의 운동량을 그대로 목표에 밀어 넣고 반발을 조금도 남기지 않습니다. 맞은 대상은 그 일격에 쓰러지지 않더라도 휘청거리며 비틀거립니다.</UMW_DeadBlow.description>
+
+  <!-- EN: dead-blow -->
+  <UMW_DeadBlow.traitAdjectives.0>무반동의</UMW_DeadBlow.traitAdjectives.0>
+
+  <!-- EN: shot-filled -->
+  <UMW_DeadBlow.traitAdjectives.1>납알을 채운</UMW_DeadBlow.traitAdjectives.1>
+
+  <!-- EN: battering -->
+  <UMW_DeadBlow.traitAdjectives.2>두들기는</UMW_DeadBlow.traitAdjectives.2>
+
+
+  <!-- EN: enameled -->
+  <UMW_Enameled.label>법랑</UMW_Enameled.label>
+
+  <!-- EN: A vitreous enamel has been fired and fused over the body of this weapon, glazing it in a deep, glossy violet. Traders will pay more for it. -->
+  <UMW_Enameled.description>무기 본체에 유리질 법랑을 구워 붙여, 깊고 윤기 있는 보라색 유약을 입혔습니다. 상인들이 더 높은 값을 쳐줍니다.</UMW_Enameled.description>
+
+  <!-- EN: enameled -->
+  <UMW_Enameled.traitAdjectives.0>법랑</UMW_Enameled.traitAdjectives.0>
+
+  <!-- EN: glazed -->
+  <UMW_Enameled.traitAdjectives.1>유약 입힌</UMW_Enameled.traitAdjectives.1>
+
+  <!-- EN: violet-sheened -->
+  <UMW_Enameled.traitAdjectives.2>보랏빛으로 빛나는</UMW_Enameled.traitAdjectives.2>
+
+
+  <!-- EN: envenomed -->
+  <UMW_Envenomed.label>독 도포</UMW_Envenomed.label>
+
+  <!-- EN: The point is coated in a slow neurotoxic venom which causes toxic buildup in those it wounds. -->
+  <UMW_Envenomed.description>끝부분에 서서히 퍼지는 신경독이 발려 있어, 상처를 입은 대상을 중독시킵니다.</UMW_Envenomed.description>
+
+  <!-- EN: envenomed -->
+  <UMW_Envenomed.traitAdjectives.0>독을 바른</UMW_Envenomed.traitAdjectives.0>
+
+  <!-- EN: venomous -->
+  <UMW_Envenomed.traitAdjectives.1>독액의</UMW_Envenomed.traitAdjectives.1>
+
+  <!-- EN: poisoned -->
+  <UMW_Envenomed.traitAdjectives.2>독 묻은</UMW_Envenomed.traitAdjectives.2>
+
+  <!-- EN: toxic -->
+  <UMW_Envenomed.traitAdjectives.3>맹독성</UMW_Envenomed.traitAdjectives.3>
+
+
+  <!-- EN: flanged -->
+  <UMW_Flanged.label>날개 돌기</UMW_Flanged.label>
+
+  <!-- EN: Flanges ridge the head, concentrating the force of a blow into a narrow edge that cracks armor plate rather than merely denting it. -->
+  <UMW_Flanged.description>타격부에 날개 돌기가 여러 줄 솟아 있어, 타격의 힘을 좁은 모서리에 집중시킵니다. 갑옷판을 우그러뜨리는 데 그치지 않고 쪼개 버립니다.</UMW_Flanged.description>
+
+  <!-- EN: flanged -->
+  <UMW_Flanged.traitAdjectives.0>날개 돌기 달린</UMW_Flanged.traitAdjectives.0>
+
+  <!-- EN: riving -->
+  <UMW_Flanged.traitAdjectives.1>쪼개는</UMW_Flanged.traitAdjectives.1>
+
+  <!-- EN: armor-cracking -->
+  <UMW_Flanged.traitAdjectives.2>갑옷을 깨뜨리는</UMW_Flanged.traitAdjectives.2>
+
+
+  <!-- EN: gold inlay -->
+  <UMW_GoldInlay.label>금 상감</UMW_GoldInlay.label>
+
+  <!-- EN: This weapon is inlaid with gold. Traders will pay more for it. -->
+  <UMW_GoldInlay.description>금으로 장식돼있습니다. 상인들이 더 높은 값을 쳐줍니다.</UMW_GoldInlay.description>
+
+  <!-- EN: gold -->
+  <UMW_GoldInlay.traitAdjectives.0>황금</UMW_GoldInlay.traitAdjectives.0>
+
+  <!-- EN: golden -->
+  <UMW_GoldInlay.traitAdjectives.1>금빛</UMW_GoldInlay.traitAdjectives.1>
+
+
+  <!-- EN: head-weighted -->
+  <UMW_HeadWeighted.label>선단 편중</UMW_HeadWeighted.label>
+
+  <!-- EN: Mass is gathered toward the striking end so each swing lands with devastating force, though it is slower to recover. -->
+  <UMW_HeadWeighted.description>질량이 타격하는 쪽 끝에 모여 있어 한 번 휘두를 때마다 파괴적인 힘이 실리지만, 자세를 되잡는 속도는 느립니다.</UMW_HeadWeighted.description>
+
+  <!-- EN: devastating -->
+  <UMW_HeadWeighted.traitAdjectives.0>파괴적인</UMW_HeadWeighted.traitAdjectives.0>
+
+  <!-- EN: mighty -->
+  <UMW_HeadWeighted.traitAdjectives.1>강력한</UMW_HeadWeighted.traitAdjectives.1>
+
+  <!-- EN: ponderous -->
+  <UMW_HeadWeighted.traitAdjectives.2>묵직한</UMW_HeadWeighted.traitAdjectives.2>
+
+
+  <!-- EN: jade inlay -->
+  <UMW_JadeInlay.label>옥 상감</UMW_JadeInlay.label>
+
+  <!-- EN: This weapon is adorned with jade. Traders will pay more for it. -->
+  <UMW_JadeInlay.description>옥으로 장식돼있습니다. 상인들이 더 높은 가격을 쳐줍니다.</UMW_JadeInlay.description>
+
+  <!-- EN: jade -->
+  <UMW_JadeInlay.traitAdjectives.0>옥빛</UMW_JadeInlay.traitAdjectives.0>
+
+
+  <!-- EN: lightweight -->
+  <UMW_Lightweight.label>경량</UMW_Lightweight.label>
+
+  <!-- EN: This weapon is much lighter than normal, quickening its swing. -->
+  <UMW_Lightweight.description>일반적인 무기보다 훨씬 가벼워 휘두르는 속도가 빠릅니다.</UMW_Lightweight.description>
+
+  <!-- EN: light -->
+  <UMW_Lightweight.traitAdjectives.0>가벼운</UMW_Lightweight.traitAdjectives.0>
+
+  <!-- EN: nimble -->
+  <UMW_Lightweight.traitAdjectives.1>날렵한</UMW_Lightweight.traitAdjectives.1>
+
+  <!-- EN: quickdraw -->
+  <UMW_Lightweight.traitAdjectives.2>신속</UMW_Lightweight.traitAdjectives.2>
+
+
+  <!-- EN: monomolecular -->
+  <UMW_Monomolecular.label>단분자</UMW_Monomolecular.label>
+
+  <!-- EN: The edge is honed to a single molecule and held there by a lattice of mechanites. It parts armor and bone as though they were not there. -->
+  <UMW_Monomolecular.description>칼날이 분자 하나의 두께까지 갈려 있고, 기계입자 격자가 그 상태를 유지시킵니다. 갑옷과 뼈를 마치 없는 것처럼 갈라냅니다.</UMW_Monomolecular.description>
+
+  <!-- EN: mono-edged -->
+  <UMW_Monomolecular.traitAdjectives.0>단분자</UMW_Monomolecular.traitAdjectives.0>
+
+  <!-- EN: crystalline -->
+  <UMW_Monomolecular.traitAdjectives.1>결정질의</UMW_Monomolecular.traitAdjectives.1>
+
+  <!-- EN: honed -->
+  <UMW_Monomolecular.traitAdjectives.2>날카롭게 벼린</UMW_Monomolecular.traitAdjectives.2>
+
+
+  <!-- EN: needle point -->
+  <UMW_NeedlePoint.label>바늘 끝</UMW_NeedlePoint.label>
+
+  <!-- EN: Tapered to a fine needle, the point drives deep beneath bone and muscle, seeking the organs within. The slender point is harder to land cleanly. -->
+  <UMW_NeedlePoint.description>가느다란 바늘처럼 좁아지는 끝이 뼈와 근육 아래 깊숙이 파고들어 그 안의 장기를 노립니다. 다만 끝이 가늘어 제대로 맞히기는 더 어렵습니다.</UMW_NeedlePoint.description>
+
+  <!-- EN: needle -->
+  <UMW_NeedlePoint.traitAdjectives.0>바늘</UMW_NeedlePoint.traitAdjectives.0>
+
+  <!-- EN: needling -->
+  <UMW_NeedlePoint.traitAdjectives.1>쑤시는</UMW_NeedlePoint.traitAdjectives.1>
+
+  <!-- EN: hypodermic -->
+  <UMW_NeedlePoint.traitAdjectives.2>주사침 같은</UMW_NeedlePoint.traitAdjectives.2>
+
+
+  <!-- EN: opiated -->
+  <UMW_Opiated.label>아편 도포</UMW_Opiated.label>
+
+  <!-- EN: The point is coated in a potent opiate that builds in the blood with each hit, eventually rendering the victim unconscious. -->
+  <UMW_Opiated.description>끝부분에 강력한 아편 성분이 발려 있어, 명중할 때마다 혈액에 쌓이다가 결국 대상의 의식을 잃게 합니다.</UMW_Opiated.description>
+
+  <!-- EN: opiated -->
+  <UMW_Opiated.traitAdjectives.0>아편</UMW_Opiated.traitAdjectives.0>
+
+  <!-- EN: sedative -->
+  <UMW_Opiated.traitAdjectives.1>진정제</UMW_Opiated.traitAdjectives.1>
+
+  <!-- EN: soporific -->
+  <UMW_Opiated.traitAdjectives.2>잠재우는</UMW_Opiated.traitAdjectives.2>
+
+  <!-- EN: numbing -->
+  <UMW_Opiated.traitAdjectives.3>마비시키는</UMW_Opiated.traitAdjectives.3>
+
+
+  <!-- EN: ornamental -->
+  <UMW_Ornamental.label>장식용</UMW_Ornamental.label>
+
+  <!-- EN: This weapon was crafted for aesthetics over functionality. It deals less damage but looks great. -->
+  <UMW_Ornamental.description>실용성보다 심미성을 중시해 제작됐습니다. 피해량은 적지만 멋있게 보입니다.</UMW_Ornamental.description>
+
+  <!-- EN: beautiful -->
+  <UMW_Ornamental.traitAdjectives.0>아름다운</UMW_Ornamental.traitAdjectives.0>
+
+  <!-- EN: elegant -->
+  <UMW_Ornamental.traitAdjectives.1>우아한</UMW_Ornamental.traitAdjectives.1>
+
+  <!-- EN: ornamental -->
+  <UMW_Ornamental.traitAdjectives.2>화려한</UMW_Ornamental.traitAdjectives.2>
+
+
+  <!-- EN: piledriver -->
+  <UMW_Piledriver.label>항타기</UMW_Piledriver.label>
+
+  <!-- EN: The head is built as a piledriver. On command the weapon's full mass can be slammed into the ground, sending a stunning shockwave out through the earth. The shock is indiscriminate; it stuns friend and foe alike, though the braced wielder is spared. Once used, the mechanism takes time to reset. -->
+  <UMW_Piledriver.description>타격부가 항타기로 만들어져 있습니다. 사용자의 명령에 따라 무기의 온 질량을 땅에 내리찍어, 대지를 타고 퍼지는 충격파로 주변을 기절시킬 수 있습니다. 이 충격은 대상을 가리지 않아 적과 아군을 모두 기절시키지만, 몸을 버틴 사용자만은 영향을 받지 않습니다. 한 번 사용하면 기구가 다시 준비되기까지 시간이 걸립니다.</UMW_Piledriver.description>
+
+  <!-- EN: piledriving -->
+  <UMW_Piledriver.traitAdjectives.0>내리찍는</UMW_Piledriver.traitAdjectives.0>
+
+  <!-- EN: earthshaking -->
+  <UMW_Piledriver.traitAdjectives.1>대지를 흔드는</UMW_Piledriver.traitAdjectives.1>
+
+  <!-- EN: quaking -->
+  <UMW_Piledriver.traitAdjectives.2>진동하는</UMW_Piledriver.traitAdjectives.2>
+
+  <!-- EN: thunderous -->
+  <UMW_Piledriver.traitAdjectives.3>우레의</UMW_Piledriver.traitAdjectives.3>
+
+
+  <!-- EN: plasma-cored -->
+  <UMW_PlasmaCored.label>플라즈마 코어</UMW_PlasmaCored.label>
+
+  <!-- EN: The core of the blade channels a sheath of plasma, held in place by an energy field and released into the wounds it cuts. It sears flesh and sometimes ignites the target. -->
+  <UMW_PlasmaCored.description>칼날의 코어가 플라즈마 막을 흘려보내고, 에너지장이 그것을 붙잡아 두었다가 베어낸 상처 속으로 풀어 놓습니다. 플라즈마는 살을 태우고, 때로는 목표물에 불을 붙입니다.</UMW_PlasmaCored.description>
+
+  <!-- EN: plasma-cored -->
+  <UMW_PlasmaCored.traitAdjectives.0>플라즈마</UMW_PlasmaCored.traitAdjectives.0>
+
+  <!-- EN: burning -->
+  <UMW_PlasmaCored.traitAdjectives.1>타오르는</UMW_PlasmaCored.traitAdjectives.1>
+
+  <!-- EN: searing -->
+  <UMW_PlasmaCored.traitAdjectives.2>태우는</UMW_PlasmaCored.traitAdjectives.2>
+
+  <!-- EN: fiery -->
+  <UMW_PlasmaCored.traitAdjectives.3>불타는</UMW_PlasmaCored.traitAdjectives.3>
+
+  <!-- EN: incandescent -->
+  <UMW_PlasmaCored.traitAdjectives.4>백열의</UMW_PlasmaCored.traitAdjectives.4>
+
+
+  <!-- EN: quilloned -->
+  <UMW_Quilloned.label>날받이</UMW_Quilloned.label>
+
+  <!-- EN: Quillons flare wide from the hilt, letting the wielder catch incoming blows and turn them aside. -->
+  <UMW_Quilloned.description>손잡이에서 날받이가 좌우로 넓게 뻗어 있어, 사용자가 날아드는 공격을 받아넘길 수 있습니다.</UMW_Quilloned.description>
+
+  <!-- EN: quilloned -->
+  <UMW_Quilloned.traitAdjectives.0>날받이 달린</UMW_Quilloned.traitAdjectives.0>
+
+  <!-- EN: cross-guarded -->
+  <UMW_Quilloned.traitAdjectives.1>십자 가드의</UMW_Quilloned.traitAdjectives.1>
+
+  <!-- EN: warding -->
+  <UMW_Quilloned.traitAdjectives.2>막아내는</UMW_Quilloned.traitAdjectives.2>
+
+
+  <!-- EN: razored -->
+  <UMW_Razored.label>면도날</UMW_Razored.label>
+
+  <!-- EN: The edge is honed to a keen razor that bites deeper and drives cleanly through armor. -->
+  <UMW_Razored.description>칼날이 면도날처럼 예리하게 벼려져 있어, 더 깊이 파고들고 갑옷도 깔끔하게 뚫습니다.</UMW_Razored.description>
+
+  <!-- EN: razored -->
+  <UMW_Razored.traitAdjectives.0>면도날의</UMW_Razored.traitAdjectives.0>
+
+  <!-- EN: razor-sharp -->
+  <UMW_Razored.traitAdjectives.1>면도날처럼 예리한</UMW_Razored.traitAdjectives.1>
+
+  <!-- EN: keen -->
+  <UMW_Razored.traitAdjectives.2>날카로운</UMW_Razored.traitAdjectives.2>
+
+
+  <!-- EN: serrated -->
+  <UMW_Serrated.label>톱니</UMW_Serrated.label>
+
+  <!-- EN: The edge is cut into vicious teeth that tear ragged, freely bleeding wounds, though they slash a little shallower than a clean edge. On a thrust the same teeth catch and rip flesh as the blade is drawn back. -->
+  <UMW_Serrated.description>칼날에 사나운 톱니가 새겨져 있어 살을 거칠게 찢고 피가 멎지 않는 상처를 냅니다. 다만 매끈한 날보다 베어 들어가는 깊이는 조금 얕습니다. 찌를 때도 같은 톱니가 걸려, 칼날을 뽑는 동안 살을 찢어 놓습니다.</UMW_Serrated.description>
+
+  <!-- EN: serrated -->
+  <UMW_Serrated.traitAdjectives.0>톱니의</UMW_Serrated.traitAdjectives.0>
+
+  <!-- EN: jagged -->
+  <UMW_Serrated.traitAdjectives.1>삐죽삐죽한</UMW_Serrated.traitAdjectives.1>
+
+  <!-- EN: vicious -->
+  <UMW_Serrated.traitAdjectives.2>흉포한</UMW_Serrated.traitAdjectives.2>
+
+  <!-- EN: sawtooth -->
+  <UMW_Serrated.traitAdjectives.3>톱날</UMW_Serrated.traitAdjectives.3>
+
+
+  <!-- EN: storied -->
+  <UMW_Storied.label>유서 있는</UMW_Storied.label>
+
+  <!-- EN: This weapon carries a recorded lineage of named bearers and remembered deeds. The wielder can raise it high in a rallying cry; allies who see it are steeled, and for a time wounds barely slow them. Such a moment can only be called upon once every few days. -->
+  <UMW_Storied.description>이 무기에는 이름이 남은 역대 주인들과 기억되는 무훈이 기록으로 새겨져 있습니다. 사용자는 이를 높이 들어 결집의 외침을 올릴 수 있으며, 그 모습을 본 아군은 마음을 다잡고 한동안 상처를 입어도 좀처럼 움츠러들지 않습니다. 이런 순간은 며칠에 한 번만 불러낼 수 있습니다.</UMW_Storied.description>
+
+  <!-- EN: storied -->
+  <UMW_Storied.traitAdjectives.0>유서 있는</UMW_Storied.traitAdjectives.0>
+
+  <!-- EN: fabled -->
+  <UMW_Storied.traitAdjectives.1>전설의</UMW_Storied.traitAdjectives.1>
+
+  <!-- EN: ancestral -->
+  <UMW_Storied.traitAdjectives.2>조상 대대의</UMW_Storied.traitAdjectives.2>
+
+  <!-- EN: honored -->
+  <UMW_Storied.traitAdjectives.3>명예로운</UMW_Storied.traitAdjectives.3>
+
+
+  <!-- EN: studded -->
+  <UMW_Studded.label>징 박음</UMW_Studded.label>
+
+  <!-- EN: The head is set with hard studs that concentrate the impact, driving extra force into every blow. -->
+  <UMW_Studded.description>타격부에 단단한 징이 박혀 있어 충격을 한곳에 모아, 매 타격에 힘을 더 실어 보냅니다.</UMW_Studded.description>
+
+  <!-- EN: studded -->
+  <UMW_Studded.traitAdjectives.0>징 박힌</UMW_Studded.traitAdjectives.0>
+
+  <!-- EN: knurled -->
+  <UMW_Studded.traitAdjectives.1>오톨도톨한</UMW_Studded.traitAdjectives.1>
+
+  <!-- EN: cruel -->
+  <UMW_Studded.traitAdjectives.2>잔인한</UMW_Studded.traitAdjectives.2>
+
+
+  <!-- EN: ugly -->
+  <UMW_Ugly.label>난잡한 외형</UMW_Ugly.label>
+
+  <!-- EN: This weapon was crafted with no respect for aesthetics. It looks like junk but gets the job done. Traders will pay less for it. -->
+  <UMW_Ugly.description>외관을 전혀 고려하지 않고 제작된 무기입니다. 쓰레기처럼 보이지만 제 역할은 합니다. 상인들은 더 적은 돈을 쳐줍니다.</UMW_Ugly.description>
+
+  <!-- EN: crude -->
+  <UMW_Ugly.traitAdjectives.0>조잡한</UMW_Ugly.traitAdjectives.0>
+
+  <!-- EN: ugly -->
+  <UMW_Ugly.traitAdjectives.1>난잡한</UMW_Ugly.traitAdjectives.1>
+
+  <!-- EN: monstrous -->
+  <UMW_Ugly.traitAdjectives.2>끔찍한</UMW_Ugly.traitAdjectives.2>
+
+
+  <!-- EN: zeus-headed -->
+  <UMW_ZeusHeaded.label>제우스 헤드</UMW_ZeusHeaded.label>
+
+  <!-- EN: The head houses a miniaturized zeus-cell that releases an electromagnetic discharge on impact, temporarily disabling electronics and mechanoids. -->
+  <UMW_ZeusHeaded.description>타격부에 소형화된 제우스 전지가 들어 있어, 충격을 받으면 전자기 펄스를 방출해 전자기기와 메카노이드를 일시적으로 무력화합니다.</UMW_ZeusHeaded.description>
+
+  <!-- EN: zeus-headed -->
+  <UMW_ZeusHeaded.traitAdjectives.0>제우스</UMW_ZeusHeaded.traitAdjectives.0>
+
+  <!-- EN: thunderous -->
+  <UMW_ZeusHeaded.traitAdjectives.1>천둥의</UMW_ZeusHeaded.traitAdjectives.1>
+
+  <!-- EN: electric -->
+  <UMW_ZeusHeaded.traitAdjectives.2>전기</UMW_ZeusHeaded.traitAdjectives.2>
+
+  <!-- EN: shocking -->
+  <UMW_ZeusHeaded.traitAdjectives.3>감전의</UMW_ZeusHeaded.traitAdjectives.3>
+
+</LanguageData>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>r_logentry(p=0.4)->[RECIPIENT_definite] caught [INITIATOR_definite]'s [attack_noun] on the crossguard and turned it aside.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] [skillAdvMaybe] parried [INITIATOR_definite]'s [attack_noun] with [RECIPIENT_possessive] quillons.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] turned [INITIATOR_definite]'s [attack_noun] aside on [RECIPIENT_possessive] guard.</li>
+    <li>skillAdvMaybe-></li>
+    <li>skillAdvMaybe->[skillAdv]</li>
+    <li>attack_noun->blow</li>
+    <li>attack_noun->strike</li>
+    <li>attack_noun->swing</li>
+    <li>attack_noun->attack</li>
+    <li>result->but [RECIPIENT_definite] caught it on the crossguard</li>
+    <li>result->but the [attack_noun] was turned aside on [RECIPIENT_possessive] quillons</li>
+    <li>result->but [RECIPIENT_definite] parried with [RECIPIENT_possessive] guard</li>
+  -->
+  <UMW_Combat_Parry.rulePack.rulesStrings>
+    <li>r_logentry(p=0.4)->[RECIPIENT_definite](이)가 [INITIATOR_definite]의 [attack_noun](을)를 십자 가드로 받아 옆으로 흘려보냄.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite](이)가 [INITIATOR_definite]의 [attack_noun](을)를 날받이로 [skillAdvMaybe] 받아넘김.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite](이)가 [INITIATOR_definite]의 [attack_noun](을)를 가드로 옆으로 흘려냄.</li>
+    <li>skillAdvMaybe-></li>
+    <li>skillAdvMaybe->[skillAdv]</li>
+    <li>attack_noun->일격</li>
+    <li>attack_noun->타격</li>
+    <li>attack_noun->휘두르기</li>
+    <li>attack_noun->공격</li>
+    <li>result->그러나 [RECIPIENT_definite](이)가 십자 가드로 받아냄</li>
+    <li>result->그러나 그 [attack_noun](이)가 날받이에 막혀 흘러나감</li>
+    <li>result->그러나 [RECIPIENT_definite](이)가 가드로 받아넘김</li>
+  </UMW_Combat_Parry.rulePack.rulesStrings>
+
+  <!-- EN:
+    <li>weapon_adjective->[stuff_adjective]</li>
+    <li>r_weapon_name(p=0.4)->The [stuff_adjective] [weapon_noun]</li>
+    <li>r_weapon_name(p=0.3)->[stuff_adjective] [badass_noun]</li>
+  -->
+  <UMW_NamerStuffAdjectives.rulePack.rulesStrings>
+    <li>weapon_adjective->[stuff_adjective]</li>
+    <li>r_weapon_name(p=0.4)->[stuff_adjective] [weapon_noun]</li>
+    <li>r_weapon_name(p=0.3)->[stuff_adjective] [badass_noun]</li>
+  </UMW_NamerStuffAdjectives.rulePack.rulesStrings>
+
+</LanguageData>

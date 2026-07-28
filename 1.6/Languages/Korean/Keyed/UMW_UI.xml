@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Settings: window category (mod-list entry) -->
+  <!-- EN: Unique Melee Weapons -->
+  <UMW_SettingsCategory>고유 근접 무기</UMW_SettingsCategory>
+
+  <!-- Settings: section headers. -->
+  <!-- EN: Weapons -->
+  <UMW_SettingsWeapons>무기</UMW_SettingsWeapons>
+
+  <!-- EN: Generation -->
+  <UMW_SettingsGeneration>생성</UMW_SettingsGeneration>
+
+  <!-- Settings: reusable label suffixes. Each includes a leading space, and every applicable one is
+       appended (no precedence between them), so they must read cleanly back to back. -->
+  <!-- EN:  (default) -->
+  <UMW_DefaultSuffix> (기본값)</UMW_DefaultSuffix>
+
+  <!-- {0} is another piece of content the current value matches, named from its own def label. -->
+  <!-- EN:  (same as {0}) -->
+  <UMW_SameAsSuffix> ({0}(와)과 동일)</UMW_SameAsSuffix>
+
+  <!-- Settings: Weapons. One checkbox per weapon. {0} is the weapon's own def label (lowercase). -->
+  <!-- EN: Allow {0} to be generated. Turn off to remove it from this mod's own reward pool and from every vanilla generation and reward pool, including quest rewards, ancient crates, item stashes and map loot, so it no longer appears. (A third-party mod that rolls loot through its own custom generator may bypass this.) Any that already exist in your save are untouched, and the other weapons take its place in the rolls. Turning it back on is enough to restore it. -->
+  <UMW_WeaponEnabledDesc>{0}(을)를 생성할 수 있게 합니다. 끄면 이 MOD 자체의 보상 목록과, 임무 보상, 고대 상자, 귀중품 은닉처, 지도상의 전리품을 포함한 모든 바닐라 생성 목록 및 보상 목록에서 제외되어 더 이상 등장하지 않습니다. (자체 생성기로 전리품을 뽑는 외부 MOD에서는 이 설정이 무시될 수 있습니다.) 세이브에 이미 존재하는 것은 그대로 남고, 추첨에서는 다른 무기가 그 자리를 대신합니다. 다시 켜면 원래대로 돌아옵니다.</UMW_WeaponEnabledDesc>
+
+  <!-- Settings: buttons -->
+  <!-- EN: Reset to defaults -->
+  <UMW_ResetToDefaults>기본값 복원</UMW_ResetToDefaults>
+
+  <!-- Settings: Generation -->
+  <!-- {0} is the wood resource's item label (ThingDef WoodLog, "wood" in English, lowercase). -->
+  <!-- EN: Exclude {0} from generated unique weapons -->
+  <UMW_ExcludeWoodStuff>생성되는 고유 무기에서 {0}(을)를 제외</UMW_ExcludeWoodStuff>
+
+  <!-- {0} is the vanilla longsword's item label (lowercase), named as the example reward. -->
+  <!-- EN: Unique weapons only enter the game through generated rewards (quests, ancient crates, item stashes), rolled from a random eligible material. With this on, wooden materials are dropped from that roll, so a hard-won reward never lands as a wooden {0}. Turn off to allow wooden uniques. -->
+  <UMW_ExcludeWoodStuffDesc>고유 무기는 생성되는 보상(임무, 고대 상자, 귀중품 은닉처)을 통해서만 게임에 등장하며, 그 재료는 조건을 만족하는 재료 중에서 무작위로 뽑힙니다. 이 설정을 켜면 나무 계열 재료가 추첨에서 빠지므로, 힘들게 얻어낸 보상이 나무로 만든 {0}(으)로 나오는 일이 없습니다. 끄면 나무로 만든 고유 무기도 허용됩니다.</UMW_ExcludeWoodStuffDesc>
+
+  <!-- Shown only when Royalty is active; the traits it governs need that DLC.
+       {0}, {1}, {2} are the three trait labels (lowercase): monomolecular, plasma-cored, zeus-headed.
+       Each parenthetical describes the trait injected just before it, so keep them paired. -->
+  <!-- EN: Allow ultratech weapon traits -->
+  <UMW_AllowUltratechTraits>최첨단 기술의 무기 특성 허용</UMW_AllowUltratechTraits>
+
+  <!-- EN: Three traits borrow Royalty's ultratech melee kit: {0} (a mechanite-held edge that shears armor), {1} (a plasma sheath that sears and ignites) and {2} (an EMP discharge that stuns mechanoids). Turn off to keep them out of the roll. This is meant for medieval-only or low-tech runs, where a mechanite edge on a hand-forged sword breaks the period. The other traits are unaffected, and weapons that have already rolled one of these keep it. -->
+  <UMW_AllowUltratechTraitsDesc>세 가지 특성은 Royalty의 최첨단 근접 무기를 차용한 것입니다: {0}(갑옷을 갈라내는, 기계입자가 유지하는 칼날), {1}(살을 태우고 불을 붙이는 플라즈마 막), {2}(메카노이드를 기절시키는 EMP 방출). 끄면 이 특성들은 추첨에 들어가지 않습니다. 중세 한정이나 저기술 플레이를 위한 설정으로, 그런 시대 설정에서는 손으로 벼린 검에 기계입자 칼날이 달려 있으면 분위기가 깨집니다. 다른 특성은 영향을 받지 않으며, 이미 이 특성 중 하나를 얻은 무기는 그대로 유지합니다.</UMW_AllowUltratechTraitsDesc>
+
+  <!-- Settings: Abilities. Slider labels are shared templates: {0} is the subject's own def label
+       (an ability, a hediff, or the warband faction), capitalized; {1} is the slider's current value.
+       The unit word is part of the template, so hour- and day-based cooldowns are separate keys. -->
+  <!-- EN: {0} cooldown: {1} hours -->
+  <UMW_AbilityCooldownHours>{0}의 재사용 대기시간: {1}시간</UMW_AbilityCooldownHours>
+
+  <!-- EN: {0} cooldown: {1} days -->
+  <UMW_AbilityCooldownDays>{0}의 재사용 대기시간: {1}일</UMW_AbilityCooldownDays>
+
+  <!-- EN: {0} radius: {1} cells -->
+  <UMW_AbilityRadius>{0}의 범위: {1}칸</UMW_AbilityRadius>
+
+  <!-- EN: {0} duration: {1} hours -->
+  <UMW_HediffDurationHours>{0}의 지속시간: {1}시간</UMW_HediffDurationHours>
+
+  <!-- EN: How long a piledriver weapon must rest between earthshakes. The default matches the cooldown on the EMP pulser, the one weapon-trait ability Odyssey ships with a cooldown. Set to 0 for no cooldown at all. -->
+  <UMW_EarthshakeCooldownDesc>항타기 무기가 지진 강타를 한 번 일으킨 뒤 다시 일으킬 수 있게 되기까지의 간격입니다. 기본값은 펄스 방출기의 재사용 대기시간에 맞춰져 있습니다. 펄스 방출기는 Odyssey에 수록된 무기 특성 능력 중에서 유일하게 재사용 대기시간을 가진 능력입니다. 0으로 설정하면 재사용 대기시간이 아예 없어집니다.</UMW_EarthshakeCooldownDesc>
+
+  <!-- EN: How far the stunning shockwave reaches. It travels through the ground, so walls do not stop it, but it cannot cross a gap with no floor. The overhead ripple scales to match. Remember the shock is indiscriminate: a wider radius catches more of your own colonists too. -->
+  <UMW_EarthshakeRadiusDesc>기절시키는 충격파가 닿는 범위입니다. 충격파는 땅을 타고 퍼지므로 벽으로는 막히지 않지만, 바닥이 없는 빈 곳은 넘어가지 못합니다. 지면에 이는 파문 효과도 범위에 맞춰 커지고 작아집니다. 이 충격은 대상을 가리지 않는다는 점을 기억하세요. 범위를 넓힐수록 자신의 정착민도 더 많이 휘말립니다.</UMW_EarthshakeRadiusDesc>
+
+  <!-- EN: How long a storied weapon must rest between rallying cries. Measured in days rather than hours on purpose: the default makes it an heirloom moment rather than a standing aura you re-apply every fight. -->
+  <UMW_RallyingCryCooldownDesc>유서 있는 무기가 결집의 외침을 한 번 올린 뒤 다시 올릴 수 있게 되기까지의 간격입니다. 시간 단위가 아니라 일 단위로 잡은 것은 의도한 것으로, 기본값에서는 전투마다 다시 걸어 주는 상시 효과가 아니라 가보다운 특별한 순간이 됩니다.</UMW_RallyingCryCooldownDesc>
+
+  <!-- EN: How far the cry carries. It rallies every humanlike within this range who is not hostile to the wielder and can see them, so allied and neutral pawns are included but walls and closed doors block it. Waking sleepers uses the same range but ignores walls, and catches enemies as well. -->
+  <UMW_RallyingCryRadiusDesc>외침이 닿는 범위입니다. 이 범위 안에 있고, 사용자에게 적대적이지 않으며, 사용자를 볼 수 있는 인간은 모두 결집되므로 동맹과 중립 대상도 포함되지만, 벽과 닫힌 문은 외침을 막습니다. 잠든 이를 깨우는 효과는 같은 범위를 쓰지만 벽을 무시하며, 적까지 깨웁니다.</UMW_RallyingCryRadiusDesc>
+
+  <!-- EN: How long the rallied buff lasts on each pawn the cry reaches, halving both their pain and the time a hit staggers them. Anyone who was asleep is woken instead of rallied, and resents it. Changing this affects cries made from now on; anyone already rallied keeps the duration they were given. -->
+  <UMW_RalliedDurationDesc>외침이 닿은 각 대상에게 결집됨 효과가 유지되는 시간입니다. 효과가 있는 동안에는 고통과, 공격을 받아 비틀거리는 시간이 모두 절반으로 줄어듭니다. 잠들어 있던 대상은 결집되는 대신 깨어나며, 이를 불쾌하게 여깁니다. 이 설정은 앞으로 올리는 외침에만 적용되고, 이미 결집된 대상은 받은 지속시간을 그대로 유지합니다.</UMW_RalliedDurationDesc>
+
+  <!-- Settings: Quests. The slider label reuses the shared template pattern: {0} is the warband
+       faction's def label (capitalized), {1} the value. The desc's quest examples (ancient
+       mercenaries, bandit camps, item stashes) are vanilla content names; translate them to match
+       the official localization. -->
+  <!-- EN: {0} quest commonality: {1} -->
+  <UMW_QuestWeight>{0} 임무의 출현 빈도: {1}</UMW_QuestWeight>
+
+  <!-- EN: Selection weight of the warband quest against the other opportunity-site quests (ancient mercenaries, bandit camps, item stashes...) offered by traders, beggars and reading. Higher = offered more often. 0 disables the quest entirely. -->
+  <UMW_WarbandQuestWeightDesc>상인과 걸인, 독서를 통해 제시되는 다른 기회 지역 임무(고대 용병들, 도적 캠프, 귀중품 은닉처...)와 견주었을 때 전사단 임무가 선택되는 가중치입니다. 높을수록 더 자주 제시됩니다. 0으로 두면 이 임무가 완전히 비활성화됩니다.</UMW_WarbandQuestWeightDesc>
+
+</LanguageData>

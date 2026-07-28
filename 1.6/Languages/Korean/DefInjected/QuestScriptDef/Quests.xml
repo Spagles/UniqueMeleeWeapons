@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>questName->The [savage] [warband]</li>
+    <li>questName->[savage] [warband]</li>
+    <li>savage->Savage</li>
+    <li>savage->Wild</li>
+    <li>savage->Fierce</li>
+    <li>savage->Bloodthirsty</li>
+    <li>savage->Roaming</li>
+    <li>warband->Warband</li>
+    <li>warband->War Party</li>
+    <li>warband->Marauders</li>
+    <li>warband->Raiders</li>
+    <li>warband->Warriors</li>
+  -->
+  <UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+    <li>questName->[savage] [warband]</li>
+    <li>questName->[savage] [warband]</li>
+    <li>savage->야만적인</li>
+    <li>savage->거친</li>
+    <li>savage->호전적인</li>
+    <li>savage->피에 굶주린</li>
+    <li>savage->유랑하는</li>
+    <li>warband->전사단</li>
+    <li>warband->습격단</li>
+    <li>warband->약탈자들</li>
+    <li>warband->습격자들</li>
+    <li>warband->전사들</li>
+  </UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+
+  <!-- EN:
+    <li>questDescription->[discoveryMethod] the location of a band of marauding tribal warriors. This war party has been preying on settlements and travellers across the surrounding lands.\n\nThe band is led by [LEADER_nameDef], who possesses a unique [WEAPON_quality] weapon. The group contains:\n\n[warbandList]\n\nIf you're able to capture or kill the leader, you can take the unique weapon.\n\n[location]</li>
+    <li>location(atLandmark==true)->The warriors are hiding out in an abandoned settlement at [landmarkName].</li>
+    <li>location(atLandmark==false)->The warriors are hiding out in an abandoned settlement.</li>
+  -->
+  <UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+    <li>questDescription->[discoveryMethod] 약탈을 일삼는 부족 전사 집단의 위치입니다. 이 습격단은 주변 일대의 정착지와 여행자를 노려 왔습니다.\n\n이 집단은 [WEAPON_quality] 고유 무기를 지닌 [LEADER_nameDef](이)가 이끌고 있습니다. 집단의 구성원은 다음과 같습니다.\n\n[warbandList]\n\n지도자를 사로잡거나 처치하면 해당 고유 무기를 획득할 수 있습니다.\n\n[location]</li>
+    <li>location(atLandmark==true)->전사들은 [landmarkName]의 버려진 정착지에 숨어 있습니다.</li>
+    <li>location(atLandmark==false)->전사들은 버려진 정착지에 숨어 있습니다.</li>
+  </UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+
+  <!-- EN:
+    <li>subject->tribal raiders</li>
+    <li>subject->marauding warriors</li>
+    <li>subject->savage tribesfolk</li>
+    <li>questMapFeature->raider camp</li>
+    <li>questMapFeature->drawing of a tribal warrior</li>
+    <li>questMapFeature->sketch of a master-forged blade</li>
+    <li>questMapText->dangerous raiders</li>
+    <li>questMapText->a master-forged weapon</li>
+    <li>questMapText->savage warriors</li>
+  -->
+  <UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+    <li>subject->부족 습격자들</li>
+    <li>subject->약탈을 일삼는 전사들</li>
+    <li>subject->야만적인 부족민들</li>
+    <li>questMapFeature->습격자 캠프</li>
+    <li>questMapFeature->부족 전사의 그림</li>
+    <li>questMapFeature->명장이 벼린 칼날의 스케치</li>
+    <li>questMapText->위험한 습격자들</li>
+    <li>questMapText->명장이 벼린 무기</li>
+    <li>questMapText->야만적인 전사들</li>
+  </UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+
+</LanguageData>

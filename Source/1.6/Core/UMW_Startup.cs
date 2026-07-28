@@ -14,7 +14,7 @@ namespace UniqueMeleeWeapons;
 // shipped XML values (re-applied on the next settings-window close, which calls the same Apply
 // methods) and the caches built here keep the previous DefDatabase's def instances (harmless to the
 // pool/stuff patches, which key on tags and defNames, not cached references).
-// (Decompile-verified 2026-07-26, RimWorld 1.6.)
+// (Decompile-verified, RimWorld 1.6.)
 [StaticConstructorOnStartup]
 public static class UMW_Startup
 {

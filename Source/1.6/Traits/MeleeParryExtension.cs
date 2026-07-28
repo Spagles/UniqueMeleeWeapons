@@ -9,13 +9,12 @@ namespace UniqueMeleeWeapons;
 // Patches/Verb_MeleeAttackDamage_Parry_Patch.cs (gates, sequencing and the log mechanics live
 // in that file's header).
 //
-// WHY A MECHANIC AND NOT A STAT. The guard's effect used to be an equipped hediff offsetting
-// MeleeDodgeChance (+3 raw). That vehicle is bladelink's idiom — a psychic bond writing a
-// condition onto the pawn — and reads wrong for plain steel quillons; it also surfaced in the
-// health tab as a pseudo-condition. A parry roll IS the physical feature: the blow is caught on
-// the weapon, visibly and audibly, and nothing is ever applied to the pawn. Replaced the hediff
-// 2026-07-27 after the Odyssey balance pass settled that no vanilla precedent binds us here
-// (Odyssey unique traits never touch the wielder at all).
+// WHY A MECHANIC AND NOT A STAT. Deliberately NOT an equipped hediff offsetting MeleeDodgeChance
+// (+3 raw): that vehicle is bladelink's idiom — a psychic bond writing a condition onto the pawn —
+// and reads wrong for plain steel quillons; it also surfaces in the health tab as a pseudo-
+// condition. A parry roll IS the physical feature: the blow is caught on the weapon, visibly and
+// audibly, and nothing is ever applied to the pawn. No vanilla precedent binds us here either —
+// Odyssey unique traits never touch the wielder at all.
 //
 // The chance is FLAT — deliberately independent of melee skill, where every dodge-stat source
 // decays through MeleeDodgeChance's postProcessCurve. Hardware does the work: a conscript and a

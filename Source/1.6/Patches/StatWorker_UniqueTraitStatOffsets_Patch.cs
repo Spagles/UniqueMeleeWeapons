@@ -8,7 +8,7 @@ namespace UniqueMeleeWeapons.Patches;
 // Routes WeaponTraitDef.equippedStatOffsets to the wielder for OUR unique weapons, so a trait can
 // modify a wielder stat with the weapon itself named in the stat breakdown — no equipped hediff.
 //
-// Why a patch is needed (full 1.6 decompile audit, 2026-07-27): equippedStatOffsets is consumed in
+// Why a patch is needed (full 1.6 decompile audit): equippedStatOffsets is consumed in
 // exactly two places in the assembly — StatWorker.StatOffsetFromGear (value + the "Relevant gear"
 // breakdown line, which routes through it via InfoTextLineFromGear) and the relevance filter
 // StatWorker.GearHasCompsThatAffectStat — and both are hardcoded to TryGetComp<CompBladelinkWeapon>,

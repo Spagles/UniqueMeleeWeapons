@@ -6,13 +6,13 @@ using Verse.Sound;
 
 namespace UniqueMeleeWeapons;
 
-// Backs UMW_RallyingCry, the active half of the Storied trait (Melee). Core's DLC-free
-// CompAbilityEffect_* roster has no ally-AoE-buff shape — every stock effect either targets a single
-// pawn/cell or is hostile-only (verified per spec) — hence this custom comp. Faction-SYMMETRIC by
-// design (user directive 2026-07-24, superseding the spec's player-faction-only target set): the cry
-// rallies the CASTER's faction, whoever that is, so a hostile wielder rallies its own raid. That is
-// also why the payload is a timed hediff (pain dampening) rather than the original mood memory —
-// stat effects are real for NPCs, mood is not.
+// Backs UMW_RallyingCry, the active half of the Storied trait (Melee). No stock CompAbilityEffect_*
+// has an ally-AoE-buff shape, hence this custom comp — the near misses, enumerated across the whole
+// roster in the 1.6 assembly, are GiveHediff/GiveInspiration (single target), Neuroquake (AoE, but
+// Royalty and indiscriminate) and Explosion (AoE, but damage).
+// Faction-SYMMETRIC by design: the cry rallies the CASTER's faction, whoever that is, so a hostile
+// wielder rallies its own raid. That is also why the payload is a timed hediff (pain dampening)
+// rather than a mood memory — stat effects are real for NPCs, mood is not.
 public class CompProperties_AbilityRallyAllies : CompProperties_AbilityEffect
 {
     // Cells around the caster scanned for ralliable allies (an EMPPulse-style AoE footprint —
@@ -33,7 +33,7 @@ public class CompProperties_AbilityRallyAllies : CompProperties_AbilityEffect
 //     test, because a shout is a noise and noise does not care who is listening or where the walls are.
 //   • RALLIES every humanlike in radius that is NOT hostile to the caster and can see them: hediffDef
 //     plus a brief speech-lines fleck answering back. Deliberately across faction lines rather than the
-//     caster's own faction only (corrected 2026-07-25) — an allied or neutral bystander watching someone
+//     caster's own faction only — an allied or neutral bystander watching someone
 //     invoke a storied weapon's history takes heart from it just as a squadmate does, and gating on
 //     faction identity made allied pawns fighting beside you inexplicably immune. Animals and mechs take
 //     no heart from a speech; prisoners are excluded on purpose (see the loop).
@@ -49,7 +49,7 @@ public class CompProperties_AbilityRallyAllies : CompProperties_AbilityEffect
 // Also emits the cry's speech bubble. That has to live here rather than on the def: the only XML route
 // to a mote at cast time is CompProperties_AbilityMoteOnTarget, which reaches Mote_Speech via
 // MoteMaker.MakeAttachedOverlay and so never calls MoteBubble.SetupMoteBubble — you get the bubble
-// background with no symbol inside it. MakeSpeechBubble does both (decompile-verified 2026-07-25).
+// background with no symbol inside it. MakeSpeechBubble does both (decompile-verified, RimWorld 1.6).
 // Also drives Core's SpeechLines fleck on both sides of the cry: blinking over the caster for the length
 // of the raised-weapon pose (CompTick), and once over each pawn that answers. See those two members.
 //
@@ -102,9 +102,9 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
     // on, half a second off — a blink, matching the Royalty speech look rather than a solid glow.
     private const int CasterLinesIntervalTicks = 45;
 
-    // How long the caster keeps talking. Deliberately SHORTER than the raised-weapon pose (user call,
-    // 2026-07-25): the line is called out at the start and the rest of the pose is holding the weapon up
-    // in silence, so blinking for the full pose read as over-long. 3s gives four blinks at the cadence
+    // How long the caster keeps talking. Deliberately SHORTER than the raised-weapon pose: the line is
+    // called out at the start and the rest of the pose is holding the weapon up in silence, so
+    // blinking for the full pose reads as over-long. 3s gives four blinks at the cadence
     // above. Clamped against defaultCooldownTime at cast rather than used raw, so that lowering the pose
     // below this still cuts the blink with it — lines must never outlive the pose that motivates them.
     private const float CasterLinesSeconds = 3f;
@@ -245,7 +245,7 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
     // ticked for a weapon-trait ability: Pawn.Tick (not TickInterval, so this is genuinely per-tick) calls
     // Pawn_AbilityTracker.AbilitiesTick over AllAbilitiesForReading, which folds in the equipped primary's
     // CompEquippableAbility.AbilityForReading, and Ability.AbilityTick calls CompTick on each comp
-    // (decompile-verified 2026-07-25, RimWorld 1.6). Consequence worth knowing: the blink stops early if
+    // (decompile-verified, RimWorld 1.6). Consequence worth knowing: the blink stops early if
     // the weapon stops being the pawn's primary mid-cry, which is the correct outcome anyway.
     public override void CompTick()
     {
@@ -298,7 +298,7 @@ public class CompAbilityEffect_RallyAllies : CompAbilityEffect
     // between pawns, and is INDEPENDENT of gender (which separately selects the recording, via the two
     // soundMale/soundFemale defs). One particular colonist's cry therefore always sounds like them.
     // This is exactly what vanilla speeches do: JobDriver_GiveSpeech feeds the same value to
-    // PlaySustainerOrSound (all decompile-verified 2026-07-25, RimWorld 1.6).
+    // PlaySustainerOrSound (all decompile-verified, RimWorld 1.6).
     //
     // A def-level SoundDef.pitchRange would NOT achieve this — that re-rolls on every play, so the same
     // pawn would sound like a different person each cry, which is worse than no variation at all.

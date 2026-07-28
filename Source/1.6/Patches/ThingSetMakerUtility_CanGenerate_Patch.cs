@@ -26,7 +26,7 @@ namespace UniqueMeleeWeapons.Patches;
 // but a THIRD-PARTY def using that stock class (or its own hand-rolled maker) is not covered, which is
 // why player-facing copy says "vanilla" pools (Keyed/UMW_UI.xml). Trade and raider kit need no gate at
 // all: the weapons are tradeability=Sellable (never stocked) and generateAllowChance=0 (never spawned
-// equipped). (Decompile-verified 2026-07-26, RimWorld 1.6: CanGenerate's only callers are
+// equipped). (Decompile-verified, RimWorld 1.6: CanGenerate's only callers are
 // GetAllowedThingDefs and Reset; the leaf makers reaching weapons — Count, MarketValue, StackCount —
 // all funnel through GetAllowedThingDefs.)
 //

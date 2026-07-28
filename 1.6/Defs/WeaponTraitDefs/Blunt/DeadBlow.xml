@@ -6,12 +6,14 @@
        MeleeOnHitEffect_Stagger (target keeps fighting, just slower), hence the higher
        0.5 proc chance vs UMW_BellCast/UMW_ZeusHeaded's stuns (0.25/no-gate-but-adaptation-limited) — a
        stagger is a much milder incapacitation than a stun, so it can afford to land twice as often.
-       ticks 95 / moveSpeedFactor 0.17 are vanilla's own bullet-impact stagger numbers
-       (Pawn_StanceTracker.StaggerBulletImpactTicks / StaggerHandler.DefaultStaggerMoveSpeedFactor,
-       decompile-verified), reused here as the melee-equivalent kinetic jolt. Works on mechs
+       ticks 95 / moveSpeedFactor 0.17 are vanilla's own stagger numbers
+       (Pawn_StanceTracker.StaggerMeleeAttackTicks, the same 95 it uses for bullet and explosion
+       impacts, and StaggerHandler.DefaultStaggerMoveSpeedFactor). Works on mechs
        (mirrors Bell-cast; fleshOnly left at its default false — a girder-limbed mech rattles too).
-       Victim-side counterplay rides the StaggerDurationFactor stat; StaggerFor max-merges rather than
-       stacking, so repeated procs can't chain into a permalock (decompile-verified per spec).
+       Victim-side counterplay rides the StaggerDurationFactor stat, which RimWorld.StaggerHandler.
+       StaggerFor multiplies in BEFORE merging; it then max-merges (Mathf.Max on ticks, Mathf.Min on
+       the speed factor) rather than stacking, so repeated procs can't chain into a permalock.
+       (Decompile-verified, RimWorld 1.6.)
        Shares the "Head" token with BellCast/ZeusHeaded — one blunt-head incapacitation effect per
        weapon. Priced at parity with Odyssey's ranged OversizedRounds (+50). -->
   <WeaponTraitDef>

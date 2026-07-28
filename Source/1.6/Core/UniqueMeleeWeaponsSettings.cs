@@ -146,7 +146,7 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     // outside a game.
     //
     // Every other pool path calls CanGenerate live through ThingSetMakerUtility.GetAllowedThingDefs and
-    // needs no invalidation. (Decompile-verified 2026-07-26, RimWorld 1.6.)
+    // needs no invalidation. (Decompile-verified, RimWorld 1.6.)
     public void ApplyWeaponAvailability()
     {
         ThingSetMakerUtility.Reset();
@@ -171,7 +171,7 @@ public class UniqueMeleeWeaponsSettings : ModSettings
     // Every field written here is read fresh at use, so no restart is needed:
     // AbilityDef.cooldownTicksRange is sampled per cast (Ability.StartCooldown takes
     // .RandomInRange), and Verb.EffectiveRange resolves verbProps.AdjustedRange live
-    // rather than caching (both decompile-verified 2026-07-25, RimWorld 1.6).
+    // rather than caching (both decompile-verified, RimWorld 1.6).
     public void ApplyAbilityTuning()
     {
         SetCooldown(UMW_DefOf.UMW_Earthshake, earthshakeCooldownHours * GenDate.TicksPerHour);

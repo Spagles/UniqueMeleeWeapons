@@ -8,7 +8,7 @@ namespace UniqueMeleeWeapons;
 // Backs UMW_Earthshake (Defs/AbilityDefs/Earthshake.xml). Vanilla's CompProperties_AbilityExplosion is
 // the right shape for a self-centred kinetic burst and we keep every one of its fields, but three of
 // the arguments it forwards to GenExplosion.DoExplosion are HARDCODED in
-// CompAbilityEffect_Explosion.Apply with no XML hook (decompile-verified 2026-07-25, RimWorld 1.6):
+// CompAbilityEffect_Explosion.Apply with no XML hook (decompile-verified, RimWorld 1.6):
 //
 //   ignoredThings:  always null    -> the caster is stunned by their own slam
 //   overrideCells:  always null    -> cells come from DamageWorker.ExplosionCellsToHit, which filters

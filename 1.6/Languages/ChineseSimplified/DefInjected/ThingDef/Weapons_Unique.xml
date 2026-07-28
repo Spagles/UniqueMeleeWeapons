@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: unique axe -->
+  <UMW_Axe_Unique.label>特化战斧</UMW_Axe_Unique.label>
+
+  <!-- EN: An axe bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Axe_Unique.description>一把烙有大师印记的战斧。没有任何两件锻造得一模一样。</UMW_Axe_Unique.description>
+
+  <!-- EN: axe -->
+  <UMW_Axe_Unique.comps.5.namerLabels.0>战斧</UMW_Axe_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: cleaver -->
+  <UMW_Axe_Unique.comps.5.namerLabels.1>劈刀</UMW_Axe_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: bit -->
+  <UMW_Axe_Unique.comps.5.namerLabels.2>斧刃</UMW_Axe_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Axe_Unique.comps.5.namerLabels.3>利刃</UMW_Axe_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique gladius -->
+  <UMW_Gladius_Unique.label>特化短剑</UMW_Gladius_Unique.label>
+
+  <!-- EN: A gladius bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Gladius_Unique.description>一把烙有大师印记的短剑。没有任何两件锻造得一模一样。</UMW_Gladius_Unique.description>
+
+  <!-- EN: gladius -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.0>短剑</UMW_Gladius_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.1>利刃</UMW_Gladius_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: sword -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.2>剑</UMW_Gladius_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.3>剑锋</UMW_Gladius_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique knife -->
+  <UMW_Knife_Unique.label>特化匕首</UMW_Knife_Unique.label>
+
+  <!-- EN: A knife honed by a master's hand. No two are forged alike. -->
+  <UMW_Knife_Unique.description>一把经大师之手磨砺的匕首。没有任何两件锻造得一模一样。</UMW_Knife_Unique.description>
+
+  <!-- EN: knife -->
+  <UMW_Knife_Unique.comps.5.namerLabels.0>匕首</UMW_Knife_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_Knife_Unique.comps.5.namerLabels.1>利刃</UMW_Knife_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: dagger -->
+  <UMW_Knife_Unique.comps.5.namerLabels.2>短刀</UMW_Knife_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Knife_Unique.comps.5.namerLabels.3>刀锋</UMW_Knife_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique longsword -->
+  <UMW_LongSword_Unique.label>特化长剑</UMW_LongSword_Unique.label>
+
+  <!-- EN: A longsword bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_LongSword_Unique.description>一把烙有大师印记的长剑。没有任何两件锻造得一模一样。</UMW_LongSword_Unique.description>
+
+  <!-- EN: longsword -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.0>长剑</UMW_LongSword_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.1>利刃</UMW_LongSword_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: sword -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.2>剑</UMW_LongSword_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.3>剑锋</UMW_LongSword_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique mace -->
+  <UMW_Mace_Unique.label>特化钉头锤</UMW_Mace_Unique.label>
+
+  <!-- EN: A mace bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Mace_Unique.description>一把烙有大师印记的钉头锤。没有任何两件锻造得一模一样。</UMW_Mace_Unique.description>
+
+  <!-- EN: mace -->
+  <UMW_Mace_Unique.comps.5.namerLabels.0>钉头锤</UMW_Mace_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: bludgeon -->
+  <UMW_Mace_Unique.comps.5.namerLabels.1>重锤</UMW_Mace_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: club -->
+  <UMW_Mace_Unique.comps.5.namerLabels.2>棍棒</UMW_Mace_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: head -->
+  <UMW_Mace_Unique.comps.5.namerLabels.3>锤头</UMW_Mace_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique spear -->
+  <UMW_Spear_Unique.label>特化长矛</UMW_Spear_Unique.label>
+
+  <!-- EN: A spear bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Spear_Unique.description>一杆烙有大师印记的长矛。没有任何两件锻造得一模一样。</UMW_Spear_Unique.description>
+
+  <!-- EN: spear -->
+  <UMW_Spear_Unique.comps.5.namerLabels.0>长矛</UMW_Spear_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: lance -->
+  <UMW_Spear_Unique.comps.5.namerLabels.1>长枪</UMW_Spear_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: pike -->
+  <UMW_Spear_Unique.comps.5.namerLabels.2>矛</UMW_Spear_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: point -->
+  <UMW_Spear_Unique.comps.5.namerLabels.3>矛尖</UMW_Spear_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique warhammer -->
+  <UMW_Warhammer_Unique.label>特化战锤</UMW_Warhammer_Unique.label>
+
+  <!-- EN: A warhammer bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Warhammer_Unique.description>一柄烙有大师印记的战锤。没有任何两件锻造得一模一样。</UMW_Warhammer_Unique.description>
+
+  <!-- EN: warhammer -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.0>战锤</UMW_Warhammer_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: hammer -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.1>锤</UMW_Warhammer_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: maul -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.2>巨锤</UMW_Warhammer_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: head -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.3>锤头</UMW_Warhammer_Unique.comps.5.namerLabels.3>
+
+</LanguageData>

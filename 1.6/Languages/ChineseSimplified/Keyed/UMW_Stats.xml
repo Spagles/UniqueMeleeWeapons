@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Info card: the per-trait effect lines added to vanilla's "Weapon traits" entry by
+       Source/1.6/Traits/TraitEffectSummary.cs. Each renders as one " - ..." line under its trait,
+       matching the format vanilla uses for a trait's own statOffsets/statFactors. Keep them short —
+       the entry lists up to three traits at once. -->
+  <!-- Per-tool damage / armor penetration. {0} is a tool capacity ("cut", "cut and stab") or the
+       UMW_TraitStat_AllTools word when the trait modifies every tool. -->
+  <!-- EN: melee -->
+  <UMW_TraitStat_AllTools>近战</UMW_TraitStat_AllTools>
+
+  <!-- EN: {0} damage -->
+  <UMW_TraitStat_ToolDamage>{0}伤害</UMW_TraitStat_ToolDamage>
+
+  <!-- EN: {0} armor penetration -->
+  <UMW_TraitStat_ToolArmorPenetration>{0}护甲穿透</UMW_TraitStat_ToolArmorPenetration>
+
+  <!-- EN: min. {0} -->
+  <UMW_TraitStat_Minimum>最低{0}</UMW_TraitStat_Minimum>
+
+  <!-- Rerouted base hit. {0} is the injury hediff's label; the bleed clause is appended in
+       parentheses when the new wound bleeds at a different rate than the one it replaces. The
+       forced-internal line states the rerouted damage's stabChanceOfForcedInternal (vanilla stabs
+       roll 60%), shown when the conversion changes it. -->
+  <!-- EN: Wound type: {0} -->
+  <UMW_TraitStat_WoundType>伤口类型：{0}</UMW_TraitStat_WoundType>
+
+  <!-- EN: bleed rate {0} -->
+  <UMW_TraitStat_BleedRate>失血速率 {0}</UMW_TraitStat_BleedRate>
+
+  <!-- EN: Stabs strike internal organs {0} of the time -->
+  <UMW_TraitStat_ForcedInternal>刺击有{0}的几率伤及内脏</UMW_TraitStat_ForcedInternal>
+
+  <!-- On-hit effects. {0} (or {1}) is one of the effect clauses below; the chance form is used
+       whenever the effect can fail to proc. -->
+  <!-- EN: On hit: {0} -->
+  <UMW_TraitStat_OnHit>命中时：{0}</UMW_TraitStat_OnHit>
+
+  <!-- EN: On hit ({0}): {1} -->
+  <UMW_TraitStat_OnHitChance>命中时（{0}）：{1}</UMW_TraitStat_OnHitChance>
+
+  <!-- EN: {0} {1} damage -->
+  <UMW_TraitStat_ExtraDamage>{0}点{1}伤害</UMW_TraitStat_ExtraDamage>
+
+  <!-- EN: {0} {1} damage, {2} armor penetration -->
+  <UMW_TraitStat_ExtraDamageAP>{0}点{1}伤害，护甲穿透{2}</UMW_TraitStat_ExtraDamageAP>
+
+  <!-- EN: {0} {1} damage, not reduced by armor -->
+  <UMW_TraitStat_ExtraDamageIgnoreArmor>{0}点{1}伤害，无视护甲</UMW_TraitStat_ExtraDamageIgnoreArmor>
+
+  <!-- EN: stun for {0} -->
+  <UMW_TraitStat_Stun>击晕{0}</UMW_TraitStat_Stun>
+
+  <!-- EN: stagger for {0} ({1} move speed) -->
+  <UMW_TraitStat_Stagger>打乱脚步{0}（移动速度 {1}）</UMW_TraitStat_Stagger>
+
+  <!-- EN: {0} (flesh only) -->
+  <UMW_TraitStat_FleshOnly>{0}（仅血肉生物）</UMW_TraitStat_FleshOnly>
+
+  <!-- EN: {0} (humanlikes only) -->
+  <UMW_TraitStat_HumanlikeOnly>{0}（仅人类）</UMW_TraitStat_HumanlikeOnly>
+
+  <!-- Wielder-side stat effect, carried by the trait's equippedStatOffsets (routed live by
+       StatWorker_UniqueTraitStatOffsets_Patch) or, should a trait ever need a stat factor, by an
+       equipped hediff. {0} is a stat line or, for a hediff with no stat modifiers, the hediff's own
+       label. The stat line is rendered unfinalized, so a stat with a postProcessCurve shows its raw
+       offset rather than a percentage ("Melee hit chance -1.0", the way vanilla shows Nimble's +15) —
+       see the StatWorker patch header for why those offsets are whole numbers. -->
+  <!-- EN: {0} (wielder) -->
+  <UMW_TraitStat_Wielder>{0}（使用者）</UMW_TraitStat_Wielder>
+
+  <!-- Defender-side parry (MeleeParryExtension). {0} is the parry chance. -->
+  <!-- EN: {0} chance to parry melee attacks -->
+  <UMW_TraitStat_Parry>有{0}的几率格挡近战攻击</UMW_TraitStat_Parry>
+
+  <!-- Ability granted by the trait. {0} is the AbilityDef's label. -->
+  <!-- EN: Grants ability: {0} -->
+  <UMW_TraitStat_GrantsAbility>赋予能力：{0}</UMW_TraitStat_GrantsAbility>
+
+  <!-- Forced art inscription (ForcedArtExtension): the weapon always carries an art title and
+       description, regardless of quality. -->
+  <!-- EN: Always bears an art inscription -->
+  <UMW_TraitStat_ForcedArt>总是带有艺术铭刻</UMW_TraitStat_ForcedArt>
+
+</LanguageData>

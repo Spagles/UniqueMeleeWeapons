@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: blood-stained weapon -->
+  <UMW_BloodStainedWeapon.stages.0.label>染血武器</UMW_BloodStainedWeapon.stages.0.label>
+
+  <!-- EN: I'm carrying a weapon caked in dried blood. Its reek, and the thought of what it's done, turn my stomach. -->
+  <UMW_BloodStainedWeapon.stages.0.description>我随身带着一件结满干涸血污的武器。它散发的腥臭，还有它做过的那些事，让我一阵阵反胃。</UMW_BloodStainedWeapon.stages.0.description>
+
+  <!-- EN: blood-stained weapon -->
+  <UMW_BloodStainedWeapon.stages.1.label>染血武器</UMW_BloodStainedWeapon.stages.1.label>
+
+  <!-- EN: I'm carrying a weapon caked in dried blood. Its reek, and the thought of what it's done, thrill me to the core. -->
+  <UMW_BloodStainedWeapon.stages.1.description>我随身带着一件结满干涸血污的武器。它散发的腥臭，还有它做过的那些事，让我兴奋到骨子里。</UMW_BloodStainedWeapon.stages.1.description>
+
+
+  <!-- EN: storied weapon -->
+  <UMW_StoriedWeapon.stages.0.label>传世武器</UMW_StoriedWeapon.stages.0.label>
+
+  <!-- EN: I'm carrying a weapon with a name and a history. The deeds of those who bore it before me are remembered, and one day mine will be too. -->
+  <UMW_StoriedWeapon.stages.0.description>我随身带着一件有名字、有来历的武器。前人持它立下的功绩仍被世人铭记，终有一天，我的功绩也将如此。</UMW_StoriedWeapon.stages.0.description>
+
+</LanguageData>

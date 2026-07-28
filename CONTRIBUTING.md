@@ -13,7 +13,7 @@ welcome too.
 | -------------------- | ------- | ------ |
 | English              | Source  | —      |
 | Simplified Chinese   | Planned |        |
-| Russian              | Planned |        |
+| Russian              | Machine-assisted |        |
 | Korean               | Planned |        |
 | German               | Planned |        |
 | Spanish              | Planned |        |

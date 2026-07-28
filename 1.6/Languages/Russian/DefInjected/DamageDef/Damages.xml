@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: cut -->
+  <UMW_Cut_Ragged.label>порез</UMW_Cut_Ragged.label>
+
+  <!-- EN: {0} has been cut to death. -->
+  <UMW_Cut_Ragged.deathMessage>{0} погибает от резаных ран.</UMW_Cut_Ragged.deathMessage>
+
+
+  <!-- EN: stab -->
+  <UMW_Stab_Deep.label>укол</UMW_Stab_Deep.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Deep.deathMessage>{0} погибает от колотых ран.</UMW_Stab_Deep.deathMessage>
+
+
+  <!-- EN: stab -->
+  <UMW_Stab_Ragged.label>укол</UMW_Stab_Ragged.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Ragged.deathMessage>{0} погибает от колотых ран.</UMW_Stab_Ragged.deathMessage>
+
+
+  <!-- EN: toxic stab -->
+  <UMW_Stab_Tox.label>токсичный укол</UMW_Stab_Tox.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Tox.deathMessage>{0} погибает от колотых ран.</UMW_Stab_Tox.deathMessage>
+
+
+  <!-- EN: tranquilizing stab -->
+  <UMW_Stab_Tranq.label>усыпляющий укол</UMW_Stab_Tranq.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Tranq.deathMessage>{0} погибает от колотых ран.</UMW_Stab_Tranq.deathMessage>
+
+</LanguageData>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>questName->The [savage] [warband]</li>
+    <li>questName->[savage] [warband]</li>
+    <li>savage->Savage</li>
+    <li>savage->Wild</li>
+    <li>savage->Fierce</li>
+    <li>savage->Bloodthirsty</li>
+    <li>savage->Roaming</li>
+    <li>warband->Warband</li>
+    <li>warband->War Party</li>
+    <li>warband->Marauders</li>
+    <li>warband->Raiders</li>
+    <li>warband->Warriors</li>
+  -->
+  <UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+    <li>questName->[savage_mas] [warband_mas]</li>
+    <li>questName->[savage_fem] [warband_fem]</li>
+    <li>questName->[savage_pl] [warband_pl]</li>
+    <li>savage_mas->Свирепый</li>
+    <li>savage_mas->Дикий</li>
+    <li>savage_mas->Кровожадный</li>
+    <li>savage_mas->Бродячий</li>
+    <li>savage_fem->Свирепая</li>
+    <li>savage_fem->Дикая</li>
+    <li>savage_fem->Кровожадная</li>
+    <li>savage_fem->Бродячая</li>
+    <li>savage_pl->Свирепые</li>
+    <li>savage_pl->Дикие</li>
+    <li>savage_pl->Кровожадные</li>
+    <li>savage_pl->Бродячие</li>
+    <li>warband_mas->Отряд</li>
+    <li>warband_fem->Ватага</li>
+    <li>warband_fem->Орда</li>
+    <li>warband_pl->Мародёры</li>
+    <li>warband_pl->Налётчики</li>
+    <li>warband_pl->Воины</li>
+  </UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+
+  <!-- EN:
+    <li>questDescription->[discoveryMethod] the location of a band of marauding tribal warriors. This war party has been preying on settlements and travellers across the surrounding lands.\n\nThe band is led by [LEADER_nameDef], who possesses a unique [WEAPON_quality] weapon. The group contains:\n\n[warbandList]\n\nIf you're able to capture or kill the leader, you can take the unique weapon.\n\n[location]</li>
+    <li>location(atLandmark==true)->The warriors are hiding out in an abandoned settlement at [landmarkName].</li>
+    <li>location(atLandmark==false)->The warriors are hiding out in an abandoned settlement.</li>
+  -->
+  <UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+    <li>questDescription->[discoveryMethod] местоположение банды мародёрствующих воинов из племени. Этот отряд грабит поселения и путников по всей округе.\n\nОтряд возглавляет [LEADER_nameDef]. В руках вождя уникальное оружие ([WEAPON_quality]). В отряд входят:\n\n[warbandList]\n\nЕсли вам удастся захватить или убить вождя, вы сможете забрать уникальное оружие.\n\n[location]</li>
+    <li>location(atLandmark==true)->Воины скрываются в заброшенном поселении у [landmarkName].</li>
+    <li>location(atLandmark==false)->Воины скрываются в заброшенном поселении.</li>
+  </UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+
+  <!-- EN:
+    <li>subject->tribal raiders</li>
+    <li>subject->marauding warriors</li>
+    <li>subject->savage tribesfolk</li>
+    <li>questMapFeature->raider camp</li>
+    <li>questMapFeature->drawing of a tribal warrior</li>
+    <li>questMapFeature->sketch of a master-forged blade</li>
+    <li>questMapText->dangerous raiders</li>
+    <li>questMapText->a master-forged weapon</li>
+    <li>questMapText->savage warriors</li>
+  -->
+  <UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+    <li>subject->налётчики из племени</li>
+    <li>subject->мародёрствующие воины</li>
+    <li>subject->свирепые дикари</li>
+    <li>questMapFeature->лагерь налётчиков</li>
+    <li>questMapFeature->рисунок воина племени</li>
+    <li>questMapFeature->набросок мастерски выкованного клинка</li>
+    <li>questMapText->опасные налётчики</li>
+    <li>questMapText->мастерски выкованное оружие</li>
+    <li>questMapText->свирепые воины</li>
+  </UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+
+</LanguageData>

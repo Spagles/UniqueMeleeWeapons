@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: unique axe -->
+  <UMW_Axe_Unique.label>уникальный топор</UMW_Axe_Unique.label>
+
+  <!-- EN: An axe bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Axe_Unique.description>Топор, несущий отпечаток руки мастера. Двух одинаковых не куют.</UMW_Axe_Unique.description>
+
+  <!-- EN: axe -->
+  <UMW_Axe_Unique.comps.5.namerLabels.0>топор</UMW_Axe_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: cleaver -->
+  <UMW_Axe_Unique.comps.5.namerLabels.1>тесак</UMW_Axe_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: bit -->
+  <UMW_Axe_Unique.comps.5.namerLabels.2>секира</UMW_Axe_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Axe_Unique.comps.5.namerLabels.3>лезвие</UMW_Axe_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique gladius -->
+  <UMW_Gladius_Unique.label>уникальный гладиус</UMW_Gladius_Unique.label>
+
+  <!-- EN: A gladius bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Gladius_Unique.description>Гладиус, несущий отпечаток руки мастера. Двух одинаковых не куют.</UMW_Gladius_Unique.description>
+
+  <!-- EN: gladius -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.0>гладиус</UMW_Gladius_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.1>клинок</UMW_Gladius_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: sword -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.2>меч</UMW_Gladius_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.3>лезвие</UMW_Gladius_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique knife -->
+  <UMW_Knife_Unique.label>уникальный нож</UMW_Knife_Unique.label>
+
+  <!-- EN: A knife honed by a master's hand. No two are forged alike. -->
+  <UMW_Knife_Unique.description>Нож, отточенный рукой мастера. Двух одинаковых не куют.</UMW_Knife_Unique.description>
+
+  <!-- EN: knife -->
+  <UMW_Knife_Unique.comps.5.namerLabels.0>нож</UMW_Knife_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_Knife_Unique.comps.5.namerLabels.1>клинок</UMW_Knife_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: dagger -->
+  <UMW_Knife_Unique.comps.5.namerLabels.2>кинжал</UMW_Knife_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Knife_Unique.comps.5.namerLabels.3>лезвие</UMW_Knife_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique longsword -->
+  <UMW_LongSword_Unique.label>уникальный длинный меч</UMW_LongSword_Unique.label>
+
+  <!-- EN: A longsword bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_LongSword_Unique.description>Длинный меч, несущий отпечаток руки мастера. Двух одинаковых не куют.</UMW_LongSword_Unique.description>
+
+  <!-- EN: longsword -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.0>длинный меч</UMW_LongSword_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.1>клинок</UMW_LongSword_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: sword -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.2>меч</UMW_LongSword_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.3>лезвие</UMW_LongSword_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique mace -->
+  <UMW_Mace_Unique.label>уникальная булава</UMW_Mace_Unique.label>
+
+  <!-- EN: A mace bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Mace_Unique.description>Булава, несущая отпечаток руки мастера. Двух одинаковых не куют.</UMW_Mace_Unique.description>
+
+  <!-- EN: mace -->
+  <UMW_Mace_Unique.comps.5.namerLabels.0>булава</UMW_Mace_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: bludgeon -->
+  <UMW_Mace_Unique.comps.5.namerLabels.1>дубина</UMW_Mace_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: club -->
+  <UMW_Mace_Unique.comps.5.namerLabels.2>палица</UMW_Mace_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: head -->
+  <UMW_Mace_Unique.comps.5.namerLabels.3>навершие</UMW_Mace_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique spear -->
+  <UMW_Spear_Unique.label>уникальное копьё</UMW_Spear_Unique.label>
+
+  <!-- EN: A spear bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Spear_Unique.description>Копьё, несущее отпечаток руки мастера. Двух одинаковых не куют.</UMW_Spear_Unique.description>
+
+  <!-- EN: spear -->
+  <UMW_Spear_Unique.comps.5.namerLabels.0>копьё</UMW_Spear_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: lance -->
+  <UMW_Spear_Unique.comps.5.namerLabels.1>пика</UMW_Spear_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: pike -->
+  <UMW_Spear_Unique.comps.5.namerLabels.2>рогатина</UMW_Spear_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: point -->
+  <UMW_Spear_Unique.comps.5.namerLabels.3>жало</UMW_Spear_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique warhammer -->
+  <UMW_Warhammer_Unique.label>уникальный молот</UMW_Warhammer_Unique.label>
+
+  <!-- EN: A warhammer bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Warhammer_Unique.description>Боевой молот, несущий отпечаток руки мастера. Двух одинаковых не куют.</UMW_Warhammer_Unique.description>
+
+  <!-- EN: warhammer -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.0>боевой молот</UMW_Warhammer_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: hammer -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.1>молот</UMW_Warhammer_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: maul -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.2>кувалда</UMW_Warhammer_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: head -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.3>боёк</UMW_Warhammer_Unique.comps.5.namerLabels.3>
+
+</LanguageData>

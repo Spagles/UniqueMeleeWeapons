@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: blood red -->
+  <UMW_BloodRed.label>кроваво-красный</UMW_BloodRed.label>
+
+
+  <!-- EN: carbon black -->
+  <UMW_CarbonBlack.label>угольно-чёрный</UMW_CarbonBlack.label>
+
+
+  <!-- EN: enamel purple -->
+  <UMW_EnamelPurple.label>эмалево-фиолетовый</UMW_EnamelPurple.label>
+
+
+  <!-- EN: monomolecular white -->
+  <UMW_MonoWhite.label>мономолекулярный белый</UMW_MonoWhite.label>
+
+
+  <!-- EN: plasma orange -->
+  <UMW_PlasmaOrange.label>плазменно-оранжевый</UMW_PlasmaOrange.label>
+
+</LanguageData>

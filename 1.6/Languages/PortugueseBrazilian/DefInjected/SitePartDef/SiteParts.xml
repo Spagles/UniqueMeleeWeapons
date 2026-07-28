@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- The site label patterns on Core's "acampamento de bandidos" and the description on Odyssey's
+       own BanditGang line ("Uma companhia hostil de mercenários escondida em uma antiga
+       estrutura."), our site part's direct vanilla analog. "assentamento abandonado" is Core's and
+       Odyssey's own term. Warband is "bando de guerra": Core writes "bando de invasores" and
+       "bando de piratas", while "banda" in Brazil reads as a marching band. -->
+
+  <!-- EN: warband camp -->
+  <UMW_WarbandCamp.label>acampamento do bando de guerra</UMW_WarbandCamp.label>
+
+  <!-- EN: A hostile warband hiding out in an abandoned settlement. -->
+  <UMW_WarbandCamp.description>Um bando de guerra hostil escondido em um assentamento abandonado.</UMW_WarbandCamp.description>
+
+</LanguageData>

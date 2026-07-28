@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- DamageDef labels. Unlike French, pt-BR Core does NOT split the DamageDef word from the
+       HediffDef word: Cut is "corte" and Stab is "facada" in both def types. The word that IS
+       different is the ToolCapacityDef's, which is "punhalada" - not this file, so it must not
+       appear here. The toxic variant follows Core's ScratchToxic / ToxicBite ("arranhão tóxico",
+       "mordida tóxica"), which postpose an AGREEING adjective, so a toxic "facada" takes the
+       feminine "tóxica".
+
+       deathMessage uses the inline gender split Core pt-BR uses throughout, in its 2-arg form
+       ("{PAWN_gender ? o : a}") - Core has no 3-arg genderless fallback for these, so we don't
+       invent one. Both messages are Core's verbatim: Cut.deathMessage
+       "{0} foi cortad{PAWN_gender ? o : a} até a morte." and Stab.deathMessage
+       "{0} foi esfaquead{PAWN_gender ? o : a} até a morte." Note Core reuses the plain stab message
+       for ScratchToxic and ToxicBite rather than colouring it, so the toxic and tranquilizing
+       variants keep it too - exactly as our English does. -->
+
+  <!-- EN: cut -->
+  <UMW_Cut_Ragged.label>corte</UMW_Cut_Ragged.label>
+
+  <!-- EN: {0} has been cut to death. -->
+  <UMW_Cut_Ragged.deathMessage>{0} foi cortad{PAWN_gender ? o : a} até a morte.</UMW_Cut_Ragged.deathMessage>
+
+
+  <!-- EN: stab -->
+  <UMW_Stab_Deep.label>facada</UMW_Stab_Deep.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Deep.deathMessage>{0} foi esfaquead{PAWN_gender ? o : a} até a morte.</UMW_Stab_Deep.deathMessage>
+
+
+  <!-- EN: stab -->
+  <UMW_Stab_Ragged.label>facada</UMW_Stab_Ragged.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Ragged.deathMessage>{0} foi esfaquead{PAWN_gender ? o : a} até a morte.</UMW_Stab_Ragged.deathMessage>
+
+
+  <!-- EN: toxic stab -->
+  <UMW_Stab_Tox.label>facada tóxica</UMW_Stab_Tox.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Tox.deathMessage>{0} foi esfaquead{PAWN_gender ? o : a} até a morte.</UMW_Stab_Tox.deathMessage>
+
+
+  <!-- "tranquilizante" is invariant in -e, so it needs no agreement work here. -->
+  <!-- EN: tranquilizing stab -->
+  <UMW_Stab_Tranq.label>facada tranquilizante</UMW_Stab_Tranq.label>
+
+  <!-- EN: {0} has been stabbed to death. -->
+  <UMW_Stab_Tranq.deathMessage>{0} foi esfaquead{PAWN_gender ? o : a} até a morte.</UMW_Stab_Tranq.deathMessage>
+
+</LanguageData>

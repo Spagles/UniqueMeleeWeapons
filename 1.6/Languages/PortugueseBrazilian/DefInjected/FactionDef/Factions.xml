@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- pawnSingular / pawnsPlural / leaderTitle are bare lowercase nouns with no gender hedge,
+       matching Core's TribeRough ("nativo" / "nativos" / "chefe"). "senhor da guerra" is
+       vanilla-attested for warlord (Core Warlordess56.title, Ideology place_foeLeader). -->
+
+  <!-- EN: warband -->
+  <UMW_Warband.label>bando de guerra</UMW_Warband.label>
+
+  <!-- EN: A roving company of fighters who live by the raid, preying on settlements and travellers across the land. -->
+  <UMW_Warband.description>Uma companhia errante de combatentes que vive de invasões, atacando assentamentos e viajantes por toda a região.</UMW_Warband.description>
+
+  <!-- EN: warrior -->
+  <UMW_Warband.pawnSingular>guerreiro</UMW_Warband.pawnSingular>
+
+  <!-- EN: warriors -->
+  <UMW_Warband.pawnsPlural>guerreiros</UMW_Warband.pawnsPlural>
+
+  <!-- EN: warlord -->
+  <UMW_Warband.leaderTitle>senhor da guerra</UMW_Warband.leaderTitle>
+
+</LanguageData>

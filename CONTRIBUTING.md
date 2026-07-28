@@ -18,12 +18,16 @@ welcome too.
 | German               | Machine-assisted | Opus 5  |
 | Spanish              | Machine-assisted | Opus 5  |
 | French               | Machine-assisted | Opus 5  |
-| Brazilian Portuguese | Planned          |         |
+| Brazilian Portuguese | Machine-assisted | Opus 5  |
 | Japanese             | Machine-assisted | Opus 5  |
 
 Spanish here means Castilian (RimWorld's `Spanish` language folder). RimWorld also
 ships a separate Latin American Spanish (`SpanishLatin`); a translation for it is
 welcome as its own folder rather than as edits to this one.
+
+Brazilian Portuguese likewise means RimWorld's `PortugueseBrazilian` folder. European
+Portuguese (`Portuguese`) is a separate language folder in RimWorld, so a translation
+for it is welcome in its own right rather than as edits to this one.
 
 Statuses: **Source** (the authoritative English strings), **Machine-assisted**
 (generated with terminology grounded against the official RimWorld

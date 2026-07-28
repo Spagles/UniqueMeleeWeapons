@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- In-combat floating text. -->
+  <!-- Thrown over a pawn whose weapon parries an incoming melee blow; the parry counterpart of
+       vanilla's <TextMote_Dodge>Dodge</TextMote_Dodge>, which pt-BR renders as the noun "Esquiva", so
+       this one is a noun too. "Parada" is the fencing term but Core already spends it on
+       StoppingPower ("Poder de parada"), and "Aparada" reads first as trimming, so the mote uses
+       "Bloqueio" and UMW_TraitStat_Parry uses the matching verb "bloquear". -->
+  <!-- EN: Parried -->
+  <UMW_TextMote_Parried>Bloqueio</UMW_TextMote_Parried>
+
+</LanguageData>

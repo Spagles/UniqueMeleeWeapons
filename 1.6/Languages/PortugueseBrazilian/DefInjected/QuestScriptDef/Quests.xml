@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>questName->The [savage] [warband]</li>
+    <li>questName->[savage] [warband]</li>
+    <li>savage->Savage</li>
+    <li>savage->Wild</li>
+    <li>savage->Fierce</li>
+    <li>savage->Bloodthirsty</li>
+    <li>savage->Roaming</li>
+    <li>warband->Warband</li>
+    <li>warband->War Party</li>
+    <li>warband->Marauders</li>
+    <li>warband->Raiders</li>
+    <li>warband->Warriors</li>
+  -->
+  <!-- Portuguese adjectives postpose and agree in gender and number, so the single English [savage]
+       list cannot serve a mix of "Bando de Guerra" (masc. sing.), "Tropa de Guerra" (fem. sing.) and
+       "Invasores" (masc. plur.). The symbol is split into parallel families instead, one rule per
+       agreement class, with the article duplicated to match. Vanilla pt-BR capitalizes both elements
+       of a generated quest name (Odyssey's "Os [ancient] [mercenaries]" feeds Antigos + Mercenários),
+       so both are capitalized here too. -->
+  <UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+    <li>questName->O [warband_ms] [savage_ms]</li>
+    <li>questName->A [warband_fs] [savage_fs]</li>
+    <li>questName->Os [warband_mp] [savage_mp]</li>
+    <li>questName->[warband_ms] [savage_ms]</li>
+    <li>questName->[warband_fs] [savage_fs]</li>
+    <li>questName->[warband_mp] [savage_mp]</li>
+    <li>warband_ms->Bando de Guerra</li>
+    <li>warband_fs->Tropa de Guerra</li>
+    <li>warband_mp->Saqueadores</li>
+    <li>warband_mp->Invasores</li>
+    <li>warband_mp->Guerreiros</li>
+    <li>savage_ms->Selvagem</li>
+    <li>savage_ms->Indômito</li>
+    <li>savage_ms->Feroz</li>
+    <li>savage_ms->Sanguinário</li>
+    <li>savage_ms->Errante</li>
+    <li>savage_fs->Selvagem</li>
+    <li>savage_fs->Indômita</li>
+    <li>savage_fs->Feroz</li>
+    <li>savage_fs->Sanguinária</li>
+    <li>savage_fs->Errante</li>
+    <li>savage_mp->Selvagens</li>
+    <li>savage_mp->Indômitos</li>
+    <li>savage_mp->Ferozes</li>
+    <li>savage_mp->Sanguinários</li>
+    <li>savage_mp->Errantes</li>
+  </UMW_OpportunitySite_Warband.questNameRules.rulesStrings>
+
+  <!-- EN:
+    <li>questDescription->[discoveryMethod] the location of a band of marauding tribal warriors. This war party has been preying on settlements and travellers across the surrounding lands.\n\nThe band is led by [LEADER_nameDef], who possesses a unique [WEAPON_quality] weapon. The group contains:\n\n[warbandList]\n\nIf you're able to capture or kill the leader, you can take the unique weapon.\n\n[location]</li>
+    <li>location(atLandmark==true)->The warriors are hiding out in an abandoned settlement at [landmarkName].</li>
+    <li>location(atLandmark==false)->The warriors are hiding out in an abandoned settlement.</li>
+  -->
+  <!-- Modelled on Odyssey's pt-BR Script_AncientMercenaries, the sibling this quest was built from:
+       [discoveryMethod] is used bare (pt-BR supplies it no case markers, unlike German), and its
+       renderings of "uma arma [WEAPON_quality] única", "O grupo contém:" and "Se você conseguir
+       capturar ou matar o líder..." are reused verbatim. Prose is você-form, as all pt-BR Core prose
+       is. [LEADER_nameDef] and [landmarkName] resolve to bare names with no article, so the preceding
+       "por" and "em" cannot contract into one; that would not be true of a _definite symbol. -->
+  <UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+    <li>questDescription->[discoveryMethod] o local de um bando de guerreiros tribais saqueadores. Essa tropa de guerra vem atacando assentamentos e viajantes por todas as terras ao redor.\n\nO bando é liderado por [LEADER_nameDef], que possui uma arma [WEAPON_quality] única. O grupo contém:\n\n[warbandList]\n\nSe você conseguir capturar ou matar o líder, poderá pegar essa arma única.\n\n[location]</li>
+    <li>location(atLandmark==true)->Os guerreiros estão escondidos em um assentamento abandonado em [landmarkName].</li>
+    <li>location(atLandmark==false)->Os guerreiros estão escondidos em um assentamento abandonado.</li>
+  </UMW_OpportunitySite_Warband.questDescriptionRules.rulesStrings>
+
+  <!-- EN:
+    <li>subject->tribal raiders</li>
+    <li>subject->marauding warriors</li>
+    <li>subject->savage tribesfolk</li>
+    <li>questMapFeature->raider camp</li>
+    <li>questMapFeature->drawing of a tribal warrior</li>
+    <li>questMapFeature->sketch of a master-forged blade</li>
+    <li>questMapText->dangerous raiders</li>
+    <li>questMapText->a master-forged weapon</li>
+    <li>questMapText->savage warriors</li>
+  -->
+  <!-- Only the plain subject / questMapFeature / questMapText families are needed: unlike German,
+       pt-BR consumes no oblique case forms of these. "desenho de" and "esboço de" follow Odyssey's
+       own pt-BR wording for the same two map features. -->
+  <UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+    <li>subject->invasores tribais</li>
+    <li>subject->guerreiros saqueadores</li>
+    <li>subject->nativos selvagens</li>
+    <li>questMapFeature->acampamento de invasores</li>
+    <li>questMapFeature->desenho de um guerreiro tribal</li>
+    <li>questMapFeature->esboço de uma lâmina forjada por um mestre</li>
+    <li>questMapText->invasores perigosos</li>
+    <li>questMapText->uma arma forjada por um mestre</li>
+    <li>questMapText->guerreiros selvagens</li>
+  </UMW_OpportunitySite_Warband.questSubjectRules.rulesStrings>
+
+</LanguageData>

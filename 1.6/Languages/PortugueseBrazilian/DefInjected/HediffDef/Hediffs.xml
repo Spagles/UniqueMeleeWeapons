@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Injury hediffs take the HediffDef words, which in pt-BR Core are the SAME as the matching
+       DamageDefs (Cut = "corte", Stab = "facada"); the three-way split that does exist is
+       DamageDef/HediffDef "facada" vs ToolCapacityDef "punhalada", and neither of those is this file.
+       "Ragged" is Core's own wound word for a torn wound: Shredded.labelNoun = "uma ferida dilacerada"
+       and Shredded.description = "Uma parte do corpo foi dilacerada e rasgada.", which maps our
+       "ragged, torn" onto vanilla's exact pair.
+
+       labelNoun carries the indefinite article, as Core's own do ("um corte", "uma facada"), and it
+       agrees: "corte" is masculine, "facada" feminine.
+
+       The bracketed status labels do NOT agree, and that is deliberate. Core pt-BR ships
+       "enfaixado" / "suturado" / "fixado" and "Cortado fora" invariantly across every injury hediff,
+       including the feminine ones (facada, queimadura, mordida) - it treats them as invariant status
+       tags rather than agreeing participles, uniformly, in all 12+ Core injury defs. Matching that
+       keeps our wounds reading identically to vanilla wounds in the health tab, and unlike es/fr
+       there is no "(a)" hedge on these fields either. Core also uses the SAME string for
+       destroyedLabel and destroyedOutLabel on both Cut and Stab, so we do too. The permanentLabel
+       follows Core's nominal "cicatriz de <wound>" template (cicatriz de corte / de facada / de
+       arranhão) with the medical noun for a ragged tear. -->
+
+  <!-- EN: ragged cut -->
+  <UMW_Cut_Ragged.label>corte dilacerado</UMW_Cut_Ragged.label>
+
+  <!-- EN: a ragged cut -->
+  <UMW_Cut_Ragged.labelNoun>um corte dilacerado</UMW_Cut_Ragged.labelNoun>
+
+  <!-- EN: A ragged, torn cut that bleeds freely and scars badly. -->
+  <UMW_Cut_Ragged.description>Um corte dilacerado e rasgado que sangra muito e deixa cicatrizes feias.</UMW_Cut_Ragged.description>
+
+  <!-- EN: bandaged -->
+  <UMW_Cut_Ragged.comps.0.labelTendedWell>enfaixado</UMW_Cut_Ragged.comps.0.labelTendedWell>
+
+  <!-- EN: sutured -->
+  <UMW_Cut_Ragged.comps.0.labelTendedWellInner>suturado</UMW_Cut_Ragged.comps.0.labelTendedWellInner>
+
+  <!-- EN: set -->
+  <UMW_Cut_Ragged.comps.0.labelSolidTendedWell>fixado</UMW_Cut_Ragged.comps.0.labelSolidTendedWell>
+
+  <!-- EN: ragged scar -->
+  <UMW_Cut_Ragged.comps.2.permanentLabel>cicatriz de laceração</UMW_Cut_Ragged.comps.2.permanentLabel>
+
+  <!-- EN: Cut off -->
+  <UMW_Cut_Ragged.injuryProps.destroyedLabel>Cortado fora</UMW_Cut_Ragged.injuryProps.destroyedLabel>
+
+  <!-- EN: Cut out -->
+  <UMW_Cut_Ragged.injuryProps.destroyedOutLabel>Cortado fora</UMW_Cut_Ragged.injuryProps.destroyedOutLabel>
+
+
+  <!-- "Storied" is rendered "de renome" throughout (see ThoughtDef/Thoughts.xml): pt-BR's obvious
+       first choice "lendária" is spoken for by the legendary quality tier ("lendário"), so it would
+       read as a quality claim rather than a history. Hediff labels stay bare masculine, as Core's own
+       pawn-state labels do ("sedado", "tonto", "Mordido"). -->
+  <!-- EN: rallied -->
+  <UMW_Rallied.label>enardecido</UMW_Rallied.label>
+
+  <!-- EN: Stirred by the rallying cry of a storied weapon's bearer. For a time, wounds barely register, and a hit does little to break their stride. -->
+  <UMW_Rallied.description>Enardecido pelo grito de guerra do portador de uma arma de renome. Por um tempo, as feridas quase não se fazem sentir, e um golpe pouco faz para quebrar seu ritmo.</UMW_Rallied.description>
+
+
+  <!-- "corrente sanguínea" and "deixa as criaturas inconscientes" are Core Anesthetic's own words. -->
+  <!-- EN: sedative buildup -->
+  <UMW_SedativeBuildup.label>acúmulo de sedativo</UMW_SedativeBuildup.label>
+
+  <!-- EN: A fast-acting sedative building up in the bloodstream. At high levels it renders creatures unconscious. -->
+  <UMW_SedativeBuildup.description>Um sedativo de ação rápida que se acumula na corrente sanguínea. Em doses altas, deixa as criaturas inconscientes.</UMW_SedativeBuildup.description>
+
+  <!-- Core Anesthetic's pt-BR ladder is "ficando tonto" (wearing off) / "tonto" (woozy) / "sedado"
+       (sedated). Our upper two stages ARE its woozy and sedated rungs, so they take its words
+       verbatim; "ficando tonto" is not reusable here because it names the decay direction, which is
+       the whole reason this hediff exists instead of Anesthetic. Only stage 0 needed a word of its
+       own, and "entorpecido" (dulled, numbed) sits cleanly below "tonto". -->
+  <!-- EN: dosed -->
+  <UMW_SedativeBuildup.stages.0.label>entorpecido</UMW_SedativeBuildup.stages.0.label>
+
+  <!-- EN: woozy -->
+  <UMW_SedativeBuildup.stages.1.label>tonto</UMW_SedativeBuildup.stages.1.label>
+
+  <!-- EN: sedated -->
+  <UMW_SedativeBuildup.stages.2.label>sedado</UMW_SedativeBuildup.stages.2.label>
+
+
+  <!-- EN: ragged stab -->
+  <UMW_Stab_Ragged.label>facada dilacerada</UMW_Stab_Ragged.label>
+
+  <!-- EN: a ragged stab wound -->
+  <UMW_Stab_Ragged.labelNoun>uma facada dilacerada</UMW_Stab_Ragged.labelNoun>
+
+  <!-- EN: A ragged, torn stab wound that bleeds freely and scars badly. -->
+  <UMW_Stab_Ragged.description>Uma facada dilacerada e rasgada que sangra muito e deixa cicatrizes feias.</UMW_Stab_Ragged.description>
+
+  <!-- EN: bandaged -->
+  <UMW_Stab_Ragged.comps.0.labelTendedWell>enfaixado</UMW_Stab_Ragged.comps.0.labelTendedWell>
+
+  <!-- EN: sutured -->
+  <UMW_Stab_Ragged.comps.0.labelTendedWellInner>suturado</UMW_Stab_Ragged.comps.0.labelTendedWellInner>
+
+  <!-- EN: set -->
+  <UMW_Stab_Ragged.comps.0.labelSolidTendedWell>fixado</UMW_Stab_Ragged.comps.0.labelSolidTendedWell>
+
+  <!-- EN: ragged scar -->
+  <UMW_Stab_Ragged.comps.2.permanentLabel>cicatriz de laceração</UMW_Stab_Ragged.comps.2.permanentLabel>
+
+  <!-- EN: Cut off -->
+  <UMW_Stab_Ragged.injuryProps.destroyedLabel>Cortado fora</UMW_Stab_Ragged.injuryProps.destroyedLabel>
+
+  <!-- EN: Cut out -->
+  <UMW_Stab_Ragged.injuryProps.destroyedOutLabel>Cortado fora</UMW_Stab_Ragged.injuryProps.destroyedOutLabel>
+
+</LanguageData>

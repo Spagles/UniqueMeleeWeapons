@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Patterned on Odyssey's own pt-BR UniqueWeapon_* colour labels, which postpose an invariant
+       qualifying noun after the base colour: "laranja fogo", "azul gelo", "azul elétrico",
+       "verde tóxico". The compounds stay invariant. Purple is "roxo", following Odyssey's
+       UniqueWeapon_Purple and MutedPurple ("roxo suave"), not "púrpura". -->
+
+  <!-- EN: blood red -->
+  <UMW_BloodRed.label>vermelho sangue</UMW_BloodRed.label>
+
+
+  <!-- EN: carbon black -->
+  <UMW_CarbonBlack.label>preto carbono</UMW_CarbonBlack.label>
+
+
+  <!-- EN: enamel purple -->
+  <UMW_EnamelPurple.label>roxo esmalte</UMW_EnamelPurple.label>
+
+
+  <!-- EN: monomolecular white -->
+  <UMW_MonoWhite.label>branco monomolecular</UMW_MonoWhite.label>
+
+
+  <!-- EN: plasma orange -->
+  <UMW_PlasmaOrange.label>laranja plasma</UMW_PlasmaOrange.label>
+
+</LanguageData>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Info card: per-trait effect lines under vanilla's "Características da Arma" entry, one " - ..."
+       line each. Keep them short: the entry lists up to three traits at once. Fragments take no
+       trailing period and no markup, and they start lowercase where the English does, matching
+       vanilla's own lowercase stat labels. -->
+
+  <!-- Per-tool damage / armor penetration. {0} is a tool capacity ("corte", "corte e punhalada", from
+       Core's ToolCapacityDef labels) or the UMW_TraitStat_AllTools word when the trait modifies every
+       tool. A capacity noun would want "de" ("dano de corte") but the all-tools word must not have it
+       ("dano corpo a corpo", as in Core's MeleeWeapon_DamageMultiplier), and the template is shared by
+       both, so {0} is carried as a parenthetical instead. -->
+  <!-- EN: melee -->
+  <UMW_TraitStat_AllTools>corpo a corpo</UMW_TraitStat_AllTools>
+
+  <!-- EN: {0} damage -->
+  <UMW_TraitStat_ToolDamage>dano ({0})</UMW_TraitStat_ToolDamage>
+
+  <!-- EN: {0} armor penetration -->
+  <UMW_TraitStat_ToolArmorPenetration>penetração de armadura ({0})</UMW_TraitStat_ToolArmorPenetration>
+
+  <!-- EN: min. {0} -->
+  <UMW_TraitStat_Minimum>mín. {0}</UMW_TraitStat_Minimum>
+
+  <!-- Rerouted base hit. {0} is the injury hediff's label; the bleed clause is appended in
+       parentheses when the new wound bleeds at a different rate than the one it replaces. The
+       forced-internal line states the rerouted damage's chance of hitting an internal organ, so it
+       names the DamageDef ("facada"), not the ToolCapacityDef ("punhalada"). -->
+  <!-- EN: Wound type: {0} -->
+  <UMW_TraitStat_WoundType>Tipo de ferimento: {0}</UMW_TraitStat_WoundType>
+
+  <!-- EN: bleed rate {0} -->
+  <UMW_TraitStat_BleedRate>sangramento {0}</UMW_TraitStat_BleedRate>
+
+  <!-- EN: Stabs strike internal organs {0} of the time -->
+  <UMW_TraitStat_ForcedInternal>Facadas atingem órgãos internos em {0} das vezes</UMW_TraitStat_ForcedInternal>
+
+  <!-- On-hit effects. {0} (or {1}) is one of the effect clauses below; the chance form is used
+       whenever the effect can fail to proc. -->
+  <!-- EN: On hit: {0} -->
+  <UMW_TraitStat_OnHit>Ao acertar: {0}</UMW_TraitStat_OnHit>
+
+  <!-- EN: On hit ({0}): {1} -->
+  <UMW_TraitStat_OnHitChance>Ao acertar ({0}): {1}</UMW_TraitStat_OnHitChance>
+
+  <!-- {0} is the amount, {1} the DamageDef's label ("chama", "PEM", "facada tóxica"). -->
+  <!-- EN: {0} {1} damage -->
+  <UMW_TraitStat_ExtraDamage>{0} de dano de {1}</UMW_TraitStat_ExtraDamage>
+
+  <!-- EN: {0} {1} damage, {2} armor penetration -->
+  <UMW_TraitStat_ExtraDamageAP>{0} de dano de {1}, {2} de penetração de armadura</UMW_TraitStat_ExtraDamageAP>
+
+  <!-- EN: {0} {1} damage, not reduced by armor -->
+  <UMW_TraitStat_ExtraDamageIgnoreArmor>{0} de dano de {1}, não reduzido pela armadura</UMW_TraitStat_ExtraDamageIgnoreArmor>
+
+  <!-- EN: stun for {0} -->
+  <UMW_TraitStat_Stun>atordoamento por {0}</UMW_TraitStat_Stun>
+
+  <!-- "stagger" is Core's own verb for this effect (StoppingPowerExplanation: "farão o alvo
+       cambalear"), so the noun is "cambaleio". The StaggerDurationFactor stat label's "escalonado" is
+       a vanilla mistranslation and is deliberately not reused. -->
+  <!-- EN: stagger for {0} ({1} move speed) -->
+  <UMW_TraitStat_Stagger>cambaleio por {0} ({1} de velocidade de movimento)</UMW_TraitStat_Stagger>
+
+  <!-- EN: {0} (flesh only) -->
+  <UMW_TraitStat_FleshOnly>{0} (somente alvos de carne)</UMW_TraitStat_FleshOnly>
+
+  <!-- EN: {0} (humanlikes only) -->
+  <UMW_TraitStat_HumanlikeOnly>{0} (somente humanoides)</UMW_TraitStat_HumanlikeOnly>
+
+  <!-- Wielder-side stat effect. {0} is a stat line or, for a hediff with no stat modifiers, the
+       hediff's own label. The stat line is rendered unfinalized, so a stat with a postProcessCurve
+       shows its raw offset rather than a percentage. -->
+  <!-- EN: {0} (wielder) -->
+  <UMW_TraitStat_Wielder>{0} (usuário)</UMW_TraitStat_Wielder>
+
+  <!-- Defender-side parry. {0} is the parry chance. "bloquear" is the verb behind the mote noun in
+       UMW_Combat.xml, so the two read as one mechanic; the chance frame is Core's ("{0} de chance"). -->
+  <!-- EN: {0} chance to parry melee attacks -->
+  <UMW_TraitStat_Parry>{0} de chance de bloquear ataques corpo a corpo</UMW_TraitStat_Parry>
+
+  <!-- Ability granted by the trait. {0} is the AbilityDef's label. -->
+  <!-- EN: Grants ability: {0} -->
+  <UMW_TraitStat_GrantsAbility>Concede a habilidade: {0}</UMW_TraitStat_GrantsAbility>
+
+  <!-- Forced art inscription: the weapon always carries an art title and description, regardless
+       of quality. -->
+  <!-- EN: Always bears an art inscription -->
+  <UMW_TraitStat_ForcedArt>Sempre traz uma inscrição artística</UMW_TraitStat_ForcedArt>
+
+</LanguageData>

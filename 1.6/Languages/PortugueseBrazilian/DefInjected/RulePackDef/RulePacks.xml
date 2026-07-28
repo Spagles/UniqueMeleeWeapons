@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN:
+    <li>r_logentry(p=0.4)->[RECIPIENT_definite] caught [INITIATOR_definite]'s [attack_noun] on the crossguard and turned it aside.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] [skillAdvMaybe] parried [INITIATOR_definite]'s [attack_noun] with [RECIPIENT_possessive] quillons.</li>
+    <li>r_logentry(p=0.3)->[RECIPIENT_definite] turned [INITIATOR_definite]'s [attack_noun] aside on [RECIPIENT_possessive] guard.</li>
+    <li>skillAdvMaybe-></li>
+    <li>skillAdvMaybe->[skillAdv]</li>
+    <li>attack_noun->blow</li>
+    <li>attack_noun->strike</li>
+    <li>attack_noun->swing</li>
+    <li>attack_noun->attack</li>
+    <li>result->but [RECIPIENT_definite] caught it on the crossguard</li>
+    <li>result->but the [attack_noun] was turned aside on [RECIPIENT_possessive] quillons</li>
+    <li>result->but [RECIPIENT_definite] parried with [RECIPIENT_possessive] guard</li>
+  -->
+  <!-- Four Brazilian Portuguese constraints shaped these lines, none of them visible to the checker:
+
+       - The English genitive "[INITIATOR_definite]'s [attack_noun]" is not reproducible. Portuguese
+         needs "de [INITIATOR_definite]", but LanguageWorker_Portuguese overrides only the article
+         helpers (its PostProcessed is the base one, which merely merges spaces), so nothing fuses
+         "de" + the "o " that _definite prepends: it would ship the literal "de o pirata". Core's own
+         pt-BR melee pack ships exactly that bug ("esquivou de [INITIATOR_definite]"). The attacker is
+         therefore the subject of a leading clause in every line instead.
+       - Same reason, stated positively: com / para / contra / sem never contract with the article, so
+         "bloqueou com a guarda" is safe. de / em / a / por all do, and must never precede _definite.
+       - [RECIPIENT_possessive] is unusable. Core Grammar.xml maps it to a bare definite article keyed
+         off the POSSESSOR (Prohis=o, Proher=a), while Portuguese must agree with the POSSESSED noun.
+         It has zero live uses in vanilla's combat packs, which write the possessive literally
+         ("[deflecting] na sua armadura"); these do the same (na sua guarda, nos seus gavilões).
+       - Tense is preterite, matching Core pt-BR ("esquivou", "desviou", "acertou"), and
+         [skillAdvMaybe] sits before the verb as Core places it. Every attack_noun is deliberately
+         masculine so the single object pronoun "o" and participle "desviado" are always correct.
+       - The verb is "bloquear", matching the UMW_TextMote_Parried mote ("Bloqueio") and
+         UMW_TraitStat_Parry, so the player can connect mote, stat line and log entry. "Desviar" is
+         kept only as the secondary "turned aside" verb, as in the English. Do not reintroduce
+         "aparar" here: it would be a fourth word for one mechanic. -->
+  <UMW_Combat_Parry.rulePack.rulesStrings>
+    <li>r_logentry(p=0.4)->[INITIATOR_definite] desferiu um [attack_noun], mas [RECIPIENT_definite] o bloqueou na cruz da guarda e o desviou.</li>
+    <li>r_logentry(p=0.3)->[INITIATOR_definite] atacou, mas [RECIPIENT_definite] [skillAdvMaybe] bloqueou o [attack_noun] nos seus gavilões.</li>
+    <li>r_logentry(p=0.3)->[INITIATOR_definite] desferiu um [attack_noun], mas [RECIPIENT_definite] o desviou na sua guarda.</li>
+    <li>skillAdvMaybe-></li>
+    <li>skillAdvMaybe->[skillAdv]</li>
+    <li>attack_noun->golpe</li>
+    <li>attack_noun->ataque</li>
+    <li>attack_noun->talho</li>
+    <li>attack_noun->bote</li>
+    <li>result->mas [RECIPIENT_definite] o bloqueou na cruz da guarda</li>
+    <li>result->mas o [attack_noun] foi desviado nos gavilões</li>
+    <li>result->mas [RECIPIENT_definite] bloqueou com a guarda</li>
+  </UMW_Combat_Parry.rulePack.rulesStrings>
+
+  <!-- EN:
+    <li>weapon_adjective->[stuff_adjective]</li>
+    <li>r_weapon_name(p=0.4)->The [stuff_adjective] [weapon_noun]</li>
+    <li>r_weapon_name(p=0.3)->[stuff_adjective] [badass_noun]</li>
+  -->
+  <!-- Portuguese names a material with a preposition, not an adjective: Core's ThingMadeOfStuffLabel
+       is "{1} de {0}", and every pt-BR stuffAdjective is a bare noun (aço, plastiaço, madeira, jade,
+       ouro, prata, urânio), so "de" + material never contracts and never elides.
+
+       The shared weapon_adjective rule is DROPPED rather than translated. Odyssey's pt-BR namer kept
+       English's word order and PREPOSES that symbol ("[weapon_adjective] [weapon_noun]"), so a
+       prepositional value would read "de aço espada longa". This is the opposite of French and
+       Spanish, whose namers postpose and could keep the rule. Dropping an entry is safe: the checker
+       enforces no <li>-count parity on list-valued keys.
+
+       The two r_weapon_name patterns postpose instead, and stay article-free because [weapon_noun]'s
+       gender is unknowable inside the namer. -->
+  <UMW_NamerStuffAdjectives.rulePack.rulesStrings>
+    <li>r_weapon_name(p=0.4)->[weapon_noun] de [stuff_adjective]</li>
+    <li>r_weapon_name(p=0.3)->[badass_noun] de [stuff_adjective]</li>
+  </UMW_NamerStuffAdjectives.rulePack.rulesStrings>
+
+</LanguageData>

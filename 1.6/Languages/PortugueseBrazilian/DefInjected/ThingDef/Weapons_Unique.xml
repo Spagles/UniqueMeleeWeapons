@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Weapon labels follow Odyssey's own Brazilian Portuguese uniques ("arco grande único",
+       "fuzil de assalto único"): the adjective postposes and, unlike French's invariant "unique",
+       "único" AGREES in gender. Our roster is 4 feminine (espada longa, lança, maça, faca) and
+       3 masculine (gládio, machado, martelo de guerra), so each label is inflected per weapon and
+       the description's "forjados"/"forjadas" agrees with it too.
+
+       namerLabels are bare lowercase nouns with NO gender marker, matching Odyssey's pt-BR namer,
+       which preposes every adjective slot onto [weapon_type] and so can never agree with it. The
+       nouns come from Core's own pt-BR weapon-noun corpus (Strings/Words/Nouns/Weapons.txt: adaga,
+       clava, cutelo, espada, faca, gládio, lâmina, lança, machado, marreta, martelo, pique,
+       porrete), plus "gume" (cutting edge) and "azagaia" (light spear) where that corpus has no
+       distinct word. Note "clava" renders bludgeon, never mace: mace stays Core's "maça". -->
+
+  <!-- EN: unique axe -->
+  <UMW_Axe_Unique.label>machado único</UMW_Axe_Unique.label>
+
+  <!-- EN: An axe bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Axe_Unique.description>Um machado que traz as marcas da mão de um mestre. Não existem dois forjados iguais.</UMW_Axe_Unique.description>
+
+  <!-- EN: axe -->
+  <UMW_Axe_Unique.comps.5.namerLabels.0>machado</UMW_Axe_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: cleaver -->
+  <UMW_Axe_Unique.comps.5.namerLabels.1>cutelo</UMW_Axe_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: bit -->
+  <UMW_Axe_Unique.comps.5.namerLabels.2>lâmina</UMW_Axe_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Axe_Unique.comps.5.namerLabels.3>gume</UMW_Axe_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique gladius -->
+  <UMW_Gladius_Unique.label>gládio único</UMW_Gladius_Unique.label>
+
+  <!-- EN: A gladius bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Gladius_Unique.description>Um gládio que traz as marcas da mão de um mestre. Não existem dois forjados iguais.</UMW_Gladius_Unique.description>
+
+  <!-- EN: gladius -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.0>gládio</UMW_Gladius_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.1>lâmina</UMW_Gladius_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: sword -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.2>espada</UMW_Gladius_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Gladius_Unique.comps.5.namerLabels.3>gume</UMW_Gladius_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique knife -->
+  <UMW_Knife_Unique.label>faca única</UMW_Knife_Unique.label>
+
+  <!-- EN: A knife honed by a master's hand. No two are forged alike. -->
+  <UMW_Knife_Unique.description>Uma faca afiada pela mão de um mestre. Não existem duas forjadas iguais.</UMW_Knife_Unique.description>
+
+  <!-- EN: knife -->
+  <UMW_Knife_Unique.comps.5.namerLabels.0>faca</UMW_Knife_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_Knife_Unique.comps.5.namerLabels.1>lâmina</UMW_Knife_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: dagger -->
+  <UMW_Knife_Unique.comps.5.namerLabels.2>adaga</UMW_Knife_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_Knife_Unique.comps.5.namerLabels.3>gume</UMW_Knife_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique longsword -->
+  <UMW_LongSword_Unique.label>espada longa única</UMW_LongSword_Unique.label>
+
+  <!-- EN: A longsword bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_LongSword_Unique.description>Uma espada longa que traz as marcas da mão de um mestre. Não existem duas forjadas iguais.</UMW_LongSword_Unique.description>
+
+  <!-- EN: longsword -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.0>espada longa</UMW_LongSword_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: blade -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.1>lâmina</UMW_LongSword_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: sword -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.2>espada</UMW_LongSword_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: edge -->
+  <UMW_LongSword_Unique.comps.5.namerLabels.3>gume</UMW_LongSword_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique mace -->
+  <UMW_Mace_Unique.label>maça única</UMW_Mace_Unique.label>
+
+  <!-- EN: A mace bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Mace_Unique.description>Uma maça que traz as marcas da mão de um mestre. Não existem duas forjadas iguais.</UMW_Mace_Unique.description>
+
+  <!-- EN: mace -->
+  <UMW_Mace_Unique.comps.5.namerLabels.0>maça</UMW_Mace_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: bludgeon -->
+  <UMW_Mace_Unique.comps.5.namerLabels.1>clava</UMW_Mace_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: club -->
+  <UMW_Mace_Unique.comps.5.namerLabels.2>porrete</UMW_Mace_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: head -->
+  <UMW_Mace_Unique.comps.5.namerLabels.3>cabeça</UMW_Mace_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique spear -->
+  <UMW_Spear_Unique.label>lança única</UMW_Spear_Unique.label>
+
+  <!-- EN: A spear bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Spear_Unique.description>Uma lança que traz as marcas da mão de um mestre. Não existem duas forjadas iguais.</UMW_Spear_Unique.description>
+
+  <!-- EN: spear -->
+  <UMW_Spear_Unique.comps.5.namerLabels.0>lança</UMW_Spear_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: lance -->
+  <UMW_Spear_Unique.comps.5.namerLabels.1>azagaia</UMW_Spear_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: pike -->
+  <UMW_Spear_Unique.comps.5.namerLabels.2>pique</UMW_Spear_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: point -->
+  <UMW_Spear_Unique.comps.5.namerLabels.3>ponta</UMW_Spear_Unique.comps.5.namerLabels.3>
+
+
+  <!-- EN: unique warhammer -->
+  <UMW_Warhammer_Unique.label>martelo de guerra único</UMW_Warhammer_Unique.label>
+
+  <!-- EN: A warhammer bearing the marks of a master's hand. No two are forged alike. -->
+  <UMW_Warhammer_Unique.description>Um martelo de guerra que traz as marcas da mão de um mestre. Não existem dois forjados iguais.</UMW_Warhammer_Unique.description>
+
+  <!-- EN: warhammer -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.0>martelo de guerra</UMW_Warhammer_Unique.comps.5.namerLabels.0>
+
+  <!-- EN: hammer -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.1>martelo</UMW_Warhammer_Unique.comps.5.namerLabels.1>
+
+  <!-- EN: maul -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.2>marreta</UMW_Warhammer_Unique.comps.5.namerLabels.2>
+
+  <!-- EN: head -->
+  <UMW_Warhammer_Unique.comps.5.namerLabels.3>cabeça</UMW_Warhammer_Unique.comps.5.namerLabels.3>
+
+</LanguageData>

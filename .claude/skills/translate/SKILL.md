@@ -106,8 +106,9 @@ stun, burn, bleeding), and the opportunity-site quest vocabulary
 ### Glossary — shared across the mod family
 
 The RU and JP rows were learned in the companion mod (UWU) from native review
-(RU) and vanilla-data study (JP); the Simplified Chinese, Korean, German, Spanish
-and French sections were learned in this repo's 2026-07 generations. Lessons
+(RU) and vanilla-data study (JP); the Simplified Chinese, Korean, German, Spanish,
+French and Brazilian Portuguese sections were learned in this repo's 2026-07
+generations. Lessons
 propagate across all three repos
 (here, ../UniqueWeaponsUnbound, ../PersonaWeaponsUnbound): when a row is added
 or corrected in one skill, mirror it into the siblings, adjusting
@@ -1052,6 +1053,221 @@ rendering that does not mean warlord, so this one is a coinage), `couperet` (cle
 (bludgeon), and the colours `rouge sang` / `noir carbone` / `violet émail` / `blanc
 mono-moléculaire` / `orange plasma` (patterned on Odyssey's `bleu glacier` / `orange feu`).
 
+#### Brazilian Portuguese (from this repo's machine-assisted generation, 2026-07-29)
+
+Language folder is **`PortugueseBrazilian`** (tar: `PortugueseBrazilian (Português
+Brasileiro).tar`). RimWorld ships European `Portuguese` as a *separate* language; a pt-PT pass
+would be its own folder, not edits to this one. `LanguageInfo.xml` declares
+`languageWorkerClass` **`LanguageWorker_Portuguese`** — the two languages share one worker.
+
+**The worker does almost nothing, and that is the finding that shapes everything else**
+(decompile-verified). `LanguageWorker_Portuguese` overrides **only** `WithIndefiniteArticle` and
+`WithDefiniteArticle` (prepending `o `/`a `/`os `/`as `, `um `/`uma `/`uns `/`umas ` by gender).
+It has **no `PostProcessed` override**, so the base `LanguageWorker.PostProcessed` runs — and that
+only calls `MergeMultipleSpaces()`. No elision, no contraction, no `'s` rewriting, no particles.
+
+**So Portuguese is the hard case: its contractions are orthographically mandatory and nothing
+supplies them.** `de`+`o`=`do`, `de`+`a`=`da`, `em`+`o`=`no`, `em`+`a`=`na`, `a`+`o`=`ao`,
+`a`+`a`=`à`, `por`+`o`=`pelo` (plus every plural). Consequences:
+
+- **Never write `de` / `em` / `a` / `por` directly before a `[X_definite]` symbol.** `_definite`
+  prepends a bare `o `, nothing fuses it, and the literal **"de o pirata"** ships. Simulating the
+  worker in four lines of Python confirms it, and **vanilla pt-BR ships exactly this bug**: Core
+  `RulePacks_CombatMelee` has `o [destroyed_targets] de [RECIPIENT_definite]` and `esquivou de
+  [INITIATOR_definite]`; `Combat_FailIncludes` has `balançou seu(ua) [WEAPON_label] em
+  [RECIPIENT_definite]`. Frequency is not correctness.
+- **The clean escapes are `com`, `para`, `contra`, `sem`, `sobre`, `entre`** — none contract with
+  the article, so `com [X_definite]` is safe. Otherwise restructure so the entity is a subject.
+- **The idiomatic vanilla technique is to use the bare `[X_label]` and write the contracted article
+  yourself, hedged**: Core's ranged pack writes `do(a) [INITIATOR_label]`, `pelo(a) [projectile]`.
+- There are **zero `{replace:}` blocks** anywhere in pt-BR's rulepacks — vanilla never even
+  attempted Spanish's contraction scaffolding. Don't invent it; restructure.
+- `PostProcessThingLabelForRelic` is the base version (returns `null` for any label containing a
+  space), so unlike German there is no hardcoded noun list constraining `ThingDef` labels.
+
+Style rules from the vanilla pt-BR data (mandatory; counts are values with `<!-- EN: -->`
+comments stripped):
+
+- **ASCII straight double quotes** for cited def labels — `{1} "{0}" não pode mais...`,
+  `O decreto foi intitulado de "{0}".` 70 ASCII `"` against 2 curly `“` and **zero** guillemets.
+- **Zero em dashes and zero en dashes** in the entire corpus, so an English `—` must be
+  **reflowed** (as in es and fr; the opposite of de, which mandates `–`). Ellipsis is ASCII `...`
+  (47, vs 0 `…`); apostrophe is ASCII `'` (90, vs 0 `’`).
+- **No space before `:` `;` `!` `?`** — tight `x:` 444 against ` :` 44. The exact opposite of
+  French, and the two languages are otherwise close enough that this is an easy cross-contamination.
+- No `¿`/`¡` — that is Spanish only.
+- **Formality is `você`, decisively**: 428 `você`, 36 `sua colônia`, and **zero** `tu`/`teu`.
+  Imperatives take the você form (`Clique`, `Selecione`, `Escolha`, `Certifique-se`, `Faça`).
+- Descriptions end `.`; labels, buttons and stat fragments take none, and labels are lowercase.
+- `ThoughtDef` stage descriptions are the register exception: first-person, informal, present.
+- `labelNoun` **carries the indefinite article** (`um corte`, `uma facada`, `uma queimadura`) —
+  the shape de/es/fr share and ja/ko/zh lack.
+
+**Gender hedging is a FIFTH distinct technique, and pt-BR applies it to the surface text itself.**
+Where de tags nouns inline, es keeps parallel symbol families and fr constrains the rule, pt-BR
+writes a literal **`(a)`** into the string and moves on — pervasively, in articles, participles,
+contractions and possessives alike: `O(a)`, `um(a)`, `do(a)`, `pelo(a)`, `danificado(a)`,
+`destinado(a)`. Two shapes by field, as in es:
+
+- A `.Translate()` / `deathMessage` string takes the **inline resolver split**: Core
+  `Cut.deathMessage` = `{0} foi cortad{PAWN_gender ? o : a} até a morte.` (2-arg form; Core ships
+  no 3-arg genderless fallback for these, so don't invent one).
+- Rulepack and def surface text takes the literal `(a)`. Vanilla also writes a sloppy `seu(ua)`;
+  write `seu(sua)` if you need it.
+- **Exception worth knowing:** Core's `injuryProps` labels are **bare masculine with no hedge**
+  (`Cortado fora` for both `Cut` and `Stab`, `Queimado`), and its tend-state labels likewise
+  (`enfaixado`, `suturado`, `fixado`) even on feminine wounds like `facada`. That is uniform across
+  12+ defs, not a slip, so match it there rather than agreeing as es and fr do.
+
+**Name grammar: pt-BR is the PREPOSED case, and it is the tightest constraint of any language so
+far.** Odyssey's pt-BR `NamerUniqueWeapon` kept **English's word order** instead of adapting it to
+Portuguese's postposing norm, and hardcoded the articles:
+
+```
+<li>r_weapon_name(p=2)->[weapon_adjective] [weapon_noun]</li>       <!-- PREPOSED -->
+<li>r_weapon_name(p=0.5)->O [weapon_type] da [badass_concept]</li>  <!-- hardcoded O + da -->
+<li>r_weapon_name(p=0.5)->O [weapon_adjective] [weapon_type]</li>   <!-- PREPOSED -->
+<li>r_weapon_name(p=0.5)->[badass_concept] do [weapon_type]</li>    <!-- inverts the EN possessive -->
+<li>weapon_adjective(p=2)->[trait_adjective]</li>
+```
+
+All three adjective slots prepose, and `weapon_noun` resolves to `[weapon_type]`, `[badass_noun]`
+or `[badass_concept]` — all mixed gender. The file is also defective in ways a language folder
+cannot fix: `O`/`A`/`da`/`do` are hardcoded (so `O espada longa da tormento` is reachable), and
+`[badass_concept] do [weapon_type]` inverts English's `[badass_concept]'s [weapon_type]` — the
+same inversion fr shipped. Our rules are *added* to this pack, so those keep firing. Keep ours
+correct; do not try to repair theirs.
+
+- **`traitAdjectives` must be gender-invariant, AND the prepositional escape is unavailable.**
+  es and fr could satisfy invariance with a `de …` phrase because their slot *postposes*;
+  preposed it is broken ("de aletas espada longa"). A bare noun is equally broken preposed
+  ("ouro ceifador"), though Odyssey's pt-BR file does it. So the only legal shape is a genuinely
+  **invariant adjective** — masculine form ending `-e` (`cortante`, `mordente`, `trovejante`,
+  `perfurante`, `célebre`, `fulgurante`), `-l` (`letal`, `brutal`, `cruel`, `ancestral`,
+  `ornamental`, `horrível`, `venerável`), `-z` (`veloz`, `feroz`), `-ar`/`-or`
+  (`monomolecular`, `singular`), `-m`, `-s` — or an invariant colour compound (`vermelho sangue`,
+  `preto carvão`, `verde jade`, `cinza`, `violeta`).
+- **Because that is so restrictive, treat `traitAdjectives` in pt-BR as a free choice of invariant
+  epithets in the trait's semantic field, not a literal rendering.** They are alternative flavour
+  epithets for a generated name, not terminology; `label` and `description` stay literal. This is
+  the same trade the de pass made for uninflected stems, one notch tighter. Worked departures from
+  the 2026-07-29 run: gold drops the metal entirely for shine (`reluzente`, `resplandecente`,
+  since `dourado`/`áureo` both inflect); "crystalline" becomes `impalpável`; "charred" becomes
+  `incombustível`; `-forme` shape adjectives were the way into "cross-guarded" (`cruciforme`) and
+  "hooked" (`falciforme`); Ugly re-maps to `rude`/`horrível`/`abominável`.
+- **Odyssey's own pt-BR trait adjectives violate this throughout** (`preciso`, `sobrecarregado`,
+  `desajeitado`, `volumoso`, `monstruoso`, `dourado`), surviving only on its near-all-masculine gun
+  roster. Do not copy them even for the six ports whose labels and descriptions you do copy.
+- **`namerLabels` are bare lowercase nouns with NO marker** — as in es and fr, the inverse of de.
+  **Core pt-BR ships a curated weapon-noun corpus at `Strings/Words/Nouns/Weapons.txt`** (adaga,
+  clava, cutelo, espada, faca, gládio, lâmina, lança, machado, marreta, martelo, pique, porrete) —
+  exactly the register this field wants. Check it before coining.
+- **The stuff frame is `de`, and the shared `weapon_adjective` rule must be DROPPED.** Core
+  `ThingMadeOfStuffLabel` is `{1} de {0}` ("espada longa de aço") and every pt-BR `stuffAdjective`
+  is a bare noun (`aço`, `plastiaço`, `madeira`, `jade`, `ouro`, `prata`, `urânio`), so `de` +
+  material never contracts and never elides. But English's `weapon_adjective->[stuff_adjective]`
+  lands in the **preposed** slot, so a `de …` value reads "de aço espada longa". Drop that rule as
+  the de pass did, and build only postposed `r_weapon_name` patterns (`[weapon_noun] de
+  [stuff_adjective]`), article-free. Dropping an entry is safe — the checker enforces no
+  `<li>`-count parity on list-valued keys.
+- **`[X_possessive]` is unusable; pt-BR joins fr in writing the possessive literally.** Core
+  `Keyed/Grammar.xml` sets `Prohis`=`o`, `Proher`=`a`, `Proits`=`o(a)` — pt-BR maps the English
+  possessive onto a bare **definite article** keyed off the **possessor's** gender, while
+  Portuguese must agree with the **possessed** noun. Counting values vs comments confirms vanilla
+  agrees: **zero** uses in the combat rulepacks (101 comment-only), which write `[deflecting] na
+  sua armadura` instead; the 21 live uses are all Backstory/Research/Tale prose.
+- **Battle-log `rulesStrings` are preterite** (`esquivou`, `desviou`, `raspou`, `deslizou`,
+  `acertou`) — as in es, not fr's passé composé or de's Präteritum. `[skillAdv]` values are
+  `-mente` adverbs (`incompetentemente`, `desajeitadamente`, `proficientemente`), and Core places
+  `[skillAdvMaybe]` **before** the verb in `r_logentry`.
+- **Quest grammar is the simple kind**, like es and fr: `[discoveryMethod]` carries no case markers
+  and is used bare, so nothing needs `{replace:}`-ing away, and `questSubjectRules` needs only the
+  plain `subject` / `questMapFeature` / `questMapText` families. Two Odyssey pt-BR renderings worth
+  reusing verbatim: `uma arma [WEAPON_quality] única` and `Se você conseguir capturar ou matar o
+  líder, poderá pegar essa arma única.` (also `O grupo contém:`).
+
+**The trait row is INVERTED relative to de and es, which is the easiest single mistake to make
+here.** pt-BR `WeaponTraits` and `Stat_ThingUniqueWeaponTrait_Label` are both **`Características`**,
+while Core's pawn-trait `Traits` **and** Royalty's `Stat_Thing_PersonaWeaponTrait_Label` are both
+**`Traços`**. So `características` is *our* word and `traços` belongs to pawn traits and PWU's
+persona domain. In de and es all three collapse; in fr they never collide; pt-BR splits them the
+other way round from ja.
+
+| English | Use | Never | Why |
+|---|---|---|---|
+| trait (weapon) | `característica` / `características`; standalone `Características da Arma` | **`traço`** | `WeaponTraits`, `Stat_ThingUniqueWeaponTrait_Label`, `StatsReport_WeaponTraits`; `Traços` is the pawn-trait AND persona word |
+| unique weapon | `arma única` | | Odyssey `UniqueWeapon` = `Arma única` |
+| **unique \<weapon\>** (ThingDef label) | **`<arma> único/única`** — postposed and **AGREEING** | | Odyssey `arco grande único`, `fuzil de assalto único`. Unlike fr's invariant `unique`, `único` inflects: `espada longa única` but `machado único` |
+| longsword / spear / mace / knife | `espada longa` (F) / `lança` (F) / `maça` (F) / `faca` (F) | `espada larga`, `clava` for mace | Core labels. **4 feminine vs 3 masculine on our roster**, so a masculine default is wrong more often than right |
+| gladius / axe / warhammer / club | `gládio` (M) / `machado` (M) / `martelo de guerra` (M) / `porrete` (M) | `machado de guerra` | Core |
+| monosword / plasmasword / zeushammer | `espada monomolecular` / `espada de plasma` / `martelo de zeus` (vanilla lowercases zeus) | | Royalty labels |
+| **monomolecular (adjective)** | **`monomolecular`** — unhyphenated, and invariant so it is safe as a traitAdjective | `mono-molecular` | Royalty `MeleeWeapon_MonoSword.label`. es and fr both hyphenate; pt-BR does not |
+| tool: handle / point / edge / blade / head / shaft | `cabo` / `ponta` / `lâmina` / `lâmina` / `cabeça` / `eixo` | `punho`, `fio`, `haste` | Core+Royalty `tools.*.label`. pt-BR uses `lâmina` for BOTH edge and blade; `eixo` for shaft is a weak vanilla choice but is the anchor |
+| hilt | `empunhadura` | `punho` | Royalty |
+| **cut / stab (DamageDef)** | **`corte` / `facada`** | `punhalada` (that is the **ToolCapacityDef** label) | **pt-BR does NOT split DamageDef from HediffDef** — both `Stab` are `facada`, both `Cut` are `corte`. The split is instead DamageDef/HediffDef `facada` vs ToolCapacityDef `punhalada`. Check all three def types, not just two |
+| blunt / burn / flame / stun (DamageDef) | `pancada` / `queimadura` / `chama` / `atordoamento` | | Core |
+| toxic \<damage\> label | postposed **agreeing** adjective: `arranhão tóxico`, `mordida tóxica`, so a toxic stab is `facada tóxica` | a prefix | Core `ScratchToxic`, `ToxicBite` |
+| ragged / shredded wound | `dilacerado` / `dilacerada`; scar `cicatriz de laceração` | | Core `Shredded.labelNoun` = `uma ferida dilacerada`; scar built on Core's `cicatriz de corte` template |
+| Cut off / Cut out | `Cortado fora` (Core uses it for `Stab` too); a burn is `Queimado` | a `(a)` hedge | Core `injuryProps` — bare masculine, unlike es/fr |
+| bandaged / sutured / set | `enfaixado` / `suturado` / `fixado` — bare masculine even on feminine wounds | | Core `HediffComp_TendDuration`, uniform across 12+ defs |
+| woozy / sedated / wearing off | `tonto` / `sedado` / `ficando tonto` | | Core `Anesthetic.stages.*`. **Do not spend `tonto` or `sedado` elsewhere**; `ficando tonto` labels the *decay* direction, so leave it free too |
+| blood loss / toxic buildup / anesthetic | `perda de sangue` / `acúmulo tóxico` / `anestésico` | | Core |
+| **Dodge (TextMote)** | **`Esquiva`** — a NOUN, so a parry mote must be a noun too | a participle | Core `TextMote_Dodge`. de and es use participles here; pt-BR and fr use nouns |
+| **stagger** | **`cambalear`** (verb) / `cambaleio` | `escalonado` | Core `StoppingPowerExplanation`: "farão o alvo **cambalear**". `StaggerDurationFactor.label` = `multiplicador de tempo escalonado` and its desc `desaceleração escalonada` are vanilla **mistranslations** (escalonado = tiered/phased, not stumbling) — do not propagate, exactly as in fr |
+| EMP | **`PEM`** | `EMP` | Core `EMP.label`; Royalty `capacitor de PEM`; Odyssey `pulsador PEM` |
+| melee armor penetration / melee damage multiplier | `penetração de armadura corpo-a-corpo` / `multiplicador de dano corpo a corpo` | | Core StatDefs — vanilla is inconsistent on the hyphens; match the anchor the screen shows. Unhyphenated `corpo a corpo` wins 56:9 overall |
+| move speed / max hit points / deterioration / flammability / market value | `velocidade de movimento` / `pontos de vida máximo` (sic, vanilla singular) / `taxa de deterioração` / `inflamabilidade` / `valor de mercado` | | Core StatDefs |
+| **quest** | **`missão`** | `busca` | Core `LetterNewQuest` = "{DISCOVEREDFROM} uma nova **missão**." The Keyed `<Quest>Missões</Quest>` is a plural anomaly |
+| **cooldown** | **`tempo de recarga`**; short `recarga`; "on cooldown" → `em recarga` | `esfriamento` | Core `Cooldown`, `StatsReport_Cooldown`, `AbilityOnCooldown`, Odyssey `cooldownGerund`. `CooldownTime`=`Esfriamento` is the lone outlier |
+| ability / mood / colour / faction / radius / cells | `habilidade` / `humor` / `cor` / `facção` (sic, vanilla double-c) / `raio` / `células` | `casas` for cells | Core Keyed; "raio de 5 células" |
+| quality tiers | `horrível·pobre·normal·bom·excelente·obra-prima·lendário` | `ruim` for poor | Core `QualityCategory_*`. Note `lendário` is spoken for by the tier, so it cannot render "storied"/"fabled" |
+| Cancel / Reset / Reset to defaults / Default / None / Confirm | `Cancelar` / `Redefinir` / `Restaurar padrão` / `Padrão` / `Nenhum` / `Aceitar` | `Confirmar` | Core buttons. `Confirm`=`Aceitar`, `ResetBinding`=`Restaurar padrão` (the settings-window analog `RestoreToDefaultSettings` is the plural `Restaurar Padrões`) |
+| wood / plasteel / uranium / jade / steel / silver / gold | `madeira` / **`plastiaço`** / `urânio` / `jade` / `aço` / `prata` / `ouro` | `plastaço`, `plástico` | Core labels; `stuffAdjective` is identical to the label for all of these |
+| **purple (weapon colour)** | **`roxo`** | `púrpura` | Odyssey `UniqueWeapon_Purple`=`roxo`, `MutedPurple`=`roxo suave`. Colour compounds pattern on `laranja fogo`, `azul gelo`, `azul elétrico`, `verde tóxico` |
+| mechanite / mechanoid | **`mecanitos`** (M) | `nanomáquinas`, `mecanitas` | Core+Royalty: `mecanitos` 47 vs `mecanitas` 4. `nanomáquinas` renders English *nanomachines*, a different word — the same trap as ko |
+| wielder / bearer | `usuário` / `portador` | | Odyssey `EMPPulser` ("centrado no usuário"), Royalty descs |
+| ultratech | `Ultra` (tech level); `ultratecnológico` attributively | | Core `TechLevel_Ultra`; cf. `TechLevel_Archotech`=`Arquotecnológico` |
+| item stash / bandit camp / ancient mercenaries / sealed crate | `esconderijo de itens` / `acampamento de bandidos` / `mercenários antigos` / `Caixote Selado` | `caixa` for crate | Core sites, Odyssey quest + `AncientSealedCrate` |
+| abandoned settlement | `assentamento abandonado` | `colônia abandonada` | Core+Odyssey SitePartDefs |
+| tribesman / tribespeople / chief / fierce tribe | `nativo` / `nativos` / `chefe` / `Tribo Feroz` | `tribal` as the pawn noun | Core `TribeRough.pawnSingular`/`pawnsPlural`/`leaderTitle`/`label` (its prose does say `os tribais`) |
+| **raider** | **`invasor`/`invasores`** | `saqueador` | Core: `invasores` 16 vs `assaltantes` 12 vs `saqueadores` 5 |
+| **warlord** | **`senhor da guerra`** — vanilla-attested, lowercase in a `leaderTitle` slot | | Core `Warlordess56.title`, Ideology `place_foeLeader` |
+| map loot / art inscription | `pilhagem do mapa` / `inscrição artística` | | Core `Reward_CampLoot_Label`; Core only has `TabArt`=`Arte`, so the inscription wording is ours |
+| Traders will pay more/less for it. | `Comerciantes pagarão mais por ela.` / `Comerciantes pagarão menos por ela.` | | Odyssey `GoldInlay`/`Ugly` — reuse verbatim |
+
+The six Odyssey ports have official pt-BR labels, and descriptions matching our English word for
+word for four of them — copy those verbatim (`ornamental`, `feia`, `incrustação de ouro`,
+`incrustação de jade`). `Lightweight` (`leve`) and `Cumbersome` (`desajeitado`) need only their
+aim-vs-swing clause adapted. As in ko/de/es/fr, Odyssey's `Ugly` adjective *indices* differ from
+ours (its EN order is monstrous/crude/ugly, ours is crude/ugly/monstrous), so re-map by meaning —
+then replace all six ports' adjectives with invariant forms per the rule above.
+
+Mod-decided terms pending native review (from the 2026-07-29 commit). Labels are noun phrases,
+which also sidesteps standalone-display agreement; every trait adjective is invariant by
+construction: `espigão perfurante` (armor spike), `farpas` (barbed), `cabeça de sino` (bell-cast),
+`manchas de sangue` (blood-stained), `superfície carbonizada` (carbonized), `contrapeso`
+(counterweighted), `cabeça sem rebote` (dead-blow), `esmalte vítreo` (enameled), `ponta
+envenenada` (envenomed), `aletas` (flanged, matching es), `cabeça pesada` (head-weighted), `ponta
+de agulha` (needle point), `ponta opiácea` (opiated), **`bate-estacas`** (piledriver — the standard
+pt-BR machine name), `núcleo de plasma` (plasma-cored), **`gavilões`** (quillons — a genuine
+Portuguese sword term, with `cruz da guarda` for crossguard and `guarda` for guard; **not**
+`guarnição`, which vanilla spends on "military garrison"), `lâmina de navalha` (razored), `dentes
+de serra` (serrated), `linhagem de renome` (storied), `cravos` (studded), `cabeça de zeus`
+(zeus-headed, lowercase to match `martelo de zeus`); **`Bloqueio`** for the parry mote with
+**`bloquear`** as the single verb across mote, stat line and battle log (`Parada` is the fencing
+term but Core spends it on `Poder de parada` = stopping power, `Aparada` reads first as "trimming",
+and `Desvio` collides with Core's armor-`deflected`→`desviou`); `tremor de terra` (earthshake —
+`terremoto` avoided because Royalty spends it on `Neuroquake`=`terremoto neural`), `grito de
+guerra` (rallying cry — no vanilla anchor at all, neither `arenga` nor `brado`) / `enardecido`
+(rallied), `acúmulo de sedativo` with the stage ladder `entorpecido`/`tonto`/`sedado`, `dilacerado`
+(ragged), `forjado por um mestre` (master-forged), **`bando de guerra`** (warband — deliberately
+NOT `banda de guerra`, which in Brazil is the established term for a drum-and-bugle marching band;
+Core attests `bando de invasores`), `acampamento do bando de guerra`, `tropa de guerra` (war
+party), `guerreiro`/`invasor` (the faction's pawn nouns), `gume` (edge, as a namer noun),
+`azagaia` (lance), `clava` (bludgeon only — mace stays `maça`), `cutelo` (cleaver), `marreta`
+(maul), and the colours `vermelho sangue` / `preto carvão` / `roxo esmalte` / `branco
+monomolecular` / `laranja plasma` (patterned on Odyssey's `azul gelo` / `laranja fogo`).
+
 ### Cross-language lessons
 
 - Wrap injected `{0}` def labels in the language's quote marks (JP 「{0}」,
@@ -1072,8 +1288,27 @@ mono-moléculaire` / `orange plasma` (patterned on Odyssey's `bleu glacier` / `o
   machinery — and the same in fr, where the legal shapes are a prepositional phrase or
   an adjective whose masculine form already ends in `-e`. Likewise `namerLabels` is plain
   text in ja/ko/zh, must carry a `|M|/|F|/|N|` marker in de, and must be a **bare
-  unmarked noun** in es and fr. Before translating a field that feeds name generation,
+  unmarked noun** in es, fr and pt-BR. Before translating a field that feeds name generation,
   read how the target language's vanilla namer *consumes* it, not just how it reads.
+- **Whether an adjective slot PREPOSES or POSTPOSES decides which invariant shapes are
+  legal, and you must read the namer rather than assume the language's norm.** es and fr
+  could satisfy `traitAdjectives`' gender-invariance with a `de …`/`en …` prepositional
+  phrase *only because* their Odyssey namers postpose (`[weapon_noun] [weapon_adjective]`).
+  pt-BR's norm is postposing too, but its namer kept **English's** order and preposes
+  (`[weapon_adjective] [weapon_noun]`), which silently invalidates the prepositional escape
+  ("de aço espada longa") and the bare-noun one ("ouro ceifador") — leaving only genuinely
+  invariant adjectives. Same consequence for the shared `weapon_adjective->[stuff_adjective]`
+  rule: fr and es translate it prepositionally, de and pt-BR must **drop** it and postpose
+  via their own `r_weapon_name` patterns instead. Grep the namer for the symbol's position
+  before choosing a part of speech.
+- **When invariance leaves no faithful adjective, treat `traitAdjectives` as free epithets
+  rather than forcing a broken agreement.** The field is a list of alternative flavour words
+  for a generated name, not terminology, so substituting a same-register invariant word
+  (pt-BR `cortante` for "honed", `impalpável` for "crystalline", `incombustível` for
+  "charred", `reluzente` for "golden") costs nothing, while an inflecting literal is wrong on
+  half the roster. Keep `label` and `description` literal — only this field is free. Check
+  the roster's actual gender split before assuming masculine is the safe default: this mod's
+  is 4 feminine to 3 masculine in es/fr/pt-BR, so it is not.
 - **Gendered/inflecting languages solve name grammar in one of three ways, and you must
   find out which before writing any rulepack.** German tags each noun inline
   (`|M|Mäher`) and strips the marker with `{replace:}` per syntactic slot. Spanish
@@ -1084,6 +1319,14 @@ mono-moléculaire` / `orange plasma` (patterned on Odyssey's `bleu glacier` / `o
   ships literal `|M|` to screen, and porting Spanish's split into German loses the
   adjective endings. With the fr form, **always write the `==None` branch too** (or use
   `!=Female`) — a missing branch fails to resolve for genderless pawns, i.e. mechanoids.
+  **pt-BR adds a fourth technique, and it is the bluntest: hedge in the surface text with a
+  literal `(a)`.** Core pt-BR does this pervasively and to everything — articles, contractions,
+  participles, possessives (`O(a)`, `um(a)`, `do(a)`, `pelo(a)`, `danificado(a)`) — which is why
+  it needs neither markers nor parallel families nor rule constraints. Two cautions: the hedge
+  belongs in *prose*, not in a generated proper name (Odyssey's pt-BR namer instead just
+  hardcodes `O`/`A`/`da`, which is why it is broken), and a few Core fields are deliberately
+  bare masculine with no hedge at all (`injuryProps` and tend-state labels, uniformly across
+  12+ defs) — so match the field, not the language-wide habit.
 - **Check whether the worker contracts before writing any contraction scaffolding — the
   answer inverts between languages.** Spanish must fuse `de`+`el` by hand in the rulepack
   with `{replace: de [X_definite]; "de &lt;color=#D09B61FF>el "-"&lt;color=#D09B61FF>del "}`,
@@ -1094,19 +1337,45 @@ mono-moléculaire` / `orange plasma` (patterned on Odyssey's `bleu glacier` / `o
   its idiom 20 times that renders "de del", and the fr worker turns `de le` into `de`
   rather than `du` while eliding *h aspiré* it should leave alone. Verify a vanilla
   pattern actually works before copying it; frequency is not correctness.
+  **pt-BR is the third case and the worst: contractions are mandatory, nothing supplies them,
+  and vanilla never even attempted a fix.** `LanguageWorker_Portuguese` overrides only the two
+  article helpers, so the base `PostProcessed` runs and merely merges spaces; there are **zero
+  `{replace:}` blocks** in the whole language. Core therefore ships `de o pirata` and `em a
+  colona` in its own combat packs. Two authoring answers, both vanilla-attested: prefer a
+  preposition that does not contract (`com`/`para`/`contra`/`sem`/`sobre`/`entre`) or make the
+  entity a subject; or use the bare `[X_label]` and write the contracted article yourself,
+  hedged — `do(a) [INITIATOR_label]`, which is what Core's ranged pack does.
+- **A "no hidden mechanics" worker is itself a finding, not a reason to skip the check.** es's
+  and pt-BR's workers impose no authoring requirements, but pt-BR's *absence* of a
+  `PostProcessed` override is precisely what makes every contraction the author's problem.
+  Read what the worker does **not** do as carefully as what it does, and note that languages can
+  share one: `PortugueseBrazilian` declares `LanguageWorker_Portuguese`, so a pt-PT pass would
+  inherit the same constraints.
 - **The possessive symbol has four different correct answers, so never generalize
   one.** ko drops `[RECIPIENT_possessive]` (Korean omits possessives), de keeps it and
   inflects it inline (`[RECIPIENT_possessive]em Handschutz`), es keeps it **only
   before a singular noun** (es `su` has no plural form, so a plural possessed noun
   needs the definite article instead), and fr **cannot use it at all**: French `son`/`sa`
   agrees with the *possessed* noun while the symbol resolves from the *possessor's*
-  gender, so Core fr writes the possessive literally (`son armure`). Check
-  `Keyed/Grammar.xml` for the language's actual `Prohis`/`Proher`/`Proits` values rather
-  than assuming the symbol inflects — fr's are `son`/`sa`/`son/sa`, which is the tell.
+  gender, so Core fr writes the possessive literally (`son armure`). **pt-BR joins fr in
+  writing it literally, but for a different underlying reason worth knowing:** its
+  `Prohis`/`Proher`/`Proits` are `o`/`a`/`o(a)` — a bare **definite article**, not a possessive
+  pronoun at all — still keyed off the possessor while Portuguese must agree with the possessed
+  noun. Core pt-BR has zero live uses in its combat packs and writes `na sua armadura` instead.
+  Check `Keyed/Grammar.xml` for the language's actual `Prohis`/`Proher`/`Proits` values rather
+  than assuming the symbol inflects — fr's are `son`/`sa`/`son/sa` and pt-BR's are articles,
+  which is the tell in both cases.
 - **A DamageDef and a HediffDef of the same name often have different labels**, and
   translating from the wrong one is an easy, invisible error: es Core has DamageDef
   `Stab`=`apuñalamiento` but HediffDef `Stab`=`puñalada`; ko has `찔림` vs `베임`; de has
-  `Stich` vs `Stichwunde`. Always confirm which def *type* you are looking at.
+  `Stich` vs `Stichwunde`. Always confirm which def *type* you are looking at — **and check
+  `ToolCapacityDef` as a third, because the split does not always fall between the same two
+  types.** pt-BR uses one word for the DamageDef and HediffDef (`facada` for both) but a
+  different one for the ToolCapacityDef (`punhalada`), so a two-way check would have missed it.
+- **Core ships curated word corpora under `Strings/Words/`, and they are the right register for
+  namer fields.** pt-BR's `Strings/Words/Nouns/Weapons.txt` supplied almost every `namerLabels`
+  value in that pass (adaga, clava, cutelo, gládio, marreta, pique, porrete...). Check the
+  corpus before coining a name-grammar noun; it is a source the glossary tables don't cover.
 - **When two vanilla files disagree, prefer the nearer analog, not the more central
   one.** es Core's generic ColorDefs render purple `morado`, but Odyssey's own
   `UniqueWeapon_*` colour defs — same def type, same purpose as ours — render it

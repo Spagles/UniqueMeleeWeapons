@@ -106,8 +106,8 @@ stun, burn, bleeding), and the opportunity-site quest vocabulary
 ### Glossary — shared across the mod family
 
 The RU and JP rows were learned in the companion mod (UWU) from native review
-(RU) and vanilla-data study (JP); the Simplified Chinese section was learned
-in this repo's 2026-07 generation. Lessons propagate across all three repos
+(RU) and vanilla-data study (JP); the Simplified Chinese and Korean sections
+were learned in this repo's 2026-07 generations. Lessons propagate across all three repos
 (here, ../UniqueWeaponsUnbound, ../PersonaWeaponsUnbound): when a row is added
 or corrected in one skill, mirror it into the siblings, adjusting
 domain-specific rows. Add rows whenever a native review lands corrections.
@@ -236,11 +236,137 @@ Mod-decided terms pending native review (from the 2026-07 commit): 格挡
 鼓舞呐喊 (rallying cry), 士气大振 (rallied), 传世 (storied), 打桩头
 (piledriver), 阿片 (opiated), 珐琅 (enameled), 无回弹 (dead-blow).
 
+#### Korean (from this repo's machine-assisted generation, 2026-07)
+
+RimWorld's language folder is `Korean` (tar: `Korean (한국어).tar`). Decompile-
+verified why the paren-stripped name works: `LoadedLanguage` derives
+`legacyFolderName` by cutting at `(`, and mod language dirs match on *either*
+`folderName` or `legacyFolderName` — the same mechanism behind `Japanese`.
+
+**Josa (particle) markers are the one hard mechanical rule Korean adds, and
+nothing else in this skill has an equivalent.** Korean particles are
+allomorphic: the correct form depends on whether the previous syllable ends in
+a consonant, which is unknowable when the preceding text is an injected value.
+`Verse.LanguageWorker_Korean.ReplaceJosa` (decompile-verified) resolves exactly
+eight tokens, and no others:
+
+```
+(이)가   (와)과   (을)를   (은)는   (아)야   (이)어   (으)로   (이)
+```
+
+- Every particle following `{0}`, `[symbol]` or `[TOKEN_x]` MUST use a marker.
+  `{0}(을)를 생성` is correct; `{0}를 생성` breaks on consonant-final labels.
+- Never hand-roll `{0}을(를)` — the worker does not recognize it.
+- The one safe exception, which vanilla ko itself uses: a symbol that always
+  resolves the same way, e.g. `[refugee_pronoun]는` (Korean pronouns are always
+  vowel-final). Def labels, pawn names and material words are never safe.
+- A lint for this lives outside the repo checker (which is language-agnostic);
+  it was calibrated to zero false positives against Odyssey's WeaponTraitDefs
+  and Core's DamageDefs.
+
+Other style rules discovered from the vanilla ko data (mandatory):
+
+- ASCII punctuation (`.` `,`), never `。`. Descriptions/tooltips take polite
+  formal `-습니다.`/`-입니다.`; labels, buttons and stat fragments take no
+  trailing period.
+- `ThoughtDef` stage descriptions are the exception: casual first-person
+  (`-어`, `-지`, `-군`, `-거야`), e.g. vanilla `이제 거의 깼어.`
+- Battle-log rulesStrings end in the nominalized `-함.`/`-임.` form, not polite
+  form (`Combat_Dodge`: `… [implement](을)를 [skillAdvMaybe] 피함.`).
+- Korean **uses spaces**, unlike JP/zh: the ko namer composes
+  `[weapon_adjective] [weapon_noun]` with a space, so `traitAdjectives` may be
+  attributive verb forms (`가벼운`, `저주받은`) *or* bare noun modifiers
+  (`황금`, `신속`, `특제`). Genitive epithets carry their own `의` (`죽음의`).
+- Korean drops English "The" in name grammar and links with `의`
+  (`[badass_concept]의 [weapon_type]`). Material composes bare:
+  `[stuff_adjective] [weapon_noun]` → 강철 장검.
+- Vanilla ko **drops `[RECIPIENT_possessive]`** in the combat packs — 12
+  textual occurrences, all in EN comments, zero in Korean values. Korean omits
+  possessive pronouns, so follow suit rather than rendering 그의.
+- Units attach with no space: `{0}시간`, `{0}일`, `{0}칸`. Some vanilla ko
+  files carry a BOM; ours never do.
+
+| English | Use | Never | Why |
+|---|---|---|---|
+| trait (weapon) | 특성 (stats-entry title 무기 특성) | 개성 | Odyssey `WeaponTraits` / `Stat_ThingUniqueWeaponTrait_Label`; 개성 is Royalty's *persona* word (`Stat_Thing_PersonaWeaponTrait_Label`), PWU's domain |
+| unique weapon | 고유 무기 | | Odyssey `UniqueWeapon` |
+| **unique \<weapon\>** (label) | **특제 \<weapon\>** | | Odyssey's ranged uniques: 특제 장궁, 특제 돌격소총 |
+| longsword / spear / mace / knife / gladius / axe / warhammer | 장검 / 창 / 철퇴 / 단검 / 검 / 도끼 / 전투망치 | | Core/Odyssey/Royalty labels |
+| monosword / plasmasword / zeushammer | 단분자검 / 플라즈마검 / 제우스망치 | | Royalty labels |
+| **mechanite(s)** | **기계입자** | 나노머신 | Core, 36/36 (근섬유질 기계입자); 나노머신 renders English *nanomachines* — a different word. Easy trap: they look interchangeable and are not |
+| mechanoid | 메카노이드 | | Core |
+| ultratech | 미래 (`TechLevel_Ultra`); 최첨단 attributively in prose | | monosword desc 최첨단 금속 검입니다 |
+| plasteel / jade / wood / steel | 플라스틸 / 비취옥 (Odyssey inlay uses 옥) / 나무 · 목재 / 강철 | | Core labels + `stuffAdjective` |
+| cut / stab (DamageDef) | 잘림 / 찔림 | 베임 (that is the *hediff* label) | Core DamageDefs vs HediffDefs differ |
+| toxic \<damage\> label | `찔림 (독성)` shape | | Core `ScratchToxic`=찢김 (독성), `ToxicBite`=물림 (독성) |
+| bandaged / sutured / set | 붕대 감음 / 봉합됨 / 접합됨 | | Core Cut/Stab injury comps |
+| cut off / cut out | 끊어짐 / 잘림 | | Core `injuryProps` |
+| toxic buildup / anesthetic | 중독 / 마취 | | Core |
+| woozy / sedated | 혼미함 / 안정됨 | | Core `Anesthetic` stages; `-됨` is the hediff-stage family |
+| point (tool) / edge (tool) | 칼끝 / 칼날 | 첨단 for "point" | Core tool labels; 첨단 reads "cutting-edge" (첨단 기술) in modern ko |
+| armor penetration / move speed / stagger multiplier / bleeding | 방어 관통력 (melee: 근접 방어 관통력) / 이동속도 / 비틀거림 배수 / 출혈 | | Core StatDefs |
+| Dodge (TextMote) | 회피 | | Core `TextMote_Dodge` |
+| radius / cells / cooldown / ability / quest | 범위 / 칸 / 대기시간 / 능력 / 임무 | | Core Keyed |
+| Cancel / Reset / Reset all | 취소 / 초기화 / 모두 초기화 | | Core Keyed |
+| quality tiers | 끔찍/빈약/평범/상급/완벽/걸작/전설적 | | Core `QualityCategory_*` |
+| item stash / bandit camp / ancient mercenaries / sealed crate | 귀중품 은닉처 / 도적 캠프 / 고대 용병들 / 밀봉된 상자 | | Core sites, Odyssey quest + `AncientSealedCrate` |
+| tribesman / tribespeople / chief / fierce | 부족민 / 부족민들 / 족장 / 호전적인 | | Core `TribeRough` |
+| wielder / bearer | 사용자 / 주인 | | Odyssey `EMPPulser`, Royalty descs |
+| Traders will pay more/less for it. | 상인들이 더 높은 값을 쳐줍니다. / 상인들은 더 적은 돈을 쳐줍니다. | | Odyssey `GoldInlay`/`Ugly` — reuse verbatim |
+
+**Cross-checked against PWU's own ko pass (landed the same day, independently
+grounded).** It reached the same josa conclusion, and adds two findings worth
+reusing: `LanguageWorker_Korean.FindLastChar` skips a preceding `'`/`"`, so
+quoting an injected label and *then* attaching a josa resolves correctly; and
+`AlphabetEndPattern` contains no digits, so a josa directly after a number
+always picks the no-batchim form and is wrong for 1/3/6/7/8/0 — phrase around
+it. Two rows genuinely diverge, and neither repo should silently "fix" the other:
+
+- **PWU's `mechanite` → 나노머신 row is wrong; use 기계입자.** PWU grounded on
+  Royalty/Biotech only and concluded ko has no term for it. Core in fact has one
+  in 7 files (`Hediffs_Local_Infections`, `Luciferium`, `Items_Exotic`, ...):
+  all 36 English "mechanite" occurrences render 기계입자. 나노머신 is Core/Biotech's
+  word for English *nanomachines*. Correct this when mirroring.
+- **armor penetration: 방어 관통력 here, 관통력 in PWU — both correct.** Core
+  Keyed `ArmorPenetration` is 관통력, but the StatDef this mod's info-card lines
+  sit under is `MeleeWeapon_AverageArmorPenetration` = 근접 방어 관통력. Match
+  whichever anchor the surrounding screen shows.
+
+The six Odyssey trait ports have official ko labels/adjectives, and descriptions
+that match our English verbatim for four of them (장식용, 난잡한 외형, 금 상감,
+옥 상감); `Lightweight` 경량 and `Cumbersome` 불편 differ only in aim-vs-swing,
+so adapt that clause alone. Note Odyssey's `Ugly` adjective *indices* differ
+from ours: re-map by meaning (crude=조잡한, ugly=난잡한, monstrous=끔찍한).
+
+Mod-decided terms pending native review (from the 2026-07 commit): 받아넘김
+(parry, register-matched to `TextMote_Dodge` 회피), 전사단 (warband, parallel to
+vanilla 용병단), 습격단 (war party), 두목 (warlord, distinct from Pirate 대장),
+날받이 / 십자 가드 (quillons / crossguard), 지진 강타 (earthshake), 결집의 외침
+(rallying cry), 결집됨 (rallied), 유서 있는 (storied), 항타기 (piledriver),
+무반동 (dead-blow), 아편 도포 (opiated), 독 도포 (envenomed), 법랑 (enameled),
+날개 돌기 (flanged), 징 박음 (studded), 관통 스파이크 (armor spike), 선단 편중
+(head-weighted), 균형추 (counterweighted), 종 주조 (bell-cast), 바늘 끝 (needle
+point), 미늘 (barbed, keeping 갈고리 for its "hooked" adjective), 탄화
+(carbonized), 혈흔 (blood-stained), 톱니 (serrated), 면도날 (razored), 단분자 /
+플라즈마 코어 / 제우스 헤드 (the ultratech trio), 진정제 축적 (sedative
+buildup), 투여됨 (dosed), 찢긴 (ragged), 명장이 벼린 (master-forged), 도살도
+(cleaver), 쇠메 (maul), 쇠뭉치 (mace head), 혈홍색 / 탄흑색 (colours, patterned
+on Odyssey's 염홍색 / 전청색).
+
 ### Cross-language lessons
 
 - Wrap injected `{0}` def labels in the language's quote marks (JP 「{0}」,
   RU «{0}», zh-Hans “{0}”) — injected labels never inflect, and quoting
-  sidesteps case and agreement problems.
+  sidesteps case and agreement problems. **Korean is the exception**: it solves
+  the same problem mechanically with josa markers, so inject bare and mark the
+  particle instead of quoting.
+- **Check for a `LanguageWorker_<Language>` before generating.** It post-
+  processes every string, so it can impose authoring requirements no amount of
+  reading the vanilla data will reveal as *mandatory* — Korean's josa markers
+  are invisible until you find `ReplaceJosa`. Decompile it:
+  `ilspycmd "$RIMWORLD_PATH/RimWorldWin64_Data/Managed/Assembly-CSharp.dll" -t
+  "Verse.LanguageWorker_<Language>"`. Languages with heavy inflection (Russian,
+  Polish, Turkish, Czech) are the ones to check first.
 - When an English string is reworded, refresh the EN comments in every
   language **in the same commit** — the checker reports the mismatch as STALE
   either way, but batching avoids churn.

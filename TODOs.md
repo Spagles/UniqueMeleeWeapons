@@ -2,11 +2,7 @@
 
 ## Cleanup
 
-1. Test needle-point and quilloned
-2. Check odyssey vs UMW negative trait commonalities
-3. Port the release skill from UWU/PWU, then integrate the L10nProbe mod per
-   HANDOVER.md (structural detection of externally-sourced translatable
-   fields; probe spec at ../L10nProbe/SPEC.md)
+1. integrate the L10nProbe mod per HANDOVER.md (structural detection of externally-sourced translatable fields; probe spec at ../L10nProbe/SPEC.md)
 
 ## Features
 

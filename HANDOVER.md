@@ -61,11 +61,11 @@ language-independent, so no language switching, no vanilla noise, no UI.
    waits for the output, rewrites the sidecar, prints the diff summary.
    If the probe's UNC write-back to WSL paths proved unreliable (see SPEC
    caveat), fetch from the probe's default output folder instead.
-4. **Release skill**: this repo has none — port it from
-   `../UniqueWeaponsUnbound/.claude/skills/release/` /
-   `../PersonaWeaponsUnbound/.claude/skills/release/` (tracked in TODOs.md),
-   then add the step: refresh expectations → if sidecar diff shows new keys,
-   translate them (`/translate update`) → run checker `--strict` → proceed.
+4. **Release skill**: ported from UWU/PWU and now at
+   `.claude/skills/release/SKILL.md`. Rework its step 3 into: refresh
+   expectations → if sidecar diff shows new keys, translate them
+   (`/translate update`) → run checker `--strict` → proceed, replacing the
+   in-game-report backstop bullet that step currently carries.
    Keep every step deterministic-first: the only model judgment in the loop
    is translating newly discovered strings, so the flow stays runnable by
    mid-tier agents (Opus) without Fable.

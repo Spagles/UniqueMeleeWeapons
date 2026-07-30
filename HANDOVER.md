@@ -17,7 +17,7 @@ of `Scripts/check-translations.py`.
 **Residual blind spot:** the checker's `EXTERNAL_INJECTIONS` manifest is
 static and its guards only recognize the four def shapes seen so far (unique
 weapons by `thingSetMakerTags` tag, `abilityProps` traits, `InjuryBase`
-hediffs, FactionDefs). A *new class* of externally-sourced field — new
+hediffs, FactionDefs). A _new class_ of externally-sourced field — new
 vanilla parent, new comp with C#-default strings, a future mod using other
 APIs — is invisible until someone reruns the in-game report. The probe mod
 closes this: it calls the game's own walker
@@ -34,8 +34,8 @@ language-independent, so no language switching, no vanilla noise, no UI.
    superset of the current checker's expected set: every key in
    `EXTERNAL_INJECTIONS`, every `label`/`description` the checker derives
    from def XML, and every key currently translated in the 8 language
-   folders. Investigate any discrepancy before proceeding — a *missing*
-   expected key means a probe filter bug; an *extra* key means the manifest
+   folders. Investigate any discrepancy before proceeding — a _missing_
+   expected key means a probe filter bug; an _extra_ key means the manifest
    era genuinely under-covered and the new keys need translating (use
    `/translate` with the grounding map in SKILL.md; glossaries + vanilla-tar
    verbatim-copy workflow are all documented there).
@@ -89,3 +89,14 @@ language-independent, so no language switching, no vanilla noise, no UI.
 - A deliberate test: add a scratch `WeaponTraitDef` with `<abilityProps>`
   (or any def) without regenerating → checker must fail with the staleness
   error; regenerate → it must demand the new keys in all 8 languages.
+
+## Follow-up
+
+One nuance worth keeping in mind even after integration: a RimWorld update
+can change vanilla-inherited values or C# defaults without any of our defNames
+changing, which the freshness rule alone wouldn't notice. It's covered as long
+as regeneration is part of every release run (it is, in the handover design) —
+and the sidecar's meta.gameBuild gives the refresh script an explicit trigger
+to compare against the installed version, which is worth wiring in when you do
+the integration. Until then, the in-game report remains the documented backstop,
+exactly as the CI comments and SKILL.md state.

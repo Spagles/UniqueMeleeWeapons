@@ -3,8 +3,7 @@
 ## Cleanup
 
 1. Test needle-point and quilloned
-   - UWU tooltip fix for its `-100%` hit-chance line is merged and deployed
-     (UWU `4b6aa5a`); confirm in-game it now reads `-1.0` with no duplicate row.
+2. Check odyssey vs UMW negative trait commonalities
 
 ## Features
 

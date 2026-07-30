@@ -5,7 +5,7 @@
        reference to Royalty's monosword tech, so the def is MayRequire-gated on Royalty (the same
        def-level gate the Axe/Warhammer uniques use) together with its UMW_MonoWhite ColorDef — the
        trait only rolls when the DLC that owns the tech is present. Realises "ignores armor" via
-       MeleeToolModExtension, which floors the Cut AND Stab tools' armor penetration to 0.9 (the only
+       MeleeToolModExtension, which floors the Cut AND Stab tools' armor penetration to 0.97 (the only
        trait that raises a base hit's AP without also raising its damage — AP is wasted on unarmored
        targets but devastating vs plate/mechs). Flashy, so rarer (commonality 0.5). Forces the
        pure-white UMW_MonoWhite onto COLOUR TWO (the body) via ForcedColorTwoExtension, so it tags
@@ -39,7 +39,7 @@
               <li>Cut</li>
               <li>Stab</li>
             </capacities>
-            <armorPenetrationFloor>0.9</armorPenetrationFloor>
+            <armorPenetrationFloor>0.97</armorPenetrationFloor>
           </li>
         </mods>
       </li>

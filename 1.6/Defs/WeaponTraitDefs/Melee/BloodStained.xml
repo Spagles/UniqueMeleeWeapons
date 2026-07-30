@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
-  <!-- UMW_Melee. Blood-stained — a gore-caked weapon, balanced (not purely beneficial): the menace that
+  <!-- UMW_Melee. Blood-stained — gore-caked, and balanced rather than purely beneficial: the menace that
        panics enemies also unsettles the wielder.
-         • On-hit "dread": a wounding blow can panic a HUMANLIKE target into fleeing (PanicFlee via the
-           MeleeOnHitEffect_MentalState class). Animals/mechanoids don't scare, so humanlikeOnly=true.
-           Chance 0.12 per wounding hit, tuned against two anchors (decompile-verified): a proc is a
-           ROUT, not a stagger — PanicFlee's minTicksBeforeRecovery is 10,000t and ~95% of non-forced
-           attempts land on a raider — so it must stay well under Bell-cast's 0.25 (universal-target
-           but only a 2s stun); yet vanilla ALREADY auto-panics damaged humanlikes below their
-           kindDef fleeHealthThresholdRange, so late-fight procs read as vanilla behavior and only
-           early-fight routs are visible as the trait working. 0.12 makes those perceptible (~1 in 8
-           wounding hits; ~40-60% of extended fights); much below this it reads as inert.
-         • Downside/upside: one two-stage ThoughtDef (UMW_BloodStainedWeapon, worker-routed): -2 mood
-           for ordinary pawns, +3 relish for bloodlusters, nullified for the hardened
-           (Psychopath, VTE Desensitized/World-weary, hemogenic). See that file for why it must be a
-           single def (duplicate grey-0 row otherwise).
-       Forces the dark UMW_BloodRed tint onto COLOUR TWO (the green-masked body) via
-       ForcedColorTwoExtension, not vanilla's colour-one forcedColor — the gore caking the blade reads
-       as the body itself, and it REPLACES the material tint (a blood-stained plasteel and a blood-stained
-       wooden weapon look alike). So it tags "BodyColor" (its own one-per-weapon family), NOT "Color":
-       being on a different mask channel, blood-stained can now co-occur with a colour-one Gold/Jade inlay
-       or the Envenomed coating. It also tags "Appearance" (shared with Ornamental/Ugly) so a gore-caked
-       weapon never also rolls "ornamental" or "ugly" — it has its own look — and carries BOTH MarketValue
-       halves per the CLAUDE.md rule (capability rides an offset, devaluation rides a factor): ×0.8 for the
-       gore, +40 for the panic-on-hit — half Bell-cast's +80 (0.12 chance vs 0.25, humanlike-only).
-       canGenerateAlone defaults true: a weapon can roll just "blood-stained" as a
-       complete, nameable identity. -->
+         • On-hit "dread": a wounding blow can panic a target into fleeing (PanicFlee via
+           MeleeOnHitEffect_MentalState); humanlikeOnly, since animals/mechs don't scare. Chance 0.12
+           sits between two anchors: a proc is a ROUT, not a stagger (PanicFlee's minTicksBeforeRecovery
+           is 10,000t), so it must stay well under Bell-cast's 0.25 for a mere 2s stun; but vanilla
+           already auto-panics humanlikes below their kindDef fleeHealthThresholdRange, so only
+           early-fight routs read as the trait working, and much below 0.12 it reads as inert.
+         • Mood: one two-stage ThoughtDef (UMW_BloodStainedWeapon) — -2 for ordinary pawns, +3 for
+           bloodlusters, nullified for the hardened. See that file for why it must be a single def.
+       Forces UMW_BloodRed onto COLOUR TWO via ForcedColorTwoExtension, not vanilla's colour-one
+       forcedColor: the gore reads as the body itself, so it replaces the material tint and tags
+       "BodyColor" rather than "Color" — leaving it free to co-roll with a colour-one Gold/Jade inlay.
+       Also tags "Appearance": a gore-caked weapon has its own look, so it never also rolls
+       ornamental/ugly. Carries both MarketValue halves per the CLAUDE.md rule — ×0.8 for the gore,
+       +40 for the panic, half Bell-cast's +80 (weaker proc, humanlike-only). Commonality 0.5 keeps the
+       "Appearance" family uniform, as Odyssey's is; at 1.0 it took over half the family's rolls and
+       buried the four cosmetics it excludes. canGenerateAlone defaults true: a complete identity. -->
   <WeaponTraitDef>
     <defName>UMW_BloodStained</defName>
     <label>blood-stained</label>
     <description>This weapon is caked in layers of dark, dried blood. The sight of it can send the people it wounds fleeing in panic, though carrying so grisly a thing weighs on all but the hardened. Traders will pay less for it.</description>
-    <commonality>1</commonality>
+    <commonality>0.5</commonality>
     <weaponCategory>UMW_Melee</weaponCategory>
     <exclusionTags>
       <li>BodyColor</li>

@@ -39,7 +39,7 @@
               <li>Cut</li>
               <li>Stab</li>
             </capacities>
-            <armorPenetrationFloor>0.97</armorPenetrationFloor>
+            <armorPenetrationFloor>0.97</armorPenetrationFloor> <!-- Slightly worse than royalty's monosword's 0.99 -->
           </li>
         </mods>
       </li>

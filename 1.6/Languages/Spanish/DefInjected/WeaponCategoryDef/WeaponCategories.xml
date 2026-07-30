@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: melee -->
+  <UMW_Melee.label>cuerpo a cuerpo</UMW_Melee.label>
+
+  <!-- EN: bladed -->
+  <UMW_Bladed.label>cortante</UMW_Bladed.label>
+
+  <!-- EN: pointed -->
+  <UMW_Pointed.label>punzante</UMW_Pointed.label>
+
+  <!-- EN: blunt -->
+  <UMW_Blunt.label>contundente</UMW_Blunt.label>
+
+  <!-- EN: heavy -->
+  <UMW_Heavy.label>pesado</UMW_Heavy.label>
+
+  <!-- EN: guarded -->
+  <UMW_Guarded.label>con guarda</UMW_Guarded.label>
+
+</LanguageData>

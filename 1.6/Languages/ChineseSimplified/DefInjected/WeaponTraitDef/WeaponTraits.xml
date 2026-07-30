@@ -323,6 +323,12 @@
   <!-- EN: thunderous -->
   <UMW_Piledriver.traitAdjectives.3>雷鸣</UMW_Piledriver.traitAdjectives.3>
 
+  <!-- EN: charge -->
+  <UMW_Piledriver.abilityProps.chargeNoun>充能</UMW_Piledriver.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Piledriver.abilityProps.cooldownGerund>冷却中</UMW_Piledriver.abilityProps.cooldownGerund>
+
 
   <!-- EN: plasma-cored -->
   <UMW_PlasmaCored.label>等离子内芯</UMW_PlasmaCored.label>
@@ -414,6 +420,12 @@
 
   <!-- EN: honored -->
   <UMW_Storied.traitAdjectives.3>荣耀</UMW_Storied.traitAdjectives.3>
+
+  <!-- EN: charge -->
+  <UMW_Storied.abilityProps.chargeNoun>充能</UMW_Storied.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Storied.abilityProps.cooldownGerund>冷却中</UMW_Storied.abilityProps.cooldownGerund>
 
 
   <!-- EN: studded -->

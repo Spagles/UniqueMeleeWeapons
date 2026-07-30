@@ -28,6 +28,9 @@
   <!-- EN: Cut out -->
   <UMW_Cut_Ragged.injuryProps.destroyedOutLabel>切り取られた</UMW_Cut_Ragged.injuryProps.destroyedOutLabel>
 
+  <!-- EN: {0} in the {1} -->
+  <UMW_Cut_Ragged.labelNounPretty>{1}内の{0}</UMW_Cut_Ragged.labelNounPretty>
+
 
   <!-- EN: rallied -->
   <UMW_Rallied.label>士気高揚</UMW_Rallied.label>
@@ -78,5 +81,8 @@
 
   <!-- EN: Cut out -->
   <UMW_Stab_Ragged.injuryProps.destroyedOutLabel>切り取られた</UMW_Stab_Ragged.injuryProps.destroyedOutLabel>
+
+  <!-- EN: {0} in the {1} -->
+  <UMW_Stab_Ragged.labelNounPretty>{1}内の{0}</UMW_Stab_Ragged.labelNounPretty>
 
 </LanguageData>

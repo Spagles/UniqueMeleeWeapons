@@ -62,8 +62,31 @@ the source of truth; every other language derives from it.
   (`labelTendedWell`, `permanentLabel`, `destroyedLabel`, ...) and stage
   labels; thought `stages` labels/descriptions; DamageDef `deathMessage`;
   FactionDef `pawnSingular`/`pawnsPlural`/`leaderTitle`; and quest
-  `rulesStrings` grammar. The checker warns on uncovered label/description;
-  the rest it validates structurally once present.
+  `rulesStrings` grammar. The checker errors on any uncovered expected key
+  (label/description of every def, plus the externally-sourced manifest
+  below) and on cross-language drift (a key translated in one language but
+  missing in another); everything else it validates structurally once
+  present.
+- **Some translatable fields never appear in this repo's XML** and cannot be
+  found by reading `Defs/` (learned from the 2026-07-30 in-game translation
+  report, which walks the live DefDatabase with reflection): tool labels
+  (`UMW_*_Unique.tools.<tool>.label`) inherited from the vanilla base weapon
+  defs; `comps.CompEquippableAbilityReloadable.chargeNoun`/`.cooldownGerund`
+  (C# defaults "charge"/"on cooldown", reached via weapons' comps and via
+  traits' `abilityProps`); `labelNounPretty` from vanilla `InjuryBase`; and
+  `messageDefendersAttacking` from vanilla `FactionBase`. Their keys and
+  English texts live in the `EXTERNAL_INJECTIONS` manifest at the top of
+  `Scripts/check-translations.py`, which the checker enforces per language
+  and guards in lockstep with the defs — a new unique weapon, abilityProps
+  trait, injury or faction fails the script until its rows are added (take
+  the exact paths from a fresh in-game report: Dev Mode > Save translation
+  report). Ground these by copying the official translation of the matching
+  vanilla def verbatim: base weapons' `tools.*.label` (Core/Royalty tars),
+  Odyssey's `*_Unique` weapons for the two comp strings, Core `Cut`/`Stab`
+  for `labelNounPretty` (keep its `{lookup: ...}` case grammar), Core
+  `TribeRough` for the defenders-attacking message. `WeaponCategoryDef`
+  labels have no vanilla translations (vanilla ships its own untranslated) —
+  they are mod-decided terms; flag them for native review.
 - The name-generation grammar (`RulePackDefs/`, and the `stuff_adjective`
   symbol it consumes) is translatable content, not fixed data: its
   rulesStrings carry English adjectives/nouns that each language rewrites to
@@ -122,6 +145,11 @@ domain-specific rows. Add rows whenever a native review lands corrections.
 | charge (weapons) | энерг- root | заряд- | vanilla `Gun_ChargeRifle`=энерговинтовка; заряд reads as ammo |
 | Cancel (button) | Отменить | Отмена | vanilla `Cancel`; buttons use infinitive verbs |
 | report/inspect strings | noun phrases | finite verbs | matches inspect-pane convention |
+
+Mod-decided WeaponCategoryDef labels pending native review (2026-07-30):
+ближний бой (melee, Core skill label), рубящее / колющее / дробящее (bladed /
+pointed / blunt, the ToolCapacityDef adjective family), тяжёлое (heavy),
+с гардой (guarded — prepositional, matching the reviewed с крестовиной).
 
 #### Japanese (from UWU machine-assisted generation, 2026-07, extended by this
 repo's melee/quest pass, 2026-07)
@@ -185,7 +213,10 @@ to vanilla 傭兵団), 襲撃団 (war party), 頭目 (warlord), 鍔 / クロス�
 (opiated), 琺瑯 (enameled), 無反発 (dead-blow, from the real tool term
 無反発ハンマー), 稜付き (flanged), 鋲打ち (studded), 徹甲スパイク (armor
 spike), 先重心 (head-weighted), 素早い (quickdraw — vanilla's 早撃ちの is
-ranged-specific and wrong on melee).
+ranged-specific and wrong on melee). The 2026-07-30 WeaponCategoryDef labels
+are likewise mod-decided: 格闘 (melee, Core skill label), 斬る / 刺す / 殴る
+(bladed / pointed / blunt, the Core DamageDef labels), 重量 (heavy), 鍔付き
+(guarded).
 
 #### Simplified Chinese (from this repo's machine-assisted generation, 2026-07)
 
@@ -236,7 +267,11 @@ Mod-decided terms pending native review (from the 2026-07 commit): 格挡
 (parry, register-matched to `TextMote_Dodge` 闪避), 战团 (warband), 战帮
 (war party), 剑格 / 十字护手 (quillons / crossguard), 撼地 (earthshake),
 鼓舞呐喊 (rallying cry), 士气大振 (rallied), 传世 (storied), 打桩头
-(piledriver), 阿片 (opiated), 珐琅 (enameled), 无回弹 (dead-blow).
+(piledriver), 阿片 (opiated), 珐琅 (enameled), 无回弹 (dead-blow). The
+2026-07-30 WeaponCategoryDef labels are likewise mod-decided: 格斗 (melee,
+Core skill label), 刃器 / 尖器 / 钝器 (bladed / pointed / blunt — 刃器/钝器
+are established weapon-class terms, 尖器 a coined parallel), 沉重 (heavy),
+护手 (guarded).
 
 #### Korean (from this repo's machine-assisted generation, 2026-07)
 
@@ -376,7 +411,10 @@ point), 미늘 (barbed, keeping 갈고리 for its "hooked" adjective), 탄화
 플라즈마 코어 / 제우스 헤드 (the ultratech trio), 진정제 축적 (sedative
 buildup), 투여됨 (dosed), 찢긴 (ragged), 명장이 벼린 (master-forged), 도살도
 (cleaver), 쇠메 (maul), 쇠뭉치 (mace head), 혈홍색 / 탄흑색 (colours, patterned
-on Odyssey's 염홍색 / 전청색).
+on Odyssey's 염홍색 / 전청색). The 2026-07-30 WeaponCategoryDef labels are
+likewise mod-decided: 근접 (melee, from Core 근접 무기), 잘림 / 찔림 / 맞음
+(bladed / pointed / blunt, the Core DamageDef labels), 중량 (heavy), 가드
+(guarded, matching the mod's 십자 가드).
 
 #### German (preseeded from PersonaWeaponsUnbound's 2026-07-28 generation,
 generated and extended here 2026-07-28)
@@ -633,7 +671,10 @@ uninflected stems where they are trait adjectives: `Panzerdorn` (armor spike),
 `Stammesraider` (tribal warrior/raider, on Core's dominant `Raider`),
 `Spalter` (cleaver), and the colours `blutrot` / `karbonschwarz` / `emailviolett`
 / `monomolekularweiß` / `plasmaorange` (patterned on Odyssey's
-`eisblau`/`feuerorange`).
+`eisblau`/`feuerorange`). The 2026-07-30 WeaponCategoryDef labels are likewise
+mod-decided: `Nahkampf` (melee, Core skill label), `Schnitt` / `Stich` / `Wucht`
+(bladed / pointed / blunt, the Core DamageDef labels), `schwer` (heavy),
+`bewehrt` (guarded, matching the `-bewehrt` pattern of the Quilloned family).
 
 #### Spanish (Castellano) (from this repo's machine-assisted generation, 2026-07-29)
 
@@ -818,7 +859,11 @@ desgarrada` (ragged), `forjado por un maestro` (master-forged), `banda de guerra
 `guerrero tribal` / `saqueador tribal`, `machete` (cleaver, vanilla-attested),
 `mazo` (maul), `lanzón` (lance), `pica` (pike), `garrote` (bludgeon), and the colours
 `rojo sangre` / `negro carbón` / `púrpura esmalte` / `blanco mono-molecular` /
-`naranja plasma` (patterned on Odyssey's `azul hielo` / `naranja fuego`).
+`naranja plasma` (patterned on Odyssey's `azul hielo` / `naranja fuego`). The
+2026-07-30 WeaponCategoryDef labels are likewise mod-decided: `cuerpo a cuerpo`
+(melee, Core skill label), `cortante` / `punzante` / `contundente` (bladed /
+pointed / blunt), `pesado` (heavy), `con guarda` (guarded, matching the
+`de guarda` construction already used for Quilloned).
 
 #### French (from this repo's machine-assisted generation, 2026-07-29)
 
@@ -1052,6 +1097,9 @@ rendering that does not mean warlord, so this one is a coinage), `couperet` (cle
 `mailloche` (maul), `taillant` (bit), `épieu` (lance), `pique` (pike), `gourdin`
 (bludgeon), and the colours `rouge sang` / `noir carbone` / `violet émail` / `blanc
 mono-moléculaire` / `orange plasma` (patterned on Odyssey's `bleu glacier` / `orange feu`).
+The 2026-07-30 WeaponCategoryDef labels are likewise mod-decided: `mêlée` (melee, Core
+skill label), `coupant` / `perçant` / `contondant` (bladed / pointed / blunt, the
+ToolCapacityDef adjectives), `lourd` (heavy), `à garde` (guarded).
 
 #### Brazilian Portuguese (from this repo's machine-assisted generation, 2026-07-29)
 
@@ -1267,6 +1315,10 @@ party), `guerreiro`/`invasor` (the faction's pawn nouns), `gume` (edge, as a nam
 `azagaia` (lance), `clava` (bludgeon only — mace stays `maça`), `cutelo` (cleaver), `marreta`
 (maul), and the colours `vermelho sangue` / `preto carvão` / `roxo esmalte` / `branco
 monomolecular` / `laranja plasma` (patterned on Odyssey's `azul gelo` / `laranja fogo`).
+The 2026-07-30 WeaponCategoryDef labels are likewise mod-decided: `corpo a corpo` (melee,
+Core skill label), `cortante` / `perfurante` / `contundente` (bladed / pointed / blunt —
+`perfurante` over the `MeleePiercer` StatCategory's odd `afiado`), `pesado` (heavy),
+`guarnecido` (guarded, echoing `UMW_Studded`'s `guarnecida de cravos`).
 
 ### Cross-language lessons
 

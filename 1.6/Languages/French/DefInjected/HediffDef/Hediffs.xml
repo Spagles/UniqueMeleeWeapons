@@ -16,6 +16,9 @@
   <!-- EN: a ragged cut -->
   <UMW_Cut_Ragged.labelNoun>une taillade déchiquetée</UMW_Cut_Ragged.labelNoun>
 
+  <!-- EN: {0} in the {1} -->
+  <UMW_Cut_Ragged.labelNounPretty>une {0} au/à la {1}</UMW_Cut_Ragged.labelNounPretty>
+
   <!-- EN: A ragged, torn cut that bleeds freely and scars badly. -->
   <UMW_Cut_Ragged.description>Une taillade déchiquetée et déchirée qui saigne abondamment et laisse une vilaine cicatrice.</UMW_Cut_Ragged.description>
 
@@ -68,6 +71,9 @@
 
   <!-- EN: a ragged stab wound -->
   <UMW_Stab_Ragged.labelNoun>une perforation déchiquetée</UMW_Stab_Ragged.labelNoun>
+
+  <!-- EN: {0} in the {1} -->
+  <UMW_Stab_Ragged.labelNounPretty>une {0} au/à la {1}</UMW_Stab_Ragged.labelNounPretty>
 
   <!-- EN: A ragged, torn stab wound that bleeds freely and scars badly. -->
   <UMW_Stab_Ragged.description>Une perforation déchiquetée et déchirée qui saigne abondamment et laisse une vilaine cicatrice.</UMW_Stab_Ragged.description>

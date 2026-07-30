@@ -323,6 +323,12 @@
   <!-- EN: thunderous -->
   <UMW_Piledriver.traitAdjectives.3>우레의</UMW_Piledriver.traitAdjectives.3>
 
+  <!-- EN: charge -->
+  <UMW_Piledriver.abilityProps.chargeNoun>충전</UMW_Piledriver.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Piledriver.abilityProps.cooldownGerund>재사용 대기 중</UMW_Piledriver.abilityProps.cooldownGerund>
+
 
   <!-- EN: plasma-cored -->
   <UMW_PlasmaCored.label>플라즈마 코어</UMW_PlasmaCored.label>
@@ -414,6 +420,12 @@
 
   <!-- EN: honored -->
   <UMW_Storied.traitAdjectives.3>명예로운</UMW_Storied.traitAdjectives.3>
+
+  <!-- EN: charge -->
+  <UMW_Storied.abilityProps.chargeNoun>충전</UMW_Storied.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Storied.abilityProps.cooldownGerund>재사용 대기 중</UMW_Storied.abilityProps.cooldownGerund>
 
 
   <!-- EN: studded -->

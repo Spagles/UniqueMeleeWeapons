@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: melee -->
+  <UMW_Melee.label>근접</UMW_Melee.label>
+
+  <!-- EN: bladed -->
+  <UMW_Bladed.label>잘림</UMW_Bladed.label>
+
+  <!-- EN: pointed -->
+  <UMW_Pointed.label>찔림</UMW_Pointed.label>
+
+  <!-- EN: blunt -->
+  <UMW_Blunt.label>맞음</UMW_Blunt.label>
+
+  <!-- EN: heavy -->
+  <UMW_Heavy.label>중량</UMW_Heavy.label>
+
+  <!-- EN: guarded -->
+  <UMW_Guarded.label>가드</UMW_Guarded.label>
+
+</LanguageData>

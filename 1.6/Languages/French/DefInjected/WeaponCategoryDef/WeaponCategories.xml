@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Short lowercase category labels, not vanilla-sourced. UMW_Melee grounds on Core's
+       Melee skill label ("mêlée"). UMW_Bladed/Pointed/Blunt reuse the ToolCapacityDef
+       adjectives already grounded in this glossary for cut/stab/blunt (coupant / perçant /
+       contondant), since these mechanism categories are defined by exactly those tool
+       capacities. UMW_Heavy and UMW_Guarded have no vanilla anchor and are mod-decided. -->
+
+  <!-- EN: melee -->
+  <UMW_Melee.label>mêlée</UMW_Melee.label>
+
+  <!-- EN: bladed -->
+  <UMW_Bladed.label>coupant</UMW_Bladed.label>
+
+  <!-- EN: pointed -->
+  <UMW_Pointed.label>perçant</UMW_Pointed.label>
+
+  <!-- EN: blunt -->
+  <UMW_Blunt.label>contondant</UMW_Blunt.label>
+
+  <!-- EN: heavy -->
+  <UMW_Heavy.label>lourd</UMW_Heavy.label>
+
+  <!-- EN: guarded -->
+  <UMW_Guarded.label>à garde</UMW_Guarded.label>
+
+</LanguageData>

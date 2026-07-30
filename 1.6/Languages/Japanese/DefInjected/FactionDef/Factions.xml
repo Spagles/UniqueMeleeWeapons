@@ -16,4 +16,7 @@
   <!-- EN: warlord -->
   <UMW_Warband.leaderTitle>頭目</UMW_Warband.leaderTitle>
 
+  <!-- EN: {0} from {1} are attacking your {2}. -->
+  <UMW_Warband.messageDefendersAttacking>{1}の{0}は {2}を攻撃中です.</UMW_Warband.messageDefendersAttacking>
+
 </LanguageData>

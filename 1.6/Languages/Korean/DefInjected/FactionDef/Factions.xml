@@ -16,4 +16,7 @@
   <!-- EN: warlord -->
   <UMW_Warband.leaderTitle>두목</UMW_Warband.leaderTitle>
 
+  <!-- EN: {0} from {1} are attacking your {2}. -->
+  <UMW_Warband.messageDefendersAttacking>{1}의 {0}(이)가 {2}(을)를 공격하고 있습니다.</UMW_Warband.messageDefendersAttacking>
+
 </LanguageData>

@@ -10,6 +10,9 @@
   <!-- EN: A ragged, torn cut that bleeds freely and scars badly. -->
   <UMW_Cut_Ragged.description>一道参差撕裂的割伤，出血不止，且极易留下难看的疤痕。</UMW_Cut_Ragged.description>
 
+  <!-- EN: {0} in the {1} -->
+  <UMW_Cut_Ragged.labelNounPretty>{1}中的{0}</UMW_Cut_Ragged.labelNounPretty>
+
   <!-- EN: bandaged -->
   <UMW_Cut_Ragged.comps.0.labelTendedWell>已包扎</UMW_Cut_Ragged.comps.0.labelTendedWell>
 
@@ -60,6 +63,9 @@
 
   <!-- EN: A ragged, torn stab wound that bleeds freely and scars badly. -->
   <UMW_Stab_Ragged.description>一道参差撕裂的刺伤，出血不止，且极易留下难看的疤痕。</UMW_Stab_Ragged.description>
+
+  <!-- EN: {0} in the {1} -->
+  <UMW_Stab_Ragged.labelNounPretty>{1}中的{0}</UMW_Stab_Ragged.labelNounPretty>
 
   <!-- EN: bandaged -->
   <UMW_Stab_Ragged.comps.0.labelTendedWell>已包扎</UMW_Stab_Ragged.comps.0.labelTendedWell>

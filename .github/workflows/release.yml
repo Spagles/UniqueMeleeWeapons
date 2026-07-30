@@ -14,6 +14,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Check translations
+        # Deterministic localization gate: every shipped language must cover
+        # the full expected key set, including the externally-sourced fields
+        # enumerated in the script's EXTERNAL_INJECTIONS manifest (tool labels
+        # and other text inherited from vanilla defs or defaulted in C#, which
+        # never appear in this repo's XML). The in-game translation report
+        # (Dev Mode) remains the pre-release backstop for field classes the
+        # script does not yet know about.
+        run: python3 Scripts/check-translations.py
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:

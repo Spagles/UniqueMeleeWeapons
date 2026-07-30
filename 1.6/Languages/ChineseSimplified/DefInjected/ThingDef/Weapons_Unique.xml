@@ -7,6 +7,18 @@
   <!-- EN: An axe bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Axe_Unique.description>一把烙有大师印记的战斧。没有任何两件锻造得一模一样。</UMW_Axe_Unique.description>
 
+  <!-- EN: handle -->
+  <UMW_Axe_Unique.tools.handle.label>斧柄</UMW_Axe_Unique.tools.handle.label>
+
+  <!-- EN: edge -->
+  <UMW_Axe_Unique.tools.edge.label>斧刃</UMW_Axe_Unique.tools.edge.label>
+
+  <!-- EN: charge -->
+  <UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>充能</UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>冷却中</UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: axe -->
   <UMW_Axe_Unique.comps.5.namerLabels.0>战斧</UMW_Axe_Unique.comps.5.namerLabels.0>
 
@@ -25,6 +37,21 @@
 
   <!-- EN: A gladius bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Gladius_Unique.description>一把烙有大师印记的短剑。没有任何两件锻造得一模一样。</UMW_Gladius_Unique.description>
+
+  <!-- EN: handle -->
+  <UMW_Gladius_Unique.tools.handle.label>剑柄</UMW_Gladius_Unique.tools.handle.label>
+
+  <!-- EN: point -->
+  <UMW_Gladius_Unique.tools.point.label>剑尖</UMW_Gladius_Unique.tools.point.label>
+
+  <!-- EN: edge -->
+  <UMW_Gladius_Unique.tools.edge.label>剑刃</UMW_Gladius_Unique.tools.edge.label>
+
+  <!-- EN: charge -->
+  <UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>充能</UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>冷却中</UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
 
   <!-- EN: gladius -->
   <UMW_Gladius_Unique.comps.5.namerLabels.0>短剑</UMW_Gladius_Unique.comps.5.namerLabels.0>
@@ -45,6 +72,21 @@
   <!-- EN: A knife honed by a master's hand. No two are forged alike. -->
   <UMW_Knife_Unique.description>一把经大师之手磨砺的匕首。没有任何两件锻造得一模一样。</UMW_Knife_Unique.description>
 
+  <!-- EN: handle -->
+  <UMW_Knife_Unique.tools.handle.label>柄</UMW_Knife_Unique.tools.handle.label>
+
+  <!-- EN: blade -->
+  <UMW_Knife_Unique.tools.blade.label>刀刃</UMW_Knife_Unique.tools.blade.label>
+
+  <!-- EN: point -->
+  <UMW_Knife_Unique.tools.point.label>刀尖</UMW_Knife_Unique.tools.point.label>
+
+  <!-- EN: charge -->
+  <UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>充能</UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>冷却中</UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: knife -->
   <UMW_Knife_Unique.comps.5.namerLabels.0>匕首</UMW_Knife_Unique.comps.5.namerLabels.0>
 
@@ -63,6 +105,21 @@
 
   <!-- EN: A longsword bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_LongSword_Unique.description>一把烙有大师印记的长剑。没有任何两件锻造得一模一样。</UMW_LongSword_Unique.description>
+
+  <!-- EN: handle -->
+  <UMW_LongSword_Unique.tools.handle.label>剑柄</UMW_LongSword_Unique.tools.handle.label>
+
+  <!-- EN: point -->
+  <UMW_LongSword_Unique.tools.point.label>剑尖</UMW_LongSword_Unique.tools.point.label>
+
+  <!-- EN: edge -->
+  <UMW_LongSword_Unique.tools.edge.label>剑刃</UMW_LongSword_Unique.tools.edge.label>
+
+  <!-- EN: charge -->
+  <UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>充能</UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>冷却中</UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
 
   <!-- EN: longsword -->
   <UMW_LongSword_Unique.comps.5.namerLabels.0>长剑</UMW_LongSword_Unique.comps.5.namerLabels.0>
@@ -83,6 +140,18 @@
   <!-- EN: A mace bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Mace_Unique.description>一把烙有大师印记的钉头锤。没有任何两件锻造得一模一样。</UMW_Mace_Unique.description>
 
+  <!-- EN: handle -->
+  <UMW_Mace_Unique.tools.handle.label>锤柄</UMW_Mace_Unique.tools.handle.label>
+
+  <!-- EN: head -->
+  <UMW_Mace_Unique.tools.head.label>前端</UMW_Mace_Unique.tools.head.label>
+
+  <!-- EN: charge -->
+  <UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>充能</UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>冷却中</UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: mace -->
   <UMW_Mace_Unique.comps.5.namerLabels.0>钉头锤</UMW_Mace_Unique.comps.5.namerLabels.0>
 
@@ -102,6 +171,18 @@
   <!-- EN: A spear bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Spear_Unique.description>一杆烙有大师印记的长矛。没有任何两件锻造得一模一样。</UMW_Spear_Unique.description>
 
+  <!-- EN: shaft -->
+  <UMW_Spear_Unique.tools.shaft.label>杆</UMW_Spear_Unique.tools.shaft.label>
+
+  <!-- EN: point -->
+  <UMW_Spear_Unique.tools.point.label>矛尖</UMW_Spear_Unique.tools.point.label>
+
+  <!-- EN: charge -->
+  <UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>充能</UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>冷却中</UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: spear -->
   <UMW_Spear_Unique.comps.5.namerLabels.0>长矛</UMW_Spear_Unique.comps.5.namerLabels.0>
 
@@ -120,6 +201,18 @@
 
   <!-- EN: A warhammer bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Warhammer_Unique.description>一柄烙有大师印记的战锤。没有任何两件锻造得一模一样。</UMW_Warhammer_Unique.description>
+
+  <!-- EN: handle -->
+  <UMW_Warhammer_Unique.tools.handle.label>锤柄</UMW_Warhammer_Unique.tools.handle.label>
+
+  <!-- EN: head -->
+  <UMW_Warhammer_Unique.tools.head.label>锤头</UMW_Warhammer_Unique.tools.head.label>
+
+  <!-- EN: charge -->
+  <UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>充能</UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>冷却中</UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
 
   <!-- EN: warhammer -->
   <UMW_Warhammer_Unique.comps.5.namerLabels.0>战锤</UMW_Warhammer_Unique.comps.5.namerLabels.0>

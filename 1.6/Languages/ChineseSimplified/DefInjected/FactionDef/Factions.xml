@@ -16,4 +16,7 @@
   <!-- EN: warlord -->
   <UMW_Warband.leaderTitle>酋长</UMW_Warband.leaderTitle>
 
+  <!-- EN: {0} from {1} are attacking your {2}. -->
+  <UMW_Warband.messageDefendersAttacking>来自{1}的{0}正在攻击你的{2}。</UMW_Warband.messageDefendersAttacking>
+
 </LanguageData>

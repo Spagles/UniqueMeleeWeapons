@@ -7,6 +7,18 @@
   <!-- EN: An axe bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Axe_Unique.description>Топор, несущий отпечаток руки мастера. Двух одинаковых не куют.</UMW_Axe_Unique.description>
 
+  <!-- EN: handle -->
+  <UMW_Axe_Unique.tools.handle.label>рукоять</UMW_Axe_Unique.tools.handle.label>
+
+  <!-- EN: edge -->
+  <UMW_Axe_Unique.tools.edge.label>лезвие</UMW_Axe_Unique.tools.edge.label>
+
+  <!-- EN: charge -->
+  <UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>заряд</UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>на перезарядке</UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: axe -->
   <UMW_Axe_Unique.comps.5.namerLabels.0>топор</UMW_Axe_Unique.comps.5.namerLabels.0>
 
@@ -25,6 +37,21 @@
 
   <!-- EN: A gladius bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Gladius_Unique.description>Гладиус, несущий отпечаток руки мастера. Двух одинаковых не куют.</UMW_Gladius_Unique.description>
+
+  <!-- EN: handle -->
+  <UMW_Gladius_Unique.tools.handle.label>рукоять</UMW_Gladius_Unique.tools.handle.label>
+
+  <!-- EN: point -->
+  <UMW_Gladius_Unique.tools.point.label>остриё</UMW_Gladius_Unique.tools.point.label>
+
+  <!-- EN: edge -->
+  <UMW_Gladius_Unique.tools.edge.label>лезвие</UMW_Gladius_Unique.tools.edge.label>
+
+  <!-- EN: charge -->
+  <UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>заряд</UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>на перезарядке</UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
 
   <!-- EN: gladius -->
   <UMW_Gladius_Unique.comps.5.namerLabels.0>гладиус</UMW_Gladius_Unique.comps.5.namerLabels.0>
@@ -45,6 +72,21 @@
   <!-- EN: A knife honed by a master's hand. No two are forged alike. -->
   <UMW_Knife_Unique.description>Нож, отточенный рукой мастера. Двух одинаковых не куют.</UMW_Knife_Unique.description>
 
+  <!-- EN: handle -->
+  <UMW_Knife_Unique.tools.handle.label>рукоять</UMW_Knife_Unique.tools.handle.label>
+
+  <!-- EN: blade -->
+  <UMW_Knife_Unique.tools.blade.label>лезвие</UMW_Knife_Unique.tools.blade.label>
+
+  <!-- EN: point -->
+  <UMW_Knife_Unique.tools.point.label>остриё</UMW_Knife_Unique.tools.point.label>
+
+  <!-- EN: charge -->
+  <UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>заряд</UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>на перезарядке</UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: knife -->
   <UMW_Knife_Unique.comps.5.namerLabels.0>нож</UMW_Knife_Unique.comps.5.namerLabels.0>
 
@@ -63,6 +105,21 @@
 
   <!-- EN: A longsword bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_LongSword_Unique.description>Длинный меч, несущий отпечаток руки мастера. Двух одинаковых не куют.</UMW_LongSword_Unique.description>
+
+  <!-- EN: handle -->
+  <UMW_LongSword_Unique.tools.handle.label>рукоять</UMW_LongSword_Unique.tools.handle.label>
+
+  <!-- EN: point -->
+  <UMW_LongSword_Unique.tools.point.label>остриё</UMW_LongSword_Unique.tools.point.label>
+
+  <!-- EN: edge -->
+  <UMW_LongSword_Unique.tools.edge.label>лезвие</UMW_LongSword_Unique.tools.edge.label>
+
+  <!-- EN: charge -->
+  <UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>заряд</UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>на перезарядке</UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
 
   <!-- EN: longsword -->
   <UMW_LongSword_Unique.comps.5.namerLabels.0>длинный меч</UMW_LongSword_Unique.comps.5.namerLabels.0>
@@ -83,6 +140,18 @@
   <!-- EN: A mace bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Mace_Unique.description>Булава, несущая отпечаток руки мастера. Двух одинаковых не куют.</UMW_Mace_Unique.description>
 
+  <!-- EN: handle -->
+  <UMW_Mace_Unique.tools.handle.label>рукоять</UMW_Mace_Unique.tools.handle.label>
+
+  <!-- EN: head -->
+  <UMW_Mace_Unique.tools.head.label>головка</UMW_Mace_Unique.tools.head.label>
+
+  <!-- EN: charge -->
+  <UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>заряд</UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>на перезарядке</UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: mace -->
   <UMW_Mace_Unique.comps.5.namerLabels.0>булава</UMW_Mace_Unique.comps.5.namerLabels.0>
 
@@ -102,6 +171,18 @@
   <!-- EN: A spear bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Spear_Unique.description>Копьё, несущее отпечаток руки мастера. Двух одинаковых не куют.</UMW_Spear_Unique.description>
 
+  <!-- EN: shaft -->
+  <UMW_Spear_Unique.tools.shaft.label>древко</UMW_Spear_Unique.tools.shaft.label>
+
+  <!-- EN: point -->
+  <UMW_Spear_Unique.tools.point.label>остриё</UMW_Spear_Unique.tools.point.label>
+
+  <!-- EN: charge -->
+  <UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>заряд</UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>на перезарядке</UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: spear -->
   <UMW_Spear_Unique.comps.5.namerLabels.0>копьё</UMW_Spear_Unique.comps.5.namerLabels.0>
 
@@ -120,6 +201,18 @@
 
   <!-- EN: A warhammer bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Warhammer_Unique.description>Боевой молот, несущий отпечаток руки мастера. Двух одинаковых не куют.</UMW_Warhammer_Unique.description>
+
+  <!-- EN: handle -->
+  <UMW_Warhammer_Unique.tools.handle.label>рукоять</UMW_Warhammer_Unique.tools.handle.label>
+
+  <!-- EN: head -->
+  <UMW_Warhammer_Unique.tools.head.label>боевая часть</UMW_Warhammer_Unique.tools.head.label>
+
+  <!-- EN: charge -->
+  <UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>заряд</UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>на перезарядке</UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
 
   <!-- EN: warhammer -->
   <UMW_Warhammer_Unique.comps.5.namerLabels.0>боевой молот</UMW_Warhammer_Unique.comps.5.namerLabels.0>

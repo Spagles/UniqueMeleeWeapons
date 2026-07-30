@@ -342,6 +342,12 @@
   <!-- EN: thunderous -->
   <UMW_Piledriver.traitAdjectives.3>de tonnerre</UMW_Piledriver.traitAdjectives.3>
 
+  <!-- EN: charge -->
+  <UMW_Piledriver.abilityProps.chargeNoun>charge</UMW_Piledriver.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Piledriver.abilityProps.cooldownGerund>en recharge</UMW_Piledriver.abilityProps.cooldownGerund>
+
 
   <!-- EN: plasma-cored -->
   <UMW_PlasmaCored.label>à cœur de plasma</UMW_PlasmaCored.label>
@@ -433,6 +439,12 @@
 
   <!-- EN: honored -->
   <UMW_Storied.traitAdjectives.3>d'honneur</UMW_Storied.traitAdjectives.3>
+
+  <!-- EN: charge -->
+  <UMW_Storied.abilityProps.chargeNoun>charge</UMW_Storied.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Storied.abilityProps.cooldownGerund>en recharge</UMW_Storied.abilityProps.cooldownGerund>
 
 
   <!-- EN: studded -->

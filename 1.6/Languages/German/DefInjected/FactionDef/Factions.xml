@@ -16,4 +16,7 @@
   <!-- EN: warlord -->
   <UMW_Warband.leaderTitle>Kriegsherr</UMW_Warband.leaderTitle>
 
+  <!-- EN: {0} from {1} are attacking your {2}. -->
+  <UMW_Warband.messageDefendersAttacking>{0} der Fraktion '{1}' greifen deine {lookup: {2}; plural_decline; 7} an.</UMW_Warband.messageDefendersAttacking>
+
 </LanguageData>

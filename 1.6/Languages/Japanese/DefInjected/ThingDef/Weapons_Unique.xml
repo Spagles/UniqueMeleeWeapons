@@ -7,6 +7,18 @@
   <!-- EN: An axe bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Axe_Unique.description>名工の手による痕跡を宿した戦斧です.同じものは二つとして鍛えられていません.</UMW_Axe_Unique.description>
 
+  <!-- EN: handle -->
+  <UMW_Axe_Unique.tools.handle.label>柄</UMW_Axe_Unique.tools.handle.label>
+
+  <!-- EN: edge -->
+  <UMW_Axe_Unique.tools.edge.label>刃</UMW_Axe_Unique.tools.edge.label>
+
+  <!-- EN: charge -->
+  <UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>チャージ</UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>クールダウン中</UMW_Axe_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: axe -->
   <UMW_Axe_Unique.comps.5.namerLabels.0>戦斧</UMW_Axe_Unique.comps.5.namerLabels.0>
 
@@ -25,6 +37,21 @@
 
   <!-- EN: A gladius bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Gladius_Unique.description>名工の手による痕跡を宿したグラディウスです.同じものは二つとして鍛えられていません.</UMW_Gladius_Unique.description>
+
+  <!-- EN: handle -->
+  <UMW_Gladius_Unique.tools.handle.label>柄</UMW_Gladius_Unique.tools.handle.label>
+
+  <!-- EN: point -->
+  <UMW_Gladius_Unique.tools.point.label>先端</UMW_Gladius_Unique.tools.point.label>
+
+  <!-- EN: edge -->
+  <UMW_Gladius_Unique.tools.edge.label>刃</UMW_Gladius_Unique.tools.edge.label>
+
+  <!-- EN: charge -->
+  <UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>チャージ</UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>クールダウン中</UMW_Gladius_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
 
   <!-- EN: gladius -->
   <UMW_Gladius_Unique.comps.5.namerLabels.0>グラディウス</UMW_Gladius_Unique.comps.5.namerLabels.0>
@@ -45,6 +72,21 @@
   <!-- EN: A knife honed by a master's hand. No two are forged alike. -->
   <UMW_Knife_Unique.description>名工の手で研ぎ上げられたナイフです.同じものは二つとして鍛えられていません.</UMW_Knife_Unique.description>
 
+  <!-- EN: handle -->
+  <UMW_Knife_Unique.tools.handle.label>柄</UMW_Knife_Unique.tools.handle.label>
+
+  <!-- EN: blade -->
+  <UMW_Knife_Unique.tools.blade.label>刃</UMW_Knife_Unique.tools.blade.label>
+
+  <!-- EN: point -->
+  <UMW_Knife_Unique.tools.point.label>先端</UMW_Knife_Unique.tools.point.label>
+
+  <!-- EN: charge -->
+  <UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>チャージ</UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>クールダウン中</UMW_Knife_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: knife -->
   <UMW_Knife_Unique.comps.5.namerLabels.0>ナイフ</UMW_Knife_Unique.comps.5.namerLabels.0>
 
@@ -63,6 +105,21 @@
 
   <!-- EN: A longsword bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_LongSword_Unique.description>名工の手による痕跡を宿したロングソードです.同じものは二つとして鍛えられていません.</UMW_LongSword_Unique.description>
+
+  <!-- EN: handle -->
+  <UMW_LongSword_Unique.tools.handle.label>柄</UMW_LongSword_Unique.tools.handle.label>
+
+  <!-- EN: point -->
+  <UMW_LongSword_Unique.tools.point.label>先端</UMW_LongSword_Unique.tools.point.label>
+
+  <!-- EN: edge -->
+  <UMW_LongSword_Unique.tools.edge.label>刃</UMW_LongSword_Unique.tools.edge.label>
+
+  <!-- EN: charge -->
+  <UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>チャージ</UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>クールダウン中</UMW_LongSword_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
 
   <!-- EN: longsword -->
   <UMW_LongSword_Unique.comps.5.namerLabels.0>ロングソード</UMW_LongSword_Unique.comps.5.namerLabels.0>
@@ -83,6 +140,18 @@
   <!-- EN: A mace bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Mace_Unique.description>名工の手による痕跡を宿したメイスです.同じものは二つとして鍛えられていません.</UMW_Mace_Unique.description>
 
+  <!-- EN: handle -->
+  <UMW_Mace_Unique.tools.handle.label>柄</UMW_Mace_Unique.tools.handle.label>
+
+  <!-- EN: head -->
+  <UMW_Mace_Unique.tools.head.label>頭</UMW_Mace_Unique.tools.head.label>
+
+  <!-- EN: charge -->
+  <UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>チャージ</UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>クールダウン中</UMW_Mace_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: mace -->
   <UMW_Mace_Unique.comps.5.namerLabels.0>メイス</UMW_Mace_Unique.comps.5.namerLabels.0>
 
@@ -102,6 +171,18 @@
   <!-- EN: A spear bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Spear_Unique.description>名工の手による痕跡を宿したスピアです.同じものは二つとして鍛えられていません.</UMW_Spear_Unique.description>
 
+  <!-- EN: shaft -->
+  <UMW_Spear_Unique.tools.shaft.label>軸</UMW_Spear_Unique.tools.shaft.label>
+
+  <!-- EN: point -->
+  <UMW_Spear_Unique.tools.point.label>先端</UMW_Spear_Unique.tools.point.label>
+
+  <!-- EN: charge -->
+  <UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>チャージ</UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>クールダウン中</UMW_Spear_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
+
   <!-- EN: spear -->
   <UMW_Spear_Unique.comps.5.namerLabels.0>スピア</UMW_Spear_Unique.comps.5.namerLabels.0>
 
@@ -120,6 +201,18 @@
 
   <!-- EN: A warhammer bearing the marks of a master's hand. No two are forged alike. -->
   <UMW_Warhammer_Unique.description>名工の手による痕跡を宿したウォーハンマーです.同じものは二つとして鍛えられていません.</UMW_Warhammer_Unique.description>
+
+  <!-- EN: handle -->
+  <UMW_Warhammer_Unique.tools.handle.label>柄</UMW_Warhammer_Unique.tools.handle.label>
+
+  <!-- EN: head -->
+  <UMW_Warhammer_Unique.tools.head.label>頭</UMW_Warhammer_Unique.tools.head.label>
+
+  <!-- EN: charge -->
+  <UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>チャージ</UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>クールダウン中</UMW_Warhammer_Unique.comps.CompEquippableAbilityReloadable.cooldownGerund>
 
   <!-- EN: warhammer -->
   <UMW_Warhammer_Unique.comps.5.namerLabels.0>ウォーハンマー</UMW_Warhammer_Unique.comps.5.namerLabels.0>

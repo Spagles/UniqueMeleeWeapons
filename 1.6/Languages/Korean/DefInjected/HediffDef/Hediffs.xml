@@ -7,6 +7,9 @@
   <!-- EN: a ragged cut -->
   <UMW_Cut_Ragged.labelNoun>찢긴 베임</UMW_Cut_Ragged.labelNoun>
 
+  <!-- EN: {0} in the {1} -->
+  <UMW_Cut_Ragged.labelNounPretty>{1}의 {0}</UMW_Cut_Ragged.labelNounPretty>
+
   <!-- EN: A ragged, torn cut that bleeds freely and scars badly. -->
   <UMW_Cut_Ragged.description>거칠게 찢긴 베인 상처입니다. 출혈이 잘 멎지 않고 흉터가 심하게 남습니다.</UMW_Cut_Ragged.description>
 
@@ -57,6 +60,9 @@
 
   <!-- EN: a ragged stab wound -->
   <UMW_Stab_Ragged.labelNoun>찢긴 찔린 상처</UMW_Stab_Ragged.labelNoun>
+
+  <!-- EN: {0} in the {1} -->
+  <UMW_Stab_Ragged.labelNounPretty>{1}의 {0}</UMW_Stab_Ragged.labelNounPretty>
 
   <!-- EN: A ragged, torn stab wound that bleeds freely and scars badly. -->
   <UMW_Stab_Ragged.description>거칠게 찢긴 찔린 상처입니다. 출혈이 잘 멎지 않고 흉터가 심하게 남습니다.</UMW_Stab_Ragged.description>

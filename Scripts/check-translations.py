@@ -51,6 +51,138 @@ EN_COMMENT_RE = re.compile(r"^\s*EN:\s?(.*)$", re.DOTALL)
 # bare "{0}", so a translation that dropped a real argument still fails.
 GRAMMAR_CONSTRUCT_RE = re.compile(r"\{[^{}]*\?[^{}]*\}")
 
+# Fields whose entries legitimately vary per language (RimWorld's
+# [TranslationCanChangeCount]-style matching tokens, e.g. UWU's
+# labelKeywords): exempt from the cross-language parity check, keyed on the
+# final path segment. This repo has none; the constant exists so the three
+# sibling repos' checkers stay structurally identical.
+PARITY_EXEMPT_FIELDS = set()
+
+# ThingDefs carrying this thingSetMakerTag are unique weapons whose tool
+# labels and ability-comp strings are externally sourced (see
+# EXTERNAL_INJECTIONS below); None disables that guard in repos that ship no
+# such weapons.
+UNIQUE_WEAPON_TAG = "UMW_UniqueMelee"
+
+# ---------------------------------------------------------------------------
+# Externally-sourced translatable fields.
+#
+# The game's in-game translation report (Dev Mode > save translation report)
+# walks the LIVE DefDatabase with reflection over [MustTranslate], so it sees
+# translatable text this script's def-XML scan structurally cannot:
+#
+#   * fields inherited from VANILLA parents (our defs' ParentName targets live
+#     in RimWorld's Data/, not this repo): the melee tools lists
+#     (MeleeWeapon_*), FactionBase's messageDefendersAttacking, InjuryBase's
+#     labelNounPretty;
+#   * C# field DEFAULTS never written in any XML at all:
+#     CompProperties_EquippableAbilityReloadable.chargeNoun ("charge") and
+#     .cooldownGerund ("on cooldown"), reached both through the weapons'
+#     comps and through traits' abilityProps.
+#
+# Those injections are enumerated here instead, verified once against the
+# 2026-07-30 in-game report. Each entry maps the exact DefInjected key to the
+# current English text (used for placeholder and EN-comment staleness checks,
+# exactly as def XML text is for structural fields). These values change only
+# when vanilla changes (a risk CLAUDE.md already tracks for the comps block)
+# or when we add content — the guards in check_manifest_guards() force the
+# lockstep: a new unique weapon, abilityProps trait, injury or faction fails
+# this script until its rows are added here (take the paths from a fresh
+# in-game report).
+EXTERNAL_INJECTIONS = {
+    "ThingDef": {
+        # Tool labels are inherited per weapon from the vanilla base def; the
+        # game keys them by the tool's untranslated label, not list index.
+        "UMW_Axe_Unique.tools.handle.label": "handle",
+        "UMW_Axe_Unique.tools.edge.label": "edge",
+        "UMW_Gladius_Unique.tools.handle.label": "handle",
+        "UMW_Gladius_Unique.tools.point.label": "point",
+        "UMW_Gladius_Unique.tools.edge.label": "edge",
+        "UMW_Knife_Unique.tools.handle.label": "handle",
+        "UMW_Knife_Unique.tools.blade.label": "blade",
+        "UMW_Knife_Unique.tools.point.label": "point",
+        "UMW_LongSword_Unique.tools.handle.label": "handle",
+        "UMW_LongSword_Unique.tools.point.label": "point",
+        "UMW_LongSword_Unique.tools.edge.label": "edge",
+        "UMW_Mace_Unique.tools.handle.label": "handle",
+        "UMW_Mace_Unique.tools.head.label": "head",
+        "UMW_Spear_Unique.tools.shaft.label": "shaft",
+        "UMW_Spear_Unique.tools.point.label": "point",
+        "UMW_Warhammer_Unique.tools.handle.label": "handle",
+        "UMW_Warhammer_Unique.tools.head.label": "head",
+        # All 7 uniques carry CompEquippableAbilityReloadable (uniform per
+        # CLAUDE.md); its two UI strings are C# defaults.
+        **{f"UMW_{w}_Unique.comps.CompEquippableAbilityReloadable.{f}": t
+           for w in ("Axe", "Gladius", "Knife", "LongSword", "Mace", "Spear",
+                     "Warhammer")
+           for f, t in (("chargeNoun", "charge"),
+                        ("cooldownGerund", "on cooldown"))},
+    },
+    "HediffDef": {
+        # InjuryBase (vanilla parent) supplies labelNounPretty.
+        "UMW_Cut_Ragged.labelNounPretty": "{0} in the {1}",
+        "UMW_Stab_Ragged.labelNounPretty": "{0} in the {1}",
+    },
+    "FactionDef": {
+        # FactionBase (vanilla parent) supplies messageDefendersAttacking.
+        "UMW_Warband.messageDefendersAttacking":
+            "{0} from {1} are attacking your {2}.",
+    },
+    "WeaponTraitDef": {
+        # abilityProps is CompProperties_EquippableAbilityReloadable too;
+        # same two C#-default strings.
+        **{f"UMW_{t}.abilityProps.{f}": txt
+           for t in ("Piledriver", "Storied")
+           for f, txt in (("chargeNoun", "charge"),
+                          ("cooldownGerund", "on cooldown"))},
+    },
+}
+
+
+def check_manifest_guards(defs, report):
+    # Force EXTERNAL_INJECTIONS maintenance from the def XML itself: content
+    # whose class of def is known to carry externally-sourced translatable
+    # text must have manifest rows before the repo passes.
+    label = "[Scripts/check-translations.py EXTERNAL_INJECTIONS]"
+    ext_thing = EXTERNAL_INJECTIONS.get("ThingDef", {})
+    for def_name, elem in sorted(defs.get("ThingDef", {}).items()):
+        tags = [li.text for li in elem.findall("thingSetMakerTags/li")]
+        if UNIQUE_WEAPON_TAG is None or UNIQUE_WEAPON_TAG not in tags:
+            continue
+        if not any(k.startswith(f"{def_name}.tools.") for k in ext_thing):
+            report.error(label, f"{def_name} is a unique weapon but has no "
+                                f"tools.*.label manifest rows (its tools are "
+                                f"inherited from the vanilla base def; get "
+                                f"the paths from an in-game translation "
+                                f"report)")
+        for f in ("chargeNoun", "cooldownGerund"):
+            key = f"{def_name}.comps.CompEquippableAbilityReloadable.{f}"
+            if key not in ext_thing:
+                report.error(label, f"{def_name} carries the ability comp "
+                                    f"but has no {key} manifest row")
+    ext_trait = EXTERNAL_INJECTIONS.get("WeaponTraitDef", {})
+    for def_name, elem in sorted(defs.get("WeaponTraitDef", {}).items()):
+        if elem.find("abilityProps") is None:
+            continue
+        for f in ("chargeNoun", "cooldownGerund"):
+            key = f"{def_name}.abilityProps.{f}"
+            if key not in ext_trait:
+                report.error(label, f"{def_name} has abilityProps but no "
+                                    f"{key} manifest row")
+    ext_hediff = EXTERNAL_INJECTIONS.get("HediffDef", {})
+    for def_name, elem in sorted(defs.get("HediffDef", {}).items()):
+        if elem.get("ParentName") == "InjuryBase" \
+                and f"{def_name}.labelNounPretty" not in ext_hediff:
+            report.error(label, f"{def_name} is an injury (InjuryBase) but "
+                                f"has no {def_name}.labelNounPretty manifest "
+                                f"row")
+    ext_faction = EXTERNAL_INJECTIONS.get("FactionDef", {})
+    for def_name in sorted(defs.get("FactionDef", {})):
+        if f"{def_name}.messageDefendersAttacking" not in ext_faction:
+            report.error(label, f"{def_name} has no "
+                                f"{def_name}.messageDefendersAttacking "
+                                f"manifest row (inherited from FactionBase)")
+
 
 def norm(text):
     return re.sub(r"\s+", " ", (text or "").strip())
@@ -188,7 +320,25 @@ def resolve_field(elem, segments, parents):
     return None
 
 
-def check_language(lang_dir, english_keyed, defs, parents, report):
+def expected_injections(defs):
+    # The full set of DefInjected keys every language must carry:
+    # label/description present in our own def XML, plus the
+    # externally-sourced manifest. {def_type: {key: english_text}}
+    expected = {t: dict(keys) for t, keys in EXTERNAL_INJECTIONS.items()
+                if t in defs}
+    for def_type, by_name in defs.items():
+        for def_name, elem in by_name.items():
+            for field in ("label", "description"):
+                node = elem.find(field)
+                if node is not None:
+                    expected.setdefault(def_type, {})[f"{def_name}.{field}"] \
+                        = node.text or ""
+    return expected
+
+
+def check_language(lang_dir, english_keyed, defs, parents, expected, report):
+    # Returns {def_type: set(keys)} actually translated in this language,
+    # for the cross-language parity check in main().
     lang = lang_dir.name
 
     # --- Keyed ---
@@ -213,16 +363,17 @@ def check_language(lang_dir, english_keyed, defs, parents, report):
                                f"English text")
 
     # --- DefInjected ---
+    found = {}
     inj_root = lang_dir / "DefInjected"
-    if not inj_root.is_dir():
-        return
-    for folder in sorted(p for p in inj_root.iterdir() if p.is_dir()):
+    folders = sorted(p for p in inj_root.iterdir() if p.is_dir()) \
+        if inj_root.is_dir() else []
+    for folder in folders:
         def_type = folder.name
         if def_type not in defs:
             report.error(folder, f"folder does not match any def type in this mod's "
                                  f"Defs (expected one of: {', '.join(sorted(defs))})")
             continue
-        injected_paths = set()
+        external = EXTERNAL_INJECTIONS.get(def_type, {})
         for path in sorted(folder.glob("**/*.xml")):
             entries = load_language_xml(path, report)
             for key, elem, en in entries or []:
@@ -231,13 +382,20 @@ def check_language(lang_dir, english_keyed, defs, parents, report):
                 if def_name not in defs[def_type]:
                     report.error(path, f"<{key}>: no {def_type} named {def_name}")
                     continue
-                injected_paths.add((def_name, segments[1] if len(segments) > 1 else ""))
-                target = resolve_field(defs[def_type][def_name], segments[1:], parents)
-                if target is None:
-                    report.error(path, f"<{key}>: field path does not exist on the def")
-                    continue
+                found.setdefault(def_type, set()).add(key)
+                if key in external:
+                    # Sourced from vanilla inheritance or C# defaults; the
+                    # manifest supplies the English text (see the header of
+                    # EXTERNAL_INJECTIONS).
+                    en_text = external[key]
+                else:
+                    target = resolve_field(defs[def_type][def_name], segments[1:], parents)
+                    if target is None:
+                        report.error(path, f"<{key}>: field path does not exist on the "
+                                           f"def (nor in EXTERNAL_INJECTIONS)")
+                        continue
+                    en_text = target.text if not list(target) else None
                 text = flatten_entry(elem)
-                en_text = target.text if not list(target) else None
                 if isinstance(text, str) and en_text is not None:
                     if placeholders(text) != placeholders(en_text):
                         report.error(path, f"<{key}> placeholders {sorted(placeholders(text))} "
@@ -246,12 +404,18 @@ def check_language(lang_dir, english_keyed, defs, parents, report):
                     report.warn(path, f"<{key}> has no EN: comment")
                 elif en_text is not None and norm(en) != norm(en_text):
                     report.error(path, f"<{key}> is STALE: EN comment does not match "
-                                       f"current def XML")
-        for def_name, elem in sorted(defs[def_type].items()):
-            for field in ("label", "description"):
-                if elem.find(field) is not None and (def_name, field) not in injected_paths:
-                    report.warn(f"[{lang}/DefInjected/{def_type}]",
-                                f"{def_name}.{field} exists but is not translated")
+                                       f"current English source")
+    # Completeness: every expected key (label/description in our XML plus the
+    # external manifest) must be translated. An entire def type with no
+    # DefInjected folder lands here too — the old per-folder walk silently
+    # skipped def types nobody had started translating (how the
+    # WeaponCategoryDef labels shipped missing in all languages).
+    for def_type, keys in sorted(expected.items()):
+        missing = set(keys) - found.get(def_type, set())
+        for key in sorted(missing):
+            report.error(f"[{lang}/DefInjected/{def_type}]",
+                         f"missing <{key}> (EN: {keys[key]!r})")
+    return found
 
 
 def main():
@@ -284,8 +448,30 @@ def main():
         return 2
 
     defs, parents = collect_defs(defs_dirs)
+    check_manifest_guards(defs, report)
+    expected = expected_injections(defs)
+    found_by_lang = {}
     for lang_dir in languages:
-        check_language(lang_dir, english_keyed, defs, parents, report)
+        found_by_lang[lang_dir.name] = check_language(
+            lang_dir, english_keyed, defs, parents, expected, report)
+
+    # Cross-language parity: any DefInjected key one language translates
+    # beyond the expected set (secondary fields, list translations, grammar
+    # rules) must exist in every language — a key added in one pass and
+    # forgotten in the others is exactly the drift this catches.
+    union = {}
+    for found in found_by_lang.values():
+        for def_type, keys in found.items():
+            union.setdefault(def_type, set()).update(keys)
+    for lang, found in sorted(found_by_lang.items()):
+        for def_type, keys in sorted(union.items()):
+            extra = keys - found.get(def_type, set()) \
+                - set(expected.get(def_type, {}))
+            extra = {k for k in extra
+                     if k.split(".")[-1] not in PARITY_EXEMPT_FIELDS}
+            for key in sorted(extra):
+                report.error(f"[{lang}/DefInjected/{def_type}]",
+                             f"missing <{key}> (translated in other languages)")
 
     for line in report.errors:
         print(f"ERROR   {line}")

@@ -27,6 +27,9 @@
   <!-- EN: a ragged cut -->
   <UMW_Cut_Ragged.labelNoun>um corte dilacerado</UMW_Cut_Ragged.labelNoun>
 
+  <!-- EN: {0} in the {1} -->
+  <UMW_Cut_Ragged.labelNounPretty>{0} no(a) {1}</UMW_Cut_Ragged.labelNounPretty>
+
   <!-- EN: A ragged, torn cut that bleeds freely and scars badly. -->
   <UMW_Cut_Ragged.description>Um corte dilacerado e rasgado que sangra muito e deixa cicatrizes feias.</UMW_Cut_Ragged.description>
 
@@ -87,6 +90,9 @@
 
   <!-- EN: a ragged stab wound -->
   <UMW_Stab_Ragged.labelNoun>uma facada dilacerada</UMW_Stab_Ragged.labelNoun>
+
+  <!-- EN: {0} in the {1} -->
+  <UMW_Stab_Ragged.labelNounPretty>{0} no(a) {1}</UMW_Stab_Ragged.labelNounPretty>
 
   <!-- EN: A ragged, torn stab wound that bleeds freely and scars badly. -->
   <UMW_Stab_Ragged.description>Uma facada dilacerada e rasgada que sangra muito e deixa cicatrizes feias.</UMW_Stab_Ragged.description>

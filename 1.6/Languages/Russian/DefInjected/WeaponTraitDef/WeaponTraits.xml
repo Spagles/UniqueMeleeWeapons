@@ -323,6 +323,12 @@
   <!-- EN: thunderous -->
   <UMW_Piledriver.traitAdjectives.3>громоподобный</UMW_Piledriver.traitAdjectives.3>
 
+  <!-- EN: charge -->
+  <UMW_Piledriver.abilityProps.chargeNoun>заряд</UMW_Piledriver.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Piledriver.abilityProps.cooldownGerund>на перезарядке</UMW_Piledriver.abilityProps.cooldownGerund>
+
 
   <!-- EN: plasma-cored -->
   <UMW_PlasmaCored.label>плазменный сердечник</UMW_PlasmaCored.label>
@@ -414,6 +420,12 @@
 
   <!-- EN: honored -->
   <UMW_Storied.traitAdjectives.3>чтимый</UMW_Storied.traitAdjectives.3>
+
+  <!-- EN: charge -->
+  <UMW_Storied.abilityProps.chargeNoun>заряд</UMW_Storied.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Storied.abilityProps.cooldownGerund>на перезарядке</UMW_Storied.abilityProps.cooldownGerund>
 
 
   <!-- EN: studded -->

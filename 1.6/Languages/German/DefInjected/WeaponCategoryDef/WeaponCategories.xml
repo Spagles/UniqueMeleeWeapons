@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Short lowercase category labels, not vanilla-sourced. UMW_Melee grounds on Core's Melee
+       skill label (Nahkampf). UMW_Bladed/Pointed/Blunt are defined by exactly one ToolCapacityDef
+       each (Cut/Stab/Blunt), so they reuse those defs' own German nouns verbatim: Core
+       DefInjected/ToolCapacityDef/ToolCapacity.xml and DefInjected/DamageDef/Damages_MeleeWeapon.xml
+       both give Cut.label=Schnitt, Stab.label=Stich, Blunt.label=Wucht. UMW_Heavy and UMW_Guarded
+       have no vanilla anchor and are mod-decided: Guarded picks up the -bewehrt suffix already used
+       for the Quilloned trait family (parierstangenbewehrt, kreuzbewehrt) it gates. -->
+
+  <!-- EN: melee -->
+  <UMW_Melee.label>Nahkampf</UMW_Melee.label>
+
+  <!-- EN: bladed -->
+  <UMW_Bladed.label>Schnitt</UMW_Bladed.label>
+
+  <!-- EN: pointed -->
+  <UMW_Pointed.label>Stich</UMW_Pointed.label>
+
+  <!-- EN: blunt -->
+  <UMW_Blunt.label>Wucht</UMW_Blunt.label>
+
+  <!-- EN: heavy -->
+  <UMW_Heavy.label>schwer</UMW_Heavy.label>
+
+  <!-- EN: guarded -->
+  <UMW_Guarded.label>bewehrt</UMW_Guarded.label>
+
+</LanguageData>

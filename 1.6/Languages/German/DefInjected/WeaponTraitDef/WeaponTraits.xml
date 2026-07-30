@@ -323,6 +323,12 @@
   <!-- EN: thunderous -->
   <UMW_Piledriver.traitAdjectives.3>donnernd</UMW_Piledriver.traitAdjectives.3>
 
+  <!-- EN: charge -->
+  <UMW_Piledriver.abilityProps.chargeNoun>Ladung</UMW_Piledriver.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Piledriver.abilityProps.cooldownGerund>klingt gerade ab</UMW_Piledriver.abilityProps.cooldownGerund>
+
 
   <!-- EN: plasma-cored -->
   <UMW_PlasmaCored.label>plasmaumhüllt</UMW_PlasmaCored.label>
@@ -414,6 +420,12 @@
 
   <!-- EN: honored -->
   <UMW_Storied.traitAdjectives.3>ruhmreich</UMW_Storied.traitAdjectives.3>
+
+  <!-- EN: charge -->
+  <UMW_Storied.abilityProps.chargeNoun>Ladung</UMW_Storied.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Storied.abilityProps.cooldownGerund>klingt gerade ab</UMW_Storied.abilityProps.cooldownGerund>
 
 
   <!-- EN: studded -->

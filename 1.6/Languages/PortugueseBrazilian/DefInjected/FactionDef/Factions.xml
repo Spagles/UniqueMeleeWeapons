@@ -20,4 +20,7 @@
   <!-- EN: warlord -->
   <UMW_Warband.leaderTitle>senhor da guerra</UMW_Warband.leaderTitle>
 
+  <!-- EN: {0} from {1} are attacking your {2}. -->
+  <UMW_Warband.messageDefendersAttacking>{0} de {1} estão atacando seu {2}.</UMW_Warband.messageDefendersAttacking>
+
 </LanguageData>

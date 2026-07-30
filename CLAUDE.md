@@ -232,7 +232,12 @@ The repo lives outside the Mods folder; every local build redeploys automaticall
 
 English (Keyed files + def fields) is the source of truth; other languages derive from it via the
 `/translate` skill (`.claude/skills/translate/SKILL.md` — grounding rules, glossary, workflows) and
-are validated deterministically by `python3 Scripts/check-translations.py`. The public language
+are validated deterministically by `python3 Scripts/check-translations.py` (also a CI release gate).
+Some translatable text never appears in this repo's XML — vanilla-inherited fields (tool labels,
+`labelNounPretty`, `messageDefendersAttacking`) and C#-default comp strings (`chargeNoun`,
+`cooldownGerund`) — so the checker carries an `EXTERNAL_INJECTIONS` manifest and guards it in
+lockstep with the defs: a new unique weapon, `abilityProps` trait, injury or faction fails the
+script until its manifest rows are added (see the script header). The public language
 roster lives in CONTRIBUTING.md and must move in the same commit as any language change.
 
 ## Debugging

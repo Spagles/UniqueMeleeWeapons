@@ -360,6 +360,12 @@
   <!-- EN: thunderous -->
   <UMW_Piledriver.traitAdjectives.3>trovejante</UMW_Piledriver.traitAdjectives.3>
 
+  <!-- EN: charge -->
+  <UMW_Piledriver.abilityProps.chargeNoun>carga</UMW_Piledriver.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Piledriver.abilityProps.cooldownGerund>em recarga</UMW_Piledriver.abilityProps.cooldownGerund>
+
 
   <!-- EN: plasma-cored -->
   <UMW_PlasmaCored.label>núcleo de plasma</UMW_PlasmaCored.label>
@@ -451,6 +457,12 @@
 
   <!-- EN: honored -->
   <UMW_Storied.traitAdjectives.3>venerável</UMW_Storied.traitAdjectives.3>
+
+  <!-- EN: charge -->
+  <UMW_Storied.abilityProps.chargeNoun>carga</UMW_Storied.abilityProps.chargeNoun>
+
+  <!-- EN: on cooldown -->
+  <UMW_Storied.abilityProps.cooldownGerund>em recarga</UMW_Storied.abilityProps.cooldownGerund>
 
 
   <!-- EN: studded -->

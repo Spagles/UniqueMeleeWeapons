@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- EN: melee -->
+  <UMW_Melee.label>ближний бой</UMW_Melee.label>
+
+  <!-- EN: bladed -->
+  <UMW_Bladed.label>рубящее</UMW_Bladed.label>
+
+  <!-- EN: pointed -->
+  <UMW_Pointed.label>колющее</UMW_Pointed.label>
+
+  <!-- EN: blunt -->
+  <UMW_Blunt.label>дробящее</UMW_Blunt.label>
+
+  <!-- EN: heavy -->
+  <UMW_Heavy.label>тяжёлое</UMW_Heavy.label>
+
+  <!-- EN: guarded -->
+  <UMW_Guarded.label>с гардой</UMW_Guarded.label>
+
+</LanguageData>

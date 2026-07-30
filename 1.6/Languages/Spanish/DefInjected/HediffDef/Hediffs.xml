@@ -28,6 +28,9 @@
   <!-- EN: Cut out -->
   <UMW_Cut_Ragged.injuryProps.destroyedOutLabel>Seccionado(a)</UMW_Cut_Ragged.injuryProps.destroyedOutLabel>
 
+  <!-- EN: {0} in the {1} -->
+  <UMW_Cut_Ragged.labelNounPretty>el {0} en {1_gender ? el : la} {1}</UMW_Cut_Ragged.labelNounPretty>
+
 
   <!-- EN: rallied -->
   <UMW_Rallied.label>arengado</UMW_Rallied.label>
@@ -78,5 +81,8 @@
 
   <!-- EN: Cut out -->
   <UMW_Stab_Ragged.injuryProps.destroyedOutLabel>Seccionado(a)</UMW_Stab_Ragged.injuryProps.destroyedOutLabel>
+
+  <!-- EN: {0} in the {1} -->
+  <UMW_Stab_Ragged.labelNounPretty>la {0} en {1_gender ? el : la} {1}</UMW_Stab_Ragged.labelNounPretty>
 
 </LanguageData>

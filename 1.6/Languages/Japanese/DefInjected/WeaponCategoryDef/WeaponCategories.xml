@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Short category labels, not vanilla-sourced. UMW_Melee grounds on Core's Melee
+       SkillDef label (格闘). UMW_Bladed/Pointed/Blunt reuse the Core DamageDef labels
+       for cut/stab/blunt (斬る / 刺す / 殴る), since these mechanism categories are
+       defined by exactly those damage types. UMW_Heavy and UMW_Guarded have no vanilla
+       anchor and are mod-decided: 重量 (weight) for the handling category, and 鍔付き
+       (guard-equipped, echoing this glossary's 鍔/クロスガード for quillons/crossguard)
+       for the weapon-gating category. -->
+
+  <!-- EN: melee -->
+  <UMW_Melee.label>格闘</UMW_Melee.label>
+
+  <!-- EN: bladed -->
+  <UMW_Bladed.label>斬る</UMW_Bladed.label>
+
+  <!-- EN: pointed -->
+  <UMW_Pointed.label>刺す</UMW_Pointed.label>
+
+  <!-- EN: blunt -->
+  <UMW_Blunt.label>殴る</UMW_Blunt.label>
+
+  <!-- EN: heavy -->
+  <UMW_Heavy.label>重量</UMW_Heavy.label>
+
+  <!-- EN: guarded -->
+  <UMW_Guarded.label>鍔付き</UMW_Guarded.label>
+
+</LanguageData>

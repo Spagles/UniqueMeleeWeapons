@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- Short lowercase category labels, each grounded on the closest vanilla anchor for the
+       category's mechanism: Core's Melee skill label ("corpo a corpo"), the StatCategory
+       MeleeBlunt.label ("contundente"), and ArmorRating_Sharp/SharpDamageMultiplier
+       ("cortante") for the Cut-tool (Bladed) mechanism. "heavy" matches Core's own Heavy/
+       RangedHeavy StatCategory label ("pesado"). "pointed" (Stab-tool mechanism) has no
+       single-word vanilla StatCategory to match — Core's own "MeleePiercer" StatCategory
+       renders "afiado" (sharp), which collides with Bladed's anchor and mistranslates
+       "piercer" as "sharp", so it is not reused; "perfurante" (piercing) is used instead,
+       attested in Core prose for piercing attacks (Apparel_FlakVest.description:
+       "ataques perfurantes") and already the glossary's example invariant adjective for
+       this sense. "guarded" (has a hand-guard) has no vanilla category anchor at all;
+       "guarnecido" (fitted with/equipped with) is mod-decided but consistent with this
+       repo's own UMW_Studded.description ("guarnecida de cravos duros" = fitted with
+       studs) — pending native review. -->
+
+  <!-- EN: melee -->
+  <UMW_Melee.label>corpo a corpo</UMW_Melee.label>
+
+  <!-- EN: bladed -->
+  <UMW_Bladed.label>cortante</UMW_Bladed.label>
+
+  <!-- EN: pointed -->
+  <UMW_Pointed.label>perfurante</UMW_Pointed.label>
+
+  <!-- EN: blunt -->
+  <UMW_Blunt.label>contundente</UMW_Blunt.label>
+
+  <!-- EN: heavy -->
+  <UMW_Heavy.label>pesado</UMW_Heavy.label>
+
+  <!-- EN: guarded -->
+  <UMW_Guarded.label>guarnecido</UMW_Guarded.label>
+
+</LanguageData>

@@ -7,6 +7,9 @@
   <!-- EN: a ragged cut -->
   <UMW_Cut_Ragged.labelNoun>рваный порез</UMW_Cut_Ragged.labelNoun>
 
+  <!-- EN: {0} in the {1} -->
+  <UMW_Cut_Ragged.labelNounPretty>{0} {lookup: {1}; Case; 1}</UMW_Cut_Ragged.labelNounPretty>
+
   <!-- EN: A ragged, torn cut that bleeds freely and scars badly. -->
   <UMW_Cut_Ragged.description>Рваный, неровный порез, который обильно кровоточит и заживает грубым шрамом.</UMW_Cut_Ragged.description>
 
@@ -57,6 +60,9 @@
 
   <!-- EN: a ragged stab wound -->
   <UMW_Stab_Ragged.labelNoun>рваная колотая рана</UMW_Stab_Ragged.labelNoun>
+
+  <!-- EN: {0} in the {1} -->
+  <UMW_Stab_Ragged.labelNounPretty>{0} {lookup: {1}; Case; 1}</UMW_Stab_Ragged.labelNounPretty>
 
   <!-- EN: A ragged, torn stab wound that bleeds freely and scars badly. -->
   <UMW_Stab_Ragged.description>Рваная, неровная колотая рана, которая обильно кровоточит и заживает грубым шрамом.</UMW_Stab_Ragged.description>

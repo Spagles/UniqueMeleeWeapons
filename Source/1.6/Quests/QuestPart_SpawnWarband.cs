@@ -52,7 +52,14 @@ public class QuestPart_SpawnWarband : QuestPart
         }
         try
         {
-            signal.args.TryGetArg("SUBJECT", out MapParent arg);
+            if (pawns.NullOrEmpty())
+            {
+                return;
+            }
+            if (!signal.args.TryGetArg("SUBJECT", out MapParent arg) || arg?.Map == null)
+            {
+                return;
+            }
             Map map = arg.Map;
 
             // The abandoned-settlement footprint, set during map-gen by TileMutatorWorker_AbandonedColony.

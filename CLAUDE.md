@@ -47,9 +47,17 @@ The repo lives outside the Mods folder; every local build redeploys automaticall
   excludes. It is generic over folders, so a new `1.7/` or `Sounds/` needs no build change; only a
   brand-new *file type* does. Local deploy and CI release both call it, so they can't drift.
 - **Stop hook (`.claude/hooks/sync-mod.sh`):** rebuilds+redeploys after a turn only when
-  mod-relevant files changed, logs to `$TMPDIR/umw-build.log`, warns on failure. `.claude/` is
-  gitignored, so this is local-only — if it is ever promoted to committed config, move the helper
-  somewhere version-controlled.
+  mod-relevant files changed, logs to `$TMPDIR/umw-build.log`, warns on failure. It is local-only
+  (see below) — if it is ever promoted to committed config, move the helper somewhere
+  version-controlled.
+
+**`.claude/` is only partly gitignored.** `.gitignore` carries `.claude/*` followed by
+`!.claude/skills/`, so the skills are tracked and shared while hooks and settings are local
+per-machine. Editing a skill is therefore a committed, team-visible change and must keep in step
+with whatever it automates: `/release`'s step 4 encodes this repo's CHANGELOG layout, and
+`/translate`'s glossary encodes per-language terminology decisions. Changing the thing without
+changing the skill leaves an instruction pointing at something that no longer exists, and nothing
+fails until the next release run.
 
 ## Architecture
 

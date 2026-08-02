@@ -49,5 +49,8 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           files: UniqueMeleeWeapons-${{ github.ref_name }}.zip
-          generate_release_notes: true
+          # Notes are authored, not generated: CHANGELOG.md is the curated record
+          # and an auto-generated commit list would bury it. The release body is
+          # left empty for the CHANGELOG entry to be pasted in by hand.
+          generate_release_notes: false
           prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') || contains(github.ref_name, '-rc') }}

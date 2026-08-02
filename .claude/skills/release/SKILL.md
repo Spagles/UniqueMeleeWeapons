@@ -58,9 +58,9 @@ python3 Scripts/check-translations.py --strict
 
 ### 4. Update CHANGELOG.md
 
-- Add a new `## [X.Y.Z] - YYYY-MM-DD` section directly below the `## [Unreleased]`
-  heading, using today's date; move anything currently under `[Unreleased]` into
-  it and leave `[Unreleased]` in place, empty
+- Add a new `## [X.Y.Z] - YYYY-MM-DD` section at the top of the version list,
+  directly below the Keep a Changelog intro paragraph, using today's date. This
+  changelog carries no `[Unreleased]` heading; don't add one
 - Use the confirmed changelog notes from step 2, formatted in Keep a Changelog style (`### Added`, `### Fixed`, etc.)
 - Add a `[X.Y.Z]: https://github.com/sam-hunt/UniqueMeleeWeapons/releases/tag/vX.Y.Z`
   link reference at the bottom of the file, above any older ones

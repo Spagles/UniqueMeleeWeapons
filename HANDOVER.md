@@ -1,8 +1,11 @@
 # HANDOVER — L10nProbe integration (structural closure of l10n gap detection)
 
 Working doc for a future session. Delete when the integration lands.
-Prerequisite: the probe mod at `../L10nProbe` is implemented per its `SPEC.md`
-(being built in its own session first).
+Prerequisite met 2026-07-31: the probe mod at `../L10nProbe` is implemented,
+verified against all four of its SPEC acceptance criteria, and this machine is
+already configured (probe deployed and active last in the mod list, its
+settings pre-seeded with the family's three packageIds). See "Probe
+implementation facts" below for what the implementation nailed down.
 
 ## Where this comes from (2026-07-30 session)
 
@@ -25,6 +28,55 @@ closes this: it calls the game's own walker
 recorded in `../L10nProbe/SPEC.md`) at boot, filtered to our packageIds, and
 dumps the complete expected key set + English text as JSON. Expected keys are
 language-independent, so no language switching, no vanilla noise, no UI.
+
+## Probe implementation facts (2026-07-31, verified against live runs)
+
+Schema details the consumer must handle (authoritative: `../L10nProbe/SPEC.md` §3):
+
+- **Every entry is a _legal_ injection point** (translationAllowed, non-generated
+  def, non-empty English). The game's must-translate verdict is a per-entry
+  flag, not a cut: `"required": true` == the in-game report would list it as
+  missing. The completeness set to demand in all languages is the **required**
+  subset; non-required entries (single-word fields without `[MustTranslate]`
+  like the vanilla tend labels, `[MayTranslate]` fields, keyword lists) exist
+  so translations that target them can still be staleness-checked against
+  English. UMW's dump: 267 entries, 223 required; all 38 manifest keys are
+  present with `required: true`.
+- **Keys are `suggestedPath`** (handle form: `comps.HediffComp_GetsPermanent.
+  permanentLabel`, `stages.dosed.label`). Entries carry `"normalized"` (index
+  form: `comps.2.permanentLabel`) only when it differs. UMW's language folders
+  currently use the index form — match legacy keys via the alias, or migrate
+  the folders to handle form during integration (the game accepts both, dedups
+  by normalizedPath).
+- **Collections** are one entry at the collection's path carrying **all**
+  elements (`"english": [...]`, `"isCollection": true`, `"fullListAllowed"`
+  when `[TranslationCanChangeCount]`). Full-list `<li>` translations must
+  match element count unless fullListAllowed.
+- **Def types** are keyed by the DefInjected folder name the game's loader
+  resolves: short names for UMW; custom-namespace def types are full names
+  (UWU's `UniqueWeaponsUnbound.TraitCostRuleDef` — matches its folders).
+- **meta.activeDlcs** is `ExpansionDef.defName` in database order; on this
+  machine `["Core", "Royalty", "Ideology", "Biotech", "Odyssey"]` (Anomaly
+  installed but inactive). `meta.gameBuild` e.g. `"1.6.4871 rev591"`.
+- Output is UTF-8 (no BOM), LF, two-space indent, ordinally sorted, verified
+  byte-identical across runs modulo `meta.generated`.
+
+Operational contract for the refresh script:
+
+- Run: `cd "$RIMWORLD_PATH" && ./RimWorldWin64.exe -l10nprobe` — blocks until
+  the game exits (~1.5 min boot on this machine; the probe itself reports
+  ~seconds in its timing line). **Exit code is 0 even when probing fails** (the
+  game shuts down normally either way) — check the log and files, not the code.
+- Success signals: `[L10nProbe] probe (-l10nprobe): 3/3 dump(s) written in
+  N.Ns.` in Player.log, and one JSON per packageId in
+  `$RIMWORLD_PATH/Mods/L10nProbe/Output/`. On per-mod failure the probe logs
+  `[L10nProbe] FAILED probing <packageId>: ...` and guarantees **no output
+  file** at that mod's path (a pre-existing one is deleted) — absence of the
+  file IS the failure marker; never trust a leftover.
+- UNC write-back (probe writing straight into WSL repos via a settings
+  override) is implemented but untested — start by fetching from the default
+  `Output/` folder; flip to overrides later if wanted (set in the probe's
+  settings window).
 
 ## Integration steps (this repo first, then propagate)
 
